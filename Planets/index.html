@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Planet Pounds</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="prompt">
+		Choose a Planet:
+	</div>
+
+	<div id="planets">
+		
+		<!-- Mercury -->
+		<div class="planet-box">
+			<div class="planet-img">
+				<img src="imgs/planets/mercury.png" alt="cartoon mercury">
+			</div>
+			<div class="planet-details">
+				Mercury is the smallest planet in our solar system.
+			</div>
+		</div>
+
+		<!-- Venus -->
+		<div class="planet-box">
+			<div class="planet-img">
+				<img src="imgs/planets/venus.png" alt="cartoon venus">
+			</div>
+			<div class="planet-details">
+				Venus has extreme surface heat and a dense, toxic atmosphere.
+			</div>
+		</div>
+
+		<!-- Earth -->
+		<div class="planet-box">
+			<div class="planet-img">
+				<img src="imgs/planets/earth.png" alt="cartoon earth">
+			</div>
+			<div class="planet-details">
+				Earth is the perfect place for life as we know it.
+			</div>
+		</div>
+
+		<!-- Mars -->
+		<div class="planet-box">
+			<div class="planet-img">
+				<img src="imgs/planets/mars.png" alt="cartoon mars">
+			</div>
+			<div class="planet-details">
+				Mars has two moons named Phobos and Deimos.
+			</div>
+		</div>
+
+		<div id="buffer"></div>
+
+		<!-- Jupiter -->
+		<div class="planet-box">
+			<div class="planet-img">
+				<img src="imgs/planets/jupiter.png" alt="cartoon jupiter">
+			</div>
+			<div class="planet-details">
+				Jupiter is a gas giant and so lacks an Earth-like surface.
+			</div>
+		</div>
+
+		<!-- Saturn -->
+		<div class="planet-box">
+			<div class="planet-img ringed-planet">
+				<img src="imgs/planets/saturn.png" alt="cartoon saturn">
+			</div>
+			<div class="planet-details">
+				Saturn has seven rings and several gaps and divisions between them.
+			</div>
+		</div>
+
+		<!-- Uranus -->
+		<div class="planet-box">
+			<div class="planet-img ringed-planet">
+				<img src="imgs/planets/uranus.png" alt="cartoon uranus">
+			</div>
+			<div class="planet-details">
+				Uranus is unique in that it rotates on its side.
+			</div>
+		</div>
+
+		<!-- Neptune -->
+		<div class="planet-box">
+			<div class="planet-img">
+				<img src="imgs/planets/neptune.png" alt="cartoon neptune">
+			</div>
+			<div class="planet-details">
+				Neptune is more than 30 times as far from the Sun as Earth is.
+			</div>
+		</div>
+	</div>
+
+	<div id="converter">
+		<form id="form">
+			Enter your weight on Earth: <input type="text" name="earthWeight" id="earthWeight" placeholder="lbs">
+		</form>
+
+		<div id="newWeight">
+			Your weight on <span id="selectedPlanet">Earth</span> is: <span id="selectedPlanetWeight"></span>
+		</div>
+	</div>
+
+	<script>
+
+		var planetSelected;
+		var weight;
+
+		document.querySelector("#form").onsubmit = function(){
+			return false;
+		}
+
+		var planets = document.querySelectorAll('.planet-img');
+
+		for(var i = 0; i < planets.length; i++)
+		{
+			planets[i].onmouseenter = function(){
+				this.nextElementSibling.style.display = "block";
+			}
+			planets[i].onmouseleave = function(){
+				this.nextElementSibling.style.display = "none";
+			}
+			planets[i].onclick = function(){
+				planetSelected = this.nextElementSibling.innerText;
+				planetSelected = planetSelected.split(' ')[0];
+				document.querySelector('#selectedPlanet').innerText = planetSelected;
+				document.querySelector('#newWeight').style.display = "block";
+
+				calculateWeight();
+			}
+		}
+
+		document.querySelector("#earthWeight").onchange = function(){
+			calculateWeight();
+		}
+
+		function calculateWeight(){
+			weight = document.querySelector("#earthWeight").value;
+
+			if(planetSelected == "Mercury")
+			{
+				weight = (weight * 0.38);
+			}
+			else if(planetSelected == "Venus")
+			{
+				weight = (weight * 0.91);
+			}
+			// else if(planetSelected == "Earth")
+			// {
+			// 	weight = weight;
+			// }
+			else if(planetSelected == "Mars")
+			{
+				weight = (weight * 0.38);
+			}
+			else if(planetSelected == "Jupiter")
+			{
+				weight = (weight * 2.34);
+			}
+			else if(planetSelected == "Saturn")
+			{
+				weight = (weight * 1.06);
+			}
+			else if(planetSelected == "Uranus")
+			{
+				weight = (weight * 0.92);
+			}
+			else if(planetSelected == "Neptune")
+			{
+				weight = (weight *1.19);
+			}
+
+			if(weight != "")
+			{
+				document.querySelector("#selectedPlanetWeight").innerText = weight;
+			}
+		}
+	</script>
+
+</body>
+</html>

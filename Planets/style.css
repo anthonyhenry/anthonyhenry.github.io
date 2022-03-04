@@ -1,0 +1,82 @@
+html
+{
+  background-image: url("imgs/pexels-pixabay-2150.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100%;
+  color: white;
+}
+
+#prompt
+{
+  margin-top: 20px;
+  text-align: center;
+  font-size: 50pt;
+  margin-bottom: 20px;
+}
+
+#planets
+{
+  width: 1200px;
+  height: 300px;
+  margin: auto;
+  margin-top: 55px;
+}
+
+.planet-box
+{
+  width: 300px;
+  height: 150px;
+  float: left;
+}
+
+.planet-img img
+{	
+	width: 100%;
+}
+
+.planet-img
+{
+	width: 50%;
+	float: left;
+}
+
+.planet-details
+{
+	width: 44%;
+	float: left;
+	padding: 3%;
+	font-size: 15pt;
+	display: none;
+}
+
+/*.planet-box:hover .planet-details
+{
+  display: block;
+}*/
+
+.ringed-planet
+{
+	margin-top: 12.5%;
+}
+
+#buffer
+{
+	clear: both;
+	height: 25px;
+}
+
+#converter
+{
+  clear: both;
+  font-size: 15pt;
+  text-align: center;
+  margin-top: 50px;
+}
+
+#newWeight
+{
+  display:  none;
+}
