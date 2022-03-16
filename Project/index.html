@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Project</title>
+
+	<!--Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!--Stylesheet-->
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+
+</head>
+<body class="py-4 container">
+
+	<header class="row text-center">
+		<h1 class="col-12 justify-content-center">To Do List</h1>
+	</header>
+
+	<main class = "row mt-4">
+
+		<!-- Classes -->
+		<div class="col-md-12 col-lg-3">
+			<header class="text-center"><h2>My Classes</h2></header>
+
+			<form id="classForm" class="form-inline mt-3 justify-content-center">
+				<input id="classEntry" type="text" class="form-control col-12 col-lg-10 col-xl-auto" placeholder="Class Name">
+				<button type="submit" class="btn btn-primary col-12 col-lg-2 col-xl-auto mt-1 mt-lg-0">+</button>
+			</form>
+
+			<div id="classList" class="mt-4">
+
+				<div class="mb-2">
+					<span class="btn btn-danger ">x</span>
+					<span class="my-classes">AP Calculus</span>
+				</div>
+
+      </div>
+		</div>
+
+		<!-- Assignments -->
+		<div class="col-md-12 col-lg-9 px-3">
+			<header class="text-center"><h2>My Assignments</h2></header>
+
+			<form id="assignmentForm" class="form-inline mt-3 justify-content-between">
+        <!-- Class Drop Down -->
+        <select id="assignmentClass" class = "form-control dropDown col-12 col-lg-auto">
+          <option value="" disabled selected>Class</option>
+          <option class = "class-option">AP Calculus</option>
+        </select>
+        
+        <!-- Assignment Text Input -->
+        <input type = "text" class="form-control col-12 col-lg-auto mt-1 mt-lg-0" id="assignment" placeholder="Assignment...">
+
+        <!-- Category -->
+        <select id="assignmentType" class = "form-control dropDown col-12 col-lg-auto mt-1 mt-lg-0">
+          <option value="" disabled selected>Type</option>
+          <option value="Homework">Homework</option>
+          <option value="Quiz">Quiz</option>
+          <option value="Test">Test</option>
+          <option value="Project">Project</option>
+          <option value="Paper">Paper</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <!--Due Date-->
+        <input type = "date" class="form-control col-12 col-lg-auto mt-1 mt-lg-0" id="assignmentDueDate">
+        
+        <!--Submit-->
+        <button type="submit" class="btn btn-primary col-12 col-lg-auto mt-1 mt-lg-0">+</button>
+      </form>
+
+      <div class="row font-weight-bold mt-3 mx-1 px-3 d-none d-md-flex">
+      	<div class="col-2 text-center">Class</div>
+      	<div class="col-5 text-center">Assignment</div>
+      	<div class="col-2 text-center">Type</div>
+      	<div class="col-2 text-center">Due</div>
+      	<div></div>
+      </div>
+
+      <ul id = "assignmentList" class="list-group">
+      	
+      	<li class="list-group-item d-flex align-items-center mt-2 row mx-1">
+      		<div class="col-12 mt-1 mt-md-0 col-md-2 text-center">AP Calculus</div>
+          <div class="col-12 mt-1 mt-md-0 col-md-5 text-center">7.1 Area Worksheet</div>
+          <div class="col-12 mt-1 mt-md-0 col-md-2 text-center">Homework</div>
+          <div class="col-12 mt-1 mt-md-0 col-md-2 text-center">04/01/2022</div>
+          <div class="btn btn-danger col-12 mt-1 mt-md-0 col-md-auto ml-md-3">x</div>
+      	</li>
+
+
+        <li class="list-group-item d-flex align-items-center mt-2 row mx-1">
+          <div class="col-12 mt-1 mt-md-0 col-md-2 text-center">AP Calculus</div>
+          <div class="col-12 mt-1 mt-md-0 col-md-5 text-center">Ch. 7 Area and Volume</div>
+          <div class="col-12 mt-1 mt-md-0 col-md-2 text-center">Test</div>
+          <div class="col-12 mt-1 mt-md-0 col-md-2 text-center">04/08/2022</div>
+          <div class="col-12 mt-1 mt-md-0 col-md-auto btn btn-danger ml-md-3">x</div>
+        </li>
+
+      </ul>
+		</div>
+	</main>
+
+	<!--jQuery-->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  	//Make the assignment list sortable
+    $(function(){        
+      $("#assignmentList").sortable();
+    });
+  </script>
+
+  <!--JavaScript-->
+  <script src="saves.js"></script>
+  <script src="main.js"></script>
+
+</body>
+</html>
