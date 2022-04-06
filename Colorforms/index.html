@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ColorForms</title>
+
+	<style type="text/css">
+		#scene
+		{
+			height: 506px;
+			border: 1px solid blue;
+			float: left;
+		}
+		#stickers
+		{
+			float: left;
+			width: 150px;
+			height: 506px;
+			border: 1px solid black;
+			overflow: scroll;
+		}
+	</style>
+
+</head>
+<body>
+	<div id="scene">
+		<img src="Images/GRL_Professors_Lab_1920x1080_zoom_BG.jpg" height="100%">
+	</div>
+
+	<div id="stickers">
+		<img id="Z" src="Images/Wilde_pose.png" width="150px">
+		<img id="stickerZ" src="Images/Wilde_pose.png" width="150px" style="display:none;">
+		<img id="Moxie" src="Images/Moxie_neutral.png" width="150px">
+		<img id="stickerMoxie" src="Images/Moxie_neutral.png" width="150px" style="display:none;">
+		<img id="Knox" src="Images/Knox_pose.png" width="150px">
+		<img id="stickerKnox" src="Images/Knox_pose.png" width="150px" style="display:none;">
+		<img id="Kumana" src="Images/Kumana_pose.png" width="150px">
+		<img id="stickerKumana" src="Images/Kumana_pose.png" width="150px" style="display: none;">
+	</div>
+
+	<div style="clear: both;"></div>
+
+	<audio id="sfxKnox">
+		<source src="Sounds/Knox-Phase-1.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="sfxZ">
+		<source src="Sounds/Z-Phase-1.mp3" type="audio/mpeg">
+	</audio>
+
+
+	
+
+	<script type="text/javascript">
+
+		//Get all sticker variables
+		var stickerZ = document.querySelector("#stickerZ");
+		var stickerMoxie = document.querySelector("#stickerMoxie");
+		var stickerKnox = document.querySelector("#stickerKnox");
+
+		//Get all sticker options
+		var Z = document.querySelector("#Z");
+		var Moxie = document.querySelector("#Moxie");
+		var Knox = document.querySelector("#Knox");
+
+		activateSticker(Moxie, stickerMoxie);
+		activateSticker(Knox, stickerKnox);
+		activateSticker(Z, stickerZ);
+		activateSticker(Kumana, stickerKumana);
+		
+		function activateSticker(character, characterSticker){
+			character.onmousedown = function(){
+				characterSticker.style.display = "block";
+				moveSticker(characterSticker);
+			};
+
+			//Able to move the sticker once it has already been placed
+			characterSticker.onmousedown = function() {
+				moveSticker(characterSticker);
+			};
+		}
+
+		function moveSticker(characterToMove){
+			//Give the sticker an absolute position
+			characterToMove.style.position = 'absolute';
+
+			//Move the sticker out of the parent div and into the body
+			document.body.append(characterToMove);
+
+			//Centers the sticker at (pageX, pageY) coordinates
+			function moveAt(pageX, pageY) {
+				characterToMove.style.left = pageX - characterToMove.offsetWidth / 2 + 'px';
+			    characterToMove.style.top = pageY - characterToMove.offsetHeight / 2 + 'px';
+			 }
+
+			//Place the sticker under the cursor
+			moveAt(event.pageX, event.pageY);
+
+			function onMouseMove(event) {
+				moveAt(event.pageX, event.pageY);
+			}
+
+			//Move the sticker on mousemove
+			document.addEventListener('mousemove', onMouseMove);
+
+			//Drop the sticker, remove unneeded handlers
+			characterToMove.onmouseup = function() {
+				if(characterToMove == stickerKnox)
+				{
+					document.querySelector("#sfxKnox").play();
+				}
+				if(characterToMove == stickerZ)
+				{
+					document.querySelector("#sfxZ").play();
+				}
+				document.removeEventListener('mousemove', onMouseMove);
+			    characterToMove.onmouseup = null;
+			};
+
+			characterToMove.ondragstart = function() {
+			  return false;
+			};
+		}
+	</script>
+
+
+</body>
+</html>
