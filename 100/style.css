@@ -47,7 +47,6 @@ figcaption
 	text-align: center;
 }
 
-
 details
 {
 	background-color: black;
@@ -68,6 +67,11 @@ details:hover
 	background-color: white;
 	border: 1px solid black;
 	color: black;
+}
+
+summary
+{
+	cursor: pointer;
 }
 
 /*Small Screens*/
