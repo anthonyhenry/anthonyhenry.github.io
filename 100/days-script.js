@@ -1,8 +1,10 @@
-const startDate = new Date('4/17/2022');
+const startDate = new Date('4/18/2022');
 
 const endDate = new Date('7/26/2022');
 
-const diffTime = Math.abs(startDate - endDate);
+const todaysDate = new Date();
+
+const diffTime = Math.abs(todaysDate - endDate);
 
 const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
