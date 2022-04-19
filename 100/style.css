@@ -125,5 +125,8 @@ summary
 /*XL Screens*/
 @media screen and (min-width: 1200px)
 {
-
+	header
+	{
+		width: 25%;
+	}
 }
