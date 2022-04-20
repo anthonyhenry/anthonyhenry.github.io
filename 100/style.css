@@ -5,6 +5,7 @@
 --black-olive: #393A34ff;
 --dark-sky-blue: #79B6C8ff;
 --bitter-lemon: #B6E700ff;
+--android-green:  #a4c639;
 --irresistible: #BD3369ff;
 */
 
@@ -32,6 +33,7 @@ header, footer
 figure
 {
 	width: 300px;
+	margin: auto;
 }
 
 /*This NEEDS a padding-bottom that is equal to the size of the footer*/
@@ -44,6 +46,33 @@ main
 {
 	background-color: rgba(120, 120, 116, 0.9);
 }
+
+#Projects h2
+{
+	text-align: center;
+	color: white;
+}
+
+details
+{
+	background-color: black;
+	color: white;
+	margin: 15px;
+	padding: 15px 32px;
+	border-radius: 5pt;
+}
+
+details:nth-child(odd)
+{
+	background-color: white;
+	color: black;
+}
+
+summary
+{
+	cursor: pointer;
+}
+
 
 footer
 {
@@ -77,10 +106,12 @@ footer
 	#Projects
 	{
 		width: 600px;
-		height: 300px;
+		height: 325px;
+		overflow-y: scroll;
 		position: absolute;
 		left: 200px;
 		top: 250px;
+
 	}
 }
 
