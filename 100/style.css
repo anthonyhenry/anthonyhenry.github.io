@@ -9,6 +9,15 @@
 --irresistible: #BD3369ff;
 */
 
+/*
+https://coolors.co/ae9a84-645a40-a28d6d-5a5820-beb08c
+--grullo: #AE9A84ff;
+--field-drab: #645A40ff;
+--grullo-2: #A28D6Dff;
+--antique-bronze: #5A5820ff;
+--khaki-web: #BEB08Cff;
+*/
+
 /*Remove whitespace around doc*/
 body, html
 {
@@ -83,6 +92,30 @@ footer
 	margin-top: 150px;
 }
 
+#content
+{
+	width: 900px;
+	background-color: white;
+	position: absolute;
+	left: 900px;
+	top: 300px;
+}
+
+#text
+{
+	position: relative;
+	top: 100px;
+	background-color: red;
+	width: 300px;
+}
+
+#pic
+{
+	position: relative;
+	left: 500px;
+	background-color: blue;
+	width: 300px;
+}
 
 
 
