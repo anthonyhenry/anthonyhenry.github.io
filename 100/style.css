@@ -1,132 +1,103 @@
-body
+/*
+--nickel: #787874ff;
+--light-gray: #CED1D7ff;
+--pine-tree: #2D2F27ff;
+--black-olive: #393A34ff;
+--dark-sky-blue: #79B6C8ff;
+--bitter-lemon: #B6E700ff;
+--irresistible: #BD3369ff;
+*/
+
+/*Remove whitespace around doc*/
+body, html
 {
-	background-color: #373c42;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #2D2F27ff;
 }
 
 header
 {
-	background-color: white;
-	margin: auto;
-	text-align: center;
-	border: 3pt solid black;
-	border-radius: 20pt;
-	margin-top: 25px;
+	padding: 15px 0px;
 }
 
-#break
+header, footer
 {
-	clear: both;
-}
-
-#content
-{
-	margin-top: 25px;
+	background-color: #CED1D7ff;
 }
 
 figure
 {
-	border: 3px solid black;
-	background-color: white;
+	width: 300px;
 }
 
-figcaption
+/*This NEEDS a padding-bottom that is equal to the size of the footer*/
+main
 {
-	padding: 10px;
+	padding-bottom: 50px;
 }
 
-#projects
+#Projects
 {
-	border: 3px solid black;
-	background-color: white;
-	padding-bottom: 20px;
-	margin-top: 16px;
+	background-color: rgba(120, 120, 116, 0.9);
 }
 
-#projects h2
+footer
 {
-	text-align: center;
+	width: 100%;
+	padding: 15px;
+	position: fixed;
+	bottom: 0;
+	margin-top: 150px;
 }
 
-details
-{
-	background-color: black;
-	color: white;
-	margin: 15px;
-	padding: 15px 32px;
-	border-radius: 5pt;
-}
 
-details:nth-child(odd)
-{
-	background-color: grey;
-	color: black;
-}
 
-details:hover
-{
-	background-color: white;
-	border: 1px solid black;
-	color: black;
-}
 
-summary
-{
-	cursor: pointer;
-}
 
-/*Small Screens*/
+/* Small devices (landscape phones, 576 and up) */
 @media screen and (min-width: 576px)
 {
 
 }
 
-/*Medium Screens*/
+/* Medium devices (tablets, 768 and up) */
 @media screen and (min-width: 768px)
 {
-	body
+	figure
 	{
-		background-image: url("imgs/Background.jpg");
-		background-size: cover;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
+		position: absolute;
+		left: 770px;
+		top: 200px;
+		margin: 0;
 	}
-	#break
+	#Projects
 	{
-		display: none;
-	}
-	#profile
-	{
-		width: 40%;
-		float: left;
-	}
-	#projects
-	{
-		float: left;
-		margin-left: 25px;
-		width: 50%;
+		width: 600px;
+		height: 300px;
+		position: absolute;
+		left: 200px;
+		top: 250px;
 	}
 }
 
-/*Large Screens*/
+/* Large devices (desktops, 992 and up) */
 @media screen and (min-width: 992px)
 {
-	
-	header
-	{
-		width: 33%;
-	}
-	#profile
-	{
-		width: 33%;
-	}
 
 }
 
-/*XL Screens*/
+/* X-Large devices (large desktops, 1200 and up) */
 @media screen and (min-width: 1200px)
 {
-	header
-	{
-		width: 25%;
-	}
+
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media screen and (min-width: 1400px)
+{
+
 }
