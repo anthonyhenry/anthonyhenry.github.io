@@ -18,7 +18,7 @@ https://coolors.co/ae9a84-645a40-a28d6d-5a5820-beb08c
 --khaki-web: #BEB08Cff;
 */
 
-/*Remove whitespace around doc*/
+/*Remove whitespace around webpage*/
 body, html
 {
 	border: 0;
@@ -39,19 +39,50 @@ header, footer
 	background-color: #CED1D7ff;
 }
 
-figure
-{
-	width: 300px;
-	margin: auto;
-}
-
 /*This NEEDS a padding-bottom that is equal to the size of the footer*/
 main
 {
 	padding-bottom: 50px;
 }
 
-#Projects
+.profile-element
+{
+	margin: 15px 25px;
+}
+
+/*Give this a premanent color lateer*/
+#bio
+{
+	background-color: white;
+	padding: 15px;
+}
+
+img
+{
+	width: 100%;
+}
+
+footer
+{
+	width: 100%;
+	padding: 15px;
+	position: fixed;
+	bottom: 0;
+}
+
+/*figure
+{
+	width: 300px;
+	margin: auto;
+}*/
+
+/*This NEEDS a padding-bottom that is equal to the size of the footer*/
+/*main
+{
+	padding-bottom: 50px;
+}*/
+
+/*#Projects
 {
 	background-color: rgba(120, 120, 116, 0.9);
 }
@@ -82,25 +113,6 @@ summary
 	cursor: pointer;
 }
 
-
-footer
-{
-	width: 100%;
-	padding: 15px;
-	position: fixed;
-	bottom: 0;
-	margin-top: 150px;
-}
-
-#content
-{
-	width: 900px;
-	background-color: white;
-	position: absolute;
-	left: 900px;
-	top: 300px;
-}
-
 #text
 {
 	position: relative;
@@ -115,10 +127,7 @@ footer
 	left: 500px;
 	background-color: blue;
 	width: 300px;
-}
-
-
-
+}*/
 
 /* Small devices (landscape phones, 576 and up) */
 @media screen and (min-width: 576px)
@@ -129,7 +138,7 @@ footer
 /* Medium devices (tablets, 768 and up) */
 @media screen and (min-width: 768px)
 {
-	figure
+	/*figure
 	{
 		position: absolute;
 		left: 770px;
@@ -145,18 +154,71 @@ footer
 		left: 200px;
 		top: 250px;
 
+	}*/
+
+	/*Show profile image and bio side by side*/
+	#profile
+	{
+		display: flex;
+	}
+
+	figure
+	{
+		width: 50%;
+		margin: 0;
+	}
+
+	#bio
+	{
+		width: 50%;
 	}
 }
 
 /* Large devices (desktops, 992 and up) */
 @media screen and (min-width: 992px)
 {
+	#content
+	{
+		background-color: white; /*t*/
+		position: absolute;
+		top: 200px;
+		left: 145px;
+		width: 870px; /*figure width + figure left*/
+	}
 
+	#profile
+	{
+		display: block;
+	}
+
+	.profile-element
+	{
+		margin: 0;
+	}
+
+	figure
+	{
+		width: 300px;
+		height: 300px;
+		margin: 0;
+		position: relative;
+		left: 570px;
+	}
+
+	#bio
+	{
+		width: 100%;
+		padding: 0;
+	}
 }
 
 /* X-Large devices (large desktops, 1200 and up) */
 @media screen and (min-width: 1200px)
 {
+	#content
+	{
+		left: 200px;
+	}
 
 }
 
