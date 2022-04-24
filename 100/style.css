@@ -30,7 +30,7 @@ h1
 }
 
 /*So the footer doesn't overlap content*/
-#content
+main
 {
 	padding-bottom: 60px;
 }
@@ -205,7 +205,7 @@ footer
 		font-size: 1.75em;
 	}
 
-	#content
+	main
 	{
 		position: relative;
 		top: 100px;
@@ -234,7 +234,7 @@ footer
 
 	#bio
 	{
-		width: 830px;/* #content width - (this padding left + this padding right) */
+		width: 830px;/* main width - (this padding left + this padding right) */
 		padding: 20px;
 		position: absolute;
 		top: 478px; /* #projects top + #projects height + 20 */
@@ -259,7 +259,7 @@ footer
 /* X-Large devices (large desktops, 1200 and up) */
 @media screen and (min-width: 1200px)
 {
-	#content
+	main
 	{
 		width: 935px;
 		left: 200px;
@@ -290,7 +290,7 @@ footer
 /* XX-Large devices (larger desktops, 1400px and up) */
 @media screen and (min-width: 1400px)
 {
-	#content
+	main
 	{
 		width: 985px;
 	}
