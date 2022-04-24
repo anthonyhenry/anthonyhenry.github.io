@@ -1,6 +1,6 @@
-/*Remove whitespace around webpage*/
 body, html
 {
+	/*Remove whitespace around webpage*/
 	border: 0;
 	margin: 0;
 	padding: 0;
@@ -37,17 +37,18 @@ h1
 
 .profile-element
 {
+	/*Image and bio spacing for smaller screens*/
 	margin: 15px 25px;
 }
 
-/*Give this a premanent color lateer*/
 #bio
 {
 	background-color: white;
 	padding: 15px;
+	border-radius: 5pt;
 }
 
-figure img
+#profileImg
 {
 	width: 100%;
 }
@@ -85,11 +86,16 @@ summary
 	cursor: pointer;
 }
 
+.summary-timeline
+{
+	display: none;
+}
+
 .thumbnail
 {
 	width: 80%;
 	margin-left: 10%;
-	margin-top: 10px;
+	margin-top: 15px;
 }
 
 footer
@@ -115,7 +121,16 @@ footer
 /* Small devices (landscape phones, 576 and up) */
 @media screen and (min-width: 576px)
 {
+	.summary-timeline
+	{
+		display: block;
+		float: right;
+	}
 
+	.details-summary
+	{
+		display: none;
+	}
 }
 
 /* Medium devices (tablets, 768 and up) */
@@ -156,7 +171,6 @@ footer
 	figure
 	{
 		width: 50%;
-		margin: 0;
 	}
 
 	#bio
@@ -194,7 +208,6 @@ footer
 
 	#content
 	{
-		/*border: 1px solid white;*/ /*temp*/
 		position: relative;
 		top: 100px;
 		left: 120px;
@@ -215,29 +228,28 @@ footer
 	{
 		width: 300px;
 		height: 300px;
-		margin: 0;
 		position: relative;
 		left: 570px;
 	}
 
 	#bio
 	{
-		width: 830px;/* #content width - padding left + right */
-		padding: 0;
-		margin-top: 115px;
+		width: 830px;/* #content width - (this padding left + this padding right) */
 		padding: 20px;
-		border-radius: 5pt;
+		position: absolute;
+		top: 405px; /* 478 #projects top + #projects height + 20 */
 	}
 
 	#projects
 	{
 		position: absolute;
 		top: 50px;
-		width: 585px; /*600px*/
-		height: 345px;
-		overflow: scroll;
+		width: 585px; /*585px 600px*/
+		height: 345px /*408px*/;
+		overflow-y: scroll;
 		padding: 0;
 	}
+
 	h2
 	{
 		margin: 20px;
@@ -257,6 +269,15 @@ footer
 /* XX-Large devices (larger desktops, 1400px and up) */
 @media screen and (min-width: 1400px)
 {
+	/*body
+	{
+		background-color: slategray;
+	}*/
+
+	#projects
+	{
+		/*width: 650px;*/
+	}
 
 }
 
