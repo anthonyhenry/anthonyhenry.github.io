@@ -182,24 +182,6 @@ footer
 /* Large devices (desktops, 992 and up) */
 @media screen and (min-width: 992px)
 {
-	/*figure
-	{
-		position: absolute;
-		left: 770px;
-		top: 200px;
-		margin: 0;
-	}
-	#Projects
-	{
-		width: 600px;
-		height: 325px;
-		overflow-y: scroll;
-		position: absolute;
-		left: 200px;
-		top: 250px;
-
-	}*/
-
 	h1
 	{
 		font-size: 1.75em;
