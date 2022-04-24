@@ -200,7 +200,6 @@ footer
 
 	}*/
 
-
 	h1
 	{
 		font-size: 1.75em;
@@ -212,6 +211,7 @@ footer
 		top: 100px;
 		left: 120px;
 		width: 870px; /*figure width + figure left*/
+		height: 572px; /* #bio top + #bio padding top + bio padding bottom + bio height */
 	}
 
 	#profile
@@ -229,7 +229,7 @@ footer
 		width: 300px;
 		height: 300px;
 		position: relative;
-		left: 570px;
+		left: 570px; /* #projects width - 15 */
 	}
 
 	#bio
@@ -237,15 +237,15 @@ footer
 		width: 830px;/* #content width - (this padding left + this padding right) */
 		padding: 20px;
 		position: absolute;
-		top: 405px; /* 478 #projects top + #projects height + 20 */
+		top: 478px; /* #projects top + #projects height + 20 */
 	}
 
 	#projects
 	{
 		position: absolute;
 		top: 50px;
-		width: 585px; /*585px 600px*/
-		height: 345px /*408px*/;
+		width: 585px;
+		height: 408px;
 		overflow-y: scroll;
 		padding: 0;
 	}
@@ -261,31 +261,55 @@ footer
 {
 	#content
 	{
+		width: 935px;
 		left: 200px;
 	}
 
+	figure
+	{
+		left: 635px;
+	}
+
+	#bio
+	{
+		width: 895px;
+	}
+
+	#projects
+	{
+		width: 650px;
+	}
+
+	.thumbnail
+	{
+		width: 60%;
+		margin-left: 20%;
+	}
 }
 
 /* XX-Large devices (larger desktops, 1400px and up) */
 @media screen and (min-width: 1400px)
 {
-	/*body
+	#content
 	{
-		background-color: slategray;
-	}*/
+		width: 985px;
+	}
+
+	figure
+	{
+		left: 685px;
+	}
+
+	#bio
+	{
+		width: 945px;
+	}
 
 	#projects
 	{
-		/*width: 650px;*/
+		width: 700px;
 	}
-
 }
-
-/*This NEEDS a padding-bottom that is equal to the size of the footer*/
-/*#content
-{
-	padding-bottom: 50px;
-}*/
 
 /*
 --nickel: #787874ff;
