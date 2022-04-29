@@ -133,8 +133,6 @@ for(let i = 0; i < projectList.length; i++)
 		link.innerText = "See Project"
 		details.appendChild(link);
 	}
-
-
 }
 
 function addParagraphElement(contents, section, classToAdd)
