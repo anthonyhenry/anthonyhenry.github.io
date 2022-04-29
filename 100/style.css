@@ -75,9 +75,19 @@ details
 	border-radius: 5pt;
 }
 
+details a
+{
+	color: white;
+}
+
 details:nth-child(odd)
 {
 	background-color: white;
+	color: black;
+}
+
+details a:nth-child(odd)
+{
 	color: black;
 }
 

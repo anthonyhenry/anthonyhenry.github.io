@@ -16,15 +16,15 @@ class Project{
 
 	//Set up constructor
 	constructor(name, startDate, endDate, image, description, languages, extras, features, link){
-		this.name = name;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.image = image;
-		this.description = description;
-		this.languages = languages;
-		this.extras = extras;
-		this.features = features;
-		this.link = link;
+		/*REQUIRED*/this.name = name;
+		/*REQUIRED*/this.startDate = startDate;
+		/*REQUIRED*/this.endDate = endDate;
+		/*REQUIRED*/this.image = image;
+		/*REQUIRED*/this.description = description;
+		/*REQUIRED*/this.languages = languages;
+		/*OPTIONAL*/this.extras = extras;
+		/*OPTIONAL*/this.features = features;
+		/*OPTIONAL*/this.link = link;
 	}
 
 	//Method to get project timeline
@@ -46,19 +46,35 @@ class Project{
 	}
 }
 
+//Function to create new Project objects
 function createNewProject(name, startDate, endDate, image, description, languages, extras, features, link){
+	//Create the object
 	var newProject = new Project(name, startDate, endDate, image, description, languages, extras, features, link);
+	//Add the new project to the area
 	projectList.push(newProject);
 }
 
+//Home Page
 createNewProject(
 	"100 Days of Code Home Page", 
 	"4/18/2022", 
-	"4/26/2022", 
+	"4/29/2022", 
 	"home-page.png",
 	"My first project is a home page to store links to all the projects I work on for the challenge.",
 	"HTML, CSS, JavaScript",
-	null,
+	undefined,
+	"Mobile First Responsive Design",
+	"/100"
+);
+
+createNewProject(
+	"Project 2", 
+	"4/30/2022", 
+	"12/31/2022", 
+	"Background.jpg",
+	"This is where the project description will go.",
+	"HTML, CSS, JavaScript, PHP, SQL",
+	"JQuery, BootStrap",
 	"Mobile First Responsive Design",
 	"https://anthonyhenry.github.io/100/"
 );
@@ -68,8 +84,10 @@ for(let i = 0; i < projectList.length; i++)
 	//Create details and summary elements
 	const details = document.createElement("details");
 	const summary = document.createElement("summary");
+	
 	//Find out what days the project was worked on
 	const timeline = projectList[i].getProjectTimeline();
+	
 	//Set the HTML for the Summary
 	summary.innerHTML = projectList[i].name + "<span class='summary-timeline'>" + timeline + "</span>";
 	//Add the details and summary elements to the DOM
@@ -77,61 +95,75 @@ for(let i = 0; i < projectList.length; i++)
 	details.appendChild(summary);
 
 	//Create a link and image element
-	const link = document.createElement("a");
+	const imgLink = document.createElement("a");
 	const img = document.createElement("img");
 	//Set the link src
-	link.href = projectList[i].link;
+	imgLink.href = projectList[i].link;
 	//Set the image src
-	img.src = "imgs/" + projectList[i].image;
+	img.src = projectList[i].getImagePath();
 	//Give the img the thumbnail class
 	img.classList.add("thumbnail");
 	//Add the link and image elements
-	details.appendChild(link);
-	link.appendChild(img);
+	details.appendChild(imgLink);
+	imgLink.appendChild(img);
 
-	//Create a paragraph element for the description
-	const description = document.createElement("p");
-	//Fill the element with the object description
-	description.innerText = projectList[i].description;
-	//Add the description paragraph element
-	details.appendChild(description);
+	//Create paragraph elements for other project details
+	addParagraphElement(projectList[i].description);
 
-	//Create a paragraph element for the description
-	const detailsTimeline = document.createElement("p");
-	//Give this element the details-timeline class
-	detailsTimeline.classList.add("details-timeline");
-	//Fill the element with the timeline
-	detailsTimeline.innerHTML = "<strong>Days</strong>: " + timeline;
-	//Add the description paragraph element
-	details.appendChild(detailsTimeline);
+	addParagraphElement(timeline, "Days", "details-timeline");
 
+	addParagraphElement(projectList[i].languages, "Languages");
+
+	//Only add optional elements if they are in use
+	if(projectList[i].extras != undefined)
+	{
+		addParagraphElement(projectList[i].extras, "Libraries/Frameworks");
+	}
+
+	if(projectList[i].features != undefined)
+	{
+		addParagraphElement(projectList[i].features, "Features");
+	}
+
+	//Create a See Project link for all projets after the first one
+	if(projectList[i].link != "/100")
+	{
+		const link = document.createElement("a");
+		link.href = projectList[i].link;
+		link.innerText = "See Project"
+		details.appendChild(link);
+	}
+
+
+}
+
+function addParagraphElement(contents, section, classToAdd)
+{
+	//Create a paragraph element
+	const p = document.createElement("p");
+
+	//Initialize label as empty for cases where none is supplied
+	let label = "";
+
+	//Chcek if a section was supplied
+	if(section != undefined)
+	{
+		label = "<strong>" + section + "</strong>: "
+	}
+
+	//Check if a class was supplied
+	if(classToAdd != undefined)
+	{
+		//Apply the class
+		p.classList.add("details-timeline");
+	}
+
+	//Set the paragraph's content
+	p.innerHTML = label + contents;
 	
-	// //Create a paragraph to display the project timeiline
-	// p.classList.add("details-timeline");
-	// p.innerHTML = "<strong>Days</strong>: " + timeline;
-	// details.appendChild(p);
+	//Grab all Details elements
+	const allDetailElements = document.querySelectorAll("details");
 
-	// p.classList.remove("details-timeline");
-	// p.innerHTML = "<strong>Languages</strong>: " + projectList[i].languages;
-	// details.appendChild(p);
-
-	
-
-	// // let strong = document.createElement("strong");
-	// // let link = document.createElement("a");
-
-	
-
-	// //Set the project description
-	// description.innerText = projectList[i].description;
-
-	// //Set the days
-	// days.classList.add("details-timeline");
-
-
-
-
-	
-	
-	// details.appendChild(days);
+	//Add the paragraph element as a child of the last Details element
+	allDetailElements[allDetailElements.length-1].appendChild(p);
 }
