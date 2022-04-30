@@ -86,7 +86,7 @@ details:nth-child(odd)
 	color: black;
 }
 
-details a:nth-child(odd)
+details:nth-child(odd) a
 {
 	color: black;
 }
