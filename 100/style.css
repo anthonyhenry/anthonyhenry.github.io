@@ -203,7 +203,7 @@ footer
 		top: 100px;
 		left: 120px;
 		width: 870px; /*figure width + figure left*/
-		height: 572px; /* #bio top + #bio padding top + bio padding bottom + bio height */
+		height: 510px; /* #bio top + #bio padding top + bio padding bottom + bio height */
 	}
 
 	#profile
@@ -229,7 +229,7 @@ footer
 		width: 830px;/* main width - (this padding left + this padding right) */
 		padding: 20px;
 		position: absolute;
-		top: 478px; /* #projects top + #projects height + 20 */
+		top: 416px; /* #projects top + #projects height + 20 */
 	}
 
 	#projects
@@ -237,7 +237,7 @@ footer
 		position: absolute;
 		top: 50px;
 		width: 585px;
-		height: 408px;
+		height: 346px;
 		overflow-y: scroll;
 		padding: 0;
 	}
