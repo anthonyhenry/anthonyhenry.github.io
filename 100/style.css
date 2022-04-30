@@ -73,6 +73,7 @@ details
 	margin: 15px;
 	padding: 15px 32px;
 	border-radius: 5pt;
+	overflow: auto; /*This keeps the image from clipping outside the details box if it gets too big*/
 }
 
 details a
@@ -104,8 +105,8 @@ summary
 .thumbnail
 {
 	width: 80%;
-	margin-left: 10%;
-	margin-top: 15px;
+	margin-left: 10%; /* (100 - .thumbnail width) / 2 */
+	margin-top: 1em; /*This is the default margin-top of p tags*/
 }
 
 footer
@@ -242,6 +243,14 @@ footer
 		padding: 0;
 	}
 
+	.thumbnail
+	{
+		width: 40%;
+		float: left;
+		margin-left: 0;
+		margin-right: 10px;
+	}
+
 	h2
 	{
 		margin: 20px;
@@ -270,12 +279,6 @@ footer
 	#projects
 	{
 		width: 650px;
-	}
-
-	.thumbnail
-	{
-		width: 60%;
-		margin-left: 20%;
 	}
 }
 
