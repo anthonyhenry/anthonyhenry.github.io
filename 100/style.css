@@ -238,8 +238,8 @@ footer
 		position: absolute;
 		top: 50px;
 		width: 585px;
-		height: 346px;
-		overflow-y: scroll;
+		height: 344px;
+		overflow-y: auto;
 		padding: 0;
 	}
 
