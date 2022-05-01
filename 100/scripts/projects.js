@@ -18,7 +18,7 @@ class Project{
 	constructor(name, startDate, endDate, image, description, languages, extras, features, link){
 		/*REQUIRED*/this.name = name;
 		/*REQUIRED*/this.startDate = startDate;
-		/*REQUIRED*/this.endDate = endDate;
+		/*OPTIONAL*/this.endDate = endDate;
 		/*REQUIRED*/this.image = image;
 		/*REQUIRED*/this.description = description;
 		/*REQUIRED*/this.languages = languages;
@@ -39,8 +39,17 @@ class Project{
 		}
 	}
 
-	//Method to validate required object properties
+	//Method to validate object properties
 	validateProperties(){
+
+		//If no end date was given...
+		if(this.endDate == undefined)
+		{
+			//...the start date is the end date
+			this.endDate = this.startDate;
+		}
+
+		//Make sure all required properties have been filled
 		if(this.name == undefined)
 		{
 			return{
@@ -53,13 +62,6 @@ class Project{
 			return{
 				status: "fail",
 				perpetrator: "startDate"
-			};
-		}
-		else if(this.endDate == undefined)
-		{
-			return{
-				status: "fail",
-				perpetrator: "endDate"
 			};
 		}
 		else if(this.image == undefined)
@@ -106,7 +108,7 @@ function createNewProject(name, startDate, endDate, image, description, language
 createNewProject(
 	"100 Days of Code Home Page", 
 	"4/18/2022", 
-	"4/29/2022", 
+	"4/30/2022", 
 	"home-page.png",
 	"My first project is a home page to store links to all the projects I work on for the challenge.",
 	"HTML, CSS, JavaScript",
