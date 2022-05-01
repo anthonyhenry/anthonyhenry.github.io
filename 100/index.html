@@ -3,44 +3,51 @@
 <head>
 	<meta charset="utf-8">
 	<title>100 Days of Code</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
+	<!-- Icon Library -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 	<header>
-		<h1>Anthony Hernandez</h1>
-		<h2>100 Days of Code</h2>
-		<h3>Days Remaining: <span id="daysRemaining">test</span></h3>
+		<h1 id="name">Anthony Hernandez</h1>
+		<h1 id="title">100 Days of Code</h1>
+		<h1 id="days">Days Remaining: <span id="countdown">99</span></h1>
 	</header>
 
-	<div id="content">
-
+	<main>
 		<div id="profile">
-			<figure>
-				<img src="imgs/Profile.jpg" width="100%" alt="Profile Image">
-				<figcaption>Hello! My name is Anthony Hernandez. I'm a game designer, and for the next 100 days, I'm challenging myself to spend at least 1 hour programming each day. Check back regularly to see what I build!</figcaption>
+			<figure class="profile-element">
+				<img id="profileImg" src="imgs/Profile.jpg" alt="Profile Image">
 			</figure>
-		</div>
 
-		<div id="break"></div>
+			<div id="bio" class="profile-element">
+				Hello! My name is Anthony Hernandez. I'm an ambitious, fast-learning, and self-motivated Game Designer with a background in Narrative Writing. For the next 100 days, I'm challenging myself to spend at least 1 hour programming each day. Check back regularly to see what I build!
+			</div>
+		</div>
 
 		<div id="projects">
 			<h2>Projects</h2>
 
-			<details>
-				<summary>100 Days of Code Home Page</summary>				
+			<div id="projectsList">
 				
-				<p>My first project is a home page to store links to all the projects I work on for the challenge.</p>
-
-				<p><strong>Days:</strong> 4/18/2022 </p>
-
-				<p><strong>Languages</strong>: HTML, CSS, Javascript</p>
-
-				<p><strong>Features</strong>: Mobile First Responsive Design</p>
-			</details>
+			</div>
 		</div>
-	</div>
+	</main>
 
-	<script type="text/javascript" src="days.js"></script>
-	<script type="text/javascript" src="projects.js"></script>
+	<footer>
+		<a href="mailto: anthonyh1497@gmail.com" class="fa fa-envelope"></a>
+		<a href="https://www.linkedin.com/in/anthonyh1497" target="_blank" class="fa fa-linkedin-square"></a>
+		<a href="https://twitter.com/1215eltanin" target="_blank" class="fa fa-twitter"></a>
+		<a href="https://anthonyh1497.wixsite.com/mysite" target="_blank" class="fa fa-window-maximize"></a>
+	</footer>
+
+	<script type="text/javascript" src="scripts/days.js"></script>
+	<script type="text/javascript" src="scripts/projects.js"></script>
+
+	<!-- Delete this script before deployment -->
+	<!-- <script type="text/javascript">
+		var screenWidth = document.body.offsetWidth
+		document.querySelector("#width").innerText = screenWidth;
+	</script> -->
 </body>
 </html>

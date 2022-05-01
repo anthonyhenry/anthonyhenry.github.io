@@ -1,0 +1,307 @@
+body, html
+{
+	/*Remove whitespace around webpage*/
+	border: 0;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	/*Background Color*/
+	background-color: #6C541E;
+}
+
+header
+{
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+
+header, footer
+{
+	padding: 15px;
+	background-color: #86915C;
+}
+
+h1
+{
+	font-size: 1.75em;
+	margin: 0;
+}
+
+/*So the footer doesn't overlap content*/
+main
+{
+	padding-bottom: 60px;
+}
+
+.profile-element
+{
+	/*Image and bio spacing for smaller screens*/
+	margin: 15px 25px;
+}
+
+#bio
+{
+	background-color: white;
+	padding: 15px;
+	border-radius: 5pt;
+}
+
+#profileImg
+{
+	width: 100%;
+}
+
+#projects
+{
+	background-color: rgba(174, 154, 121, 0.9);
+	padding: 20px 0px;
+}
+
+h2
+{
+	text-align: center;
+	color: white;
+	margin: 0;
+}
+
+details
+{
+	background-color: #65722F;
+	color: white;
+	margin: 15px;
+	padding: 15px 32px;
+	border-radius: 5pt;
+	overflow: auto; /*This keeps the image from clipping outside the details box if it gets too big*/
+}
+
+details a
+{
+	color: white;
+}
+
+details:nth-child(odd)
+{
+	background-color: #C7BAAA;
+	color: black;
+}
+
+details:nth-child(odd) a
+{
+	color: black;
+}
+
+summary
+{
+	cursor: pointer;
+}
+
+.summary-timeline
+{
+	display: none;
+}
+
+.thumbnail
+{
+	width: 80%;
+	margin-left: 10%; /* (100 - .thumbnail width) / 2 */
+	margin-top: 1em; /*This is the default margin-top of p tags*/
+}
+
+footer
+{
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+}
+
+.fa
+{
+	font-size: 24px !important;
+	color: black;
+	text-decoration: none;
+}
+
+
+.fa-linkedin-square, .fa-twitter, .fa-window-maximize
+{
+	margin-left: 15px;
+}
+
+/* Small devices (landscape phones, 576 and up) */
+@media screen and (min-width: 576px)
+{
+	.summary-timeline
+	{
+		display: block;
+		float: right;
+	}
+
+	.details-timeline
+	{
+		display: none;
+	}
+}
+
+/* Medium devices (tablets, 768 and up) */
+@media screen and (min-width: 768px)
+{
+	header
+	{
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	#name
+	{
+		order: 2;
+	}
+
+	#title
+	{
+		order: 1;
+	}
+
+	#days
+	{
+		order: 3;
+	}
+
+	h1
+	{
+		font-size: 1.5em;
+	}
+
+	/*Show profile image and bio side by side*/
+	#profile
+	{
+		display: flex;
+	}
+
+	figure
+	{
+		width: 50%;
+	}
+
+	#bio
+	{
+		width: 50%;
+	}
+}
+
+/* Large devices (desktops, 992 and up) */
+@media screen and (min-width: 992px)
+{
+	h1
+	{
+		font-size: 1.75em;
+	}
+
+	main
+	{
+		position: relative;
+		top: 100px;
+		left: 120px;
+		width: 870px; /*figure width + figure left*/
+		height: 510px; /* #bio top + #bio padding top + bio padding bottom + bio height */
+	}
+
+	#profile
+	{
+		display: block;
+	}
+
+	.profile-element
+	{
+		margin: 0;
+	}
+
+	figure
+	{
+		width: 300px;
+		height: 300px;
+		position: relative;
+		left: 570px; /* #projects width - 15 */
+	}
+
+	#bio
+	{
+		width: 830px;/* main width - (this padding left + this padding right) */
+		padding: 20px;
+		position: absolute;
+		top: 416px; /* #projects top + #projects height + 20 */
+	}
+
+	#projects
+	{
+		position: absolute;
+		top: 50px;
+		width: 585px;
+		height: 344px;
+		overflow-y: auto;
+		padding: 0;
+	}
+
+	.thumbnail
+	{
+		width: 40%;
+		float: left;
+		margin-left: 0;
+		margin-right: 10px;
+	}
+
+	h2
+	{
+		margin: 20px;
+	}
+}
+
+/* X-Large devices (large desktops, 1200 and up) */
+@media screen and (min-width: 1200px)
+{
+	main
+	{
+		width: 935px;
+		left: 200px;
+	}
+
+	figure
+	{
+		left: 635px;
+	}
+
+	#bio
+	{
+		width: 895px;
+	}
+
+	#projects
+	{
+		width: 650px;
+	}
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media screen and (min-width: 1400px)
+{
+	main
+	{
+		width: 985px;
+	}
+
+	figure
+	{
+		left: 685px;
+	}
+
+	#bio
+	{
+		width: 945px;
+	}
+
+	#projects
+	{
+		width: 700px;
+	}
+}
