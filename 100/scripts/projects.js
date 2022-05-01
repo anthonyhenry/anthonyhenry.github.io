@@ -69,7 +69,19 @@ createNewProject(
 
 createNewProject(
 	"Project 2", 
-	"4/30/2022", 
+	"1/1/2022", 
+	"12/31/2022", 
+	"Background.jpg",
+	"This is where the project description will go.",
+	"HTML, CSS, JavaScript, PHP, SQL",
+	"JQuery, BootStrap",
+	"Mobile First Responsive Design",
+	"https://anthonyhenry.github.io/100/"
+);
+
+createNewProject(
+	"Project 2", 
+	"1/1/2022", 
 	"12/31/2022", 
 	"Background.jpg",
 	"This is where the project description will go.",
@@ -81,57 +93,91 @@ createNewProject(
 
 for(let i = 0; i < projectList.length; i++)
 {
-	//Create details and summary elements
-	const details = document.createElement("details");
-	const summary = document.createElement("summary");
-	
-	//Find out what days the project was worked on
-	const timeline = projectList[i].getProjectTimeline();
-	
-	//Set the HTML for the Summary
-	summary.innerHTML = projectList[i].name + "<span class='summary-timeline'>" + timeline + "</span>";
-	//Add the details and summary elements to the DOM
-	document.querySelector("#projectsList").appendChild(details);
-	details.appendChild(summary);
-
-	//Create a link and image element
-	const imgLink = document.createElement("a");
-	const img = document.createElement("img");
-	//Set the link src
-	imgLink.href = projectList[i].link;
-	//Set the image src
-	img.src = projectList[i].getImagePath();
-	//Give the img the thumbnail class
-	img.classList.add("thumbnail");
-	//Add the link and image elements
-	details.appendChild(imgLink);
-	imgLink.appendChild(img);
-
-	//Create paragraph elements for other project details
-	addParagraphElement(projectList[i].description);
-
-	addParagraphElement(timeline, "Days", "details-timeline");
-
-	addParagraphElement(projectList[i].languages, "Languages");
-
-	//Only add optional elements if they are in use, null equals undefined
-	if(projectList[i].extras != undefined)
+	//Validate Object Properties
+	if(projectList[i].name == undefined)
 	{
-		addParagraphElement(projectList[i].extras, "Libraries/Frameworks");
+		alert("ERROR | Object in projectList[] at position " + i + " missing required property: name.")
+		break;
 	}
-
-	if(projectList[i].features != undefined)
+	else if(projectList[i].startDate == undefined)
 	{
-		addParagraphElement(projectList[i].features, "Features");
+		alert("ERROR | Object in projectList[] at position " + i + " missing required property: startDate.")
+		break;
 	}
-
-	//Create a See Project link for all projets after the first one
-	if(projectList[i].link != undefined)
+	else if(projectList[i].endDate == undefined)
 	{
-		const link = document.createElement("a");
-		link.href = projectList[i].link;
-		link.innerText = "See Project"
-		details.appendChild(link);
+		alert("ERROR | Object in projectList[] at position " + i + " missing required property: endDate.")
+		break;
+	}
+	else if(projectList[i].image == undefined)
+	{
+		alert("ERROR | Object in projectList[] at position " + i + " missing required property: image.")
+		break;
+	}
+	else if(projectList[i].description == undefined)
+	{
+		alert("ERROR | Object in projectList[] at position " + i + " missing required property: description.")
+		break;
+	}
+	else if(projectList[i].languages == undefined)
+	{
+		alert("ERROR | Object in projectList[] at position " + i + " missing required property: languages.")
+		break;
+	}
+	else
+	{
+		//Create details and summary elements
+		const details = document.createElement("details");
+		const summary = document.createElement("summary");
+		
+		//Find out what days the project was worked on
+		const timeline = projectList[i].getProjectTimeline();
+		
+		//Set the HTML for the Summary
+		summary.innerHTML = projectList[i].name + "<span class='summary-timeline'>" + timeline + "</span>";
+		//Add the details and summary elements to the DOM
+		document.querySelector("#projectsList").appendChild(details);
+		details.appendChild(summary);
+
+		//Create a link and image element
+		const imgLink = document.createElement("a");
+		const img = document.createElement("img");
+		//Set the link src
+		imgLink.href = projectList[i].link;
+		//Set the image src
+		img.src = projectList[i].getImagePath();
+		//Give the img the thumbnail class
+		img.classList.add("thumbnail");
+		//Add the link and image elements
+		details.appendChild(imgLink);
+		imgLink.appendChild(img);
+
+		//Create paragraph elements for other project details
+		addParagraphElement(projectList[i].description);
+
+		addParagraphElement(timeline, "Days", "details-timeline");
+
+		addParagraphElement(projectList[i].languages, "Languages");
+
+		//Only add optional elements if they are in use, null equals undefined
+		if(projectList[i].extras != undefined)
+		{
+			addParagraphElement(projectList[i].extras, "Libraries/Frameworks");
+		}
+
+		if(projectList[i].features != undefined)
+		{
+			addParagraphElement(projectList[i].features, "Features");
+		}
+
+		//Create a See Project link for all projets after the first one
+		if(projectList[i].link != undefined)
+		{
+			const link = document.createElement("a");
+			link.href = projectList[i].link;
+			link.innerText = "See Project"
+			details.appendChild(link);
+		}
 	}
 }
 
