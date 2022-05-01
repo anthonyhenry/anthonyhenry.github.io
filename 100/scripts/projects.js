@@ -117,6 +117,18 @@ createNewProject(
 	null
 );
 
+createNewProject(
+	"100 Days of Code Home Page", 
+	"4/18/2022", 
+	"4/30/2022", 
+	"home-page.png",
+	"My first project is a home page to store links to all the projects I work on for the challenge.",
+	"HTML, CSS, JavaScript",
+	null,
+	"Mobile First Responsive Design",
+	"https://google.com"
+);
+
 for(let i = 0; i < projectList.length; i++)
 {
 	//Validate each object
@@ -145,18 +157,31 @@ for(let i = 0; i < projectList.length; i++)
 		document.querySelector("#projectsList").appendChild(details);
 		details.appendChild(summary);
 
-		//Create a link and image element
-		const imgLink = document.createElement("a");
+		//Create an image element
 		const img = document.createElement("img");
-		//Set the link src
-		imgLink.href = projectList[i].link;
 		//Set the image src
 		img.src = "imgs/" + projectList[i].image; 
 		//Give the img the thumbnail class
 		img.classList.add("thumbnail");
-		//Add the link and image elements
-		details.appendChild(imgLink);
-		imgLink.appendChild(img);
+
+		//Check if a link was supplied
+		if(projectList[i].link != undefined)
+		{
+			//Create a link element
+			const imgLink = document.createElement("a");
+			//Set the link src
+			imgLink.href = projectList[i].link;
+			console.log("I created a link!");
+			//Add the link and image elements
+			details.appendChild(imgLink);
+			imgLink.appendChild(img);
+		}
+		else
+		{
+			//Add the image element as a child of the details element
+			details.appendChild(img);
+			console.log("No Link created")
+		}
 
 		//Create paragraph elements for other project details
 		addParagraphElement(projectList[i].description);
