@@ -171,7 +171,6 @@ for(let i = 0; i < projectList.length; i++)
 			const imgLink = document.createElement("a");
 			//Set the link src
 			imgLink.href = projectList[i].link;
-			console.log("I created a link!");
 			//Add the link and image elements
 			details.appendChild(imgLink);
 			imgLink.appendChild(img);
@@ -180,7 +179,6 @@ for(let i = 0; i < projectList.length; i++)
 		{
 			//Add the image element as a child of the details element
 			details.appendChild(img);
-			console.log("No Link created")
 		}
 
 		//Create paragraph elements for other project details
