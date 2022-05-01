@@ -44,6 +44,59 @@ class Project{
 		let imagePath = "imgs/" + this.image;
 		return imagePath;
 	}
+
+	validateProperties(){
+		if(this.name == undefined)
+		{
+			return{
+				status: "fail",
+				perpetrator: "name"
+			}
+		}
+		else if(this.startDate == undefined)
+		{
+			return{
+				status: "fail",
+				perpetrator: "startDate"
+			}
+		}
+		else if(this.endDate == undefined)
+		{
+			return{
+				status: "fail",
+				perpetrator: "endDate"
+			}
+		}
+		else if(this.image == undefined)
+		{
+			return{
+				status: "fail",
+				perpetrator: "image"
+			}
+		}
+		else if(this.description == undefined)
+		{
+			return{
+				status: "fail",
+				perpetrator: "description"
+			}
+		}
+		else if(this.languages == undefined)
+		{
+			return{
+				status: "fail",
+				perpetrator: "languages"
+			}
+		}
+		//All Required Properties filled in
+		else
+		{
+			return{
+				status: "pass",
+				perpetrator: null
+			}
+		}
+	}
 }
 
 //Function to create new Project objects
@@ -67,63 +120,19 @@ createNewProject(
 	null
 );
 
-createNewProject(
-	"Project 2", 
-	"1/1/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
-
-createNewProject(
-	"Project 2", 
-	"1/1/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
-
 for(let i = 0; i < projectList.length; i++)
 {
-	//Validate Object Properties
-	if(projectList[i].name == undefined)
+	//Validate each object
+	let validation = projectList[i].validateProperties();
+
+	//Validation Failed
+	if(validation.status == "fail")
 	{
-		alert("ERROR | Object in projectList[] at position " + i + " missing required property: name.")
+		//Give an Error
+		console.log("ERROR | Object in projectList[] at position " + i + " returned value undefined for property: " + validation.perpetrator + ".");
 		break;
 	}
-	else if(projectList[i].startDate == undefined)
-	{
-		alert("ERROR | Object in projectList[] at position " + i + " missing required property: startDate.")
-		break;
-	}
-	else if(projectList[i].endDate == undefined)
-	{
-		alert("ERROR | Object in projectList[] at position " + i + " missing required property: endDate.")
-		break;
-	}
-	else if(projectList[i].image == undefined)
-	{
-		alert("ERROR | Object in projectList[] at position " + i + " missing required property: image.")
-		break;
-	}
-	else if(projectList[i].description == undefined)
-	{
-		alert("ERROR | Object in projectList[] at position " + i + " missing required property: description.")
-		break;
-	}
-	else if(projectList[i].languages == undefined)
-	{
-		alert("ERROR | Object in projectList[] at position " + i + " missing required property: languages.")
-		break;
-	}
+	//Validation Passed
 	else
 	{
 		//Create details and summary elements
