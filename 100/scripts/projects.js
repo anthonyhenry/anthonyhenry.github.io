@@ -62,9 +62,9 @@ createNewProject(
 	"home-page.png",
 	"My first project is a home page to store links to all the projects I work on for the challenge.",
 	"HTML, CSS, JavaScript",
-	undefined,
+	null,
 	"Mobile First Responsive Design",
-	"/100"
+	null
 );
 
 createNewProject(
@@ -78,162 +78,6 @@ createNewProject(
 	"Mobile First Responsive Design",
 	"https://anthonyhenry.github.io/100/"
 );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
-
-// createNewProject(
-// 	"Project 2", 
-// 	"4/30/2022", 
-// 	"12/31/2022", 
-// 	"Background.jpg",
-// 	"This is where the project description will go.",
-// 	"HTML, CSS, JavaScript, PHP, SQL",
-// 	"JQuery, BootStrap",
-// 	"Mobile First Responsive Design",
-// 	"https://anthonyhenry.github.io/100/"
-// );
 
 for(let i = 0; i < projectList.length; i++)
 {
@@ -270,7 +114,7 @@ for(let i = 0; i < projectList.length; i++)
 
 	addParagraphElement(projectList[i].languages, "Languages");
 
-	//Only add optional elements if they are in use
+	//Only add optional elements if they are in use, null equals undefined
 	if(projectList[i].extras != undefined)
 	{
 		addParagraphElement(projectList[i].extras, "Libraries/Frameworks");
@@ -282,7 +126,7 @@ for(let i = 0; i < projectList.length; i++)
 	}
 
 	//Create a See Project link for all projets after the first one
-	if(projectList[i].link != "/100")
+	if(projectList[i].link != undefined)
 	{
 		const link = document.createElement("a");
 		link.href = projectList[i].link;
