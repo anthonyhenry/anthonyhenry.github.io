@@ -39,54 +39,49 @@ class Project{
 		}
 	}
 
-	//Method to get full image path
-	getImagePath(){
-		let imagePath = "imgs/" + this.image;
-		return imagePath;
-	}
-
+	//Method to validate required object properties
 	validateProperties(){
 		if(this.name == undefined)
 		{
 			return{
 				status: "fail",
 				perpetrator: "name"
-			}
+			};
 		}
 		else if(this.startDate == undefined)
 		{
 			return{
 				status: "fail",
 				perpetrator: "startDate"
-			}
+			};
 		}
 		else if(this.endDate == undefined)
 		{
 			return{
 				status: "fail",
 				perpetrator: "endDate"
-			}
+			};
 		}
 		else if(this.image == undefined)
 		{
 			return{
 				status: "fail",
 				perpetrator: "image"
-			}
+			};
 		}
 		else if(this.description == undefined)
 		{
 			return{
 				status: "fail",
 				perpetrator: "description"
-			}
+			};
 		}
 		else if(this.languages == undefined)
 		{
 			return{
 				status: "fail",
 				perpetrator: "languages"
-			}
+			};
 		}
 		//All Required Properties filled in
 		else
@@ -94,7 +89,7 @@ class Project{
 			return{
 				status: "pass",
 				perpetrator: null
-			}
+			};
 		}
 	}
 }
@@ -154,7 +149,7 @@ for(let i = 0; i < projectList.length; i++)
 		//Set the link src
 		imgLink.href = projectList[i].link;
 		//Set the image src
-		img.src = projectList[i].getImagePath();
+		img.src = "imgs/" + projectList[i].image; 
 		//Give the img the thumbnail class
 		img.classList.add("thumbnail");
 		//Add the link and image elements
