@@ -181,8 +181,7 @@ for(let i = 0; i < projectList.length; i++)
 	}
 }
 
-function addParagraphElement(contents, section, classToAdd)
-{
+function addParagraphElement(contents, section, classToAdd){
 	//Create a paragraph element
 	const p = document.createElement("p");
 
