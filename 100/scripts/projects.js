@@ -79,161 +79,161 @@ createNewProject(
 	"https://anthonyhenry.github.io/100/"
 );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
-createNewProject(
-	"Project 2", 
-	"4/30/2022", 
-	"12/31/2022", 
-	"Background.jpg",
-	"This is where the project description will go.",
-	"HTML, CSS, JavaScript, PHP, SQL",
-	"JQuery, BootStrap",
-	"Mobile First Responsive Design",
-	"https://anthonyhenry.github.io/100/"
-);
+// createNewProject(
+// 	"Project 2", 
+// 	"4/30/2022", 
+// 	"12/31/2022", 
+// 	"Background.jpg",
+// 	"This is where the project description will go.",
+// 	"HTML, CSS, JavaScript, PHP, SQL",
+// 	"JQuery, BootStrap",
+// 	"Mobile First Responsive Design",
+// 	"https://anthonyhenry.github.io/100/"
+// );
 
 for(let i = 0; i < projectList.length; i++)
 {
