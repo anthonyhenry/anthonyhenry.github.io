@@ -55,10 +55,92 @@ function colorBackground(){
 	console.log("Background: " + backgroundH + ", " + backgroundS + ", " + backgroundB);
 }
 
-// function getRandomColor(){
-// 	//Choose 3 random HSB values
-// 	randomH = generateRandomNumber()
-// }
+function getRandomColor(){
+	//Choose random HSB color values
+	let randomH = getRandomHue();
+	let randomS = getRandomSaturation();
+	let randomB = getRandomBrightness();
+
+	//Gap values - determines how different each piece of the puzzle must be from a similar color
+	const hGap = 20;
+	const sGap = 30;
+	const bGap = 15;
+
+	for(var i = 0; i < H.length; i++)
+	{
+		//Compare each color
+		let hDifference = abs(randomH - H[i]);
+		let sDifference = abs(randomS - S[i]);
+		let bDifference = abs(randomB - B[i]);
+		
+		if(hDifference > hGap)
+		{
+			//Set the fill
+			fill(randomH, randomS, randomB);
+			//Add the new color to the color arrays
+			H.push(randomH);
+			S.push(randomS);
+			B.push(randomB);
+			console.log("H: " + randomH + "-" + H[i] + "=" + hDifference);
+			return;
+		}
+		else if(sDifference > sGap)
+		{
+			//Set the fill
+			fill(randomH, randomS, randomB);
+			//Add the new color to the color arrays
+			H.push(randomH);
+			S.push(randomS);
+			B.push(randomB);
+			console.log("S: " + randomS + "-" + S[i] + "=" + sDifference);
+			return;
+		}
+		else if(bDifference > bGap)
+		{
+			//Set the fill
+			fill(randomH, randomS, randomB);
+			//Add the new color to the color arrays
+			H.push(randomH);
+			S.push(randomS);
+			B.push(randomB);
+			console.log("B: " + randomB + "-" + B[i] + "=" + bDifference);
+			return;
+		}
+		else
+		{
+			//Try again
+			getRandomColor();
+			return;
+		}
+	}
+
+
+}
+
+
+function drawSkull(){
+
+	//Set color
+	getRandomColor();
+	//Turn off stroke
+	noStroke();
+
+	//Cranium
+	const craniumWidth = 190;
+	const craniumYPos = 145;
+	ellipse(200, craniumYPos, craniumWidth, craniumWidth - 30);
+
+	//Cheeks
+	const cheekYPos = craniumYPos + 63;
+	const cheekWidth = craniumWidth - 15;
+	ellipse(200, cheekYPos, cheekWidth, 90);
+
+	//Jaw
+	const topJawWidth = craniumWidth/3.5;
+	const jawLength = craniumYPos + 153;
+	const bottomJawWidth = craniumWidth/2.5;
+	quad(200 - topJawWidth, craniumYPos, 200 + topJawWidth, craniumYPos , 200 + bottomJawWidth, jawLength, 200 - bottomJawWidth, jawLength);
+}
 
 //Arrays for HSB values
 let H = [];
@@ -85,6 +167,8 @@ function setup() {
 	background(H[0], S[0], B[0]);
 
 	console.log("BG H: " + H[0] + " BG S: " + S[0] + " BG B: " + B[0]);
+
+	drawSkull();
 
 
 	//Can clear an array this way
