@@ -180,8 +180,13 @@ function setup() {
 }
 
 // put drawing code here
-function draw() {
-	
+function mouseClicked() {
+	H = [];
+	S = [];
+	B = [];
+	console.log("\n===\n\n")
+	colorBackground();
+	drawSkull();
 }
 
 //p5 examples: https://p5js.org/examples/
