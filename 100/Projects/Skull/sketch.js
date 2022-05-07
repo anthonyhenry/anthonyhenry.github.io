@@ -63,11 +63,11 @@ function getRandomColor(bodypart){
 
 	//Gap values - determines how different each piece of the puzzle must be from a similar color
 	let hGap;
-	const sGap = 30;
+	const sGap = 35;
 	const bGap = 15;
 	
 	//Check if the hue is green
-	if(randomH > 75 && randomH < 150) //Green is 75-170
+	if(randomH >= 75 && randomH <= 155) //Green is 75-170
 	{
 		//Larger comparison threshold for green colors
 		hGap = 40;
@@ -114,7 +114,7 @@ function getRandomColor(bodypart){
 function drawSkull(){
 
 	//Set color
-	getRandomColor("skull");
+	getRandomColor();
 	//Turn off stroke
 	noStroke();
 
@@ -133,6 +133,49 @@ function drawSkull(){
 	const jawLength = craniumYPos + 153;
 	const bottomJawWidth = craniumWidth/2.5;
 	quad(200 - topJawWidth, craniumYPos, 200 + topJawWidth, craniumYPos , 200 + bottomJawWidth, jawLength, 200 - bottomJawWidth, jawLength);
+
+	//Eyes
+	getRandomColor();
+	var eyeWidth = 46;
+	var eyeHeight = 42;
+	var eyeSpacing = 10 + eyeWidth/2;
+	ellipse(200 - eyeSpacing, craniumYPos, eyeWidth, eyeHeight);//left eye
+	ellipse(200 + eyeSpacing, craniumYPos, eyeWidth, eyeHeight);//right eye
+
+	//Nose
+	getRandomColor();
+	var noseSpacing = 2;
+	var noseWidth = 12;
+	var noseHeight = 25;
+	var noseTop = craniumYPos + eyeHeight/2;
+	triangle(200 - noseSpacing, noseTop, 200 - noseSpacing, noseTop + noseHeight, 200 - noseSpacing - noseWidth, noseTop + noseHeight);//Left nostril
+	triangle(200 + noseSpacing, noseTop, 200 + noseSpacing, noseTop + noseHeight, 200 + noseSpacing + noseWidth, noseTop + noseHeight);//Right nostril
+
+	//Teeth
+	//stroke(0, 0, 0);//black stroke
+	strokeWeight(2.8);
+	var teethWidth = 24;
+	var teethHeight = 49;
+	var centerToothPosX = 200 - teethWidth/2;
+	var teethYPos = jawLength - teethHeight * 1.5;
+	var toothRoundness = 300;
+	//Teeth loop
+	//fill(random(0, 255), random(0,255), random(0, 255));
+	getRandomColor();
+	stroke(0, 0, 0);
+	rect(200 - teethWidth/2, teethYPos, teethWidth, teethHeight, toothRoundness);
+	for(var j = 1; j < 3; j++)
+	{
+	    getRandomColor();
+	    stroke(0, 0, 0);
+	    rect(centerToothPosX + teethWidth * j, teethYPos, teethWidth, teethHeight, toothRoundness);
+	    getRandomColor();
+	    stroke(0, 0, 0);
+	    rect(centerToothPosX - teethWidth * j, teethYPos, teethWidth, teethHeight, toothRoundness);
+	    stroke(0, 0, 0);
+	}
+	//Teeth seperator
+	line(200 + teethWidth * 2 + teethWidth/2, teethYPos + teethHeight/2, 200 - teethWidth * 2 - teethWidth/2, teethYPos + teethHeight/2);
 }
 
 //Arrays for HSB values
