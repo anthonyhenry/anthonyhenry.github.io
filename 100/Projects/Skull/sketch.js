@@ -31,7 +31,7 @@ function generateRandomNumber(min, max){
 }
 
 function getRandomHue(){
-	return Math.floor(Math.random() * 321);
+	return Math.floor(Math.random() * 301);
 }
 
 function getRandomSaturation(){
