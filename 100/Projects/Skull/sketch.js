@@ -29,8 +29,6 @@ function colorBackground(){
 	B.push(backgroundB);
 	//Color the background
 	background(backgroundH, backgroundS, backgroundB);
-
-	console.log("Background: " + backgroundH + ", " + backgroundS + ", " + backgroundB);
 }
 
 function getRandomColor(bodypart){
@@ -45,7 +43,7 @@ function getRandomColor(bodypart){
 	const bGap = 15;
 	
 	//Check if the hue is green
-	if(randomH >= 75 && randomH <= 155) //Green is roughly 75-170
+	if(randomH >= 75 && randomH <= 170) //Green is roughly 75-170
 	{
 		//Larger hue comparison threshold for green colors
 		hGap = 40;
@@ -53,7 +51,7 @@ function getRandomColor(bodypart){
 	else
 	{
 		//Regular hue comparison threshold
-		hGap = 20;
+		hGap = 25;
 	}
 
 	for(var i = 0; i < H.length; i++)
@@ -63,22 +61,19 @@ function getRandomColor(bodypart){
 		let sDifference = abs(randomS - S[i]);
 		let bDifference = abs(randomB - B[i]);
 
-		if(hDifference < hGap)
+		if(hDifference <= hGap)
 		{
-			if(bDifference < bGap)
+			if(bDifference <= bGap)
 			{
-				if(sDifference < sGap)
+				if(sDifference <= sGap)
 				{
 					//Colors are too similar, get a new one
-					console.log("FAIL \n" + bodypart + ": " + randomH + ", " + randomS + ", " + randomB);
 					getRandomColor();
 					return;
 				}
 			}
 		}
 	}
-
-	console.log("SUCCESS \n" + bodypart + ": " + randomH + ", " + randomS + ", " + randomB);
 
 	//Selected a color
 	fill(randomH, randomS, randomB);
@@ -184,7 +179,6 @@ function mouseClicked() {
 	H = [];
 	S = [];
 	B = [];
-	console.log("\n===\n\n")
 	colorBackground();
 	drawSkull();
 }
