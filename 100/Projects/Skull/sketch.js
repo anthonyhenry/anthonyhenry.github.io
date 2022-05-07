@@ -85,7 +85,6 @@ function getRandomColor(){
 
 
 function drawSkull(){
-
 	//Set color
 	getRandomColor();
 	//Turn off stroke
@@ -167,11 +166,6 @@ function setup() {
 	
 	//Draw the skull
 	drawSkull();
-
-
-	//Can clear an array this way
-	// H = [];
-	// console.log(H);
 }
 
 // put drawing code here
