@@ -118,15 +118,15 @@ createNewProject(
 );
 
 createNewProject(
-	"100 Days of Code Home Page", 
-	"4/18/2022", 
-	"4/30/2022", 
-	"home-page.png",
-	"My first project is a home page to store links to all the projects I work on for the challenge.",
+	"Calavera", 
+	"5/1/2022", 
+	"5/7/2022", 
+	"skull.png",
+	"For this project I used p5.js to make a colorful skull. The colors used for the skull are randomly selected in a way that prevents the same color from appearing more than once.",
 	"HTML, CSS, JavaScript",
+	"p5.js",
 	null,
-	"Mobile First Responsive Design",
-	"https://google.com"
+	"Projects/Skull"
 );
 
 for(let i = 0; i < projectList.length; i++)
