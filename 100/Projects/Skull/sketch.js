@@ -31,7 +31,7 @@ function colorBackground(){
 	background(backgroundH, backgroundS, backgroundB);
 }
 
-function getRandomColor(bodypart){
+function getRandomColor(){
 	//Choose random HSB color values
 	let randomH = getRandomHue();
 	let randomS = getRandomSaturationOrBrightness();
