@@ -62,9 +62,21 @@ function getRandomColor(){
 	let randomB = getRandomBrightness();
 
 	//Gap values - determines how different each piece of the puzzle must be from a similar color
-	const hGap = 20;
+	let hGap;
 	const sGap = 30;
 	const bGap = 15;
+	
+	//Check if the hue is green
+	if(randomH > 75 && randomH < 150) //Green is 75-170
+	{
+		//Larger comparison threshold for green colors
+		hGap = 40;
+	}
+	else
+	{
+		//Regular comparison threshold
+		hGap = 20;
+	}
 
 	for(var i = 0; i < H.length; i++)
 	{
@@ -81,7 +93,6 @@ function getRandomColor(){
 			H.push(randomH);
 			S.push(randomS);
 			B.push(randomB);
-			console.log("H: " + randomH + "-" + H[i] + "=" + hDifference);
 			return;
 		}
 		else if(sDifference > sGap)
@@ -92,7 +103,6 @@ function getRandomColor(){
 			H.push(randomH);
 			S.push(randomS);
 			B.push(randomB);
-			console.log("S: " + randomS + "-" + S[i] + "=" + sDifference);
 			return;
 		}
 		else if(bDifference > bGap)
@@ -103,7 +113,6 @@ function getRandomColor(){
 			H.push(randomH);
 			S.push(randomS);
 			B.push(randomB);
-			console.log("B: " + randomB + "-" + B[i] + "=" + bDifference);
 			return;
 		}
 		else
@@ -165,8 +174,6 @@ function setup() {
 	colorBackground();	
 	//Set the background color
 	background(H[0], S[0], B[0]);
-
-	console.log("BG H: " + H[0] + " BG S: " + S[0] + " BG B: " + B[0]);
 
 	drawSkull();
 
