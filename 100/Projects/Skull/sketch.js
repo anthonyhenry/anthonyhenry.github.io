@@ -20,9 +20,9 @@ let B = [];
 
 function colorBackground(){
 	//Get random colors for the background
-	let backgroundH = getRandomHue();
-	let backgroundS = getRandomSaturationOrBrightness();
-	let backgroundB = getRandomSaturationOrBrightness();
+	const backgroundH = getRandomHue();
+	const backgroundS = getRandomSaturationOrBrightness();
+	const backgroundB = getRandomSaturationOrBrightness();
 	//Add the background values to the HSB arrays
 	H.push(backgroundH);
 	S.push(backgroundS);
@@ -33,9 +33,9 @@ function colorBackground(){
 
 function getRandomColor(){
 	//Choose random HSB color values
-	let randomH = getRandomHue();
-	let randomS = getRandomSaturationOrBrightness();
-	let randomB = getRandomSaturationOrBrightness();
+	const randomH = getRandomHue();
+	const randomS = getRandomSaturationOrBrightness();
+	const randomB = getRandomSaturationOrBrightness();
 
 	//Gap values - determines how different each piece of the puzzle must be from a similar color
 	let hGap;
@@ -54,12 +54,12 @@ function getRandomColor(){
 		hGap = 25;
 	}
 
-	for(var i = 0; i < H.length; i++)
+	for(let i = 0; i < H.length; i++)
 	{
 		//Compare each color
-		let hDifference = abs(randomH - H[i]);
-		let sDifference = abs(randomS - S[i]);
-		let bDifference = abs(randomB - B[i]);
+		const hDifference = abs(randomH - H[i]);
+		const sDifference = abs(randomS - S[i]);
+		const bDifference = abs(randomB - B[i]);
 
 		if(hDifference <= hGap)
 		{
@@ -109,33 +109,33 @@ function drawSkull(){
 
 	//Eyes
 	getRandomColor();
-	var eyeWidth = 46;
-	var eyeHeight = 42;
-	var eyeSpacing = 10 + eyeWidth/2;
+	const eyeWidth = 46;
+	const eyeHeight = 42;
+	const eyeSpacing = 10 + eyeWidth/2;
 	ellipse(200 - eyeSpacing, craniumYPos, eyeWidth, eyeHeight);//left eye
 	ellipse(200 + eyeSpacing, craniumYPos, eyeWidth, eyeHeight);//right eye
 
 	//Nose
 	getRandomColor();
-	var noseSpacing = 2;
-	var noseWidth = 12;
-	var noseHeight = 25;
-	var noseTop = craniumYPos + eyeHeight/2;
+	const noseSpacing = 2;
+	const noseWidth = 12;
+	const noseHeight = 25;
+	const noseTop = craniumYPos + eyeHeight/2;
 	triangle(200 - noseSpacing, noseTop, 200 - noseSpacing, noseTop + noseHeight, 200 - noseSpacing - noseWidth, noseTop + noseHeight);//Left nostril
 	triangle(200 + noseSpacing, noseTop, 200 + noseSpacing, noseTop + noseHeight, 200 + noseSpacing + noseWidth, noseTop + noseHeight);//Right nostril
 
 	//Teeth
 	strokeWeight(2.8);
-	var teethWidth = 24;
-	var teethHeight = 49;
-	var centerToothPosX = 200 - teethWidth/2;
-	var teethYPos = jawLength - teethHeight * 1.5;
-	var toothRoundness = 300;
+	const teethWidth = 24;
+	const teethHeight = 49;
+	const centerToothPosX = 200 - teethWidth/2;
+	const teethYPos = jawLength - teethHeight * 1.5;
+	const toothRoundness = 300;
 	//Teeth loop
 	getRandomColor();
 	stroke(0, 0, 0);
 	rect(200 - teethWidth/2, teethYPos, teethWidth, teethHeight, toothRoundness);
-	for(var j = 1; j < 3; j++)
+	for(let j = 1; j < 3; j++)
 	{
 	    getRandomColor();
 	    stroke(0, 0, 0);
@@ -152,10 +152,10 @@ function drawSkull(){
 // put setup code here
 function setup() {
 	//Create canvas
-	var canvas = createCanvas(400, 400);
+	const canvas = createCanvas(400, 400);
 	//Get coordinates to place the canvas in the middle of the screen
-	var canvasXPos = (windowWidth - width) / 2; //'windowWidth' and 'windowHeight' store thw width and height of the inner window
-	var canvasYPos = (windowHeight - height) / 2; //The 'width' and' height' variables contain the width and height of the display window as defined by createCanvas()
+	const canvasXPos = (windowWidth - width) / 2; //'windowWidth' and 'windowHeight' store thw width and height of the inner window
+	const canvasYPos = (windowHeight - height) / 2; //The 'width' and' height' variables contain the width and height of the display window as defined by createCanvas()
 	//Place the canvas in the middle of the screen
 	canvas.position(canvasXPos, canvasYPos);
 
