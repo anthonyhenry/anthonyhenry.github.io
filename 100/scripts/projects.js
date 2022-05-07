@@ -4,15 +4,15 @@ let projectList = [];
 //Set up Project class
 class Project{
 	//list all properties
-	name;
-	startDate;
-	endDate;
-	image;
-	description;
-	languages;
-	extras;
-	features;
-	link;
+	// name;
+	// startDate;
+	// endDate;
+	// image;
+	// description;
+	// languages;
+	// extras;
+	// features;
+	// link;
 
 	//Set up constructor
 	constructor(name, startDate, endDate, image, description, languages, extras, features, link){
@@ -171,6 +171,7 @@ for(let i = 0; i < projectList.length; i++)
 			const imgLink = document.createElement("a");
 			//Set the link src
 			imgLink.href = projectList[i].link;
+			imgLink.target = "_blank";
 			//Add the link and image elements
 			details.appendChild(imgLink);
 			imgLink.appendChild(img);
@@ -204,7 +205,8 @@ for(let i = 0; i < projectList.length; i++)
 		{
 			const link = document.createElement("a");
 			link.href = projectList[i].link;
-			link.innerText = "See Project"
+			link.target = "_blank";
+			link.innerText = "See Project";
 			details.appendChild(link);
 		}
 	}
@@ -220,7 +222,7 @@ function addParagraphElement(contents, section, classToAdd){
 	//Chcek if a section was supplied
 	if(section != undefined)
 	{
-		label = "<strong>" + section + "</strong>: "
+		label = "<strong>" + section + "</strong>: ";
 	}
 
 	//Check if a class was supplied
