@@ -55,7 +55,7 @@ function colorBackground(){
 	console.log("Background: " + backgroundH + ", " + backgroundS + ", " + backgroundB);
 }
 
-function getRandomColor(){
+function getRandomColor(bodypart){
 	//Choose random HSB color values
 	let randomH = getRandomHue();
 	let randomS = getRandomSaturation();
@@ -84,44 +84,28 @@ function getRandomColor(){
 		let hDifference = abs(randomH - H[i]);
 		let sDifference = abs(randomS - S[i]);
 		let bDifference = abs(randomB - B[i]);
-		
-		if(hDifference > hGap)
+
+		if(hDifference < hGap)
 		{
-			//Set the fill
-			fill(randomH, randomS, randomB);
-			//Add the new color to the color arrays
-			H.push(randomH);
-			S.push(randomS);
-			B.push(randomB);
-			return;
-		}
-		else if(sDifference > sGap)
-		{
-			//Set the fill
-			fill(randomH, randomS, randomB);
-			//Add the new color to the color arrays
-			H.push(randomH);
-			S.push(randomS);
-			B.push(randomB);
-			return;
-		}
-		else if(bDifference > bGap)
-		{
-			//Set the fill
-			fill(randomH, randomS, randomB);
-			//Add the new color to the color arrays
-			H.push(randomH);
-			S.push(randomS);
-			B.push(randomB);
-			return;
-		}
-		else
-		{
-			//Try again
-			getRandomColor();
-			return;
+			if(bDifference < bGap)
+			{
+				if(sDifference < sGap)
+				{
+					console.log("FAIL \n" + bodypart + ": " + randomH + ", " + randomS + ", " + randomB);
+					getRandomColor(bodypart);
+					return;
+				}
+			}
 		}
 	}
+
+	console.log("SUCCESS \n" + bodypart + ": " + randomH + ", " + randomS + ", " + randomB);
+
+	fill(randomH, randomS, randomB);
+	//Add the new color to the color arrays
+	H.push(randomH);
+	S.push(randomS);
+	B.push(randomB);
 
 
 }
@@ -130,7 +114,7 @@ function getRandomColor(){
 function drawSkull(){
 
 	//Set color
-	getRandomColor();
+	getRandomColor("skull");
 	//Turn off stroke
 	noStroke();
 
