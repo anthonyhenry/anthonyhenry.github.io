@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -8,5 +8,54 @@
 	<span id=pomodoroMinutes>25</span> : <span id="pomodoroSeconds">00</span>
 
 	<script src="scripts/pomodoro.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>To Do List</title>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+	<!-- Stylesheet -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body class = "py-4">
+	
+	<div class = "container">
+		
+		<header class = "row">
+			
+			<div class = "col-9">
+				<h1>To Do List</h1>
+			</div>
+			
+			<!-- Date -->
+			<div id = "date" class = "col-3"></div>
+		
+		</header>
+
+		<main class="row mt-4">
+			
+			<form id = "taskForm" class="form-inline col-12">
+				
+				<input type="text" name="" class="form-control " id="taskDescription" placeholder="Task...">
+
+				<input type="date" name="" class="form-control " id="taskDueDate" placeholder="yyyy-mm-dd">
+
+				<button role = "button" type="submit" class="btn btn-primary ">Add</button>
+
+			</form>
+
+			<div></div>
+
+		</main>
+
+	</div>
+
+	<script src ="scripts/date.js"></script>
 </body>
 </html>
