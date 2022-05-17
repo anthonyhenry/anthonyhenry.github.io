@@ -2,3 +2,35 @@
 {
 	text-align: right;
 }
+
+
+
+#overdueTasks .remove
+{
+	color: #CCC;
+}
+#overdueTasks .remove:hover
+{
+	color: #dc3545;
+}
+#overdueTasks .remove:active
+{
+	color: #ba1323;
+}
+
+
+
+
+
+.remove
+{
+	cursor: pointer;
+}
+.remove:hover
+{
+	color: #dc3545;
+}
+.remove:active
+{
+	color: #ba1323;
+}

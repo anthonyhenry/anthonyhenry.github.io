@@ -20,6 +20,9 @@
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<!-- Bootstrap 5 Documentation: https://getbootstrap.com/docs/5.0/forms/layout/ -->
+	<!-- Open Iconic -->
+	<link href="../../Libraries/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	<!-- Stylesheet -->
 	<link rel="stylesheet" type="text/css" href="style.css">
@@ -43,10 +46,10 @@
 		<main class="row mt-3">
 
 			<!-- To Do List -->
-			<section class="col-12 col-lg-8 order-1 order-lg-12">
+			<section class="col-12 col-lg-8 order-1 order-lg-12 pe-lg-5">
 
 				<!-- Form -->
-				<form id="todoForm" class="row">
+				<form id="todoForm" class="row ">
 					<div class="col-12 col-md-7">
 						<input type="text" class="form-control" placeholder="New To Do Item...">
 					</div>
@@ -58,7 +61,94 @@
 					</div>
 				</form>
 
+				<!-- Task List -->
+				<div class="mt-3">
+
+					<ul id="taskList" class="list-group">
+
+						<!-- Overdue Tasks -->
+						<div id="overdueTasks" class="">
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark border-bottom py-3"> <!-- Might not need align-items-center here -->
+								<div class="text-danger">Overdue Task.</div>
+								<div class="d-flex align-items-center">
+									<span class="badge rounded-pill bg-primary">Overdue</span>
+									<span class="remove oi oi-circle-x ms-1" title="Remove"></span>
+								</div>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center bg-dark border-bottom py-3">
+								<div class="text-danger">This is an example of what an overdue task would look like if another one were added to the website.</div>
+								<div class="d-flex align-items-center">
+									<span class="badge rounded-pill bg-primary">Overdue</span>
+									<span class="remove oi oi-circle-x ms-1" title="Remove"></span>
+								</div>
+							</li>
+						</div>
+
+					</ul>
+
+				</div>
+
+				<!-- Task List
+				<div class="mt-3">
+					<span>
+						<ul class="list-group">
+							<li class="list-group-item d-flex justify-content-between bg-dark">
+								<div class = "assignment">Overdue Homework</div>
+								<div class="assignment-info">
+									<span class="badge badge-pill mr-3 badge-primary">Overdue</span>
+									<span class="remove oi oi-circle-x" title="Remove"></span>
+								</div>
+							</li>
+						</ul>
+					</span>
+				</div> -->
+
+				<div class="mt-3">
+	              <ul id = "hwList" class="list-group">
+	                
+	                <div id="highPrioHW">
+	                  <li class = "list-group-item d-flex justify-content-between bg-warning">
+	                    <div class = "assignment">High Priority Homework due today or tomorrow</div>
+	                    <div class="assignment-info">
+	                      <span class="badge badge-pill mr-3 badge-danger">High</span>
+	                      <span class="remove oi oi-circle-x" title="Remove"></span>
+	                    </div>
+	                  </li>
+	                  
+	                  <li class="list-group-item d-flex justify-content-between">
+	                    <div class = "assignment">High Priority Homework</div>
+	                    <div class="assignment-info">
+	                      <span class="badge badge-pill mr-3 badge-danger">High</span>
+	                      <span class="remove oi oi-circle-x" title="Remove"></span>
+	                    </div>
+	                  </li>
+	                </div>
+	                
+	                <div id="mediumPrioHW">
+	                  <li class="list-group-item d-flex justify-content-between">
+	                    <div class = "assignment">Medium Priority Homework</div>
+	                    <div class="assignment-info">
+	                      <span class="badge badge-pill mr-3 badge-warning">Medium</span>
+	                      <span class="remove oi oi-circle-x" title="Remove"></span>
+	                    </div>
+	                  </li>
+	                </div>
+	                
+	                <div id="lowPrioHW">
+	                  <li class="list-group-item d-flex justify-content-between">
+	                    <div class = "assignment">Low Priority Homework</div>
+	                    <div class = "assignment-info">
+	                      <span class="badge badge-pill mr-3 badge-success">Low</span>
+	                      <span class = "remove oi oi-circle-x" title="Remove"></span>
+	                    </div>
+	                  </li>
+	                </div>
+	              </ul>
+	            </div>
+
 			</section>
+
+			<!-- <div class="col-1 d-none d-sm-block order-2"></div> -->
 
 			<!-- Pomodoro -->
 			<section class="col-12 col-lg-4 order-12 order-lg-1" style="background-color: yellow;">
