@@ -5,6 +5,12 @@
 
 
 
+
+
+.remove
+{
+	cursor: pointer;
+}
 #overdueTasks .remove
 {
 	color: #CCC;
@@ -16,15 +22,6 @@
 #overdueTasks .remove:active
 {
 	color: #ba1323;
-}
-
-
-
-
-
-.remove
-{
-	cursor: pointer;
 }
 .remove:hover
 {
