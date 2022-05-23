@@ -24,6 +24,7 @@ function calculatePriority(dueDate){
 	//Create date object for the due date
 	dueDate = new Date(dueDate);
 
+	//Calculate how many days left to complete task
 	let daysRemaining = (dueDate - todaysDate) / 86400000
 
 	if(daysRemaining < 0)
@@ -85,7 +86,7 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 		let spanRemove = document.createElement("span");
 
 		//Format date
-		deadline = deadline.split("-");			//split date
+		deadline = deadline.split("-");
 		deadline = deadline[1] + "/" + deadline[2] + "/" + deadline[0].slice(-2);
 		
 		//Get a priority for the new task
