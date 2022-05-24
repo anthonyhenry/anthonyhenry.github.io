@@ -103,50 +103,57 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 		badgeSpan.classList.add("badge", "rounded-pill");
 		removeSpan.classList.add("remove", "oi", "oi-circle-x", "ms-1");
 
+		//Initialize a variable for which list to add the new task to
+		let list;
+
+		//Add the priority specific tasks and set the list variable
 		if(priority == "Overdue")
 		{
-			//Add overdue specific classes
 			li.classList.add("bg-dark");
 			descriptionDiv.classList.add("text-white");
-			dateSpan.classList.add("text-danger")
 			badgeSpan.classList.add("bg-primary");
 
-			//Add the new list item to the overdue list
-			document.querySelector("#overdueTasks").appendChild(li);
+			list = document.querySelector("#overdueTasks")
 		}
 		else if(priority == "Highest")
 		{
-			//Add highest specific classes
 			li.classList.add("bg-warning");
 			badgeSpan.classList.add("bg-danger");
 
-			//Add the new list item to the highest list
-			document.querySelector("#highestPriorityTasks").appendChild(li);
+			list = document.querySelector("#highestPriorityTasks")
 		}
 		else if(priority == "High")
 		{
 			badgeSpan.classList.add("bg-danger");
-			document.querySelector("#highPriorityTasks").appendChild(li);
+			list = document.querySelector("#highPriorityTasks")
 		}
 		else if(priority == "Medium")
 		{
 			badgeSpan.classList.add("bg-warning", "text-dark");
-			document.querySelector("#mediumPriorityTasks").appendChild(li);	
+			list = document.querySelector("#mediumPriorityTasks")
 		}
 		else
 		{
 			badgeSpan.classList.add("bg-success");
-			document.querySelector("#lowPriorityTasks").appendChild(li);
+			list = document.querySelector("#lowPriorityTasks")
 		}
 
+		//Check if the first item in the list is an example
+		let firstListItem = list.children[0];
+
+		if(firstListItem.classList.contains("example"))
+		{
+			//Delete the example
+			list.removeChild(firstListItem);
+		}
+
+		//Add the new task to the list
+		list.appendChild(li);
 		li.appendChild(descriptionDiv);
 		descriptionDiv.appendChild(dateSpan);
 		li.appendChild(priorityDiv);
 		priorityDiv.appendChild(badgeSpan);
 		priorityDiv.appendChild(removeSpan);
-
-		
-
 
 		// let test = new taskItem(description, deadline);
 		// console.log(test.calculatePriority());
