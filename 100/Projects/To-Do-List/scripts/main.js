@@ -82,8 +82,8 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 		let descriptionDiv = document.createElement("div");
 		let dateSpan = document.createElement("span");
 		let priorityDiv = document.createElement("div");
-		let spanBadge = document.createElement("span");
-		let spanRemove = document.createElement("span");
+		let badgeSpan = document.createElement("span");
+		let removeSpan = document.createElement("span");
 
 		//Format date
 		deadline = deadline.split("-");
@@ -91,18 +91,61 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 		
 		//Get a priority for the new task
 		let priority = calculatePriority(deadline);
-		console.log(priority);
 
+		//Set the text for elements that need
+		descriptionDiv.innerHTML = description;
+		dateSpan.innerHTML = " [" + deadline + "]";
+		badgeSpan.innerHTML = priority;
 
+		//Add classes to new elements
+		li.classList.add("list-group-item", "d-flex", "justify-content-between", "border-bottom", "py-3");
+		priorityDiv.classList.add("d-flex", "align-items-center");
+		badgeSpan.classList.add("badge", "rounded-pill");
+		removeSpan.classList.add("remove", "oi", "oi-circle-x", "ms-1");
 
-		// <li class="list-group-item d-flex justify-content-between border-bottom py-3">
-		// 	<div>High Priority Task</div>
-		// 	<div class="d-flex align-items-center">
-		// 		<span class="badge rounded-pill bg-danger ">High</span>
-		// 		<span class="remove oi oi-circle-x ms-1" title="Remove"></span>
-		// 	</div>
-		// </li>
+		if(priority == "Overdue")
+		{
+			//Add overdue specific classes
+			li.classList.add("bg-dark");
+			descriptionDiv.classList.add("text-white");
+			dateSpan.classList.add("text-danger")
+			badgeSpan.classList.add("bg-primary");
 
+			//Add the new list item to the overdue list
+			document.querySelector("#overdueTasks").appendChild(li);
+		}
+		else if(priority == "Highest")
+		{
+			//Add highest specific classes
+			li.classList.add("bg-warning");
+			badgeSpan.classList.add("bg-danger");
+
+			//Add the new list item to the highest list
+			document.querySelector("#highestPriorityTasks").appendChild(li);
+		}
+		else if(priority == "High")
+		{
+			badgeSpan.classList.add("bg-danger");
+			document.querySelector("#highPriorityTasks").appendChild(li);
+		}
+		else if(priority == "Medium")
+		{
+			badgeSpan.classList.add("bg-warning", "text-dark");
+			document.querySelector("#mediumPriorityTasks").appendChild(li);	
+		}
+		else
+		{
+			badgeSpan.classList.add("bg-success");
+			document.querySelector("#lowPriorityTasks").appendChild(li);
+		}
+
+		li.appendChild(descriptionDiv);
+		descriptionDiv.appendChild(dateSpan);
+		li.appendChild(priorityDiv);
+		priorityDiv.appendChild(badgeSpan);
+		priorityDiv.appendChild(removeSpan);
+
+		
 
 
 		// let test = new taskItem(description, deadline);
