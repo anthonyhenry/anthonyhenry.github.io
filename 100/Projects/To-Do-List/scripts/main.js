@@ -138,27 +138,57 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 			list = document.querySelector("#lowPriorityTasks")
 		}
 
+		console.log(list);
+		placeTask(list);
+
 		//Check if the first item in the list is an example
 		let firstListItem = list.children[0];
+		let listContents = list.children;
+		// console.log(listContents);
 
+		//If this is the first task for this list made by the useer
 		if(firstListItem.classList.contains("example"))
 		{
 			//Delete the example
 			list.removeChild(firstListItem);
+			//Add the new task
+			list.appendChild(li);
+		}
+		else
+		{
+			//Loop through all list items
+			for(let i = 0; i < listContents.length; i++)
+			{
+				// let dueDateToCompare = listContents.children[i]//.children[0].children[0].innerHTML;
+				// console.log(dueDateToCompare);
+				let dueDateToCompare = listContents[i].children[0].children[0].innerText;
+
+				const dateRegex = /\[(.*?)\]/;
+
+				dueDateToCompare = dueDateToCompare.match(dateRegex)[1];
+				console.log(dueDateToCompare);
+
+				//Get the date of the current listContents item
+				//Compare that date against the deadline of the new task item
+				//If it's sooner than the current listContents item, insertBefore()
+				//https://www.javascripttutorial.net/javascript-dom/javascript-insertbefore/
+
+			}
 		}
 
-		//Add the new task to the list
-		list.appendChild(li);
+		//Add all other elements for the new task
+		// list.appendChild(li);
 		li.appendChild(descriptionDiv);
 		descriptionDiv.appendChild(dateSpan);
 		li.appendChild(priorityDiv);
 		priorityDiv.appendChild(badgeSpan);
 		priorityDiv.appendChild(removeSpan);
-
-		// let test = new taskItem(description, deadline);
-		// console.log(test.calculatePriority());
 	}
 	return false;
+}
+
+function placeTask(list){
+	console.log(list);
 }
 
 // class taskItem{
