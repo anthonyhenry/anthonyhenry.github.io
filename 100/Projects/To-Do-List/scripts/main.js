@@ -20,41 +20,6 @@ let todaysDateFormatted = mm + "/" + dd + "/" + yyyy;
 //Display the date in the top right corner
 document.querySelector("#date").innerHTML = todaysDateFormatted;
 
-function calculatePriority(dueDate){
-	//Create date object for the due date
-	dueDate = new Date(dueDate);
-
-	//Calculate how many days left to complete task
-	let daysRemaining = (dueDate - todaysDate) / 86400000
-
-	if(daysRemaining < 0)
-	{
-		//Due date passed
-		return "Overdue";
-	}
-	else if(daysRemaining == 0)
-	{
-		//Due today
-		return "Highest";
-	}
-	else if(daysRemaining <= 3)
-	{
-		//Due in 1-3 days
-		return "High";
-	}
-	else if(daysRemaining < 7)
-	{
-		//Due in 4-6 days
-		return "Medium";
-	}
-	else
-	{
-		//7+ days
-		return "Low";
-	}
-
-}
-
 //New task form submission
 document.querySelector("#newTaskForm").onsubmit = function(){
 	let description = document.querySelector("#newTaskDescription").value.trim();
@@ -138,58 +103,104 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 			list = document.querySelector("#lowPriorityTasks")
 		}
 
-		console.log(list);
-		placeTask(list);
-
-		//Check if the first item in the list is an example
-		let firstListItem = list.children[0];
-		let listContents = list.children;
-		// console.log(listContents);
-
-		//If this is the first task for this list made by the useer
-		if(firstListItem.classList.contains("example"))
-		{
-			//Delete the example
-			list.removeChild(firstListItem);
-			//Add the new task
-			list.appendChild(li);
-		}
-		else
-		{
-			//Loop through all list items
-			for(let i = 0; i < listContents.length; i++)
-			{
-				// let dueDateToCompare = listContents.children[i]//.children[0].children[0].innerHTML;
-				// console.log(dueDateToCompare);
-				let dueDateToCompare = listContents[i].children[0].children[0].innerText;
-
-				const dateRegex = /\[(.*?)\]/;
-
-				dueDateToCompare = dueDateToCompare.match(dateRegex)[1];
-				console.log(dueDateToCompare);
-
-				//Get the date of the current listContents item
-				//Compare that date against the deadline of the new task item
-				//If it's sooner than the current listContents item, insertBefore()
-				//https://www.javascripttutorial.net/javascript-dom/javascript-insertbefore/
-
-			}
-		}
-
-		//Add all other elements for the new task
-		// list.appendChild(li);
+		//Add all child elements for the new task
 		li.appendChild(descriptionDiv);
 		descriptionDiv.appendChild(dateSpan);
 		li.appendChild(priorityDiv);
 		priorityDiv.appendChild(badgeSpan);
 		priorityDiv.appendChild(removeSpan);
+
+		//Place the new task in the correct list
+		placeTaskInList(list, li, deadline);
 	}
 	return false;
 }
 
-function placeTask(list){
-	console.log(list);
+function calculatePriority(dueDate){
+	//Create date object for the due date
+	dueDate = new Date(dueDate);
+
+	//Calculate how many days left to complete task
+	let daysRemaining = (dueDate - todaysDate) / 86400000
+
+	if(daysRemaining < 0)
+	{
+		//Due date passed
+		return "Overdue";
+	}
+	else if(daysRemaining == 0)
+	{
+		//Due today
+		return "Highest";
+	}
+	else if(daysRemaining <= 3)
+	{
+		//Due in 1-3 days
+		return "High";
+	}
+	else if(daysRemaining < 7)
+	{
+		//Due in 4-6 days
+		return "Medium";
+	}
+	else
+	{
+		//7+ days
+		return "Low";
+	}
+
 }
+
+function placeTaskInList(list, taskElement, taskToPlaceDueDate){
+	//Check if the first item in the list is an example
+	let firstListItem = list.children[0];
+
+	if(firstListItem.classList.contains("example"))
+	{
+		//Delete the example
+		list.removeChild(firstListItem);
+		//Add the new task
+		list.appendChild(taskElement);
+		return;
+	}
+	else
+	{
+		//Array for all the tasks in a list
+		let listContents = list.children;
+
+		//Loop through all the list tasks
+		for(let i = 0; i < listContents.length; i++)
+		{
+			//Get the due date of the current task in the list
+			let dueDateToCompare = listContents[i].children[0].children[0].innerText;
+			const dateRegex = /\[(.*?)\]/;
+			dueDateToCompare = dueDateToCompare.match(dateRegex)[1];
+			dueDateToCompare = new Date(dueDateToCompare);
+			// console.log(dueDateToCompare);
+
+			//Format the date of the task to place
+			taskToPlaceDueDate = new Date(taskToPlaceDueDate);
+
+			//Check if the new task due date comes before the current task in the list
+			if(dueDateToCompare > taskToPlaceDueDate)
+			{
+				//Add the new task before this task
+				list.insertBefore(taskElement, listContents[i]);
+				return;
+			}
+			//Check if all the tasks in the list have been checked
+			else if(i == (listContents.length -1) )
+			{
+				//Add the new task as the last item in the list
+				list.appendChild(taskElement);
+				return
+			}
+
+		}
+	}
+}
+
+
 
 // class taskItem{
 // 	constructor(description, deadline){
@@ -229,11 +240,6 @@ function placeTask(list){
 // 		}
 // 	}
 // }
-
-
-// const paragraph = 'The quick brown fox jumps over the lazy dog [10-12-2022]';
-// const regex = /\[(.*?)\]/;
-// const found = paragraph.match(regex)[1];
 
 // console.log(found);
 
