@@ -112,6 +112,13 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 
 		//Place the new task in the correct list
 		placeTaskInList(list, li, deadline);
+
+		//Reset form fields
+		document.querySelector("#newTaskDescription").value = "";
+		document.querySelector("#newTaskDueDate").value = "";
+
+		//Add the new task to the delete array
+		bindDelete();
 	}
 	return false;
 }
@@ -200,7 +207,28 @@ function placeTaskInList(list, taskElement, taskToPlaceDueDate){
 	}
 }
 
+//Allow all task to be deleted
+bindDelete();
 
+function bindDelete(){
+	//Create an array of all delete buttons
+	let deleteButtons = document.querySelectorAll(".remove");
+
+	//Loop through all the delete buttons
+	for(let j = 0; j < deleteButtons.length; j++)
+	{
+		//Add a function for deleting tasks to each delete button
+		deleteButtons[j].onclick = function(){
+			//Find which list the task belongs to
+			let parentList = this.parentNode.parentNode.parentNode;
+			//Grab the task to delete
+			let taskToRemove = this.parentNode.parentNode;
+
+			//Delete the task
+			parentList.removeChild(taskToRemove);
+		}
+	}
+}
 
 // class taskItem{
 // 	constructor(description, deadline){
