@@ -78,29 +78,29 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 			descriptionDiv.classList.add("text-white");
 			badgeSpan.classList.add("bg-primary");
 
-			list = document.querySelector("#overdueTasks")
+			list = document.querySelector("#overdueTasks");
 		}
 		else if(priority == "Highest")
 		{
 			li.classList.add("bg-warning");
 			badgeSpan.classList.add("bg-danger");
 
-			list = document.querySelector("#highestPriorityTasks")
+			list = document.querySelector("#highestPriorityTasks");
 		}
 		else if(priority == "High")
 		{
 			badgeSpan.classList.add("bg-danger");
-			list = document.querySelector("#highPriorityTasks")
+			list = document.querySelector("#highPriorityTasks");
 		}
 		else if(priority == "Medium")
 		{
 			badgeSpan.classList.add("bg-warning", "text-dark");
-			list = document.querySelector("#mediumPriorityTasks")
+			list = document.querySelector("#mediumPriorityTasks");
 		}
 		else
 		{
 			badgeSpan.classList.add("bg-success");
-			list = document.querySelector("#lowPriorityTasks")
+			list = document.querySelector("#lowPriorityTasks");
 		}
 
 		//Add all child elements for the new task
@@ -159,51 +159,58 @@ function calculatePriority(dueDate){
 }
 
 function placeTaskInList(list, taskElement, taskToPlaceDueDate){
-	//Check if the first item in the list is an example
-	let firstListItem = list.children[0];
-
-	if(firstListItem.classList.contains("example"))
+	//Check if there are any items currently in the list
+	if(list.children.length > 0)
 	{
-		//Delete the example
-		list.removeChild(firstListItem);
-		//Add the new task
-		list.appendChild(taskElement);
-		return;
+		//Check if the first item in the list is an example
+		let firstListItem = list.children[0];
+
+		if(firstListItem.classList.contains("example"))
+		{
+			//Delete the example
+			list.removeChild(firstListItem);
+			//Add the new task
+			list.appendChild(taskElement);
+			return;
+		}
+		else
+		{
+			//Array for all the tasks in a list
+			let listContents = list.children;
+
+			//Loop through all the list tasks
+			for(let i = 0; i < listContents.length; i++)
+			{
+				//Get the due date of the current task in the list
+				let dueDateToCompare = listContents[i].children[0].children[0].innerText;
+				const dateRegex = /\[(.*?)\]/;
+				dueDateToCompare = dueDateToCompare.match(dateRegex)[1];
+				dueDateToCompare = new Date(dueDateToCompare);
+
+				//Format the date of the task to place
+				taskToPlaceDueDate = new Date(taskToPlaceDueDate);
+
+				//Check if the new task due date comes before the current task in the list
+				if(dueDateToCompare > taskToPlaceDueDate)
+				{
+					//Add the new task before this task
+					list.insertBefore(taskElement, listContents[i]);
+					return;
+				}
+				//Check if all the tasks in the list have been checked
+				else if(i == (listContents.length -1) )
+				{
+					//Add the new task as the last item in the list
+					list.appendChild(taskElement);
+					return
+				}
+			}
+		}
 	}
 	else
 	{
-		//Array for all the tasks in a list
-		let listContents = list.children;
-
-		//Loop through all the list tasks
-		for(let i = 0; i < listContents.length; i++)
-		{
-			//Get the due date of the current task in the list
-			let dueDateToCompare = listContents[i].children[0].children[0].innerText;
-			const dateRegex = /\[(.*?)\]/;
-			dueDateToCompare = dueDateToCompare.match(dateRegex)[1];
-			dueDateToCompare = new Date(dueDateToCompare);
-			// console.log(dueDateToCompare);
-
-			//Format the date of the task to place
-			taskToPlaceDueDate = new Date(taskToPlaceDueDate);
-
-			//Check if the new task due date comes before the current task in the list
-			if(dueDateToCompare > taskToPlaceDueDate)
-			{
-				//Add the new task before this task
-				list.insertBefore(taskElement, listContents[i]);
-				return;
-			}
-			//Check if all the tasks in the list have been checked
-			else if(i == (listContents.length -1) )
-			{
-				//Add the new task as the last item in the list
-				list.appendChild(taskElement);
-				return
-			}
-
-		}
+		//Add the new task as the first item in the list
+		list.appendChild(taskElement);
 	}
 }
 
