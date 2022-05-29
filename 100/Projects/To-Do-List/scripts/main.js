@@ -30,11 +30,6 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 	{
 		alert("Please provide a title or description for your new to do item.")
 	}
-	//Checek for any [ or ] in the new entry
-	else if(/[\[\]]/.test(description))
-	{
-		alert("Please do not use '[' or ']' characters in your new to do item.");
-	}
 	else if(/^$/.test(deadline))
 	{
 		alert("Please provide a due date for your new to do item")
