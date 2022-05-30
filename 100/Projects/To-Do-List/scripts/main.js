@@ -71,7 +71,7 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 		{
 			li.classList.add("bg-dark");
 			descriptionDiv.classList.add("text-white");
-			badgeSpan.classList.add("bg-primary");
+			badgeSpan.classList.add("bg-white", "text-dark");
 
 			list = document.querySelector("#overdueTasks");
 		}
