@@ -75,12 +75,12 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 
 			list = document.querySelector("#overdueTasks");
 		}
-		else if(priority == "Highest")
+		else if(priority == "Due Today")
 		{
 			li.classList.add("bg-warning");
-			badgeSpan.classList.add("bg-danger");
+			badgeSpan.classList.add("bg-dark");
 
-			list = document.querySelector("#highestPriorityTasks");
+			list = document.querySelector("#tasksDueToday");
 		}
 		else if(priority == "High")
 		{
@@ -133,7 +133,7 @@ function calculatePriority(dueDate){
 	else if(daysRemaining == 0)
 	{
 		//Due today
-		return "Highest";
+		return "Due Today";
 	}
 	else if(daysRemaining <= 3)
 	{
@@ -231,52 +231,3 @@ function bindDelete(){
 		}
 	}
 }
-
-// class taskItem{
-// 	constructor(description, deadline){
-// 		this.description = description;
-// 		this.deadline = deadline;
-// 	}
-
-// 	calculatePriority(){
-// 		//Format the deadline
-// 		let formattedDeadline = this.deadline.split("-");
-// 		formattedDeadline = formattedDeadline[1]+ "/" + formattedDeadline[2] + "/" + formattedDeadline[0];
-
-// 		const MILLISECONDS_IN_A_DAY = 86400000;
-		
-// 		//Create a date variable for comparing
-// 		let daysRemaing = ( (new Date(formattedDeadline) - new Date(todaysDateFormatted)) / MILLISECONDS_IN_A_DAY);
-
-// 		if(daysRemaing < 0)
-// 		{
-// 			return "Overdue";
-// 		}
-// 		else if(daysRemaing == 0)
-// 		{
-// 			return "Highest";
-// 		}
-// 		else if(daysRemaing <= 3)
-// 		{
-// 			return "High";
-// 		}
-// 		else if(daysRemaing < 7)
-// 		{
-// 			return "Medium";
-// 		}
-// 		else
-// 		{
-// 			return "Low";
-// 		}
-// 	}
-// }
-
-// console.log(found);
-
-// const startDate = new Date("4/18/2022");
-
-// const endDate = new Date("4/18/2022");
-
-// const dayGap = (endDate - startDate) / 86400000
-
-// console.log(dayGap);
