@@ -288,6 +288,6 @@ function formatAndPlaceTask(task, priority)
 	else
 	{
 		//Add the new task as the first item in the list
-		list.appendChild(taskElement);
+		list.appendChild(task);
 	}
 }
