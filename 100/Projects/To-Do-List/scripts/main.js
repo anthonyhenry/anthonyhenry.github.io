@@ -257,13 +257,13 @@ function formatAndPlaceTask(task, priority)
 		else
 		{
 			//Array for all the tasks in a list
-			let listContents = list.children;
+			let listItem = list.children;
 
 			//Loop through all the tasks in the list
-			for(let i = 0; i < listContents.length; i++)
+			for(let i = 0; i < listItem.length; i++)
 			{
 				//Get the due date of the current task for comparison
-				let dueDateToCompare = getTaskDueDate(listContents[i]);
+				let dueDateToCompare = getTaskDueDate(listItem[i]);
 				//Get the due date of the task to place
 				let taskToPlaceDueDate = getTaskDueDate(task);
 				
@@ -271,10 +271,10 @@ function formatAndPlaceTask(task, priority)
 				if(dueDateToCompare > taskToPlaceDueDate)
 				{
 					//Add the new task before this task
-					list.insertBefore(task, listContents[i]);
+					list.insertBefore(task, listItem[i]);
 				}
 				//Check if all the tasks in the list have been checked
-				else if(i == (listContents.length - 1) )
+				else if(i == (listItem.length - 1) )
 				{
 					//Add the new task as the last item in the list
 					list.appendChild(task);
