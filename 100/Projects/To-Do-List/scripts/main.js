@@ -20,7 +20,7 @@ let todaysDateFormatted = mm + "/" + dd + "/" + yyyy;
 //Display the date in the top right corner
 document.querySelector("#date").innerHTML = todaysDateFormatted;
 
-//Allow all task to be deleted
+//Allow all tasks at start to be deleted
 bindDelete();
 
 function bindDelete(){
@@ -59,32 +59,27 @@ function updatePriorities(tasksArray){
 	for(let i = 0; i < tasksArray.length; i++)
 	{
 		//Skip Examples
-		if(tasksArray[i].classList.contains("example") == false) //For some reason ! and == false behave differently
+		if(!tasksArray[i].classList.contains("example"))
 		{
+			//Get the current task priority
+			let currentTaskPriority = tasksArray[i].children[1].children[0].innerText;
 			//Get the due date for the current task
 			let taskDeadline = getTaskDueDate(tasksArray[i]);
-			//Get the task priority on load
-			let currentTaskPriority = tasksArray[i].children[1].children[0].innerText;
 			//Get the updated priority
-			let newPriority = calculatePriority(taskDeadline)
+			let newPriority = calculatePriority(taskDeadline);
 
 			//Compare current task priority with calculated priority
 			if(currentTaskPriority != newPriority)
 			{
-				formatTask(tasksArray[i], newPriority);
-				placeTaskInList2(getListToPlaceTask(newPriority), tasksArray[i]);
-
-				// if(newPriority == "Overdue")
-				// {
-				// 	placeTaskInList2(getListToPlaceTask(newPriority), tasksArray[i]);
-				// }
+				//Move any tasks that have a new priority
+				formatAndPlaceTask(tasksArray[i], newPriority);
 			}
 		}
 	}
 }
 
+//Function that returns the due date of a given task list item
 function getTaskDueDate(task){
-	//Get the due date of the current task in the list
 	let dueDate = task.children[0].children[0].innerText;
 	const dateRegex = /\[(.*?)\]/;
 	dueDate = dueDate.match(dateRegex)[1];
@@ -92,8 +87,43 @@ function getTaskDueDate(task){
 	return dueDate;
 }
 
+function calculatePriority(dueDate){
+	//Create date object for the due date
+	dueDate = new Date(dueDate);
+
+	//Calculate how many days left to complete task
+	let daysRemaining = (dueDate - todaysDate) / 86400000
+
+	if(daysRemaining < 0)
+	{
+		//Due date passed
+		return "Overdue";
+	}
+	else if(daysRemaining == 0)
+	{
+		//Due today
+		return "Due Today";
+	}
+	else if(daysRemaining <= 3)
+	{
+		//Due in 1-3 days
+		return "High";
+	}
+	else if(daysRemaining < 7)
+	{
+		//Due in 4-6 days
+		return "Medium";
+	}
+	else
+	{
+		//7+ days
+		return "Low";
+	}
+}
+
 //New task form submission
 document.querySelector("#newTaskForm").onsubmit = function(){
+	//Variables for user input
 	let description = document.querySelector("#newTaskDescription").value.trim();
 	let deadline = document.querySelector("#newTaskDueDate").value;
 
@@ -135,41 +165,6 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 		badgeSpan.classList.add("badge", "rounded-pill");
 		removeSpan.classList.add("remove", "oi", "oi-circle-x", "ms-1");
 
-		//Initialize a variable for which list to add the new task to
-		let list;
-
-		//Add the priority specific tasks and set the list variable
-		if(priority == "Overdue")
-		{
-			li.classList.add("bg-dark");
-			descriptionDiv.classList.add("text-white");
-			badgeSpan.classList.add("bg-white", "text-dark");
-
-			list = document.querySelector("#overdueTasks");
-		}
-		else if(priority == "Due Today")
-		{
-			li.classList.add("bg-warning");
-			badgeSpan.classList.add("bg-dark");
-
-			list = document.querySelector("#tasksDueToday");
-		}
-		else if(priority == "High")
-		{
-			badgeSpan.classList.add("bg-danger");
-			list = document.querySelector("#highPriorityTasks");
-		}
-		else if(priority == "Medium")
-		{
-			badgeSpan.classList.add("bg-warning", "text-dark");
-			list = document.querySelector("#mediumPriorityTasks");
-		}
-		else
-		{
-			badgeSpan.classList.add("bg-success");
-			list = document.querySelector("#lowPriorityTasks");
-		}
-
 		//Add all child elements for the new task
 		li.appendChild(descriptionDiv);
 		descriptionDiv.appendChild(dateSpan);
@@ -177,115 +172,75 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 		priorityDiv.appendChild(badgeSpan);
 		priorityDiv.appendChild(removeSpan);
 
-		//Place the new task in the correct list
-		placeTaskInList(list, li, deadline);
+		//Format and place the new task
+		formatAndPlaceTask(li, priority);
+
+		//Add the new task to the delete array
+		bindDelete();
 
 		//Reset form fields
 		document.querySelector("#newTaskDescription").value = "";
 		document.querySelector("#newTaskDueDate").value = "";
-
-		//Add the new task to the delete array
-		bindDelete();
 	}
 	return false;
 }
 
-function calculatePriority(dueDate){
-	//Create date object for the due date
-	dueDate = new Date(dueDate);
+function formatAndPlaceTask(task, priority)
+{
+	/*** Format Task ***/
 
-	//Calculate how many days left to complete task
-	let daysRemaining = (dueDate - todaysDate) / 86400000
-
-	if(daysRemaining < 0)
-	{
-		//Due date passed
-		return "Overdue";
-	}
-	else if(daysRemaining == 0)
-	{
-		//Due today
-		return "Due Today";
-	}
-	else if(daysRemaining <= 3)
-	{
-		//Due in 1-3 days
-		return "High";
-	}
-	else if(daysRemaining < 7)
-	{
-		//Due in 4-6 days
-		return "Medium";
-	}
-	else
-	{
-		//7+ days
-		return "Low";
-	}
-
-}
-
-function formatTask(task, priority){
+	//Variables for all task elements that need formatting
 	let taskLi = task;
 	let taskDescriptionDiv = task.children[0];
 	let taskBadgeSpan = task.children[1].children[0];
 
-	//Remove any classes that might carry over from lower priorities moving up
+	//Remove any classes that might carry over from updating lower priorities
 	taskLi.classList.remove("bg-warning");
 	taskBadgeSpan.classList.remove("bg-dark", "bg-danger", "bg-warning", "text-dark", "bg-success");
 
+	//Initialize a variable for which list to place the task in
+	let list;
+
+	//Add classes for each priority and set the list variable
 	if(priority == "Overdue")
 	{
 		taskLi.classList.add("bg-dark");
 		taskDescriptionDiv.classList.add("text-white");
 		taskBadgeSpan.classList.add("bg-white", "text-dark");
+
+		list = document.querySelector("#overdueTasks");
 	}
 	else if(priority == "Due Today")
 	{
 		taskLi.classList.add("bg-warning");
 		taskBadgeSpan.classList.add("bg-dark");
+
+		list = document.querySelector("#tasksDueToday");
 	}
 	else if(priority == "High")
 	{
 		taskBadgeSpan.classList.add("bg-danger");
+
+		list = document.querySelector("#highPriorityTasks");
 	}
 	else if(priority == "Medium")
 	{
 		taskBadgeSpan.classList.add("bg-warning", "text-dark");
+
+		list = document.querySelector("#mediumPriorityTasks");
 	}
 	else
 	{
 		taskBadgeSpan.classList.add("bg-success");
+
+		list = document.querySelector("#lowPriorityTasks");
 	}
 
 	//Set the priority text
 	taskBadgeSpan.innerText = priority;
-}
 
-function getListToPlaceTask(priority){
-	if(priority == "Overdue")
-	{
-		return document.querySelector("#overdueTasks");
-	}
-	else if(priority == "Due Today")
-	{
-		return document.querySelector("#tasksDueToday");
-	}
-	else if(priority == "High")
-	{
-		return document.querySelector("#highPriorityTasks");
-	}
-	else if(priority == "Medium")
-	{
-		return document.querySelector("#mediumPriorityTasks");
-	}
-	else
-	{
-		return document.querySelector("#lowPriorityTasks");
-	}
-}
+	/*** Place Task in List ***/
 
-function placeTaskInList2(list, taskElement){
 	//Check if there are any items currently in the list
 	if(list.children.length > 0)
 	{
@@ -297,7 +252,7 @@ function placeTaskInList2(list, taskElement){
 			//Delete the example
 			list.removeChild(firstListItem);
 			//Add the new task
-			list.appendChild(taskElement);
+			list.appendChild(task);
 			return;
 		}
 		else
@@ -305,90 +260,27 @@ function placeTaskInList2(list, taskElement){
 			//Array for all the tasks in a list
 			let listContents = list.children;
 
-			//Loop through all the list tasks
+			//Loop through all the tasks in the list
 			for(let i = 0; i < listContents.length; i++)
 			{
-				//Get the due date of the current task in the list
+				//Get the due date of the current task for comparison
 				let dueDateToCompare = getTaskDueDate(listContents[i]);
-
+				//Get the due date of the task to place
+				let taskToPlaceDueDate = getTaskDueDate(task);
 				
-				//Format the date of the task to place
-				let taskToPlaceDueDate = getTaskDueDate(taskElement);
-				taskToPlaceDueDate = new Date(taskToPlaceDueDate);
-
 				//Check if the new task due date comes before the current task in the list
 				if(dueDateToCompare > taskToPlaceDueDate)
 				{
 					//Add the new task before this task
-					list.insertBefore(taskElement, listContents[i]);
+					list.insertBefore(task, listContents[i]);
 					return;
 				}
 				//Check if all the tasks in the list have been checked
-				else if(i == (listContents.length -1) )
+				else if(i == (listContents.length - 1) )
 				{
 					//Add the new task as the last item in the list
-					list.appendChild(taskElement);
-					return
-				}
-			}
-		}
-	}
-	else
-	{
-		//Add the new task as the first item in the list
-		list.appendChild(taskElement);
-	}
-}
-
-function placeTaskInList(list, taskElement, taskToPlaceDueDate){
-	//Check if there are any items currently in the list
-	if(list.children.length > 0)
-	{
-		//Check if the first item in the list is an example
-		let firstListItem = list.children[0];
-
-		if(firstListItem.classList.contains("example"))
-		{
-			//Delete the example
-			list.removeChild(firstListItem);
-			//Add the new task
-			list.appendChild(taskElement);
-			return;
-		}
-		else
-		{
-			//Array for all the tasks in a list
-			let listContents = list.children;
-
-			//Loop through all the list tasks
-			for(let i = 0; i < listContents.length; i++)
-			{
-				//Get the due date of the current task in the list
-				let dueDateToCompare = getTaskDueDate(listContents[i]);
-
-				// listContents[i].children[0].children[0].innerText;	//Make this a function since it will be used in Update Priorities
-				// const dateRegex = /\[(.*?)\]/;
-				// dueDateToCompare = dueDateToCompare.match(dateRegex)[1];
-				// dueDateToCompare = new Date(dueDateToCompare);
-				// console.log(dueDateToCompare);
-				// console.log(getTaskDueDate(listContents[i]));
-
-				//Format the date of the task to place
-				taskToPlaceDueDate = new Date(taskToPlaceDueDate);
-
-				//Check if the new task due date comes before the current task in the list
-				if(dueDateToCompare > taskToPlaceDueDate)
-				{
-					//Add the new task before this task
-					list.insertBefore(taskElement, listContents[i]);
+					list.appendChild(task);
 					return;
-				}
-				//Check if all the tasks in the list have been checked
-				else if(i == (listContents.length -1) )
-				{
-					//Add the new task as the last item in the list
-					list.appendChild(taskElement);
-					return
 				}
 			}
 		}
