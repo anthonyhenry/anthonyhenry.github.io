@@ -121,70 +121,6 @@ function calculatePriority(dueDate){
 	}
 }
 
-//New task form submission
-document.querySelector("#newTaskForm").onsubmit = function(){
-	//Variables for user input
-	let description = document.querySelector("#newTaskDescription").value.trim();
-	let deadline = document.querySelector("#newTaskDueDate").value;
-
-	//Verify entry
-	if(/^$/.test(description))
-	{
-		alert("Please provide a title or description for your new to do item.")
-	}
-	else if(/^$/.test(deadline))
-	{
-		alert("Please provide a due date for your new to do item")
-	}
-	//Entry verified
-	else
-	{
-		//Creat new DOM elements
-		let li = document.createElement("li");
-		let descriptionDiv = document.createElement("div");
-		let dateSpan = document.createElement("span");
-		let priorityDiv = document.createElement("div");
-		let badgeSpan = document.createElement("span");
-		let removeSpan = document.createElement("span");
-
-		//Format date
-		deadline = deadline.split("-");
-		deadline = deadline[1] + "/" + deadline[2] + "/" + deadline[0].slice(-2);
-		
-		//Get a priority for the new task
-		let priority = calculatePriority(deadline);
-
-		//Set the text for elements that need
-		descriptionDiv.innerHTML = description;
-		dateSpan.innerHTML = " [" + deadline + "]";
-		badgeSpan.innerHTML = priority;
-
-		//Add classes to new elements
-		li.classList.add("list-group-item", "d-flex", "justify-content-between", "border-bottom", "py-3");
-		priorityDiv.classList.add("d-flex", "align-items-center");
-		badgeSpan.classList.add("badge", "rounded-pill");
-		removeSpan.classList.add("remove", "oi", "oi-circle-x", "ms-1");
-
-		//Add all child elements for the new task
-		li.appendChild(descriptionDiv);
-		descriptionDiv.appendChild(dateSpan);
-		li.appendChild(priorityDiv);
-		priorityDiv.appendChild(badgeSpan);
-		priorityDiv.appendChild(removeSpan);
-
-		//Format and place the new task
-		formatAndPlaceTask(li, priority);
-
-		//Add the new task to the delete array
-		bindDelete();
-
-		//Reset form fields
-		document.querySelector("#newTaskDescription").value = "";
-		document.querySelector("#newTaskDueDate").value = "";
-	}
-	return false;
-}
-
 function formatAndPlaceTask(task, priority)
 {
 	/*** Format Task ***/
@@ -287,4 +223,68 @@ function formatAndPlaceTask(task, priority)
 		//Add the new task as the first item in the list
 		list.appendChild(task);
 	}
+}
+
+//New task form submission
+document.querySelector("#newTaskForm").onsubmit = function(){
+	//Variables for user input
+	let description = document.querySelector("#newTaskDescription").value.trim();
+	let deadline = document.querySelector("#newTaskDueDate").value;
+
+	//Verify entry
+	if(/^$/.test(description))
+	{
+		alert("Please provide a title or description for your new to do item.")
+	}
+	else if(/^$/.test(deadline))
+	{
+		alert("Please provide a due date for your new to do item")
+	}
+	//Entry verified
+	else
+	{
+		//Creat new DOM elements
+		let li = document.createElement("li");
+		let descriptionDiv = document.createElement("div");
+		let dateSpan = document.createElement("span");
+		let priorityDiv = document.createElement("div");
+		let badgeSpan = document.createElement("span");
+		let removeSpan = document.createElement("span");
+
+		//Format date
+		deadline = deadline.split("-");
+		deadline = deadline[1] + "/" + deadline[2] + "/" + deadline[0].slice(-2);
+		
+		//Get a priority for the new task
+		let priority = calculatePriority(deadline);
+
+		//Set the text for elements that need
+		descriptionDiv.innerHTML = description;
+		dateSpan.innerHTML = " [" + deadline + "]";
+		badgeSpan.innerHTML = priority;
+
+		//Add classes to new elements
+		li.classList.add("list-group-item", "d-flex", "justify-content-between", "border-bottom", "py-3");
+		priorityDiv.classList.add("d-flex", "align-items-center");
+		badgeSpan.classList.add("badge", "rounded-pill");
+		removeSpan.classList.add("remove", "oi", "oi-circle-x", "ms-1");
+
+		//Add all child elements for the new task
+		li.appendChild(descriptionDiv);
+		descriptionDiv.appendChild(dateSpan);
+		li.appendChild(priorityDiv);
+		priorityDiv.appendChild(badgeSpan);
+		priorityDiv.appendChild(removeSpan);
+
+		//Format and place the new task
+		formatAndPlaceTask(li, priority);
+
+		//Add the new task to the delete array
+		bindDelete();
+
+		//Reset form fields
+		document.querySelector("#newTaskDescription").value = "";
+		document.querySelector("#newTaskDueDate").value = "";
+	}
+	return false;
 }
