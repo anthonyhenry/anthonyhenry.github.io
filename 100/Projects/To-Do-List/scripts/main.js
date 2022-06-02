@@ -253,7 +253,6 @@ function formatAndPlaceTask(task, priority)
 			list.removeChild(firstListItem);
 			//Add the new task
 			list.appendChild(task);
-			return;
 		}
 		else
 		{
@@ -273,14 +272,12 @@ function formatAndPlaceTask(task, priority)
 				{
 					//Add the new task before this task
 					list.insertBefore(task, listContents[i]);
-					return;
 				}
 				//Check if all the tasks in the list have been checked
 				else if(i == (listContents.length - 1) )
 				{
 					//Add the new task as the last item in the list
 					list.appendChild(task);
-					return;
 				}
 			}
 		}
