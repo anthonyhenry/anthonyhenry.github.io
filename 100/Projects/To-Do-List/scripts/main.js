@@ -20,6 +20,12 @@ let todaysDateFormatted = mm + "/" + dd + "/" + yyyy;
 //Display the date in the top right corner
 document.querySelector("#date").innerHTML = todaysDateFormatted;
 
+//Load any saved lists
+if(localStorage.getItem("savedList"))
+{
+	document.querySelector("#tasksList").innerHTML = localStorage.savedList;
+}
+
 //Allow all tasks at start to be deleted
 bindDelete();
 
@@ -39,6 +45,9 @@ function bindDelete(){
 
 			//Delete the task
 			parentList.removeChild(taskToRemove);
+
+			//Save changes
+			save();
 		}
 	}
 }
@@ -223,6 +232,9 @@ function formatAndPlaceTask(task, priority)
 		//Add the new task as the first item in the list
 		list.appendChild(task);
 	}
+
+	//Save changes
+	save();
 }
 
 //New task form submission
@@ -287,4 +299,12 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 		document.querySelector("#newTaskDueDate").value = "";
 	}
 	return false;
+}
+
+function save(){
+	//Grab html code for all tasks
+	let savedTasks = document.querySelector("#tasksList").innerHTML;
+
+	//Save the tasks
+	localStorage.setItem('savedList', savedTasks);
 }
