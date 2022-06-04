@@ -1,0 +1,28 @@
+#date
+{
+	text-align: right;
+}
+.remove
+{
+	cursor: pointer;
+}
+#overdueTasks .remove
+{
+	color: #CCC;
+}
+#overdueTasks .remove:hover
+{
+	color: #dc3545;
+}
+#overdueTasks .remove:active
+{
+	color: #ba1323;
+}
+.remove:hover
+{
+	color: #dc3545;
+}
+.remove:active
+{
+	color: #ba1323;
+}
