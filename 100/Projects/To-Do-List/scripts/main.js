@@ -3,7 +3,7 @@ let todaysDate = new Date();
 let dd = todaysDate.getDate();
 let mm = todaysDate.getMonth() + 1; //January is 0!
 let yyyy = todaysDate.getFullYear();
-todaysDate = new Date(yyyy, mm-1, dd);
+todaysDate = new Date(yyyy, mm-1, dd); //Today's date without a specific time
 
 if(dd < 10)
 {
@@ -36,13 +36,12 @@ function bindDelete(){
 	//Loop through all the delete buttons
 	for(let j = 0; j < deleteButtons.length; j++)
 	{
-		//Add a function for deleting tasks to each delete button
+		//Add a function for deleting tasks on click to each delete button
 		deleteButtons[j].onclick = function(){
 			//Find which list the task belongs to
 			let parentList = this.parentNode.parentNode.parentNode;
 			//Grab the task to delete
 			let taskToRemove = this.parentNode.parentNode;
-
 			//Delete the task
 			parentList.removeChild(taskToRemove);
 
@@ -246,11 +245,11 @@ document.querySelector("#newTaskForm").onsubmit = function(){
 	//Verify entry
 	if(/^$/.test(description))
 	{
-		alert("Please provide a title or description for your new to do item.")
+		alert("Please provide a title or description for your new task.")
 	}
 	else if(/^$/.test(deadline))
 	{
-		alert("Please provide a due date for your new to do item")
+		alert("Please provide a due date for your new task item")
 	}
 	//Entry verified
 	else
