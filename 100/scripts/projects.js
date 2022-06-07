@@ -129,6 +129,18 @@ createNewProject(
 	"Projects/Skull"
 );
 
+createNewProject(
+	"Task Manager", 
+	"5/7/2022", 
+	"6/6/2022", 
+	"task-manager.png",
+	"This project is a to do list that prioritizes tasks based on due date and even saves tasks between sessions.",
+	"HTML, CSS, JavaScript",
+	"Bootstrap, Open Iconic",
+	"Regular Expressions, Web Storage",
+	"Projects/Pomodoro-Task-Manager"
+);
+
 for(let i = 0; i < projectList.length; i++)
 {
 	//Validate each object
