@@ -46,6 +46,7 @@ main
 	background-color: white;
 	padding: 15px;
 	border-radius: 5pt;
+	font-size: large;
 }
 
 #profileImg
@@ -74,6 +75,7 @@ details
 	padding: 15px 32px;
 	border-radius: 5pt;
 	overflow: auto; /*This keeps the image from clipping outside the details box if it gets too big*/
+	font-size: large;
 }
 
 details a
@@ -231,6 +233,7 @@ footer
 		padding: 20px;
 		position: absolute;
 		top: 416px; /* #projects top + #projects height + 20 */
+		font-size: 16px;
 	}
 
 	#projects
@@ -254,6 +257,11 @@ footer
 	h2
 	{
 		margin: 20px;
+	}
+
+	details
+	{
+		font-size: 16px;
 	}
 }
 
@@ -305,23 +313,3 @@ footer
 		width: 700px;
 	}
 }
-
-/*
---nickel: #787874ff;
---light-gray: #CED1D7ff;
---pine-tree: #2D2F27ff;
---black-olive: #393A34ff;
---dark-sky-blue: #79B6C8ff;
---bitter-lemon: #B6E700ff;
---android-green:  #a4c639;
---irresistible: #BD3369ff;
-*/
-
-/*
-https://coolors.co/ae9a84-645a40-a28d6d-5a5820-beb08c
---grullo: #AE9A84ff;
---field-drab: #645A40ff;
---grullo-2: #A28D6Dff;
---antique-bronze: #5A5820ff;
---khaki-web: #BEB08Cff;
-*/
