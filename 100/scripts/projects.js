@@ -138,7 +138,7 @@ createNewProject(
 	"HTML, CSS, JavaScript",
 	"Bootstrap, Open Iconic",
 	"Regular Expressions, Web Storage",
-	"Projects/Skull"
+	"Projects/Pomodoro-Task-Manager"
 );
 
 for(let i = 0; i < projectList.length; i++)
