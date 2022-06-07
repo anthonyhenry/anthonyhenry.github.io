@@ -46,7 +46,11 @@ main
 	background-color: white;
 	padding: 15px;
 	border-radius: 5pt;
-	font-size: large;
+}
+
+.responsive-text
+{
+	font-size: 1.5em;
 }
 
 #profileImg
@@ -65,6 +69,7 @@ h2
 	text-align: center;
 	color: white;
 	margin: 0;
+	font-size: 1.75em;
 }
 
 details
@@ -75,7 +80,6 @@ details
 	padding: 15px 32px;
 	border-radius: 5pt;
 	overflow: auto; /*This keeps the image from clipping outside the details box if it gets too big*/
-	font-size: large;
 }
 
 details a
@@ -134,10 +138,17 @@ footer
 /* Small devices (landscape phones, 576 and up) */
 @media screen and (min-width: 576px)
 {
+	summary
+	{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
 	.summary-timeline
 	{
 		display: block;
-		float: right;
+		text-align: right;
 	}
 
 	.details-timeline
@@ -233,7 +244,11 @@ footer
 		padding: 20px;
 		position: absolute;
 		top: 416px; /* #projects top + #projects height + 20 */
-		font-size: 16px;
+	}
+
+	.responsive-text
+	{
+		font-size: large;
 	}
 
 	#projects
@@ -257,11 +272,7 @@ footer
 	h2
 	{
 		margin: 20px;
-	}
-
-	details
-	{
-		font-size: 16px;
+		font-size: 1.5em;
 	}
 }
 

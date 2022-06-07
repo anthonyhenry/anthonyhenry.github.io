@@ -159,6 +159,9 @@ for(let i = 0; i < projectList.length; i++)
 		//Create details and summary elements
 		const details = document.createElement("details");
 		const summary = document.createElement("summary");
+
+		//Add the responsive text class to the details element
+		details.classList.add("responsive-text");
 		
 		//Find out what days the project was worked on
 		const timeline = projectList[i].getProjectTimeline();
