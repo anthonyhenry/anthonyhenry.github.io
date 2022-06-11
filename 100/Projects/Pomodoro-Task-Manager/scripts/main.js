@@ -216,7 +216,7 @@ function formatAndPlaceTask(task, priority)
 				{
 					//Add the new task before this task
 					list.insertBefore(task, listItem[i]);
-					return;
+					break;
 				}
 				//Check if all the tasks in the list have been checked
 				else if(i == (listItem.length - 1) )
