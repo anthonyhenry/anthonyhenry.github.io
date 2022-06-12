@@ -2,6 +2,27 @@
 {
 	text-align: right;
 }
+#timerAndInfo
+{
+	position: relative;
+}
+#timer
+{
+	text-align: center;
+	font-weight: bold;
+	font-size: 5em;
+	color: white;
+}
+#info
+{
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+#info a
+{
+	color: white;
+}
 .remove
 {
 	cursor: pointer;
@@ -25,4 +46,13 @@
 .remove:active
 {
 	color: #ba1323;
+}
+
+/* Large devices (desktops, 992 and up) */
+@media screen and (min-width: 992px)
+{
+	#timer
+	{
+		font-size: 3em;
+	}
 }
