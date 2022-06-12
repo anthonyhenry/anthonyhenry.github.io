@@ -122,22 +122,22 @@
 				<!-- Timer -->
 				<div class="py-4 bg-danger">
 
-					<div class="text-center text-white h1 mb-3">
-						25:00
+					<div class="text-center text-white mb-3">
+						<span id="pomodoroMinutes" class="h1">25</span>:<span id="pomodoroSeconds" class="h1">00</span>
 					</div>
 
 					<div class="d-flex justify-content-center">
-						<button type="button" class="btn mx-1 btn-outline-light">Pomodoro</button>
-						<button type="button" class="btn mx-1 btn-success">Short Break</button>
-						<button type="button" class="btn mx-1 btn-primary">Long Break</button>
+						<button type="button" class="timer-button btn mx-1 btn-outline-light">Pomodoro</button>
+						<button type="button" class="timer-button btn mx-1 btn-success">Short Break</button>
+						<button type="button" class="timer-button btn mx-1 btn-primary">Long Break</button>
 					</div>
 
-					<div class="px-2 d-flex justify-content-center">
-						<button type="button" class="btn btn-light mt-3 col-6">Start</button>	
+					<div class="d-flex justify-content-center mt-3">
+						<!-- <button type="button" class="btn btn-light mt-3 col-6">Start</button>	 -->
+						<button type="button" class="btn mx-1 btn-light">Start</button>
+						<button type="button" class="btn mx-1 btn-secondary">Stop</button>
+						<button type="button" class="btn mx-1 btn-dark">Skip</button>
 					</div>
-					
-
-
 
 					<!-- <div class="text-center text-white mt-3">
 						Time to focus!
@@ -155,5 +155,6 @@
 
 	<script src="scripts/no-duplicate-windows.js"></script>
 	<script src="scripts/main.js"></script>
+	<script src="scripts/pomodoro.js"></script>
 </body>
 </html>
