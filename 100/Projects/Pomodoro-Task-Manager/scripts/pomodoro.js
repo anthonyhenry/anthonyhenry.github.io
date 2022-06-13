@@ -116,34 +116,42 @@ startButton.onclick = function(){
 
 		//Start an interval to run code every second
 		timerInterval = setInterval(function(){
-			//Decrement the seconds
-			seconds -= 1;
-
-			//Decrement the minute every 60 seconds
-			if(seconds < 0)
+			//Check if the timer is over
+			if(minutes == 0 && seconds == 0)
 			{
-				minutes -= 1;
-				seconds = 59;
-
-				//Keep the ## formatting for minutes
-				if(minutes < 10)
-				{
-					minutesDisplay.innerText = "0" + minutes;	
-				}
-				else
-				{
-					minutesDisplay.innerText = minutes;
-				}
-			}
-
-			//Keep the ## formatting for seconds
-			if(seconds < 10)
-			{
-				secondsDisplay.innerHTML = "0" + seconds;
+				stopCurrentTimer();
 			}
 			else
 			{
-				secondsDisplay.innerHTML = seconds;
+				//Decrement the seconds
+				seconds -= 1;
+
+				//Decrement the minute every 60 seconds
+				if(seconds < 0)
+				{
+					minutes -= 1;
+					seconds = 59;
+
+					//Keep the ## formatting for minutes
+					if(minutes < 10)
+					{
+						minutesDisplay.innerText = "0" + minutes;	
+					}
+					else
+					{
+						minutesDisplay.innerText = minutes;
+					}
+				}
+
+				//Keep the ## formatting for seconds
+				if(seconds < 10)
+				{
+					secondsDisplay.innerHTML = "0" + seconds;
+				}
+				else
+				{
+					secondsDisplay.innerHTML = seconds;
+				}
 			}
 		}, 1000);
 	}
