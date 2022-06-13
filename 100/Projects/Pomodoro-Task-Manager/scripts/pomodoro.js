@@ -98,9 +98,12 @@ let timerInterval = null;
 
 //Starting the clock
 document.querySelector("#startButton").onclick = function(){
-	//Only start the clock if it is not already runnning
+	//Make sure the timer is not already running
 	if(timerInterval == null)
 	{
+		//Change control buttons formatting
+		newActiveControlButton(this);
+
 		//Get the current minute and seconds values
 		let minutes = document.querySelector("#pomodoroMinutes").innerText;
 		let seconds = document.querySelector("#pomodoroSeconds").innerText;
@@ -140,10 +143,55 @@ document.querySelector("#startButton").onclick = function(){
 	}
 }
 
+//Stop button pressed
 document.querySelector("#stopButton").onclick = function(){
-	stopCurrentTimer();	
+	stopCurrentTimer();
+	newActiveControlButton(this);
 }
 
+//Skip button pressed
+document.querySelector("#skipButton").onclick = function(){
+	stopCurrentTimer();
+	newActiveControlButton(this);	
+}
+
+//Function for changing the format of the control buttons
+function newActiveControlButton(button){
+	//Chcek which button was clicked
+	if(button.innerText == "Start")
+	{
+		//Adjust classes for each button
+		document.querySelector("#stopButton").classList.remove("btn-outline-light");
+		document.querySelector("#stopButton").classList.add("btn-secondary");
+		document.querySelector("#skipButton").classList.remove("btn-outline-light");
+		document.querySelector("#skipButton").classList.add("btn-dark");
+
+		button.classList.remove("btn-light");
+	}
+	else if(button.innerText == "Stop")
+	{
+		document.querySelector("#startButton").classList.remove("btn-outline-light");
+		document.querySelector("#startButton").classList.add("btn-light");
+		document.querySelector("#skipButton").classList.remove("btn-outline-light");
+		document.querySelector("#skipButton").classList.add("btn-dark");
+
+		button.classList.remove("btn-secondary");
+	}
+	else
+	{
+		document.querySelector("#startButton").classList.remove("btn-outline-light");
+		document.querySelector("#startButton").classList.add("btn-light");
+		document.querySelector("#stopButton").classList.remove("btn-outline-light");;
+		document.querySelector("#stopButton").classList.add("btn-secondary");
+
+		button.classList.remove("btn-dark");
+	}
+	
+	//Give the active button a white outline
+	button.classList.add("btn-outline-light");
+}
+
+//Function for stopping the timer
 function stopCurrentTimer(){
 	clearInterval(timerInterval);
 	timerInterval = null;
