@@ -35,6 +35,9 @@ for(let k = 0; k < timerButtons.length; k++)
 			}
 		}
 
+		//Reset the formatting of the control buttons
+		newActiveControlButton();
+
 		//Get pomodoro div for background color changing
 		let pomodoroDiv = this.parentNode.parentNode;
 
@@ -96,8 +99,11 @@ for(let k = 0; k < timerButtons.length; k++)
 //Initialize a variable for the timer interval later
 let timerInterval = null;
 
+//Constant variables for the timer control buttons
+const startButton = document.querySelector("#startButton");
+
 //Starting the clock
-document.querySelector("#startButton").onclick = function(){
+startButton.onclick = function(){
 	//Make sure the timer is not already running
 	if(timerInterval == null)
 	{
@@ -157,8 +163,19 @@ document.querySelector("#skipButton").onclick = function(){
 
 //Function for changing the format of the control buttons
 function newActiveControlButton(button){
+	//No button clicked, switched via change of activeTimer
+	if(button === undefined)
+	{
+		document.querySelector("#startButton").classList.remove("btn-outline-light");
+		document.querySelector("#startButton").classList.add("btn-light");
+		document.querySelector("#stopButton").classList.remove("btn-outline-light");;
+		document.querySelector("#stopButton").classList.add("btn-secondary");
+		document.querySelector("#skipButton").classList.remove("btn-outline-light");
+		document.querySelector("#skipButton").classList.add("btn-dark");
+		return;
+	}
 	//Chcek which button was clicked
-	if(button.innerText == "Start")
+	else if(button.innerText == "Start")
 	{
 		//Adjust classes for each button
 		document.querySelector("#stopButton").classList.remove("btn-outline-light");
