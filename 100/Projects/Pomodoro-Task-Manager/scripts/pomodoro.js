@@ -1,10 +1,13 @@
 //Initialize Variables
 let minutesDisplay = document.querySelector("#timerMinutes");
 let secondsDisplay = document.querySelector("#timerSeconds");
-let activeTimer = "Pomodoro";
 const pomodoroTimerLength = 25;
 const shortBreakTimerLength = 5;
 const longBreakTimerLength = 15;
+const pomodoroTimer = document.querySelector("#pomodoroTimer");
+const shortBreakTimer = document.querySelector("#shortBreakTimer");
+const longBreakTimer = document.querySelector("#longBreakTimer");
+let activeTimer = pomodoroTimer;
 
 //Grab all timer buttons
 let timerButtons = document.querySelectorAll(".timer-button");
@@ -14,16 +17,16 @@ for(let k = 0; k < timerButtons.length; k++)
 {
 	timerButtons[k].onclick = function(){
 		//Check if the active timer was clicked
-		if(activeTimer == this.innerText)
+		if(activeTimer == this)
 		{
 			//don't do anything
 			return;
 		}
 		//Check if a timer is running
-		if(timerInterval != null /*&& activeTimer != this.innerText*/)
+		if(timerInterval != null /*&& activeTimer != this*/)
 		{
 			//Ask the user if they really wish to proceed
-			if(confirm("A " + activeTimer + " timer is currently running.\nAre you sure you want to switch?"))
+			if(confirm("A " + activeTimer.innerText + " timer is currently running.\nAre you sure you want to switch?"))
 			{
 				//Stop the timer and proceed
 				stopCurrentTimer();
@@ -42,13 +45,13 @@ for(let k = 0; k < timerButtons.length; k++)
 		let pomodoroDiv = this.parentNode.parentNode;
 
 		//Check what the current active timer is and remove specific classes
-		if(activeTimer == "Pomodoro")
+		if(activeTimer == pomodoroTimer)
 		{
 			pomodoroDiv.classList.remove("bg-danger");
 			timerButtons[0].classList.remove("btn-outline-light");
 			timerButtons[0].classList.add("btn-danger");
 		}
-		else if(activeTimer == "Short Break")
+		else if(activeTimer == shortBreakTimer)
 		{
 			pomodoroDiv.classList.remove("bg-success");
 			timerButtons[1].classList.remove("btn-outline-light");
@@ -62,9 +65,9 @@ for(let k = 0; k < timerButtons.length; k++)
 		}
 
 		//Set the new active timer
-		activeTimer = this.innerText;
+		activeTimer = this;
 
-		if(activeTimer == "Pomodoro")
+		if(activeTimer == pomodoroTimer)
 		{
 			//Adjust timer specific classes
 			pomodoroDiv.classList.add("bg-danger");
@@ -73,7 +76,7 @@ for(let k = 0; k < timerButtons.length; k++)
 			//Set the new timer
 			minutesDisplay.innerText = pomodoroTimerLength;
 		}
-		else if(activeTimer == "Short Break")
+		else if(activeTimer == shortBreakTimer)
 		{
 			pomodoroDiv.classList.add("bg-success");
 			this.classList.remove("btn-success");
@@ -95,6 +98,17 @@ for(let k = 0; k < timerButtons.length; k++)
 		this.classList.add("btn-outline-light");
 	}
 }
+
+// function changeActiveTimer(previousTimer, newTimer){
+// 	//Get the previous timer element
+// 	for(let i = 0; i < timerButtons.length; i++)
+// 	{
+// 		if(timerButtons[i].innerText == previousTimer)
+// 		{
+// 			previousTimer = 
+// 		}
+// 	}
+// }
 
 //Initialize a variable for the timer interval later
 let timerInterval = null;
