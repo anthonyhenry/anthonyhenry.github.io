@@ -1,32 +1,6 @@
-const minutesDisplay = document.querySelector("#pomodoroMinutes");
-const secondsDisplay = document.querySelector("#pomodoroSeconds");
-
-// let minutes = 25;
-// let seconds = 0;
-
-
-// setInterval( function(){
-// 	seconds -= 1;
-
-// 	//Decrement the minute every 60 seconds
-// 	if(seconds < 0)
-// 	{
-// 		minutes -= 1;
-// 		seconds = 59;
-// 		minutesDisplay.innerText = minutes;
-// 	}
-
-// 	if(seconds < 10)
-// 	{
-// 		secondsDisplay.innerHTML = "0" + seconds;
-// 	}
-// 	else
-// 	{
-// 		secondsDisplay.innerHTML = seconds;
-// 	}
-// }, 1000);
-
 //Initialize Variables
+let minutesDisplay = document.querySelector("#pomodoroMinutes");
+let secondsDisplay = document.querySelector("#pomodoroSeconds");
 let activeTimer = "Pomodoro";
 const pomodoroTimerLength = 25;
 const shortBreakTimerLength = 5;
@@ -38,9 +12,30 @@ let timerButtons = document.querySelectorAll(".timer-button");
 //Allow the user to switch between timers
 for(let k = 0; k < timerButtons.length; k++)
 {
-
 	timerButtons[k].onclick = function(){
+		//Check if the active timer was clicked
+		if(activeTimer == this.innerText)
+		{
+			//don't do anything
+			return;
+		}
+		//Check if a timer is running
+		if(timerInterval != null /*&& activeTimer != this.innerText*/)
+		{
+			//Ask the user if they really wish to proceed
+			if(confirm("A " + activeTimer + " timer is currently running.\nAre you sure you want to switch?"))
+			{
+				//Stop the timer and proceed
+				stopCurrentTimer();
+			}
+			else
+			{
+				//Do not proceed
+				return;
+			}
+		}
 
+		//Get pomodoro div for background color changing
 		let pomodoroDiv = this.parentNode.parentNode;
 
 		//Check what the current active timer is and remove specific classes
@@ -66,7 +61,6 @@ for(let k = 0; k < timerButtons.length; k++)
 		//Set the new active timer
 		activeTimer = this.innerText;
 
-		
 		if(activeTimer == "Pomodoro")
 		{
 			//Adjust timer specific classes
@@ -91,6 +85,66 @@ for(let k = 0; k < timerButtons.length; k++)
 			minutesDisplay.innerText = longBreakTimerLength;
 		}
 
+		//set the seconds to 00 if not already
+		secondsDisplay.innerText = "00";
+
+		//Give the active timer a white outline
 		this.classList.add("btn-outline-light");
 	}
+}
+
+//Initialize a variable for the timer interval later
+let timerInterval = null;
+
+//Starting the clock
+document.querySelector("#startButton").onclick = function(){
+	//Only start the clock if it is not already runnning
+	if(timerInterval == null)
+	{
+		//Get the current minute and seconds values
+		let minutes = document.querySelector("#pomodoroMinutes").innerText;
+		let seconds = document.querySelector("#pomodoroSeconds").innerText;
+
+		//Start an interval to run code every second
+		timerInterval = setInterval(function(){
+			//Decrement the seconds
+			seconds -= 1;
+
+			//Decrement the minute every 60 seconds
+			if(seconds < 0)
+			{
+				minutes -= 1;
+				seconds = 59;
+
+				//Keep the ## formatting for minutes
+				if(minutes < 10)
+				{
+					minutesDisplay.innerText = "0" + minutes;	
+				}
+				else
+				{
+					minutesDisplay.innerText = minutes;
+				}
+			}
+
+			//Keep the ## formatting for seconds
+			if(seconds < 10)
+			{
+				secondsDisplay.innerHTML = "0" + seconds;
+			}
+			else
+			{
+				secondsDisplay.innerHTML = seconds;
+			}
+		}, 1000);
+	}
+}
+
+document.querySelector("#stopButton").onclick = function(){
+	stopCurrentTimer();	
+}
+
+function stopCurrentTimer(){
+	clearInterval(timerInterval);
+	timerInterval = null;
 }
