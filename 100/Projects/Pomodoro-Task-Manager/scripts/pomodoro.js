@@ -1,6 +1,6 @@
 //Initialize Variables
-let minutesDisplay = document.querySelector("#pomodoroMinutes");
-let secondsDisplay = document.querySelector("#pomodoroSeconds");
+let minutesDisplay = document.querySelector("#timerMinutes");
+let secondsDisplay = document.querySelector("#timerSeconds");
 let activeTimer = "Pomodoro";
 const pomodoroTimerLength = 25;
 const shortBreakTimerLength = 5;
@@ -111,8 +111,8 @@ startButton.onclick = function(){
 		newActiveControlButton(this);
 
 		//Get the current minute and seconds values
-		let minutes = document.querySelector("#pomodoroMinutes").innerText;
-		let seconds = document.querySelector("#pomodoroSeconds").innerText;
+		let minutes = minutesDisplay.innerText;
+		let seconds = secondsDisplay.innerText;
 
 		//Start an interval to run code every second
 		timerInterval = setInterval(function(){
@@ -146,11 +146,11 @@ startButton.onclick = function(){
 				//Keep the ## formatting for seconds
 				if(seconds < 10)
 				{
-					secondsDisplay.innerHTML = "0" + seconds;
+					secondsDisplay.innerText = "0" + seconds;
 				}
 				else
 				{
-					secondsDisplay.innerHTML = seconds;
+					secondsDisplay.innerText = seconds;
 				}
 			}
 		}, 1000);
