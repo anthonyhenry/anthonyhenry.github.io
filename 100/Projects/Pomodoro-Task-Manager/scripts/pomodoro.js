@@ -40,6 +40,7 @@ for(let i = 0; i < timerButtons.length; i++)
 		}
 
 		//Change the active timer
+		console.log("User opted to switch to " + this.innerText + " timer.")
 		changeActiveTimer(this);
 	}
 }
@@ -160,6 +161,7 @@ startButton.onclick = function(){
 			console.log(pomodorosSinceLastLongBreak);
 		}
 
+		console.log("Beginning " + activeTimer.innerText);
 		//Start an interval to run code every second
 		timerInterval = setInterval(function(){
 			//Check if the timer is over
@@ -241,6 +243,7 @@ skipButton.onclick = function(){
 	if(confirm("Are you sure you want to skip this " + activeTimer.innerText + " timer?"))
 	{
 		stopCurrentTimer();
+		console.log("User opted to skip " + activeTimer.innerText + " timer.")
 		changeActiveTimer(getNextTimer());
 	}
 }
