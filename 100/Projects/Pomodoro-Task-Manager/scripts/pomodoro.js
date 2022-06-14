@@ -1,13 +1,14 @@
 //Initialize Variables
-let minutesDisplay = document.querySelector("#timerMinutes");
-let secondsDisplay = document.querySelector("#timerSeconds");
-const pomodoroTimerLength = 25;
-const shortBreakTimerLength = 5;
-const longBreakTimerLength = 15;
-const pomodoroTimer = document.querySelector("#pomodoroTimer");
-const shortBreakTimer = document.querySelector("#shortBreakTimer");
-const longBreakTimer = document.querySelector("#longBreakTimer");
-let activeTimer = pomodoroTimer;
+let minutesDisplay = document.querySelector("#timerMinutes"); //span element for minutes
+let secondsDisplay = document.querySelector("#timerSeconds"); //span element for seconds
+const pomodoroTimerLength = 0/*25*/; //pomodoro = 25 minutes
+const shortBreakTimerLength = 0/*5*/; //short break = 5 minutes
+const longBreakTimerLength = 0/*15*/; //long break = 15 minutes
+const pomodoroTimer = document.querySelector("#pomodoroTimer"); //pomodoro timer element
+const shortBreakTimer = document.querySelector("#shortBreakTimer"); //short break timer element
+const longBreakTimer = document.querySelector("#longBreakTimer"); //long break timer element
+let activeTimer = pomodoroTimer; //on start active timer is pomodoro
+let pomodorosSinceLastLongBreak = 0; //variable that counts the number of pomodoros completed since the last long break
 
 //Grab all timer buttons
 let timerButtons = document.querySelectorAll(".timer-button");
@@ -38,17 +39,16 @@ for(let i = 0; i < timerButtons.length; i++)
 			}
 		}
 
-		//Change the active timer;
+		//Change the active timer
 		changeActiveTimer(activeTimer, this);
-
-		console.log(activeTimer);
 	}
 }
 
 function changeActiveTimer(previousTimer, newTimer){
-	//Reset thee format of all the timer control buttons
+	//Grab all the control buttons
 	let timerControlButtons = document.querySelectorAll(".timer-control-button");
 
+	//Reset the format of each of the control buttons
 	for(let i = 0; i < timerControlButtons.length; i++)
 	{
 		timerControlButtons[i].classList.remove("btn-outline-light")
@@ -67,14 +67,16 @@ function changeActiveTimer(previousTimer, newTimer){
 		}
 	}
 
-	//Reset the format of the previous timer button
+	//Reset the format of the previous timer button and the background color
 	previousTimer.classList.remove("btn-outline-light");
 
 	let pomodoroDiv = previousTimer.parentNode.parentNode;
 
 	if(previousTimer == pomodoroTimer)
 	{
+		//remove the timer specific background color
 		pomodoroDiv.classList.remove("bg-danger");
+		//Give the previous timer back it's specific color
 		previousTimer.classList.add("btn-danger");
 	}
 	else if(previousTimer == shortBreakTimer)
@@ -148,7 +150,10 @@ startButton.onclick = function(){
 			//Check if the timer is over
 			if(minutes == 0 && seconds == 0)
 			{
+				//Stop the timer
 				stopCurrentTimer();
+				//Set up the next timer
+				changeActiveTimer(activeTimer, getNextTimer());
 			}
 			else
 			{
@@ -183,6 +188,35 @@ startButton.onclick = function(){
 				}
 			}
 		}, 1000);
+	}
+}
+
+function getNextTimer(){
+	//Check if we just finished a pomodoro
+	if(activeTimer == pomodoroTimer)
+	{
+		//Increment the number of pomodoros needed for a long break
+		pomodorosSinceLastLongBreak += 1;
+		console.log(pomodorosSinceLastLongBreak);
+
+		//Check if it's time for a long break
+		if(pomodorosSinceLastLongBreak == 4)
+		{
+			//Reset counter
+			pomodorosSinceLastLongBreak = 0;
+			//Start a long break
+			return longBreakTimer;
+		}
+		else
+		{
+			//Do a normal short break
+			return shortBreakTimer;
+		}
+	}
+	else
+	{
+		//Always do a pomodoro coming back from a break
+		return pomodoroTimer;
 	}
 }
 
