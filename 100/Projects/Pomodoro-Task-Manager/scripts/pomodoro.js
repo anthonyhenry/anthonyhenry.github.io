@@ -39,7 +39,9 @@ for(let i = 0; i < timerButtons.length; i++)
 		}
 
 		//Change the active timer;
-		activeTimer = changeActiveTimer(activeTimer, this);
+		changeActiveTimer(activeTimer, this);
+
+		console.log(activeTimer);
 	}
 }
 
@@ -118,7 +120,7 @@ function changeActiveTimer(previousTimer, newTimer){
 	secondsDisplay.innerText = "00";
 
 	//Set the active timer variable to be the new timer
-	return newTimer;
+	activeTimer = newTimer;
 }
 
 //Initialize a variable for the timer interval later
