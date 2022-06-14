@@ -1,9 +1,9 @@
 //Initialize Variables
 let minutesDisplay = document.querySelector("#timerMinutes"); //span element for minutes
 let secondsDisplay = document.querySelector("#timerSeconds"); //span element for seconds
-const pomodoroTimerLength = 0/*25*/; //pomodoro = 25 minutes
-const shortBreakTimerLength = 0/*5*/; //short break = 5 minutes
-const longBreakTimerLength = 0/*15*/; //long break = 15 minutes
+const pomodoroTimerLength = 25; //pomodoro = 25 minutes
+const shortBreakTimerLength = 5; //short break = 5 minutes
+const longBreakTimerLength = 15; //long break = 15 minutes
 const pomodoroTimer = document.querySelector("#pomodoroTimer"); //pomodoro timer element
 const shortBreakTimer = document.querySelector("#shortBreakTimer"); //short break timer element
 const longBreakTimer = document.querySelector("#longBreakTimer"); //long break timer element
@@ -29,8 +29,15 @@ for(let i = 0; i < timerButtons.length; i++)
 			//Ask the user if they really wish to proceed
 			if(confirm("A " + activeTimer.innerText + " timer is currently running.\nAre you sure you want to switch?"))
 			{
-				//Stop the timer and proceed
+				//Stop the timer
 				stopCurrentTimer();
+
+				//Check if a pomodoro was inturrupted
+				if(activeTimer == pomodoroTimer)
+				{
+					pomodorosSinceLastLongBreak += 1;
+					console.log(pomodorosSinceLastLongBreak);
+				}
 			}
 			else
 			{
@@ -145,6 +152,21 @@ startButton.onclick = function(){
 		let minutes = minutesDisplay.innerText;
 		let seconds = secondsDisplay.innerText;
 
+		//Check if a pomodoro has been started
+		if(activeTimer == pomodoroTimer)
+		{
+			//Increment the number of pomodoros needed for a long break
+			pomodorosSinceLastLongBreak += 1;
+			console.log(pomodorosSinceLastLongBreak);
+		}
+		//Check if a long break has been started
+		else if(activeTimer == longBreakTimer)
+		{
+			//Reset the count since last long break
+			pomodorosSinceLastLongBreak = 0;
+			console.log(pomodorosSinceLastLongBreak);
+		}
+
 		//Start an interval to run code every second
 		timerInterval = setInterval(function(){
 			//Check if the timer is over
@@ -195,21 +217,15 @@ function getNextTimer(){
 	//Check if we just finished a pomodoro
 	if(activeTimer == pomodoroTimer)
 	{
-		//Increment the number of pomodoros needed for a long break
-		pomodorosSinceLastLongBreak += 1;
-		console.log(pomodorosSinceLastLongBreak);
-
 		//Check if it's time for a long break
-		if(pomodorosSinceLastLongBreak == 4)
+		if(pomodorosSinceLastLongBreak >= 4)
 		{
-			//Reset counter
-			pomodorosSinceLastLongBreak = 0;
-			//Start a long break
+			//Queue up a long break
 			return longBreakTimer;
 		}
 		else
 		{
-			//Do a normal short break
+			//Queue up a normal short break
 			return shortBreakTimer;
 		}
 	}
@@ -228,42 +244,34 @@ stopButton.onclick = function(){
 
 //Skip button pressed
 skipButton.onclick = function(){
-	stopCurrentTimer();
-	newActiveControlButton(this);	
+	//Verify that the user wants to skip the current timer
+	if(confirm("Are you sure you want to skip this " + activeTimer.innerText + " timer?"))
+	{
+		stopCurrentTimer();
+		changeActiveTimer(activeTimer, getNextTimer());
+	}
 }
 
 //Function for changing the format of the control buttons
 function newActiveControlButton(button){
-	//Chcek which button was clicked
+	//Start Button was clicked
 	if(button.innerText == "Start")
 	{
 		//Adjust classes for each button
 		stopButton.classList.remove("btn-outline-light");
 		stopButton.classList.add("btn-secondary");
-		skipButton.classList.remove("btn-outline-light");
-		skipButton.classList.add("btn-dark");
 
 		button.classList.remove("btn-light");
 	}
-	else if(button.innerText == "Stop")
+	//Stop Button was clicked
+	else//if(button.innerText == "Stop")
 	{
 		startButton.classList.remove("btn-outline-light");
 		startButton.classList.add("btn-light");
-		skipButton.classList.remove("btn-outline-light");
-		skipButton.classList.add("btn-dark");
 
 		button.classList.remove("btn-secondary");
 	}
-	else
-	{
-		startButton.classList.remove("btn-outline-light");
-		startButton.classList.add("btn-light");
-		stopButton.classList.remove("btn-outline-light");;
-		stopButton.classList.add("btn-secondary");
 
-		button.classList.remove("btn-dark");
-	}
-	
 	//Give the active button a white outline
 	button.classList.add("btn-outline-light");
 }
