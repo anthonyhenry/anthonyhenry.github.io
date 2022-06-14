@@ -31,13 +31,6 @@ for(let i = 0; i < timerButtons.length; i++)
 			{
 				//Stop the timer
 				stopCurrentTimer();
-
-				//Check if a pomodoro was inturrupted
-				if(activeTimer == pomodoroTimer)
-				{
-					pomodorosSinceLastLongBreak += 1;
-					console.log(pomodorosSinceLastLongBreak);
-				}
 			}
 			else
 			{
@@ -47,11 +40,11 @@ for(let i = 0; i < timerButtons.length; i++)
 		}
 
 		//Change the active timer
-		changeActiveTimer(activeTimer, this);
+		changeActiveTimer(this);
 	}
 }
 
-function changeActiveTimer(previousTimer, newTimer){
+function changeActiveTimer(newTimer){
 	//Grab all the control buttons
 	let timerControlButtons = document.querySelectorAll(".timer-control-button");
 
@@ -75,26 +68,26 @@ function changeActiveTimer(previousTimer, newTimer){
 	}
 
 	//Reset the format of the previous timer button and the background color
-	previousTimer.classList.remove("btn-outline-light");
+	activeTimer.classList.remove("btn-outline-light");
 
-	let pomodoroDiv = previousTimer.parentNode.parentNode;
+	let pomodoroDiv = activeTimer.parentNode.parentNode;
 
-	if(previousTimer == pomodoroTimer)
+	if(activeTimer == pomodoroTimer)
 	{
 		//remove the timer specific background color
 		pomodoroDiv.classList.remove("bg-danger");
 		//Give the previous timer back it's specific color
-		previousTimer.classList.add("btn-danger");
+		activeTimer.classList.add("btn-danger");
 	}
-	else if(previousTimer == shortBreakTimer)
+	else if(activeTimer == shortBreakTimer)
 	{
 		pomodoroDiv.classList.remove("bg-success");
-		previousTimer.classList.add("btn-success");
+		activeTimer.classList.add("btn-success");
 	}
 	else
 	{
 		pomodoroDiv.classList.remove("bg-primary");
-		previousTimer.classList.add("btn-primary");
+		activeTimer.classList.add("btn-primary");
 	}
 
 	//Format for the new active timer
@@ -175,7 +168,7 @@ startButton.onclick = function(){
 				//Stop the timer
 				stopCurrentTimer();
 				//Set up the next timer
-				changeActiveTimer(activeTimer, getNextTimer());
+				changeActiveTimer(getNextTimer());
 			}
 			else
 			{
@@ -248,7 +241,7 @@ skipButton.onclick = function(){
 	if(confirm("Are you sure you want to skip this " + activeTimer.innerText + " timer?"))
 	{
 		stopCurrentTimer();
-		changeActiveTimer(activeTimer, getNextTimer());
+		changeActiveTimer(getNextTimer());
 	}
 }
 
