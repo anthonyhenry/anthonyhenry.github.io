@@ -202,10 +202,10 @@ function newActiveControlButton(button){
 	if(button.innerText == "Start")
 	{
 		//Adjust classes for each button
-		document.querySelector("#stopButton").classList.remove("btn-outline-light");
-		document.querySelector("#stopButton").classList.add("btn-secondary");
-		document.querySelector("#skipButton").classList.remove("btn-outline-light");
-		document.querySelector("#skipButton").classList.add("btn-dark");
+		stopButton.classList.remove("btn-outline-light");
+		stopButton.classList.add("btn-secondary");
+		skipButton.classList.remove("btn-outline-light");
+		skipButton.classList.add("btn-dark");
 
 		button.classList.remove("btn-light");
 	}
@@ -213,8 +213,8 @@ function newActiveControlButton(button){
 	{
 		startButton.classList.remove("btn-outline-light");
 		startButton.classList.add("btn-light");
-		document.querySelector("#skipButton").classList.remove("btn-outline-light");
-		document.querySelector("#skipButton").classList.add("btn-dark");
+		skipButton.classList.remove("btn-outline-light");
+		skipButton.classList.add("btn-dark");
 
 		button.classList.remove("btn-secondary");
 	}
@@ -222,8 +222,8 @@ function newActiveControlButton(button){
 	{
 		startButton.classList.remove("btn-outline-light");
 		startButton.classList.add("btn-light");
-		document.querySelector("#stopButton").classList.remove("btn-outline-light");;
-		document.querySelector("#stopButton").classList.add("btn-secondary");
+		stopButton.classList.remove("btn-outline-light");;
+		stopButton.classList.add("btn-secondary");
 
 		button.classList.remove("btn-dark");
 	}
