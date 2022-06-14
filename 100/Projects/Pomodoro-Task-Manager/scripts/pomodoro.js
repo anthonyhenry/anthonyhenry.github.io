@@ -13,9 +13,9 @@ let activeTimer = pomodoroTimer;
 let timerButtons = document.querySelectorAll(".timer-button");
 
 //Allow the user to switch between timers
-for(let k = 0; k < timerButtons.length; k++)
+for(let i = 0; i < timerButtons.length; i++)
 {
-	timerButtons[k].onclick = function(){
+	timerButtons[i].onclick = function(){
 		//Check if the active timer was clicked
 		if(activeTimer == this)
 		{
@@ -38,83 +38,96 @@ for(let k = 0; k < timerButtons.length; k++)
 			}
 		}
 
-		//Reset the formatting of the control buttons
-		newActiveControlButton();
-
-		//Get pomodoro div for background color changing
-		let pomodoroDiv = this.parentNode.parentNode;
-
-		//Check what the current active timer is and remove specific classes
-		if(activeTimer == pomodoroTimer)
-		{
-			pomodoroDiv.classList.remove("bg-danger");
-			timerButtons[0].classList.remove("btn-outline-light");
-			timerButtons[0].classList.add("btn-danger");
-		}
-		else if(activeTimer == shortBreakTimer)
-		{
-			pomodoroDiv.classList.remove("bg-success");
-			timerButtons[1].classList.remove("btn-outline-light");
-			timerButtons[1].classList.add("btn-success");
-		}
-		else
-		{
-			pomodoroDiv.classList.remove("bg-primary");
-			timerButtons[2].classList.remove("btn-outline-light");
-			timerButtons[2].classList.add("btn-primary");
-		}
-
-		//Set the new active timer
-		activeTimer = this;
-
-		if(activeTimer == pomodoroTimer)
-		{
-			//Adjust timer specific classes
-			pomodoroDiv.classList.add("bg-danger");
-			this.classList.remove("btn-danger");
-
-			//Set the new timer
-			minutesDisplay.innerText = pomodoroTimerLength;
-		}
-		else if(activeTimer == shortBreakTimer)
-		{
-			pomodoroDiv.classList.add("bg-success");
-			this.classList.remove("btn-success");
-
-			minutesDisplay.innerText = "0" + shortBreakTimerLength;
-		}
-		else
-		{
-			pomodoroDiv.classList.add("bg-primary");
-			this.classList.remove("btn-primary");
-
-			minutesDisplay.innerText = longBreakTimerLength;
-		}
-
-		//set the seconds to 00 if not already
-		secondsDisplay.innerText = "00";
-
-		//Give the active timer a white outline
-		this.classList.add("btn-outline-light");
+		//Change the active timer;
+		activeTimer = changeActiveTimer(activeTimer, this);
 	}
 }
 
-// function changeActiveTimer(previousTimer, newTimer){
-// 	//Get the previous timer element
-// 	for(let i = 0; i < timerButtons.length; i++)
-// 	{
-// 		if(timerButtons[i].innerText == previousTimer)
-// 		{
-// 			previousTimer = 
-// 		}
-// 	}
-// }
+function changeActiveTimer(previousTimer, newTimer){
+	//Reset thee format of all the timer control buttons
+	let timerControlButtons = document.querySelectorAll(".timer-control-button");
+
+	for(let i = 0; i < timerControlButtons.length; i++)
+	{
+		timerControlButtons[i].classList.remove("btn-outline-light")
+
+		if(timerControlButtons[i].innerText == "Start")
+		{
+			timerControlButtons[i].classList.add("btn-light");
+		}
+		else if(timerControlButtons[i].innerText == "Stop")
+		{
+			timerControlButtons[i].classList.add("btn-secondary");
+		}
+		else
+		{
+			timerControlButtons[i].classList.add("btn-dark");
+		}
+	}
+
+	//Reset the format of the previous timer button
+	previousTimer.classList.remove("btn-outline-light");
+
+	let pomodoroDiv = previousTimer.parentNode.parentNode;
+
+	if(previousTimer == pomodoroTimer)
+	{
+		pomodoroDiv.classList.remove("bg-danger");
+		previousTimer.classList.add("btn-danger");
+	}
+	else if(previousTimer == shortBreakTimer)
+	{
+		pomodoroDiv.classList.remove("bg-success");
+		previousTimer.classList.add("btn-success");
+	}
+	else
+	{
+		pomodoroDiv.classList.remove("bg-primary");
+		previousTimer.classList.add("btn-primary");
+	}
+
+	//Format for the new active timer
+	if(newTimer == pomodoroTimer)
+	{
+		//Adjust timer specific classes
+		pomodoroDiv.classList.add("bg-danger");
+		newTimer.classList.remove("btn-danger");
+
+		//Set the new timer
+		minutesDisplay.innerText = pomodoroTimerLength;
+	}
+	else if(newTimer == shortBreakTimer)
+	{
+		pomodoroDiv.classList.add("bg-success");
+		newTimer.classList.remove("btn-success");
+
+		minutesDisplay.innerText = "0" + shortBreakTimerLength;
+	}
+	else
+	{
+		pomodoroDiv.classList.add("bg-primary");
+		newTimer.classList.remove("btn-primary");
+
+		minutesDisplay.innerText = longBreakTimerLength;
+	}
+
+	//Give the new timer a white outline
+	newTimer.classList.add("btn-outline-light");
+
+	//Set the seconds to 00 if not already
+	secondsDisplay.innerText = "00";
+
+	//Set the active timer variable to be the new timer
+	return newTimer;
+}
 
 //Initialize a variable for the timer interval later
 let timerInterval = null;
 
 //Constant variables for the timer control buttons
 const startButton = document.querySelector("#startButton");
+const stopButton = document.querySelector("#stopButton");
+const skipButton = document.querySelector("#skipButton");
 
 //Starting the clock
 startButton.onclick = function(){
@@ -172,32 +185,21 @@ startButton.onclick = function(){
 }
 
 //Stop button pressed
-document.querySelector("#stopButton").onclick = function(){
+stopButton.onclick = function(){
 	stopCurrentTimer();
 	newActiveControlButton(this);
 }
 
 //Skip button pressed
-document.querySelector("#skipButton").onclick = function(){
+skipButton.onclick = function(){
 	stopCurrentTimer();
 	newActiveControlButton(this);	
 }
 
 //Function for changing the format of the control buttons
 function newActiveControlButton(button){
-	//No button clicked, switched via change of activeTimer
-	if(button === undefined)
-	{
-		document.querySelector("#startButton").classList.remove("btn-outline-light");
-		document.querySelector("#startButton").classList.add("btn-light");
-		document.querySelector("#stopButton").classList.remove("btn-outline-light");;
-		document.querySelector("#stopButton").classList.add("btn-secondary");
-		document.querySelector("#skipButton").classList.remove("btn-outline-light");
-		document.querySelector("#skipButton").classList.add("btn-dark");
-		return;
-	}
 	//Chcek which button was clicked
-	else if(button.innerText == "Start")
+	if(button.innerText == "Start")
 	{
 		//Adjust classes for each button
 		document.querySelector("#stopButton").classList.remove("btn-outline-light");
@@ -209,8 +211,8 @@ function newActiveControlButton(button){
 	}
 	else if(button.innerText == "Stop")
 	{
-		document.querySelector("#startButton").classList.remove("btn-outline-light");
-		document.querySelector("#startButton").classList.add("btn-light");
+		startButton.classList.remove("btn-outline-light");
+		startButton.classList.add("btn-light");
 		document.querySelector("#skipButton").classList.remove("btn-outline-light");
 		document.querySelector("#skipButton").classList.add("btn-dark");
 
@@ -218,8 +220,8 @@ function newActiveControlButton(button){
 	}
 	else
 	{
-		document.querySelector("#startButton").classList.remove("btn-outline-light");
-		document.querySelector("#startButton").classList.add("btn-light");
+		startButton.classList.remove("btn-outline-light");
+		startButton.classList.add("btn-light");
 		document.querySelector("#stopButton").classList.remove("btn-outline-light");;
 		document.querySelector("#stopButton").classList.add("btn-secondary");
 
