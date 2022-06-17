@@ -136,6 +136,8 @@ const skipButton = document.querySelector("#skipButton");
 
 //Starting the clock
 startButton.onclick = function(){
+	sfx.add.play();
+
 	//Make sure the timer is not already running
 	if(timerInterval == null)
 	{
