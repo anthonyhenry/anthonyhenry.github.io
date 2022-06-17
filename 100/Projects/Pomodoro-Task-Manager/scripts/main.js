@@ -64,7 +64,7 @@ updatePriorities(lowPriorityTasks);
 
 function updatePriorities(tasksArray){
 	//For loop to check each task in the list
-	for(let i = 0; i < tasksArray.length; i++)
+	for(let i = tasksArray.length-1; i >= 0; i--) //Need to go backwards here because the array is being edited in the loop
 	{
 		//Skip Examples
 		if(!tasksArray[i].classList.contains("example"))
