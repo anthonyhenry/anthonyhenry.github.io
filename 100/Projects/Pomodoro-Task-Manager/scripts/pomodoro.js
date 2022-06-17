@@ -149,7 +149,7 @@ startButton.onclick = function(){
 		let seconds = secondsDisplay.innerText;
 
 		//Check if a pomodoro has been started
-		if(activeTimer == pomodoroTimer)
+		if(activeTimer == pomodoroTimer && minutes == 25)
 		{
 			//Increment the number of pomodoros needed for a long break
 			pomodorosSinceLastLongBreak += 1;
