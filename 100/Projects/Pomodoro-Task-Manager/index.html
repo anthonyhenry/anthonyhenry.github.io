@@ -9,7 +9,9 @@
 	<!-- Bootstrap 5 Documentation: https://getbootstrap.com/docs/5.0/forms/layout/ -->
 	<!-- Open Iconic -->
 	<link href="../../Libraries/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
-
+	<!-- Howler -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+	
 	<!-- Stylesheet -->
 	<link rel="stylesheet" type="text/css" href="style.css">
 
@@ -32,10 +34,10 @@
 		<main class="row mt-3">
 
 			<!-- Task List -->
-			<section class="col-12 col-lg-8 order-1 order-lg-12 pe-lg-5">
+			<section class="col-12 col-lg-7 col-xl-8 order-1 order-lg-12 pe-lg-5">
 
 				<!-- Form -->
-				<form id="newTaskForm" class="row ">
+				<form id="newTaskForm" class="row">
 					<div class="col-12 col-md-7 col-lg-6 col-xl-7">
 						<label for="newTaskDescription">Task</label>
 						<input id="newTaskDescription" name="newTaskDescription" type="text" class="form-control" placeholder="New Task...">
@@ -117,14 +119,52 @@
 			</section>
 
 			<!-- Pomodoro -->
-			<section class="col-12 col-lg-4 order-12 order-lg-1">
-				<!-- Pomodoro -->
+			<section class="col-12 col-lg-5 col-xl-4 order-12 order-lg-1 pb-3">
+				
+				<!-- Timer -->
+				<div class="py-4 bg-danger">
+
+					<div id="timerAndInfo">
+						<div id="timer">
+							<span id="timerMinutes">25</span>:<span id="timerSeconds">00</span>	
+						</div>
+
+						<div id="info" class="me-3">
+							<a href="https://images.ctfassets.net/dm4oa8qtogq0/390glBwOnV44EyoPoiJC6Z/3ddbb50dbc61e3a11afc6b05aa9e21ab/productivity-method_pomodoro-summary.jpg" target="_blank"><span class="oi oi-info"></span></a>
+						</div>
+					</div>
+
+					<div class="d-flex justify-content-center">
+						<button id="pomodoroTimer" type="button" class="timer-button btn mx-1 btn-outline-light">Pomodoro</button>
+						<button id="shortBreakTimer" type="button" class="timer-button btn mx-1 btn-success">Short Break</button>
+						<button id="longBreakTimer" type="button" class="timer-button btn mx-1 btn-primary">Long Break</button>
+					</div>
+
+					<div class="d-flex justify-content-center mt-3">
+						<!-- <button type="button" class="btn btn-light mt-3 col-6">Start</button>	 -->
+						<button id="startButton" type="button" class="timer-control-button btn mx-1 btn-light">Start</button>
+						<button id="stopButton" type="button" class="timer-control-button btn mx-1 btn-secondary">Stop</button>
+						<button id="skipButton" type="button" class="timer-control-button btn mx-1 btn-dark">Skip</button>
+
+					</div>
+
+					<!-- <div class="text-center text-white mt-3">
+						Time to focus!
+					</div> -->
+			
+				</div>
+
+				<!-- Music -->
+
 			</section>
 
 		</main>
 
 	</div>
 
+	<script src="scripts/no-duplicate-windows.js"></script>
+	<script src="scripts/sfx.js"></script>
 	<script src="scripts/main.js"></script>
+	<script src="scripts/pomodoro.js"></script>
 </body>
 </html>
