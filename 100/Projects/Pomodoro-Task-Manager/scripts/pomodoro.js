@@ -136,8 +136,6 @@ const skipButton = document.querySelector("#skipButton");
 
 //Starting the clock
 startButton.onclick = function(){
-	sfx.add.play();
-
 	//Make sure the timer is not already running
 	if(timerInterval == null)
 	{
@@ -169,6 +167,18 @@ startButton.onclick = function(){
 			//Check if the timer is over
 			if(minutes == 0 && seconds == 0)
 			{
+				if(activeTimer.innerText == "Pomodoro")
+				{
+					sfx.pomodoroAlarm.play();
+				}
+				else if(activeTimer.innerText == "Short Break")
+				{
+					sfx.shortAlarm.play();
+				}
+				else
+				{
+					sfx.longAlarm.play();
+				}
 				//Stop the timer
 				stopCurrentTimer();
 				//Set up the next timer
