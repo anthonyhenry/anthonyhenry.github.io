@@ -15,7 +15,7 @@ if(Notification.permission === "default")//permission has not been granted or de
 let minutesDisplay = document.querySelector("#timerMinutes"); //span element for minutes
 let secondsDisplay = document.querySelector("#timerSeconds"); //span element for seconds
 const pomodoroTimerLength = 25; //pomodoro = 25 minutes
-const shortBreakTimerLength = 1; //short break = 5 minutes
+const shortBreakTimerLength = 5; //short break = 5 minutes
 const longBreakTimerLength = 15; //long break = 15 minutes
 const pomodoroTimer = document.querySelector("#pomodoroTimer"); //pomodoro timer element
 const shortBreakTimer = document.querySelector("#shortBreakTimer"); //short break timer element
