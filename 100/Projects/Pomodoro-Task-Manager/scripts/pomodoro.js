@@ -14,9 +14,9 @@ if(Notification.permission === "default")//permission has not been granted or de
 //Initialize Variables
 let minutesDisplay = document.querySelector("#timerMinutes"); //span element for minutes
 let secondsDisplay = document.querySelector("#timerSeconds"); //span element for seconds
-const pomodoroTimerLength = 7; //pomodoro = 25 minutes
-const shortBreakTimerLength = 1; //short break = 5 minutes
-const longBreakTimerLength = 6; //long break = 15 minutes
+const pomodoroTimerLength = 25; //pomodoro = 25 minutes
+const shortBreakTimerLength = 5; //short break = 5 minutes
+const longBreakTimerLength = 15; //long break = 15 minutes
 const pomodoroTimer = document.querySelector("#pomodoroTimer"); //pomodoro timer element
 const shortBreakTimer = document.querySelector("#shortBreakTimer"); //short break timer element
 const longBreakTimer = document.querySelector("#longBreakTimer"); //long break timer element
@@ -182,11 +182,11 @@ startButton.onclick = function(){
 			{
 				const finishNotification = new Notification(activeTimer.innerText + " timer complete!");
 
-				if(activeTimer.innerText == "Pomodoro")
+				if(activeTimer == pomodoroTimer)
 				{
 					sfx.pomodoroAlarm.play();
 				}
-				else if(activeTimer.innerText == "Short Break")
+				else if(activeTimer == shortBreakTimer)
 				{
 					sfx.shortAlarm.play();
 				}
