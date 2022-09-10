@@ -15,7 +15,7 @@ if(Notification.permission === "default")//permission has not been granted or de
 let minutesDisplay = document.querySelector("#timerMinutes"); //span element for minutes
 let secondsDisplay = document.querySelector("#timerSeconds"); //span element for seconds
 const pomodoroTimerLength = 7; //pomodoro = 25 minutes
-const shortBreakTimerLength = 5; //short break = 5 minutes
+const shortBreakTimerLength = 1; //short break = 5 minutes
 const longBreakTimerLength = 6; //long break = 15 minutes
 const pomodoroTimer = document.querySelector("#pomodoroTimer"); //pomodoro timer element
 const shortBreakTimer = document.querySelector("#shortBreakTimer"); //short break timer element
@@ -180,7 +180,7 @@ startButton.onclick = function(){
 			//Check if the timer is over
 			if(minutes == 0 && seconds == 0)
 			{
-				const finishNotification = new Notification( activeTimer.innerText + " timer complete!");
+				const finishNotification = new Notification(activeTimer.innerText + " timer complete!");
 
 				if(activeTimer.innerText == "Pomodoro")
 				{
