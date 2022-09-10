@@ -204,11 +204,10 @@ startButton.onclick = function(){
 				//Decrement the seconds
 				seconds -= 1;
 
+				//Send a notification when there are 5 minutes left in the current timer
 				if(minutes == 5 && seconds == 0)
 				{
-					const fiveMinWarning = new Notification("5 minutes remaining!")
-
-					console.log("5 minutes remaining");
+					const fiveMinWarning = new Notification("5 minutes remaining on your " + activeTimer.innerText + "timer.")
 				}
 
 				//Decrement the minute every 60 seconds
