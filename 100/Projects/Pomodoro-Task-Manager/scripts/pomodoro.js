@@ -1,5 +1,5 @@
-console.log("test");
-console.log(Notification.permission);
+// console.log("test");
+// console.log(Notification.permission);
 
 //Notifications
 if(Notification.permission === "default")//permission has not been granted or denied
@@ -14,9 +14,9 @@ if(Notification.permission === "default")//permission has not been granted or de
 //Initialize Variables
 let minutesDisplay = document.querySelector("#timerMinutes"); //span element for minutes
 let secondsDisplay = document.querySelector("#timerSeconds"); //span element for seconds
-const pomodoroTimerLength = 25; //pomodoro = 25 minutes
+const pomodoroTimerLength = 7; //pomodoro = 25 minutes
 const shortBreakTimerLength = 5; //short break = 5 minutes
-const longBreakTimerLength = 15; //long break = 15 minutes
+const longBreakTimerLength = 6; //long break = 15 minutes
 const pomodoroTimer = document.querySelector("#pomodoroTimer"); //pomodoro timer element
 const shortBreakTimer = document.querySelector("#shortBreakTimer"); //short break timer element
 const longBreakTimer = document.querySelector("#longBreakTimer"); //long break timer element
@@ -160,7 +160,7 @@ startButton.onclick = function(){
 		let seconds = secondsDisplay.innerText;
 
 		//Check if a pomodoro has been started
-		if(activeTimer == pomodoroTimer && minutes == 25)
+		if(activeTimer == pomodoroTimer && minutes == 25) //Find a better way to do this. Users can spam button in the first second
 		{
 			//Increment the number of pomodoros needed for a long break
 			pomodorosSinceLastLongBreak += 1;
@@ -180,7 +180,7 @@ startButton.onclick = function(){
 			//Check if the timer is over
 			if(minutes == 0 && seconds == 0)
 			{
-				const finishNotification = new Notification("timer complete!");
+				const finishNotification = new Notification( activeTimer.innerText + " timer complete!");
 
 				if(activeTimer.innerText == "Pomodoro")
 				{
@@ -204,6 +204,13 @@ startButton.onclick = function(){
 				//Decrement the seconds
 				seconds -= 1;
 
+				if(minutes == 5 && seconds == 0)
+				{
+					const fiveMinWarning = new Notification("5 minutes remaining!")
+
+					console.log("5 minutes remaining");
+				}
+
 				//Decrement the minute every 60 seconds
 				if(seconds < 0)
 				{
@@ -213,7 +220,7 @@ startButton.onclick = function(){
 					//Keep the ## formatting for minutes
 					if(minutes < 10)
 					{
-						minutesDisplay.innerText = "0" + minutes;	
+						minutesDisplay.innerText = "0" + minutes;
 					}
 					else
 					{
