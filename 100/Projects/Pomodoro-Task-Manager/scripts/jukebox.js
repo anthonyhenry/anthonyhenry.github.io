@@ -1,7 +1,6 @@
-//New youtube embed code submitted
 document.querySelector("#jukeboxForm").onsubmit = function(){
     //Get a reference to the new embed code that has been submitted
-    let newVideoEmbedCode = document.querySelector("#embedCode").value.trim();
+    const newVideoEmbedCode = document.querySelector("#embedCode").value.trim();
     //Youtube embed code regex
     const ytEmbedLinkRegEx = /^<iframe.*src.*youtube.*embed.*<\/iframe>$/;
     
@@ -17,22 +16,30 @@ document.querySelector("#jukeboxForm").onsubmit = function(){
     //User supplied an embed code or youtube video link
     else
     {
-        //Get a reference to the iframe element
-        let player = this.previousElementSibling;
+        //Set variables for the new embeded video's source and title
+        let newVideoEmbedSource = newVideoEmbedCode;
+        let newVideoEmbedTitle = "Embedded YouTube Video";
 
         //Check if the user supplied a proper embed code
         if(ytEmbedLinkRegEx.test(newVideoEmbedCode))
         {
-            //Get just the source of the embeded video and save it in the existing newVideoEmbedCode variable
+            //Get just the source of the embeded video and save it in the newVideoEmbedSource variable
             const regGetEmbedSource = /src="([^"]*)"/;
-            newVideoEmbedCode = newVideoEmbedCode.match(regGetEmbedSource);
-            newVideoEmbedCode = newVideoEmbedCode[1];
+            newVideoEmbedSource = newVideoEmbedCode.match(regGetEmbedSource);
+            newVideoEmbedSource = newVideoEmbedSource[1];
+
+            //Set the new title for the embedded youtube video
+            const regGetEmbedTitle = /title="([^"]*)"/;
+            newVideoEmbedTitle = newVideoEmbedCode.match(regGetEmbedTitle);
+            newVideoEmbedTitle = newVideoEmbedTitle[1];
         }
 
         //Get the youtube video source's id
-        let videoID = getYouTubeVideoIdByUrl(newVideoEmbedCode);
+        let videoID = getYouTubeVideoIdByUrl(newVideoEmbedSource);
 
-        ////Split the iframe src attibute into parts
+        //Get a reference to the iframe element
+        let player = this.previousElementSibling;
+        //Split the iframe src attibute into parts
         let playerSrc = player.src.split("/");
         //Change the last part of the src to the new video id
         playerSrc[playerSrc.length-1] = videoID
@@ -40,7 +47,7 @@ document.querySelector("#jukeboxForm").onsubmit = function(){
         let newSrc = playerSrc.join("/");
         //Set the embedded video source to the new video and clear the title
         player.src = newSrc;
-        player.title = "";
+        player.title = newVideoEmbedTitle;
     }
 
     //Reset form
