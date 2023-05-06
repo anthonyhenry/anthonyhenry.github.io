@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+	<p id="timer">
+	  00:00:00
+	</p>
+
+	<button onClick="hangTheBrowser()">
+	  Hang the browser
+	</button>
+
+	<script type="text/javascript">
+	console.log("Start");
+	console.log(new Date);
+	// script.js
+	let start = new Date();
+	let intervalRef = null;
+	let test = document.querySelector("#timer");
+
+	intervalRef = setInterval(_ => {
+	  let current = new Date();
+	  let count = +current - +start;
+	  
+	  let s = Math.floor((count /  1000)) % 60;
+	  let m = Math.floor((count / 60000)) % 60;
+
+	  m = 24 - m;
+	  s = 59 - s;
+
+	  if(m == 0 && s == 0)
+	  {
+	  	console.log("End");
+	  	console.log(new Date);
+	  }
+
+	  test.innerHTML = m + ":" + s;
+	}, 10);
+
+	function hangTheBrowser() {
+	  let val = "";
+
+	    for(let i=0; i<10000; i++){
+	      for(let j=0; j<10000; j++) {
+	        val = "Loop returned: " + i + j;
+	      }
+	    }
+	}
+	</script>
+
+</body>
+</html>
+
+
