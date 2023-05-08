@@ -11,46 +11,76 @@
 	  00:00:00
 	</p>
 
-	<button onClick="hangTheBrowser()">
-	  Hang the browser
-	</button>
-
 	<script type="text/javascript">
-	console.log("Start");
-	console.log(new Date);
-	// script.js
-	let start = new Date();
-	let intervalRef = null;
-	let test = document.querySelector("#timer");
 
-	intervalRef = setInterval(_ => {
-	  let current = new Date();
-	  let count = +current - +start;
-	  
-	  let s = Math.floor((count /  1000)) % 60;
-	  let m = Math.floor((count / 60000)) % 60;
+		if (typeof(Worker) !== "undefined")
+		{
+			// Yes! Web worker support!
+			// Some code.....
+			console.log("web worker supported");
 
-	  m = 24 - m;
-	  s = 59 - s;
+			w = new Worker("demo_workers.js");
 
-	  if(m == 0 && s == 0)
-	  {
-	  	console.log("End");
-	  	console.log(new Date);
-	  }
+			w.onmessage = function(event){
+  				console.log(event.data);
+			};
+		} 
+		else 
+		{
+			// Sorry! No Web Worker support..
+			console.log("web worker not supported");
+		}
 
-	  test.innerHTML = m + ":" + s;
-	}, 10);
+		
+		//Log the start date
+		console.log("Start");
+		console.log(new Date);
+		
+		let start = new Date();
+		let intervalRef = null;
+		let test = document.querySelector("#timer");
 
-	function hangTheBrowser() {
-	  let val = "";
+		intervalRef = setInterval(function(){
+			let current = new Date();
+			let count = +current - +start;
+			
+			let s = Math.floor((count /  1000)) % 60;
+			let m = Math.floor((count / 60000)) % 60;
 
-	    for(let i=0; i<10000; i++){
-	      for(let j=0; j<10000; j++) {
-	        val = "Loop returned: " + i + j;
-	      }
-	    }
-	}
+			m = 24 - m;
+			s = 59 - s;
+
+			console.log( "setInterval: " + m + ":" + s);
+
+			if(m == 0 && s == 0)
+			{
+				console.log("End");
+				console.log(new Date);
+				intervalRef = null;
+			}
+
+			test.innerHTML = m + ":" + s;
+		}, 1000/*1000*/);
+
+		// intervalRef = setInterval(_ => {
+		// 	let current = new Date();
+		// 	let count = +current - +start;
+			
+		// 	let s = Math.floor((count /  1000)) % 60;
+		// 	let m = Math.floor((count / 60000)) % 60;
+
+		// 	m = 1 - m;
+		// 	s = 59 - s;
+
+		// 	if(m == 0 && s == 0)
+		// 	{
+		// 		console.log("End");
+		// 		console.log(new Date);
+		// 	}
+
+		// 	test.innerHTML = m + ":" + s;
+		// }, 10);
+
 	</script>
 
 </body>
