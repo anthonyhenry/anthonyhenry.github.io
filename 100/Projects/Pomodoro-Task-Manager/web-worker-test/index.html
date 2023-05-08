@@ -8,10 +8,14 @@
 <body>
 
 	<p id="timer">
-	  00:00:00
+	  <span id="startMin">25</span>:<span id="startSec">00</span>
 	</p>
 
 	<script type="text/javascript">
+
+		var timerStart = document.querySelector("#timer").innerText;
+
+		let test = document.querySelector("#timer");
 
 		if (typeof(Worker) !== "undefined")
 		{
@@ -21,8 +25,12 @@
 
 			w = new Worker("demo_workers.js");
 
+			console.log("Sending data: " + timerStart + "...");
+			w.postMessage(timerStart);
+
 			w.onmessage = function(event){
-  				console.log(event.data);
+  				// console.log(event.data);
+				test.innerHTML = event.data;
 			};
 		} 
 		else 
@@ -32,35 +40,64 @@
 		}
 
 		
-		//Log the start date
-		console.log("Start");
-		console.log(new Date);
+		// //Log the start date
+		// console.log("Start");
+		// console.log(new Date);
 		
-		let start = new Date();
-		let intervalRef = null;
-		let test = document.querySelector("#timer");
+		// let start = new Date();
+		// let intervalRef = null;
+		// let test = document.querySelector("#timer");
 
-		intervalRef = setInterval(function(){
-			let current = new Date();
-			let count = +current - +start;
+		// setTimeoutCount();
+
+		// function setTimeoutCount(){
+		// 	let current = new Date();
+		// 	let count = +current - +start;
 			
-			let s = Math.floor((count /  1000)) % 60;
-			let m = Math.floor((count / 60000)) % 60;
+		// 	let s = Math.floor((count /  1000)) % 60;
+		// 	let m = Math.floor((count / 60000)) % 60;
 
-			m = 24 - m;
-			s = 59 - s;
+		// 	m = 24 - m;
+		// 	s = 59 - s;
 
-			console.log( "setInterval: " + m + ":" + s);
+		// 	console.log( "setTimeout: " + m + ":" + s);
 
-			if(m == 0 && s == 0)
-			{
-				console.log("End");
-				console.log(new Date);
-				intervalRef = null;
-			}
+		// 	if(m == 0 && s == 0)
+		// 	{
+		// 		console.log("End");
+		// 		console.log(new Date);
+		// 		intervalRef = null;
+		// 	}
 
-			test.innerHTML = m + ":" + s;
-		}, 1000/*1000*/);
+		// 	test.innerHTML = m + ":" + s;
+
+		// 	setTimeout("setTimeoutCount()", 1000);
+		// }
+
+
+
+
+		// intervalRef = setInterval(function(){
+		// 	let current = new Date();
+		// 	let count = +current - +start;
+			
+		// 	let s = Math.floor((count /  1000)) % 60;
+		// 	let m = Math.floor((count / 60000)) % 60;
+
+		// 	m = 24 - m;
+		// 	s = 59 - s;
+
+		// 	console.log( "setInterval: " + m + ":" + s);
+
+		// 	if(m == 0 && s == 0)
+		// 	{
+		// 		console.log("End");
+		// 		console.log(new Date);
+		// 		intervalRef = null;
+		// 	}
+
+		// 	test.innerHTML = m + ":" + s;
+		// }, 1000/*1000*/);
 
 		// intervalRef = setInterval(_ => {
 		// 	let current = new Date();

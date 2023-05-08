@@ -1,13 +1,25 @@
-var i = 0;
+// var i = 0;
 
-function timedworkerCount() {
-  i = i + 1;
-  postMessage(i);
-  setTimeout("timedworkerCount()",1000);
-}
+// function timedworkerCount() {
+//   i = i + 1;
+//   postMessage(i);
+//   setTimeout("timedworkerCount()",1000);
+// }
 
-timedworkerCount();
+// timedworkerCount();
 
+
+// self.addEventListener("message", function(e) {
+//     // the passed-in data is available via e.data
+//     console.log("Logging data...");
+//     console.log(e.data);
+// }, false);
+
+
+onmessage = function(e){
+    console.log("Logging data...");
+    console.log(e.data);
+};
 
 
 let workerStart = new Date();
@@ -26,5 +38,5 @@ workerIntervalRef = setInterval(function(){
     workerResult = "Web Worker: " + workerM + ":" + workerS;
 
     postMessage(workerResult);
-    
+
 }, 1000/*1000*/);
