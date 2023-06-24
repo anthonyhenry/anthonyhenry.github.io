@@ -25,6 +25,8 @@
 
 			let test = document.querySelector("#timer");
 
+			var w;
+
 			if (typeof(Worker) !== "undefined")
 			{
 				// Yes! Web worker support!
@@ -48,6 +50,8 @@
 
 				w.terminate();
 				w = undefined;
+
+				console.log("Worker stopped.");
 			}
 		}
 
