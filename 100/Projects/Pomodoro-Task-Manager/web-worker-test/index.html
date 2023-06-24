@@ -45,6 +45,9 @@
 			{
 				// Sorry! No Web Worker support..
 				console.log("web worker not supported");
+
+				w.terminate();
+				w = undefined;
 			}
 		}
 
