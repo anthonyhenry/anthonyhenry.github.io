@@ -10,33 +10,46 @@
 	<p id="timer">
 	  <span id="startMin">25</span>:<span id="startSec">00</span>
 	</p>
+	<button id="startButton">Start</button>
+	<button id="stopButton">Stop</button>
 
 	<script type="text/javascript">
 
-		var timerStart = document.querySelector("#timer").innerText;
+		let startBtn = document.querySelector("#startButton");
+		let stopBtn = document.querySelector("#stopButton");
 
-		let test = document.querySelector("#timer");
+		startBtn.onclick = function(){
+			console.log("Start button pressed");
 
-		if (typeof(Worker) !== "undefined")
-		{
-			// Yes! Web worker support!
-			// Some code.....
-			console.log("web worker supported");
+			var timerStart = document.querySelector("#timer").innerText;
 
-			w = new Worker("demo_workers.js");
+			let test = document.querySelector("#timer");
 
-			console.log("Sending data: " + timerStart + "...");
-			w.postMessage(timerStart);
+			if (typeof(Worker) !== "undefined")
+			{
+				// Yes! Web worker support!
+				// Some code.....
+				console.log("web worker supported");
 
-			w.onmessage = function(event){
-  				// console.log(event.data);
-				test.innerHTML = event.data;
-			};
-		} 
-		else 
-		{
-			// Sorry! No Web Worker support..
-			console.log("web worker not supported");
+				w = new Worker("demo_workers.js");
+
+				console.log("Sending data: " + timerStart + "...");
+				w.postMessage(timerStart);
+
+				w.onmessage = function(event){
+					// console.log(event.data);
+					test.innerHTML = event.data;
+				};
+			} 
+			else 
+			{
+				// Sorry! No Web Worker support..
+				console.log("web worker not supported");
+			}
+		}
+
+		stopBtn.onclick = function(){
+			console.log("Stop button pressed");
 		}
 
 		
