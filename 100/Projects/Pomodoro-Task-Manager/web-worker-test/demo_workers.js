@@ -22,15 +22,11 @@ onmessage = function(e){
     console.log("Logging data...");
     console.log(e.data);
     timerStart = e.data;
-    console.log(timerStart)
 };
 
 timerStart = timerStart.split(":");
-console.log(timerStart);
 let minutesStart = timerStart[0];
 let secondsStart = timerStart[1];
-console.log(minutesStart);
-console.log(secondsStart);
 
 let workerStart = new Date();
 let workerIntervalRef = null;
