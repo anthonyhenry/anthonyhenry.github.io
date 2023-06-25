@@ -18,6 +18,11 @@
 		let startBtn = document.querySelector("#startButton");
 		let stopBtn = document.querySelector("#stopButton");
 
+		//Initialize worker variable
+		var w;
+		console.log(w)
+
+
 		startBtn.onclick = function(){
 			console.log("Start button pressed");
 
@@ -25,7 +30,7 @@
 
 			let test = document.querySelector("#timer");
 
-			var w;
+			
 
 			if (typeof(Worker) !== "undefined")
 			{
@@ -47,16 +52,23 @@
 			{
 				// Sorry! No Web Worker support..
 				console.log("web worker not supported");
-
-				w.terminate();
-				w = undefined;
-
-				console.log("Worker stopped.");
 			}
 		}
 
 		stopBtn.onclick = function(){
 			console.log("Stop button pressed");
+
+			if(w != undefined)
+			{
+				w.terminate();
+				w = undefined;
+
+				console.log("Worker stopped.");
+			}
+			else
+			{
+				console.log("Worker not started yet.")
+			}
 		}
 
 		
