@@ -39,16 +39,18 @@
 				console.log("web worker supported");
 
 				//Make sure a worker has not already been started
+				if(w == undefined)
+				{
+					w = new Worker("demo_workers.js");
 
-				w = new Worker("demo_workers.js");
+					console.log("Sending data: " + timerStart + "...");
+					w.postMessage(timerStart);
 
-				console.log("Sending data: " + timerStart + "...");
-				w.postMessage(timerStart);
-
-				w.onmessage = function(event){
-					// console.log(event.data);
-					test.innerHTML = event.data;
-				};
+					w.onmessage = function(event){
+						// console.log(event.data);
+						test.innerHTML = event.data;
+					};
+				}
 			}
 			else 
 			{
