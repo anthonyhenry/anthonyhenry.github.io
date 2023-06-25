@@ -15,14 +15,15 @@
 
 	<script type="text/javascript">
 
+		//Variables for the start and stop buttons
 		let startBtn = document.querySelector("#startButton");
 		let stopBtn = document.querySelector("#stopButton");
 
 		//Initialize worker variable
-		var w;
+		let w;
 		console.log(w)
 
-
+		//Start button pressed
 		startBtn.onclick = function(){
 			console.log("Start button pressed");
 
@@ -30,13 +31,14 @@
 
 			let test = document.querySelector("#timer");
 
-			
-
+			//Check if workers are supported
 			if (typeof(Worker) !== "undefined")
 			{
 				// Yes! Web worker support!
 				// Some code.....
 				console.log("web worker supported");
+
+				//Make sure a worker has not already been started
 
 				w = new Worker("demo_workers.js");
 
@@ -47,7 +49,7 @@
 					// console.log(event.data);
 					test.innerHTML = event.data;
 				};
-			} 
+			}
 			else 
 			{
 				// Sorry! No Web Worker support..
