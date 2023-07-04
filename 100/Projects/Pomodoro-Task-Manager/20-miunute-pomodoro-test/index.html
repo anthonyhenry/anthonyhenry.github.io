@@ -5,88 +5,73 @@
     </head>
     <body>
         <div id="timer">
-            <!-- <span id="timerMinutes">25</span>:<span id="timerSeconds">00</span>	 -->
             25:00
         </div>
 
+        <button id = "Start">
+            Start
+        </button>
+        <button id = "Stop">
+            Stop
+        </button>
+
         <script>
-            let startTime = new Date();
+            //Variable that keeps track of whether or not a timer is active
+            let timerRunning = false;
 
-            let endTime = new Date(startTime.getTime() + 1500000); // Add 20 minutes in epoch time | 1000 = 1 second in epoch time
-            // 1500000 = 25 mins in epoch time
-            // 1200000 = 20 mins in epoch time
+            //Start button pressed
+            document.querySelector("#Start").onclick = function(){
+                //Make sure the timer isn't already running
+                if(timerRunning == false)
+                {
+                    //Get the amount of time displayed in the timer when the start button is pushed
+                    const timeRemaining = document.querySelector("#timer").innerText.split(":");
+                    const minutesOnTimerAtStart = timeRemaining[0];
+                    const secondsOnTimerAtStart = timeRemaining[1];
 
-            console.log("Begin time: " + startTime);
-            console.log("Correct end time: " + endTime);
+                    //Calculate how many milliseconds remain //minutes * 60 * 1000 //seconds * 1000                
+                    let millisecondsRemaining = (minutesOnTimerAtStart * 60 * 1000) + (secondsOnTimerAtStart * 1000);
 
-            // let test1 = new Date(2023, 6, 3, 12, 0, 0);
-            // console.log(test1);
-            // let test2 = new Date(2023, 6, 3, 12, 20, 0);
-            // console.log(test2);
-            // console.log(test1.getTime() - test2.getTime())
+                    let calculatedStartTime = new Date();
+                    let calculatedEndTime = new Date(calculatedStartTime.getTime() + millisecondsRemaining);
 
+                    console.log("Calculated start time: " + calculatedStartTime)
+                    console.log("Calculated end time: " + calculatedEndTime)
 
-            // startTime = new Date(startTime);
-            // console.log(startTime);
-            // endTime = new Date(endTime);
-            // console.log(endTime);
+                    //Begin running the timeout function
+                    timeout();
 
+                    function timeout(){
+                        setTimeout(function(){
+                            //Get the current time
+                            let currentTime = new Date();
 
-            timeout();
+                            //Check if the timer is finished
+                            if(currentTime >= calculatedEndTime)
+                            {
+                                console.log("Calculated End Time: " + calculatedEndTime)
+                                console.log("Actual End Time: " + currentTime)
+                            }
+                            else
+                            {
+                                //Find out the remaining time by subtracting the current time from the time that the timer is supposed to end
+                                let timeRemaining = calculatedEndTime.getTime() - currentTime.getTime();
 
-            function timeout(){
-                setTimeout(function(){
-                    let currentTime = new Date();
+                                //Calculatate how many minutes and seconds have passed
+                                let minutesPassed = Math.floor((timeRemaining / 60000)) % 60;
+                                let secondsPassed = Math.floor((timeRemaining /  1000)) % 60;
 
-                    let timeRemaining = +currentTime - startTime;
-
-                    let m = Math.floor((timeRemaining / 60000)) % 60;
-                    let s = Math.floor((timeRemaining /  1000)) % 60;
-
-                    m = 24 - m;
-                    s = 59 - s;
-
-                    console.log(m + ":" + s);
-
-                    if(currentTime.getTime() >= endTime.getTime())
-                    {
-                        console.log("Correct End Time: " + endTime);
-                        console.log("Actual End Time: " + currentTime);
+                                console.log(minutesPassed + ":" + secondsPassed)
+                                //Restart
+                                timeout();
+                            }                        
+                        }, 100)
                     }
-                    else
-                    {
-                        //Reset timout
-                        timeout();
-                    }
-                }, 1000)
+
+                    //Timer is now running
+                    timerRunning = true;
+                }   
             }
-
-
-
-            // let timerInterval = null;
-
-            // timerInterval = setInterval(function(){
-            //     let currentTime = new Date();
-
-            //     let count = +currentTime - +startTime;
-
-            //     let s = Math.floor((count /  1000)) % 60;
-            //     let m = Math.floor((count / 60000)) % 60;
-
-            //     m = 24 - m;
-            //     s = 59 - s;
-
-            //     console.log(m + ":" + s);
-                
-            //     if(currentTime > endTime)
-            //     {
-            //         console.log("Time's Up!")
-            //         console.log("End Time: " + endTime)
-            //         console.log("Actual End Time: " + currentTime)
-            //         clearInterval(timerInterval)
-            //     }
-
-            // }, 10)
         </script>
     </body>
 </html>
