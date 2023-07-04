@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <div id="timer">
+            <!-- <span id="timerMinutes">25</span>:<span id="timerSeconds">00</span>	 -->
+            25:00
+        </div>
+
+        <script>
+            let startTime = new Date();
+
+            let endTime = new Date(startTime.getTime() + 1500000); // Add 20 minutes in epoch time | 1000 = 1 second in epoch time
+            // 1500000 = 25 mins in epoch time
+            // 1200000 = 20 mins in epoch time
+
+            console.log("Begin time: " + startTime);
+            console.log("Correct end time: " + endTime);
+
+            // let test1 = new Date(2023, 6, 3, 12, 0, 0);
+            // console.log(test1);
+            // let test2 = new Date(2023, 6, 3, 12, 20, 0);
+            // console.log(test2);
+            // console.log(test1.getTime() - test2.getTime())
+
+
+            // startTime = new Date(startTime);
+            // console.log(startTime);
+            // endTime = new Date(endTime);
+            // console.log(endTime);
+
+
+            timeout();
+
+            function timeout(){
+                setTimeout(function(){
+                    let currentTime = new Date();
+
+                    let timeRemaining = +currentTime - startTime;
+
+                    let m = Math.floor((timeRemaining / 60000)) % 60;
+                    let s = Math.floor((timeRemaining /  1000)) % 60;
+
+                    m = 24 - m;
+                    s = 59 - s;
+
+                    console.log(m + ":" + s);
+
+                    if(currentTime.getTime() >= endTime.getTime())
+                    {
+                        console.log("Correct End Time: " + endTime);
+                        console.log("Actual End Time: " + currentTime);
+                    }
+                    else
+                    {
+                        //Reset timout
+                        timeout();
+                    }
+                }, 1000)
+            }
+
+
+
+            // let timerInterval = null;
+
+            // timerInterval = setInterval(function(){
+            //     let currentTime = new Date();
+
+            //     let count = +currentTime - +startTime;
+
+            //     let s = Math.floor((count /  1000)) % 60;
+            //     let m = Math.floor((count / 60000)) % 60;
+
+            //     m = 24 - m;
+            //     s = 59 - s;
+
+            //     console.log(m + ":" + s);
+                
+            //     if(currentTime > endTime)
+            //     {
+            //         console.log("Time's Up!")
+            //         console.log("End Time: " + endTime)
+            //         console.log("Actual End Time: " + currentTime)
+            //         clearInterval(timerInterval)
+            //     }
+
+            // }, 10)
+        </script>
+    </body>
+</html>
