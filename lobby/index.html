@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect 4 Lobby</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        .lobby-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .lobby-wrapper {
+            display: flex;
+            margin-top: 50px;
+            align-items: flex-start;
+        }
+        .lobby {
+            display: flex;
+            gap: 20px;
+        }
+        .card {
+            background: #444;
+            border-radius: 8px;
+            padding: 20px;
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #555;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .card button:hover {
+            background-color: #666;
+        }
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-left: 20px;
+        }
+        .controls button {
+            padding: 10px 20px;
+            background-color: #555;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .controls button:hover {
+            background-color: #666;
+        }
+        .difficulty-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .difficulty-arrow {
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+        .modal-content {
+            background: #444;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .modal-content button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Connect 4 Lobby</h1>
+    <div class="lobby-container">
+        <div class="lobby-wrapper">
+            <div class="lobby" id="lobby">
+                <div class="card" id="player-card">
+                    <h3>Player Name</h3>
+                </div>
+            </div>
+            <div class="controls">
+                <button id="rules-button">Rules</button>
+                <button id="add-opponent">Add Opponent</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Add Opponent -->
+    <div class="modal" id="add-opponent-modal">
+        <div class="modal-content">
+            <p>Select Opponent Type:</p>
+            <button id="invite-friend">Invite Friend</button>
+            <button id="add-ai">Add AI Opponent</button>
+            <button id="close-modal">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        const lobby = document.getElementById('lobby');
+        const addOpponentButton = document.getElementById('add-opponent');
+        const addOpponentModal = document.getElementById('add-opponent-modal');
+        const inviteFriendButton = document.getElementById('invite-friend');
+        const addAIButton = document.getElementById('add-ai');
+        const closeModalButton = document.getElementById('close-modal');
+
+        const difficulties = ['Easy', 'Medium', 'Hard'];
+
+        addOpponentButton.addEventListener('click', () => {
+            addOpponentModal.style.display = 'flex';
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            addOpponentModal.style.display = 'none';
+        });
+
+        inviteFriendButton.addEventListener('click', () => {
+            addOpponentModal.style.display = 'none';
+            addOpponentCard('Friend');
+        });
+
+        addAIButton.addEventListener('click', () => {
+            addOpponentModal.style.display = 'none';
+            addOpponentCard('AI');
+        });
+
+        function addOpponentCard(type) {
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            if (type === 'Friend') {
+                card.innerHTML = `
+                    <h3>Invited Player</h3>
+                    <button>Profile</button>
+                    <button class="remove-player">Remove</button>
+                `;
+            } else if (type === 'AI') {
+                let difficultyIndex = 0;
+                card.innerHTML = `
+                    <h3>AI Opponent</h3>
+                    <div class="difficulty-button">
+                        <span class="difficulty-arrow" id="left-arrow">&#9664;</span>
+                        <span id="difficulty-label">${difficulties[difficultyIndex]}</span>
+                        <span class="difficulty-arrow" id="right-arrow">&#9654;</span>
+                    </div>
+                    <button class="remove-player">Remove Player</button>
+                `;
+
+                card.querySelector('#left-arrow').addEventListener('click', () => {
+                    difficultyIndex = (difficultyIndex + difficulties.length - 1) % difficulties.length;
+                    card.querySelector('#difficulty-label').textContent = difficulties[difficultyIndex];
+                });
+
+                card.querySelector('#right-arrow').addEventListener('click', () => {
+                    difficultyIndex = (difficultyIndex + 1) % difficulties.length;
+                    card.querySelector('#difficulty-label').textContent = difficulties[difficultyIndex];
+                });
+            }
+
+            card.querySelector('.remove-player').addEventListener('click', () => {
+                lobby.removeChild(card);
+            });
+
+            lobby.appendChild(card);
+        }
+    </script>
+</body>
+</html>
