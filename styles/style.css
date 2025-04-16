@@ -1,0 +1,135 @@
+body, html
+{
+	/*Remove whitespace around webpage*/
+	border: 0;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	/*Background Color*/
+	background-color: #2D2F27ff;
+}
+
+header
+{
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+
+header, footer
+{
+	padding: 15px;
+	background-color: #CED1D7ff;
+}
+
+h1
+{
+	font-size: 1.75em;
+	margin: 0;
+}
+
+/*So the footer doesn't overlap content*/
+main
+{
+	padding-bottom: 80px;
+}
+
+.profile-element
+{
+	/*Image and bio spacing for smaller screens*/
+	margin: 15px 25px;
+}
+
+#bio
+{
+	background-color: white;
+	padding: 15px;
+	border-radius: 5pt;
+}
+
+.responsive-text
+{
+	font-size: 1.45em;
+}
+
+#profileImg
+{
+	width: 100%;
+}
+
+#projects
+{
+	background-color: rgba(120, 120, 116, 0.9);
+	padding: 20px 0px;
+}
+
+h2
+{
+	text-align: center;
+	color: white;
+	margin: 0;
+	font-size: 1.75em;
+}
+
+details
+{
+	background-color: black;
+	color: white;
+	margin: 15px;
+	padding: 15px 32px;
+	border-radius: 5pt;
+	overflow: auto; /*This keeps the image from clipping outside the details box if it gets too big*/
+}
+
+details a
+{
+	color: white;
+}
+
+details:nth-child(odd)
+{
+	background-color: white;
+	color: black;
+}
+
+details:nth-child(odd) a
+{
+	color: black;
+}
+
+summary
+{
+	cursor: pointer;
+}
+
+.summary-timeline
+{
+	display: none;
+}
+
+.thumbnail
+{
+	width: 80%;
+	margin-left: 10%; /* (100 - .thumbnail width) / 2 */
+	margin-top: 1em; /*This is the default margin-top of p tags*/
+}
+
+footer
+{
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	display: flex;
+	justify-content: space-evenly;
+	padding: 15px 0px; /* This is so the footer contents is centered. Without this it isn't for some reason */
+	right: 0;
+	left: 0;
+}
+
+.font-awesome
+{
+	font-size: 50px;
+	color: black;
+	text-decoration: none;
+}
