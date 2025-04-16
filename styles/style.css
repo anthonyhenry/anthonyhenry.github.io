@@ -101,6 +101,7 @@ details:nth-child(odd) a
 summary
 {
 	cursor: pointer;
+    text-align: center;
 }
 
 .summary-timeline
