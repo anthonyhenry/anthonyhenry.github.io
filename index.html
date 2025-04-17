@@ -9,9 +9,9 @@
 </head>
 <body>
   <header>
-    <h1>Anthony Hernandez</h1>
-    <h1>100 Days of Code</h1>
-    <h1>Days Remaining: <span id="countdown">98</span></h1>
+    <h1 id="name">Anthony Hernandez</h1>
+    <h1 id="title">100 Days of Code</h1>
+    <h1 id="days">Days Remaining: <span id="countdown">98</span></h1>
   </header>
 
   <main>
@@ -34,15 +34,24 @@
 
       <div id="projectsList">
       
+        <!-- test <span>another test</span>
+        <details>
+          <summary>
+            <div class="test2">
+              Project Title <span>##/##/#### - ##/##/####</span>
+            </div>
+          </summary>
+        </details> -->
+
         <details class="responsive-text">
-          <summary>100 Days of Code Home Page<span class="summary-timeline">4/15/2025 - </span></summary>
+          <summary><span class="arrow"></span> <span class="project-title">Days of Code Home Page</span><span class="summary-timeline">4/15/2025 - </span></summary>
           <img src="imgs/home-page.png" class="thumbnail">
           <p>My first project is a home page to store links to all the projects I work on for the challenge.</p>
           <p class="details-timeline"><strong>Days</strong>: 4/15/2025 - </p>
           <p><strong>Languages</strong>: HTML, CSS, JavaScript</p>
           <p><strong>Features</strong>: Mobile First Responsive Design</p>
         </details>
-        <details class="responsive-text">
+        <!-- <details class="responsive-text">
           <summary>Calavera<span class="summary-timeline">5/1/2022 - 5/7/2022</span></summary>
           <a href="Projects/Skull" target="_blank"><img src="imgs/skull.png" class="thumbnail"></a>
           <p>For this project I used p5.js to make a colorful skull. The colors used for the skull are randomly selected in a way that prevents the same color from appearing more than once.</p>
@@ -60,13 +69,13 @@
           <p><strong>Libraries/Frameworks</strong>: Bootstrap, Open Iconic</p>
           <p><strong>Features</strong>: Regular Expressions, Web Storage</p>
           <a href="Projects/Pomodoro-Task-Manager" target="_blank">See Project</a>
-        </details>
+        </details> -->
       </div>
     </div>
 
     <div id="updates">
       <h2>Updates</h2>
-      <bsky-embed username="vincentwill.com" mode="dark" limit="5"></bsky-embed>
+      <bsky-embed username="anthonyhdez.bsky.social" mode="dark" limit="5"></bsky-embed>
     </div>
   </main>
 

@@ -13,8 +13,8 @@ body, html
 header
 {
 	text-align: center;
-	display: flex;
-	flex-direction: column;
+	/* display: flex;
+	flex-direction: column; */
 }
 
 header, footer
@@ -137,4 +137,99 @@ footer
 	font-size: 50px;
 	color: black;
 	text-decoration: none;
+}
+
+/* Screen widths taken from Bootstrap */
+
+/* Small devices (landscape phones, 576 and up) */
+@media screen and (min-width: 576px)
+{
+	/* Don't need this since this will use the default styles */
+}
+
+/* Medium devices (tablets, 768 and up) */
+@media screen and (min-width: 768px)
+{
+	/* Space out header elements across top bar */
+	header
+	{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	#name
+	{
+		order: 2;
+	}
+	#title
+	{
+		order: 1;
+	}
+	#days
+	{
+		order: 3;
+	}
+	h1
+	{
+		font-size: 1.5em;
+	}
+
+	/*Show profile image and bio side by side*/
+	#profile
+	{
+		display: flex;
+	}
+	.profile-element
+	{
+		width: 50%;
+	}
+	#bio
+	{
+		padding-left: 25px;
+		padding-right: 25px;
+	}
+
+	/* Show project dates in section */
+
+	summary
+	{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		list-style: none;
+	}
+	.project-title
+	{
+		flex-grow: 1;
+	}
+	
+	.summary-timeline
+	{
+		display: block;
+	}
+	.details-timeline
+	{
+		display: none;
+	}
+	.arrow {
+		margin-right: 8px;
+		transition: transform 0.3s ease;
+		display: inline-flex;
+		align-items: center; /* center the arrow inside its span */
+	  }
+	  
+	  /* Make a simple triangle as the arrow */
+	  .arrow::before {
+		content: "▶";
+		display: inline-block;
+		transition: transform 0.3s ease;
+		line-height: 1;
+		vertical-align: middle;
+
+	  }
+	  
+	  /* Rotate when open */
+	  details[open] .arrow::before {
+		transform: rotate(90deg);
+	  }
 }
