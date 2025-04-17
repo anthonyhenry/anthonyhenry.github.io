@@ -115,6 +115,11 @@ summary
 	margin-top: 1em; /*This is the default margin-top of p tags*/
 }
 
+#updates
+{
+	margin: 15px 25px;
+}
+
 footer
 {
 	width: 100%;
