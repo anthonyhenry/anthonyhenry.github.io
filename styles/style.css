@@ -96,6 +96,7 @@ summary
 	cursor: pointer;
 	display: flex;
 	align-items: center;
+	line-height: 1;
 }
 
 /* Hide dates in Details Summary */
@@ -112,9 +113,6 @@ summary
 .arrow::before
 {
 	content: "▶";
-	/* Align arrow with text */
-	line-height: 1;
-	vertical-align: middle;
 	/* This is needed to make the arrow rotate when clicked */
 	display: inline-block;
 	transition: transform 0.3s ease;
