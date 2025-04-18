@@ -13,14 +13,7 @@ body, html
 header
 {
 	text-align: center;
-	/* display: flex;
-	flex-direction: column; */
-}
-
-header, footer
-{
 	padding: 15px;
-	background-color: #CED1D7ff;
 }
 
 h1
@@ -35,10 +28,15 @@ main
 	padding-bottom: 80px;
 }
 
-.profile-element
+/*Image and bio spacing for smaller screens*/
+#profile > * /* All children of the profile div */
 {
-	/*Image and bio spacing for smaller screens*/
 	margin: 15px 25px;
+}
+
+#profileImg
+{
+	width: 100%;
 }
 
 #bio
@@ -51,11 +49,6 @@ main
 .responsive-text
 {
 	font-size: 1.45em;
-}
-
-#profileImg
-{
-	width: 100%;
 }
 
 #projects
@@ -101,11 +94,35 @@ details:nth-child(odd) a
 summary
 {
 	cursor: pointer;
+	display: flex;
+	align-items: center;
 }
 
+/* Hide dates in Details Summary */
 .summary-timeline
 {
 	display: none;
+}
+
+/* Use custom arrow for Details. This is needed because of Flexbox */
+.arrow
+{
+	margin-right: 5px;
+}
+.arrow::before
+{
+	content: "▶";
+	/* Align arrow with text */
+	line-height: 1;
+	vertical-align: middle;
+	/* This is needed to make the arrow rotate when clicked */
+	display: inline-block;
+	transition: transform 0.3s ease;
+}
+details[open] .arrow::before 
+{
+	/* Rotate when open */
+	transform: rotate(90deg);
 }
 
 .thumbnail
@@ -130,6 +147,11 @@ footer
 	padding: 15px 0px; /* This is so the footer contents is centered. Without this it isn't for some reason */
 	right: 0;
 	left: 0;
+}
+
+header, footer
+{
+	background-color: #CED1D7ff;
 }
 
 .font-awesome
@@ -179,7 +201,7 @@ footer
 	{
 		display: flex;
 	}
-	.profile-element
+	#profile > *
 	{
 		width: 50%;
 	}
@@ -189,20 +211,15 @@ footer
 		padding-right: 25px;
 	}
 
-	/* Show project dates in section */
-
+	/* Show project dates in Details Summary */
 	summary
 	{
-		display: flex;
 		justify-content: space-between;
-		align-items: center;
-		list-style: none;
 	}
 	.project-title
 	{
-		flex-grow: 1;
+		flex-grow: 1; /* This is needed to have the project title appear right next to the arrow*/
 	}
-	
 	.summary-timeline
 	{
 		display: block;
@@ -211,25 +228,4 @@ footer
 	{
 		display: none;
 	}
-	.arrow {
-		margin-right: 8px;
-		transition: transform 0.3s ease;
-		display: inline-flex;
-		align-items: center; /* center the arrow inside its span */
-	  }
-	  
-	  /* Make a simple triangle as the arrow */
-	  .arrow::before {
-		content: "▶";
-		display: inline-block;
-		transition: transform 0.3s ease;
-		line-height: 1;
-		vertical-align: middle;
-
-	  }
-	  
-	  /* Rotate when open */
-	  details[open] .arrow::before {
-		transform: rotate(90deg);
-	  }
 }
