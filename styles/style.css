@@ -241,12 +241,12 @@ header, footer
 
 	main
 	{
-		/* border: 1px solid red; */
 		position: relative;
 		top: 100px;
 		left: 120px;
-		width: 870px; /*figure width + figure left*/
-		height: calc(100% - 100px); /* #bio top + #bio padding top + bio padding bottom + bio height */
+		width: 870px;
+		height: calc(100% - 100px - 62px); /* #bio top + #bio padding top + bio padding bottom + bio height */
+		padding-bottom: 55px;
 	}
 
 	#profile > * /* All children of the profile div */
@@ -258,9 +258,7 @@ header, footer
 	{
 		width: 300px;
 		height: 300px;
-		/* border: 1px solid blue; */
 		position: relative;
-		/* left: 570px; */
 	}
 
 	.responsive-text
@@ -282,12 +280,13 @@ header, footer
 	h2
 	{
 		margin: 20px;
+		font-size: 1.5em;
 	}
 
 	#bio
 	{
 		height: 165px; /* #projects top - #bio top and bottom padding - 30*/
-		left: 45px;
+		left: 42px; /* main width - figure width - #bio width(main width/2) - #bio padding left and right [all that divide by 2]*/
 		position: relative;
 	}
 
@@ -296,4 +295,11 @@ header, footer
 	{
 		display: none;
 	}
+
+	.font-awesome
+	{
+		font-size: 24px;
+	}
+
+	/* Need to add .thumbnail here */
 }
