@@ -285,6 +285,7 @@ header, footer
 	{
 		position: relative;
 		height: 165px; /* #figure{height} - |#projects{top}| - #bio{padding-top} - #bio{padding-bottom} - 30 (for space between bio and projects) */
+		width: 435px; /* main{width} / 2 */
 		left: 42px; /* ( main{width} - figure{width} - #bio{width}==main{width}/2 - #bio{padding-left} - #bio{padding-right} ) / 2 */
 	}
 
@@ -297,5 +298,24 @@ header, footer
 	.font-awesome
 	{
 		font-size: 40px;
+	}
+}
+
+/* X-Large devices (large desktops, 1200 and up) */
+@media screen and (min-width: 1200px)
+{
+	main
+	{
+		/* border: 1px solid yellow; */
+		/* width: 1090px; */
+	}
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media screen and (min-width: 1400px)
+{
+	main
+	{
+		/* border: 1px solid red; */
 	}
 }
