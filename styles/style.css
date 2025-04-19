@@ -154,7 +154,7 @@ header, footer
 
 .font-awesome
 {
-	font-size: 40px;
+	font-size: 50px;
 	color: black;
 	text-decoration: none;
 }
@@ -243,6 +243,7 @@ header, footer
 		top: 100px;
 		left: 11%;
 		width: 870px;
+		padding-bottom: 70px;
 		/* padding-bottom: 0px; */ /* No longer need padding because #updates is shifted up 70px */
 	}
 
