@@ -8,6 +8,7 @@ body, html
 	width: 100%;
 	/*Background Color*/
 	background-color: #2D2F27ff;
+	font-family: 'DM Sans';
 }
 
 header
@@ -42,7 +43,7 @@ main
 #bio
 {
 	background-color: white;
-	padding: 15px;
+	padding: 15px 25px;
 	border-radius: 5pt;
 }
 
@@ -168,7 +169,7 @@ header, footer
 }
 
 /* Medium devices (tablets, 768 and up) */
-@media screen and (min-width: 768px)
+@media screen and (min-width: 768px) /* This is what my phone uses */
 {
 	/* Space out header elements across top bar */
 	header
@@ -194,38 +195,15 @@ header, footer
 		font-size: 1.5em;
 	}
 
-	/*Show profile image and bio side by side*/
-	#profile
+	/* Center content on page */
+	main
 	{
-		display: flex;
+		width: 575px;
+		margin: auto;
 	}
-	/* #profile > * */
-	figure, #bio
+	.responsive-text
 	{
-		width: 50%;
-	}
-	#bio
-	{
-		padding-left: 25px;
-		padding-right: 25px;
-	}
-
-	/* Show project dates in Details Summary */
-	summary
-	{
-		justify-content: space-between;
-	}
-	.project-title
-	{
-		flex-grow: 1; /* This is needed to have the project title appear right next to the arrow*/
-	}
-	.summary-timeline
-	{
-		display: block;
-	}
-	.details-timeline
-	{
-		display: none;
+		font-size: 1.2em;
 	}
 }
 
@@ -240,11 +218,17 @@ header, footer
 	main
 	{
 		position: relative;
+		margin: 0;
 		top: 100px;
 		left: 11%;
 		width: 870px;
 		padding-bottom: 70px;
 		/* padding-bottom: 0px; */ /* No longer need padding because #updates is shifted up 70px */
+	}
+
+	#profile
+	{
+		display: flex;
 	}
 
 	#profile > * /* All children of the profile div */
@@ -261,7 +245,7 @@ header, footer
 
 	.responsive-text
 	{
-		font-size: 1.2em;
+		font-size: 1em;
 	}
 
 	#projects
@@ -279,6 +263,25 @@ header, footer
 	{
 		margin: 20px;
 		font-size: 1.5em;
+	}
+
+	/* Show project dates in Details Summary */
+	summary
+	{
+		justify-content: space-between;
+	}
+	.project-title
+	{
+		flex-grow: 1; /* This is needed to have the project title appear right next to the arrow*/
+	}
+	.summary-timeline
+	{
+		display: block;
+		text-align: right;
+	}
+	.details-timeline
+	{
+		display: none;
 	}
 
 	#bio
