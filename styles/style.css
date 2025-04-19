@@ -154,7 +154,7 @@ header, footer
 
 .font-awesome
 {
-	font-size: 50px;
+	font-size: 40px;
 	color: black;
 	text-decoration: none;
 }
@@ -241,10 +241,9 @@ header, footer
 	{
 		position: relative;
 		top: 100px;
-		left: 120px;
+		left: 11%;
 		width: 870px;
-		height: calc(100% - 100px - 62px); /* #bio top + #bio padding top + bio padding bottom + bio height */
-		padding-bottom: 55px;
+		/* padding-bottom: 0px; */ /* No longer need padding because #updates is shifted up 70px */
 	}
 
 	#profile > * /* All children of the profile div */
@@ -261,13 +260,13 @@ header, footer
 
 	.responsive-text
 	{
-		font-size: large;
+		font-size: 1.2em;
 	}
 
 	#projects
 	{
-		position: absolute;
-		top: 225px;
+		position: relative;
+		top: -75px;
 		left: 285px; /* figure width -  details margin */
 		width: 585px; /* main width - figure width + details margin */
 		height: 345px;
@@ -283,21 +282,19 @@ header, footer
 
 	#bio
 	{
-		height: 165px; /* #projects top - #bio top and bottom padding - 30*/
-		left: 42px; /* main width - figure width - #bio width(main width/2) - #bio padding left and right [all that divide by 2]*/
 		position: relative;
+		height: 165px; /* #figure{height} - |#projects{top}| - #bio{padding-top} - #bio{padding-bottom} - 30 (for space between bio and projects) */
+		left: 42px; /* ( main{width} - figure{width} - #bio{width}==main{width}/2 - #bio{padding-left} - #bio{padding-right} ) / 2 */
 	}
 
-	/* TEMP */
 	#updates
 	{
-		display: none;
+		position: relative;
+		top: -70px;
 	}
 
 	.font-awesome
 	{
-		font-size: 24px;
+		font-size: 40px;
 	}
-
-	/* Need to add .thumbnail here */
 }
