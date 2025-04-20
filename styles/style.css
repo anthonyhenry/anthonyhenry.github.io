@@ -307,11 +307,7 @@ header, footer
 /* X-Large devices (large desktops, 1200 and up) */
 @media screen and (min-width: 1200px)
 {
-	main
-	{
-		/* border: 1px solid yellow; */
-		/* width: 1090px; */
-	}
+	
 }
 
 /* XX-Large devices (larger desktops, 1400px and up) */
@@ -319,6 +315,18 @@ header, footer
 {
 	main
 	{
-		/* border: 1px solid red; */
+		width: 1250px;
+		left: 0;
+		margin: auto;
 	}
+	#updates
+	{
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0;
+		width: 350px;
+		padding-bottom: 70px;
+	}
+
 }
