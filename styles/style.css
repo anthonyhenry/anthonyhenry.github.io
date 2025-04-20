@@ -19,14 +19,7 @@ header
 
 h1
 {
-	font-size: 1.75em;
 	margin: 0;
-}
-
-/*So the footer doesn't overlap content*/
-main
-{
-	padding-bottom: 80px;
 }
 
 /*Image and bio spacing for smaller screens*/
@@ -63,7 +56,6 @@ h2
 	text-align: center;
 	color: white;
 	margin: 0;
-	font-size: 1.75em;
 }
 
 details
@@ -128,12 +120,13 @@ details[open] .arrow::before
 {
 	width: 80%;
 	margin-left: 10%; /* (100 - .thumbnail width) / 2 */
-	margin-top: 1em; /*This is the default margin-top of p tags*/
+	margin-top: 1em; /* This is the default margin-top of p tags */
 }
 
 #updates
 {
 	margin: 15px 25px;
+	padding-bottom: 80px; /* So the footer doesn't overlap content */
 }
 
 footer
@@ -171,6 +164,21 @@ header, footer
 /* Medium devices (tablets, 768 and up) */
 @media screen and (min-width: 768px) /* This is what my phone uses */
 {
+	/* Center content on page */
+	main
+	{
+		width: 700px;
+		margin: auto;
+	}
+	.responsive-text
+	{
+		font-size: 1.2em;
+	}
+}
+
+/* Large devices (desktops, 992 and up) */
+@media screen and (min-width: 992px)
+{
 	/* Space out header elements across top bar */
 	header
 	{
@@ -190,45 +198,21 @@ header, footer
 	{
 		order: 3;
 	}
-	h1
-	{
-		font-size: 1.5em;
-	}
-
-	/* Center content on page */
-	main
-	{
-		width: 700px;
-		margin: auto;
-	}
-	.responsive-text
-	{
-		font-size: 1.2em;
-	}
-}
-
-/* Large devices (desktops, 992 and up) */
-@media screen and (min-width: 992px)
-{
-	h1
+	/* h1
 	{
 		font-size: 1.75em;
-	}
+	} */
 
 	main
 	{
 		position: relative;
-		margin: 0;
 		top: 100px;
-		left: 11%;
 		width: 870px;
-		padding-bottom: 70px;
-		/* padding-bottom: 0px; */ /* No longer need padding because #updates is shifted up 70px */
 	}
 
 	#profile
 	{
-		display: flex;
+		/* display: flex; */
 	}
 
 	#profile > * /* All children of the profile div */
@@ -240,7 +224,14 @@ header, footer
 	{
 		width: 300px;
 		height: 300px;
-		position: relative;
+	}
+
+	#bio
+	{
+		position: absolute;
+		top: 0;
+		width: 435px; /* main{width} / 2 */
+		left: 342px; /* figure{width} + ( main{width} - figure{width} - #bio{width}==main{width}/2 - #bio{padding-left} - #bio{padding-right} ) / 2 */
 	}
 
 	.responsive-text
@@ -250,10 +241,10 @@ header, footer
 
 	#projects
 	{
-		position: relative;
-		top: -75px;
-		left: 285px; /* figure width -  details margin */
-		width: 585px; /* main width - figure width + details margin */
+		position: absolute;
+		top: 225px; /* figure{height} - 75 */
+		left: 285px; /* figure{width} -  details{margin} */
+		width: 585px; /* main{width} - figure{width} + details{margin} */
 		height: 345px;
 		overflow-y: auto;
 		padding: 0;
@@ -262,7 +253,6 @@ header, footer
 	h2
 	{
 		margin: 20px;
-		font-size: 1.5em;
 	}
 
 	/* Show project dates in Details Summary */
@@ -284,18 +274,11 @@ header, footer
 		display: none;
 	}
 
-	#bio
-	{
-		position: relative;
-		height: 165px; /* #figure{height} - |#projects{top}| - #bio{padding-top} - #bio{padding-bottom} - 30 (for space between bio and projects) */
-		width: 435px; /* main{width} / 2 */
-		left: 42px; /* ( main{width} - figure{width} - #bio{width}==main{width}/2 - #bio{padding-left} - #bio{padding-right} ) / 2 */
-	}
-
 	#updates
 	{
 		position: relative;
-		top: -70px;
+		top: 270px; /* #projects{height} - 75 */
+		padding-bottom: 70px;
 	}
 
 	.font-awesome
@@ -307,17 +290,31 @@ header, footer
 /* X-Large devices (large desktops, 1200 and up) */
 @media screen and (min-width: 1200px)
 {
-	
+
 }
 
 /* XX-Large devices (larger desktops, 1400px and up) */
 @media screen and (min-width: 1400px)
 {
+	/* Move Projects section up */
+	#projects
+	{
+		top: 125px;
+	}
+
+	/* Move Bio under Projects */
+	#bio
+	{
+		left: 0;
+		top: 495px; /* #projects{height} + #projects{top} + 25 */
+		width: 820px; /* figure{width} + projects{width} - details{margin-left} - #bio{padding-left} - #bio{padding-right}*/
+	}
+
+	/* Move updates to the right side */
 	main
 	{
 		width: 1250px;
 		left: 0;
-		margin: auto;
 	}
 	#updates
 	{
@@ -326,7 +323,9 @@ header, footer
 		right: 0;
 		margin: 0;
 		width: 350px;
-		padding-bottom: 70px;
 	}
-
+	#updates h2
+	{
+		margin: 0px;
+	}
 }
