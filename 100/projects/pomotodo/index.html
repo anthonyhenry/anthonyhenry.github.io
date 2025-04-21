@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Task Manager</title>
+	<!-- Bootstrap -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<!-- Bootstrap 5 Documentation: https://getbootstrap.com/docs/5.0/forms/layout/ -->
+	<!-- Open Iconic -->
+	<link href="../../Libraries/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet">
+	<!-- Howler -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+	
+	<!-- Stylesheet -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body class="py-4">
+	
+	<div class="container">
+		
+		<header class="row">
+			
+			<div class="col-8">
+				<h1>Task Manager</h1>
+			</div>
+			
+			<!-- Date -->
+			<div id="date" class="col-4"></div>
+		
+		</header>
+
+		<main class="row mt-3">
+
+			<!-- Task List -->
+			<section class="col-12 col-lg-7 col-xl-8 order-1 order-lg-12 pe-lg-5">
+
+				<!-- Form -->
+				<form id="newTaskForm" class="row">
+					<div class="col-12 col-md-7 col-lg-6 col-xl-7">
+						<label for="newTaskDescription">Task</label>
+						<input id="newTaskDescription" name="newTaskDescription" type="text" class="form-control" placeholder="New Task...">
+					</div>
+					<div class="col-12 col-md-auto mt-1 mt-md-0">
+						<label for="newTaskDueDate">Due Date</label>
+						<input id="newTaskDueDate" name="newTaskDueDate" type="date" class="form-control">
+					</div>
+					<div class="col-12 col-md-auto mt-1 mt-md-0">
+						<label class="d-none d-md-inline-block"></label> <!-- Empty label that is hidden on smaller screens -->
+						<button role="button" type="submit" class="btn btn-primary col-12">+</button>
+					</div>
+				</form>
+
+				<!-- Task List -->
+				<div class="mt-3">
+
+					<ul id="tasksList" class="list-group">
+
+						<!-- Overdue Tasks -->
+						<div id="overdueTasks">
+							<li class="list-group-item d-flex justify-content-between bg-dark border-bottom py-3 example">
+								<div class="text-white">Overdue Task</div>
+								<div class="d-flex align-items-center">
+									<span class="badge rounded-pill bg-white text-dark">Overdue</span>
+									<span class="remove oi oi-circle-x ms-1" title="Remove"></span>
+								</div>
+							</li>
+						</div>
+
+						<!-- Tasks due today -->
+						<div id="tasksDueToday">
+							<li class="list-group-item d-flex justify-content-between bg-warning border-bottom py-3 example">
+								<div>Task Due Today</div>
+								<div class="d-flex align-items-center">
+									<span class="badge rounded-pill bg-dark">Due Today</span>
+									<span class="remove oi oi-circle-x ms-1" title="Remove"></span>
+								</div>
+							</li>
+						</div>
+
+						<!-- High Priority Tasks -->
+						<div id="highPriorityTasks">
+							<li class="list-group-item d-flex justify-content-between border-bottom py-3 example">
+								<div>High Priority Task</div>
+								<div class="d-flex align-items-center">
+									<span class="badge rounded-pill bg-danger ">High</span>
+									<span class="remove oi oi-circle-x ms-1" title="Remove"></span>
+								</div>
+							</li>
+						</div>
+
+						<!-- Medium Priority Tasks -->
+						<div id="mediumPriorityTasks">
+							<li class="list-group-item d-flex justify-content-between border-bottom py-3 example">
+								<div>Medium Priority Task</div>
+								<div class="d-flex align-items-center">
+									<span class="badge rounded-pill bg-warning text-dark">Medium</span>
+									<span class="remove oi oi-circle-x ms-1" title="Remove"></span>
+								</div>
+							</li>
+						</div>
+
+						<!-- Low Priority Tasks -->
+						<div id="lowPriorityTasks">
+							<li class="list-group-item d-flex justify-content-between border-bottom py-3 example">
+								<div>Low Priority Task</div>
+								<div class="d-flex align-items-center">
+									<span class="badge rounded-pill bg-success">Low</span>
+									<span class="remove oi oi-circle-x ms-1" title="Remove"></span>
+								</div>
+							</li>
+						</div>
+
+					</ul>
+
+				</div>
+
+			</section>
+
+			<!-- Side -->
+			<section class="col-12 col-lg-5 col-xl-4 order-12 order-lg-1 pb-3">
+				
+				<!-- Pomodoro -->
+				<div class="py-4 bg-danger">
+
+					<div id="timerAndInfo">
+						<div id="timer">
+							<span id="timerMinutes">25</span>:<span id="timerSeconds">00</span>	
+						</div>
+
+						<div id="info" class="me-3">
+							<a href="https://images.ctfassets.net/dm4oa8qtogq0/390glBwOnV44EyoPoiJC6Z/3ddbb50dbc61e3a11afc6b05aa9e21ab/productivity-method_pomodoro-summary.jpg" target="_blank"><span class="oi oi-info"></span></a>
+						</div>
+					</div>
+
+					<div class="d-flex justify-content-center">
+						<button id="pomodoroTimer" type="button" class="timer-button btn mx-1 btn-outline-light">Pomodoro</button>
+						<button id="shortBreakTimer" type="button" class="timer-button btn mx-1 btn-success">Short Break</button>
+						<button id="longBreakTimer" type="button" class="timer-button btn mx-1 btn-primary">Long Break</button>
+					</div>
+
+					<div class="d-flex justify-content-center mt-3">
+						<!-- <button type="button" class="btn btn-light mt-3 col-6">Start</button>	 -->
+						<button id="startButton" type="button" class="timer-control-button btn mx-1 btn-light">Start</button>
+						<button id="stopButton" type="button" class="timer-control-button btn mx-1 btn-secondary">Stop</button>
+						<button id="skipButton" type="button" class="timer-control-button btn mx-1 btn-dark">Skip</button>
+
+					</div>
+
+					<!-- <div class="text-center text-white mt-3">
+						Time to focus!
+					</div> -->
+			
+				</div>
+
+				<!-- Jukebox -->
+				<div id="jukebox" class="py-4">
+					<iframe width="100%" src="https://www.youtube.com/embed/jfKfPfyJRdk" title="lofi hip hop radio - beats to relax/study to" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+					<form id="jukeboxForm" class="row">
+						<div class="col-12 col-md-10 col-lg-12 mt-1">
+							<input id="embedCode" name="embedCode" type="text" class="form-control" placeholder="YouTube Embed Code">
+						</div>
+						<div class="col-12 col-md-2 col-lg-12 mt-1 ">
+							<button role="button" type="submit" class="btn btn-primary col-12">Embed</button>
+						</div>
+					</form>
+				</div>
+			</section>
+
+		</main>
+
+	</div>
+
+	<script src="scripts/no-duplicate-windows.js"></script>
+	<script src="scripts/sfx.js"></script>
+	<script src="scripts/main.js"></script>
+	<script src="scripts/pomodoro.js"></script>
+	<script src="scripts/jukebox.js"></script>
+</body>
+</html>
