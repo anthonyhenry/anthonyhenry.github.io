@@ -1,9 +1,11 @@
 // Start of challenge
 const START_DATE = new Date("4/15/2025")
+// How many days the challenge will be
+const CHALLENGE_DURATION = 100;
 // Milliseconds in a day
 const MILLISECONDS_IN_A_DAY = 1000 * 60 * 60 * 24; // 1000 milliseconds/second * 60 seconds/minute, 60 minutes/hour * 24 hours/day
 // Find out what the date will be 99 days from the start
-const END_DATE = addDaysToDate(START_DATE, 99);
+const END_DATE = addDaysToDate(START_DATE, CHALLENGE_DURATION - 1); // Subtract 1 from challenge duration because the first day counts
 // Today's Date
 const TODAY = new Date();
 
@@ -20,8 +22,6 @@ else
     let daysRemaining = END_DATE - TODAY;
     // Convert milliseconds into days
     daysRemaining = Math.ceil(daysRemaining / MILLISECONDS_IN_A_DAY);
-    // Add 1 because the first day counts
-    daysRemaining++;
     
     document.querySelector("#countdown").innerText = daysRemaining;
 }
