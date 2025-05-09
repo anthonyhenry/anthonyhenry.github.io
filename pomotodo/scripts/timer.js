@@ -190,6 +190,11 @@ function tick(endTime, delay)
         {
             TIMERS.get(currentTimer).alarmSfx.play();
 
+            if("Notification" in window && Notification.permission === "granted")
+            {
+                new Notification(currentTimer + " timer complete!");
+            }
+
             console.log("Calculated end time: " + endTime);
             console.log("Actual end time: " + CURRENT_TIME);
 
