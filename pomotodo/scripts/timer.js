@@ -81,11 +81,12 @@ for(const button of CONTROL_BUTTONS)
             // Check if desktop notifications are supported and haven't been allowed yet
             if("Notification" in window && Notification.permission === "default")
             {
-                console.log("Notifications supported");
                 // Request permission to send notifcations
-                Notification.requestPermission().then(permission => {
-                    console.log(permission);
-                    new Notification("Thank you for allowing notifications!")
+                Notification.requestPermission().then((permission) => {
+                    if(permission === "granted")
+                    {
+                        new Notification("Thank you for allowing notifications!");
+                    }
                 });
             }
 
