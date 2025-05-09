@@ -170,7 +170,6 @@ function startTimer()
     // Find out when the timer should stop
     const START_TIME = new Date();
     const END_TIME = new Date(START_TIME.getTime() + MILLISECONDS_REMAINING);
-    console.log("============================")
     console.log("Start time: " + START_TIME);
     console.log("Calculated end time: " + END_TIME);
     console.log("============================")
@@ -183,7 +182,7 @@ function tick(endTime, delay)
 {
     timer = setTimeout(function(){
         const CURRENT_TIME = new Date();
-        console.log(CURRENT_TIME);
+        // console.log(CURRENT_TIME);
 
         // Timer finished
         if(CURRENT_TIME >= endTime)
@@ -194,7 +193,7 @@ function tick(endTime, delay)
             {
                 new Notification(currentTimer + " timer complete!");
             }
-
+            
             console.log("Calculated end time: " + endTime);
             console.log("Actual end time: " + CURRENT_TIME);
 
@@ -206,7 +205,7 @@ function tick(endTime, delay)
             changeStartButton("Start");
 
             // Error logging
-            console.log("Should be idle ->" + currentState)
+            // console.log("Should be idle ->" + currentState)
         }
         // Timer still running
         else
@@ -235,7 +234,6 @@ function tick(endTime, delay)
 function stopTimer()
 {
     clearTimeout(timer);
-    console.log("timer stopped");
 }
 
 ////////////////////////// Modal Functions //////////////////////////
