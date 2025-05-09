@@ -222,12 +222,9 @@ function tick(endTime, delay)
             updateTimerCountdown(MINUTES_REMAINING, secondsRemaining);
 
             // 1 minute remaining notification
-            if(MINUTES_REMAINING == 1 && secondsRemaining == "00")
+            if(MINUTES_REMAINING == 1 && secondsRemaining == "00" && "Notification" in window && Notification.permission === "granted")
             {
-                if("Notification" in window && Notification.permission === "granted")
-                {
-                    new Notification(MINUTES_REMAINING + " minute remaining on your " + currentTimer + " timer.");
-                }
+                new Notification(MINUTES_REMAINING + " minute remaining on your " + currentTimer + " timer.");
             }
 
             tick(endTime, 1000);
