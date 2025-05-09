@@ -85,7 +85,7 @@ for(const button of CONTROL_BUTTONS)
                 // Request permission to send notifcations
                 Notification.requestPermission().then(permission => {
                     console.log(permission);
-                    const test = new Notification("Thank you for allowing notifications!")
+                    new Notification("Thank you for allowing notifications!")
                 });
             }
 
