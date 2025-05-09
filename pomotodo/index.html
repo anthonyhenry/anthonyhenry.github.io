@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To Do List</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/296e5f751d.js" crossorigin="anonymous"></script>
+    <!-- Howler -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js" integrity="sha512-xi/RZRIF/S0hJ+yJJYuZ5yk6/8pCiRlEXZzoguSMl+vk2i3m6UjUO/WcZ11blRL/O+rnj94JRGwt/CHbc9+6EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+  </head>
+  <body>
+    <!-- Skip Confirmation Modal -->
+    <div class="modal fade" id="skipTimerModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="skipTimerModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="skipTimerModalLabel">Skip <span id="modalHeaderCurrentTimer"></span> Timer?</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to skip this <span id="modalBodyCurrentTimer"></span> timer?
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="confirmSkip" class="btn btn-primary">Confirm</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="py-4">
+
+      <div class="container">
+        
+        <header class="row">
+
+          <div class="col-8">
+            <h1>To Do List</h1>
+          </div>
+
+          <!-- Date (generated using JavaScript) -->
+          <div id="date" class="col-3 text-end">##/##/####</div>
+
+          <!-- Dark mode toggle -->
+          <div class="col-1">
+            <div id="lightDarkToggle">
+              <i class="fa-solid fa-moon"></i>
+              <i class="fa-solid fa-sun"></i>
+            </div>
+          </div>
+          
+        </header>
+
+        <main class="row mt-3">
+
+          <!-- Timer and Music Player -->
+          <div class="col-12 mb-3 col-lg-5 order-lg-last col-xl-4">
+
+            <!-- Timer -->
+            <div id="timer" class="bg-danger py-4">
+
+              <div class="position-relative">
+                <div id="countdown" class="text-white text-center">
+                  25:00
+                </div>
+                <div class="position-absolute top-0 end-0">
+                  <!-- <button type="button" class="btn btn-light btn-sm me-3"><i class="fa-solid fa-info text-danger"></i></button> -->
+                  <i id="pomodoroInfoButton" class="fa-solid fa-info text-danger me-3 bg-white px-2 py-1 rounded-2 info-btn"></i>
+                  <!-- <i class="fa-solid fa-circle-info text-white me-3"></i> --> <!-- Alternative info button -->
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <button type="button" data-timer="Pomodoro" class="timer-buttons btn btn-danger btn-outline-light mx-1">Pomodoro</button>
+                <button type="button" data-timer="Short Break" class="timer-buttons btn btn-success mx-1">Short Break</button>
+                <button type="button" data-timer="Long Break" class="timer-buttons btn btn-primary mx-1">Long Break</button>
+              </div>
+
+              <div class="d-flex justify-content-center mt-3">
+                <buttom id="startButton" type="button" class="timer-control-buttons btn btn-light mx-1">Start</buttom>
+                <buttom data-button="Skip" type="button" class="timer-control-buttons btn btn-dark mx-1">Skip</buttom>
+              </div>
+
+            </div>
+
+            <!-- Music Player -->
+            <div class="py-4">
+              <iframe width="100%" src="https://www.youtube.com/embed/jfKfPfyJRdk" title="lofi hip hop radio 📚 beats to relax/study to" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            
+              <form class="row">
+                <div class="col-12 mt-1 col-md-10 col-lg-12">
+                  <input type="text" placeholder="YouTube embed code" class="form-control">
+                </div>
+                <div class="col-12 mt-1 col-md-2 col-lg-12">
+                  <button role="button" type="submit" class="btn btn-primary col-12">Embed</button>
+                </div>
+              </form>
+            </div>
+
+          </div> <!-- Timer and Music Player -->
+
+          <!-- Tasks -->
+          <div class="col-12 col-lg-7 order-lg-first pe-lg-3 col-xl-8 pe-xl-5">
+
+            <!-- Form -->
+            <form class="row">
+              <div class="col-12 col-md-7 col-lg-6 col-xl-7">
+                <label for="newTaskDescription">Task</label>
+                <input id="newTaskDescription" name="newTaskDescription" type="text" class="form-control" placeholder="New task...">
+              </div>
+              <div class="col-12 mt-1 col-md-auto mt-md-0">
+                <label for="newTaskDueDate">Due Date</label>
+                <input id="newTaskDueDate" name="newTaskDueDate" type="date" class="form-control">
+              </div>
+              <div class="col-12 mt-1 col-md-auto mt-md-0">
+                <label class="d-none d-md-inline-block"></label> <!-- Empty label that is hidden on smaller screens -->
+                <button role="button" type="submit" class="btn btn-primary col-12">+</button>
+              </div>
+            </form>
+
+            <!-- Task List -->
+            <div class="mt-3">
+
+              <!-- Overdue tasks -->
+              <ul class="list-group rounded-0">
+                <li class="list-group-item py-3 d-flex justify-content-between bg-danger">
+                  <div class="text-dark">Overdue task</div>
+                  <div class="d-flex align-items-center">
+                    <span class="badge bg-white text-dark">Overdue</span>
+                    <i class="fa-solid fa-pen ms-2 edit-btn" title="Edit"></i>
+                    <i class="fa-solid fa-circle-xmark ms-1 delete-btn" title="Remove"></i>
+                  </div>
+                </li>
+              </ul>
+
+              <!-- Tasks Due Today -->
+              <ul class="list-group rounded-0">
+                <li class="list-group-item py-3 d-flex justify-content-between bg-warning">
+                  <div class="text-dark">Task due today</div>
+                  <div class="d-flex align-items-center">
+                    <span class="badge bg-secondary">Due Today</span>
+                    <i class="fa-solid fa-pen ms-2 edit-btn" title="Edit"></i>
+                    <i class="fa-solid fa-circle-xmark ms-1 delete-btn" title="Remove"></i>
+                  </div>
+                </li>
+              </ul>
+
+              <!-- High Priority Tasks -->
+              <ul class="list-group rounded-0">
+                <li class="list-group-item py-3 d-flex justify-content-between">
+                  <div>High priority task</div>
+                  <div class="d-flex align-items-center">
+                    <span class="badge bg-danger">High</span>
+                    <i class="fa-solid fa-pen ms-2 edit-btn" title="Edit"></i>
+                    <i class="fa-solid fa-circle-xmark ms-1 delete-btn" title="Remove"></i>
+                  </div>
+                </li>
+              </ul>
+
+              <ul class="list-group rounded-0">
+                <li class="list-group-item py-3 d-flex justify-content-between">
+                  <div>Medium priority task</div>
+                  <div class="d-flex align-items-center">
+                    <span class="badge bg-warning text-dark">Medium</span>
+                    <i class="fa-solid fa-pen ms-2 edit-btn" title="Edit"></i>
+                    <i class="fa-solid fa-circle-xmark ms-1 delete-btn" title="Remove"></i>
+                  </div>
+                </li>
+              </ul>
+
+              <ul class="list-group rounded-0">
+                <li class="list-group-item py-3 d-flex justify-content-between">
+                  <div>Low priority task</div>
+                  <div class="d-flex align-items-center">
+                    <span class="badge bg-success">Low</span>
+                    <i class="fa-solid fa-pen ms-2 edit-btn" title="Edit"></i>
+                    <i class="fa-solid fa-circle-xmark ms-1 delete-btn" title="Remove"></i>
+                  </div>
+                </li>
+              </ul>
+            
+            </div> <!-- Task List -->
+            
+          </div> <!-- Tasks-->
+
+        </main>
+      
+      </div>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/task-buttons.js"></script>
+    <script src="scripts/toggle-dark-mode.js"></script>
+    <script src="scripts/sfx.js"></script>
+    <script src="scripts/timer.js"></script>
+  </body>
+</html>
+
+<!-- light/dark mode -->
+<!-- https://stackoverflow.com/questions/63082529/how-to-properly-introduce-a-light-dark-mode-in-bootstrap -->
+<!-- https://github.com/404GamerNotFound/bootstrap-5.3-dark-mode-light-mode-switch -->
+<!-- https://stackoverflow.com/questions/11022843/add-hover-text-without-javascript-like-we-hover-on-a-users-reputation -->
+
+
+<!-- Project Ideas -->
+ <!-- Colorforms -->
+  <!-- Tupac or Shakespeare (React) -->
+   <!-- Reel Order (React?) -->
+    <!-- Something using a NASA API -->
+     <!-- Worlde -->
+
+<!-- Tech for this project -->
+ <!-- HTML, CSS, JavaScript, Bootstrap, Web Storage -->

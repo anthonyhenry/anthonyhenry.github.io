@@ -1,0 +1,73 @@
+:root
+{
+    --onHoverWhite: #d3d4d5;
+    --onHoverBlack: #424649;
+}
+
+/* Dark mode toggle button */
+#lightDarkToggle
+{
+    display: inline-block;
+    perspective: 600px;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+#lightDarkToggle.flip
+{
+    transform: rotateY(180deg);
+}
+#lightDarkToggle i
+{
+    position: absolute;
+    backface-visibility: hidden;
+    font-size: 2rem;
+}
+#lightDarkToggle .fa-moon
+{
+    transform: rotateY(0deg);
+}  
+#lightDarkToggle .fa-sun 
+{
+    transform: rotateY(180deg);
+}
+
+/*  */
+.fa-moon:hover
+{
+    color: var(--onHoverBlack);
+}
+.fa-sun:hover
+{
+    color: var(--onHoverWhite);
+}
+
+.info-btn, .edit-btn, .delete-btn 
+{
+    cursor: pointer;
+}
+
+/* Change info button color on hover */
+.info-btn:hover
+{
+    background-color: var(--onHoverWhite) !important; /* Color to match bootstrap button hover. Needs the !important to override bootstrap */
+}
+
+/* Timer text */
+#countdown
+{
+    font-size: 5em;
+    font-weight: bold;
+}
+
+/* Large devices (desktops, 992 and up) */
+@media screen and (min-width: 992px)
+{
+	#countdown
+	{
+		font-size: 3em;
+	}
+}
