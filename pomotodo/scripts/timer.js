@@ -177,13 +177,14 @@ function startTimer()
             //Create a new web worker
             w = new Worker("worker-timer.js");
 
+            let timerStart = "1000"
             // console.log("Sending data: " + timerStart + "...");
-            w.postMessage("timerStart");
+            w.postMessage(timerStart);
 
             //Update the timer
             w.onmessage = function(event){
                 // test.innerHTML = event.data;
-                console.log(event.data);
+                document.querySelector("#test").innerHTML = event.data;
             };
         }
     }
