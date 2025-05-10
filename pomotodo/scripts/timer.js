@@ -173,10 +173,10 @@ function startTimer()
         if (typeof(workerTimer) === "undefined") {
             workerTimer = new Worker("scripts/worker-timer.js");
 
-            workerTimer.postMessage(COUNTDOWN_DISPLAY.innerText);
+            workerTimer.postMessage(TIME_REMAINING);
 
             workerTimer.onmessage = function(event) {
-                console.log("Worker response: " + event.data);
+                // console.log("Worker response: " + event.data);
             };
         }
     }
