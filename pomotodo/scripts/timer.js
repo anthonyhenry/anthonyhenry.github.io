@@ -171,7 +171,7 @@ function startTimer()
 
     if (typeof(Worker) !== "undefined") {
         if (typeof(workerTimer) === "undefined") {
-            workerTimer = new Worker("worker-timer.js");
+            workerTimer = new Worker("scripts/worker-timer.js");
 
             const testData = 15000; // Example data
             console.log("Sending to worker:", testData);
