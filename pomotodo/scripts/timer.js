@@ -157,7 +157,7 @@ function skipTimer(newTimer)
     }
 }
 
-let workerTimer;
+let w;
 
 function startTimer()
 {
@@ -169,17 +169,22 @@ function startTimer()
     // Find out how many milliseconds remain
     const MILLISECONDS_REMAINING = (MINUTES_REMAINING * 60 * 1000) + (SECONDS_REMAINING * 1000);
 
-    if(typeof(Worker) !== "undefined")
+    if (typeof(Worker) !== "undefined")
     {
-        if(workerTimer == undefined)
+        //Make sure a worker has not already been started
+        if(w == undefined)
         {
-            workerTimer = new Worker("worker-timer.js");
-            console.log("Sending Data: " + MILLISECONDS_REMAINING);
-            workerTimer.postMessage(MILLISECONDS_REMAINING);
+            //Create a new web worker
+            w = new Worker("worker-timer.js");
 
-            workerTimer.onmessage = function(event){
+            // console.log("Sending data: " + timerStart + "...");
+            w.postMessage("timerStart");
+
+            //Update the timer
+            w.onmessage = function(event){
+                // test.innerHTML = event.data;
                 console.log(event.data);
-            }
+            };
         }
     }
 
