@@ -157,6 +157,8 @@ function skipTimer(newTimer)
     }
 }
 
+let workerTimer;
+
 function startTimer()
 {
     // Get the amount of time currently displayed in timer
@@ -166,6 +168,17 @@ function startTimer()
 
     // Find out how many milliseconds remain
     const MILLISECONDS_REMAINING = (MINUTES_REMAINING * 60 * 1000) + (SECONDS_REMAINING * 1000);
+
+    if(typeof(Worker) !== "undefined")
+    {
+        if(workerTimer == undefined)
+        {
+            workerTimer = new Worker("worker-timer.js");
+            console.log("Sending Data: " + MILLISECONDS_REMAINING);
+            workerTimer.postMessage(MILLISECONDS_REMAINING);
+            
+        }
+    }
 
     // Find out when the timer should stop
     const START_TIME = new Date();
