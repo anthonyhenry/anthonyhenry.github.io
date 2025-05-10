@@ -2,7 +2,12 @@
 onmessage = function(e) {
     console.log(e.data);
 
+    const TIME_REMAINING = e.data;
+
+    let minutes = TIME_REMAINING[0];
+    let seconds = TIME_REMAINING[1];
+
     // You can process the message here and then respond
-    // const response = minutes + ":" + seconds;
-    // postMessage(response);
+    const RESPONSE = minutes + ":" + seconds;
+    postMessage(response);
 };

@@ -176,7 +176,7 @@ function startTimer()
             workerTimer.postMessage(TIME_REMAINING);
 
             workerTimer.onmessage = function(event) {
-                // console.log("Worker response: " + event.data);
+                console.log("Worker response: " + event.data);
             };
         }
     }
