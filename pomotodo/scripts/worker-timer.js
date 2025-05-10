@@ -8,7 +8,21 @@ onmessage = function(e) {
     let seconds = TIME_REMAINING[1];
 
     setInterval(function(){
-        seconds--;
+        if(seconds == "00")
+        {
+            minutes--;
+            seconds = 59;
+        }
+        else
+        {
+            seconds--;
+
+            if(seconds < 10)
+            {
+                seconds = "0" + seconds;
+            }
+        }
+
         const RESPONSE = minutes + ":" + seconds;
         postMessage(RESPONSE);
     }, 1000);
