@@ -170,22 +170,16 @@ function startTimer()
     // Find out when the timer should stop
     const START_TIME = new Date();
     const END_TIME = new Date(START_TIME.getTime() + MILLISECONDS_REMAINING);
-    console.log("Start time: " + START_TIME);
-    console.log("Calculated end time: " + END_TIME);
-    console.log("============================")
 
     // Run timer
-    tick(END_TIME, 500);
+    tick(START_TIME, END_TIME, START_TIME, 0);
 }
 
-function tick(endTime, delay)
+function tick(startTime, endTime, currentTime, delay)
 {
     timer = setTimeout(function(){
-        const CURRENT_TIME = new Date();
-        // console.log(CURRENT_TIME);
-
         // Timer finished
-        if(CURRENT_TIME >= endTime)
+        if(currentTime >= endTime)
         {
             TIMERS.get(currentTimer).alarmSfx.play();
 
@@ -194,8 +188,10 @@ function tick(endTime, delay)
                 new Notification(currentTimer + " timer complete!");
             }
             
-            console.log("Calculated end time: " + endTime);
-            console.log("Actual end time: " + CURRENT_TIME);
+            console.log("============================")
+            console.log("Start time: " + startTime);
+            console.log("Expected end time: " + endTime);
+            console.log("Actual end time: " + currentTime);
 
             // Change to idle state
             currentState = changeState("end");
@@ -203,14 +199,12 @@ function tick(endTime, delay)
             changeCurrentTimer(getNextTimer());
             // Change start button text 
             changeStartButton("Start");
-
-            // Error logging
-            // console.log("Should be idle ->" + currentState)
         }
         // Timer still running
         else
         {
-            const TIME_REMAINING = endTime.getTime() - CURRENT_TIME.getTime();
+            // Update countdown
+            const TIME_REMAINING = endTime.getTime() - currentTime.getTime();
             const MINUTES_REMAINING = Math.floor(TIME_REMAINING / 60000) % 60;
             let secondsRemaining = Math.floor(TIME_REMAINING / 1000) % 60;
             if(secondsRemaining < 10)
@@ -226,7 +220,14 @@ function tick(endTime, delay)
                 new Notification(MINUTES_REMAINING + " minute remaining on your " + currentTimer + " timer.");
             }
 
-            tick(endTime, 1000);
+            // Set delay based on how many milliseconds until another second has passed since the start
+            const CURRENT_TIME = new Date();
+            const MILLISECONDS_PASSED = CURRENT_TIME.getTime() - startTime.getTime();
+            // console.log("Milliseconds passed: " + MILLISECONDS_PASSED);
+            const MILLISECONDS_TO_NEXT_SECOND = 1000 - (MILLISECONDS_PASSED % 1000);
+            // console.log("Milliseconds to next second: " + MILLISECONDS_TO_NEXT_SECOND);
+
+            tick(startTime, endTime, CURRENT_TIME, MILLISECONDS_TO_NEXT_SECOND);
         }
     }, delay);
 }
