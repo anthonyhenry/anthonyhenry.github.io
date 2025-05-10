@@ -11,5 +11,5 @@ onmessage = function(e) {
         seconds--;
         const RESPONSE = minutes + ":" + seconds;
         postMessage(RESPONSE);
-    }), 1000;
+    }, 1000);
 };
