@@ -1,8 +1,8 @@
-onmessage = function(e){
-    //Worker function passed data is available via e.data
-    console.log("Logging data...");
-    console.log(e.data);
-};
+// This handles incoming messages from the main thread
+onmessage = function(e) {
+    console.log("Worker received:", e.data);
 
-let workerTest = "Test message";
-postMessage(workerTest);
+    // You can process the message here and then respond
+    const response = "Worker got: " + e.data;
+    postMessage(response);
+};

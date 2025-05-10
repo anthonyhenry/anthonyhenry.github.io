@@ -169,17 +169,17 @@ function startTimer()
     // Find out how many milliseconds remain
     const MILLISECONDS_REMAINING = (MINUTES_REMAINING * 60 * 1000) + (SECONDS_REMAINING * 1000);
 
-    if(typeof(Worker) !== "undefined")
-    {
-        if(workerTimer == undefined)
-        {
+    if (typeof(Worker) !== "undefined") {
+        if (typeof(workerTimer) === "undefined") {
             workerTimer = new Worker("worker-timer.js");
-            console.log("Sending Data: " + MILLISECONDS_REMAINING);
-            workerTimer.postMessage(MILLISECONDS_REMAINING);
 
-            workerTimer.onmessage = function(event){
-                console.log(event.data);
-            }
+            const testData = 15000; // Example data
+            console.log("Sending to worker:", testData);
+            workerTimer.postMessage(testData);
+
+            workerTimer.onmessage = function(event) {
+                console.log("Message from worker:", event.data);
+            };
         }
     }
 
