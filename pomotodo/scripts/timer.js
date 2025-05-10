@@ -159,42 +159,44 @@ function skipTimer(newTimer)
 
 let w;
 
-function startTimer()
-{
-    // Get the amount of time currently displayed in timer
+let timerWorker;
+
+function startTimer() {
     const TIME_REMAINING = COUNTDOWN_DISPLAY.innerText.split(":");
-    const MINUTES_REMAINING = TIME_REMAINING[0];
-    const SECONDS_REMAINING = TIME_REMAINING[1];
+    const MINUTES_REMAINING = parseInt(TIME_REMAINING[0]);
+    const SECONDS_REMAINING = parseInt(TIME_REMAINING[1]);
+    const MILLISECONDS_REMAINING = (MINUTES_REMAINING * 60 + SECONDS_REMAINING) * 1000;
+    const END_TIME = new Date(new Date().getTime() + MILLISECONDS_REMAINING);
 
-    // Find out how many milliseconds remain
-    const MILLISECONDS_REMAINING = (MINUTES_REMAINING * 60 * 1000) + (SECONDS_REMAINING * 1000);
+    if (window.Worker) {
+        if (!timerWorker) {
+            timerWorker = new Worker("timer-worker.js");
 
-    if (typeof(Worker) !== "undefined")
-    {
-        //Make sure a worker has not already been started
-        if(w == undefined)
-        {
-            //Create a new web worker
-            w = new Worker("worker-timer.js");
+            timerWorker.onmessage = function(e) {
+                const data = e.data;
+                if (data.type === "tick") {
+                    updateTimerCountdown(data.minutes, data.seconds);
 
-            let timerStart = "1000"
-            // console.log("Sending data: " + timerStart + "...");
-            w.postMessage(timerStart);
-
-            //Update the timer
-            w.onmessage = function(event){
-                // test.innerHTML = event.data;
-                document.querySelector("#test").innerHTML = event.data;
+                    if (data.minutes == 1 && data.seconds == "00" && "Notification" in window && Notification.permission === "granted") {
+                        new Notification("1 minute remaining on your " + currentTimer + " timer.");
+                    }
+                } else if (data.type === "end") {
+                    TIMERS.get(currentTimer).alarmSfx.play();
+                    if ("Notification" in window && Notification.permission === "granted") {
+                        new Notification(currentTimer + " timer complete!");
+                    }
+                    currentState = changeState("end");
+                    changeCurrentTimer(getNextTimer());
+                    changeStartButton("Start");
+                }
             };
         }
+
+        timerWorker.postMessage({ command: "start", endTime: END_TIME });
+    } else {
+        // Fallback to setTimeout if Web Workers not supported
+        tick(new Date(), END_TIME, new Date(), 0);
     }
-
-    // Find out when the timer should stop
-    const START_TIME = new Date();
-    const END_TIME = new Date(START_TIME.getTime() + MILLISECONDS_REMAINING);
-
-    // Run timer
-    tick(START_TIME, END_TIME, START_TIME, 0);
 }
 
 function tick(startTime, endTime, currentTime, delay)
