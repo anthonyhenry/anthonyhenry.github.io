@@ -9,5 +9,5 @@ onmessage = function(e) {
 
     // You can process the message here and then respond
     const RESPONSE = minutes + ":" + seconds;
-    postMessage(response);
+    postMessage(RESPONSE);
 };
