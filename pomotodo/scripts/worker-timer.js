@@ -7,7 +7,9 @@ onmessage = function(e) {
     let minutes = TIME_REMAINING[0];
     let seconds = TIME_REMAINING[1];
 
-    // You can process the message here and then respond
-    const RESPONSE = minutes + ":" + seconds;
-    postMessage(RESPONSE);
+    setInterval(function(){
+        seconds--;
+        const RESPONSE = minutes + ":" + seconds;
+        postMessage(RESPONSE);
+    }), 1000;
 };
