@@ -3,3 +3,6 @@ onmessage = function(e){
     console.log("Logging data...");
     console.log(e.data);
 };
+
+let workerTest = "Test message";
+postMessage(workerTest);

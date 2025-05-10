@@ -176,7 +176,10 @@ function startTimer()
             workerTimer = new Worker("worker-timer.js");
             console.log("Sending Data: " + MILLISECONDS_REMAINING);
             workerTimer.postMessage(MILLISECONDS_REMAINING);
-            
+
+            workerTimer.onmessage = function(event){
+                console.log(event.data);
+            }
         }
     }
 
