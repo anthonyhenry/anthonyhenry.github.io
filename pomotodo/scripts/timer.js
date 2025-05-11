@@ -407,4 +407,4 @@ function timerNotification(minutesRemaining)
 //      Local Storage
 //      Desktop Notifications
 //      Howler.js
-//      We worker
+//      Web worker
