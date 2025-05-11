@@ -188,7 +188,7 @@ function startTimer()
                 console.log("I'm using a web worker!!!!");
                 console.log("Worker response: " + event.data);
 
-                timeRemaining = event.data;
+                timeRemaining = event.data.split(":");
                 updateTimerCountdown(timeRemaining[0], timeRemaining[1]);
 
                 if(event.data == "0:00")
