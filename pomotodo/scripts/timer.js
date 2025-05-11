@@ -248,6 +248,8 @@ function tick(startTime, endTime, currentTime, delay)
 
 function stopTimer()
 {
+    workerTimer.terminate();
+    workerTimer = undefined;
     clearTimeout(timer);
 }
 
