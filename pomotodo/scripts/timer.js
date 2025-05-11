@@ -37,6 +37,7 @@ let currentState = "idle";
 let currentTimer = "Pomodoro"; 
 let pomodoroCountSinceLongBreak = 0;
 let timer = null;
+let workerTimer;
 
 // Modal variables
 const SKIP_TIMER_MODAL_ELEMENT = document.querySelector("#skipTimerModal");
@@ -157,7 +158,22 @@ function skipTimer(newTimer)
     }
 }
 
-let workerTimer;
+function timerComplete()
+{
+    TIMERS.get(currentTimer).alarmSfx.play();
+
+    if("Notification" in window && Notification.permission === "granted")
+    {
+        new Notification(currentTimer + " timer complete!");
+    }
+
+    // Change to idle state
+    currentState = changeState("end");
+    // Change current timer
+    changeCurrentTimer(getNextTimer());
+    // Change start button text 
+    changeStartButton("Start");
+}
 
 function startTimer()
 {
@@ -201,7 +217,7 @@ function startTimer()
                 else if(event.data == "0:00")
                 {
                     stopTimer();
-                    endTimer();
+                    timerComplete();
 
                     console.log("Worker end time: " + new Date());
                     console.log("Expected end time: " + END_TIME);
@@ -218,23 +234,6 @@ function startTimer()
     }
 }
 
-function endTimer()
-{
-    TIMERS.get(currentTimer).alarmSfx.play();
-
-    if("Notification" in window && Notification.permission === "granted")
-    {
-        new Notification(currentTimer + " timer complete!");
-    }
-
-    // Change to idle state
-    currentState = changeState("end");
-    // Change current timer
-    changeCurrentTimer(getNextTimer());
-    // Change start button text 
-    changeStartButton("Start");
-}
-
 function tick(startTime, endTime, currentTime, delay)
 {
     timer = setTimeout(function(){
@@ -246,7 +245,7 @@ function tick(startTime, endTime, currentTime, delay)
             console.log("Expected end time: " + endTime);
             console.log("Actual end time: " + currentTime);
 
-            endTimer();
+            timerComplete();
         }
         // Timer still running
         else
@@ -278,14 +277,6 @@ function tick(startTime, endTime, currentTime, delay)
             tick(startTime, endTime, CURRENT_TIME, MILLISECONDS_TO_NEXT_SECOND);
         }
     }, delay);
-}
-
-function timerNotification(minutesRemaining)
-{
-    if("Notification" in window && Notification.permission === "granted")
-    {
-        new Notification(minutesRemaining + " minute remaining on your " + currentTimer + " timer.");
-    }
 }
 
 function stopTimer()
@@ -402,9 +393,18 @@ function updateTimerCountdown(minutes, seconds)
     COUNTDOWN_DISPLAY.innerText = minutes + ":" + seconds;
 }
 
+function timerNotification(minutesRemaining)
+{
+    if("Notification" in window && Notification.permission === "granted")
+    {
+        new Notification(minutesRemaining + " minute remaining on your " + currentTimer + " timer.");
+    }
+}
+
 // Display notifications
 
 // Features
 //      Local Storage
 //      Desktop Notifications
 //      Howler.js
+//      We worker
