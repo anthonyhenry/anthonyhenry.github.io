@@ -234,6 +234,12 @@ function startTimer()
     }
 }
 
+console.log(sessionStorage.browserIncompatabilityWarningGiven);
+console.log(sessionStorage.getItem("browserIncompatabilityWarningGiven"));
+sessionStorage.setItem("browserIncompatabilityWarningGiven", "true");
+console.log(sessionStorage.browserIncompatabilityWarningGiven);
+console.log(sessionStorage.getItem("browserIncompatabilityWarningGiven"));
+
 function tick(startTime, endTime, currentTime, delay)
 {
     timer = setTimeout(function(){
