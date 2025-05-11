@@ -228,17 +228,20 @@ function startTimer()
     // Web workers not supported
     else
     {
+        if(sessionStorage.getItem("browserIncompatibilityWarningGiven") === null)
+        {
+            const BROWSER_INCOMPATIBILITY_MODAL_ELEMENT = document.querySelector("#browserIncompatibilityModal");
+            const BROWSER_INCOMPATIBILITY_MODAL = new bootstrap.Modal(BROWSER_INCOMPATIBILITY_MODAL_ELEMENT);
+            BROWSER_INCOMPATIBILITY_MODAL.show();
+
+            sessionStorage.setItem("browserIncompatibilityWarningGiven", "true");
+        }
+
         console.log("I'm using setTimeout!!!!");
         // Run timer
         tick(START_TIME, END_TIME, START_TIME, 0);
     }
 }
-
-console.log(sessionStorage.browserIncompatabilityWarningGiven);
-console.log(sessionStorage.getItem("browserIncompatabilityWarningGiven"));
-sessionStorage.setItem("browserIncompatabilityWarningGiven", "true");
-console.log(sessionStorage.browserIncompatabilityWarningGiven);
-console.log(sessionStorage.getItem("browserIncompatabilityWarningGiven"));
 
 function tick(startTime, endTime, currentTime, delay)
 {
