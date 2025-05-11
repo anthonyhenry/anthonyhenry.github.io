@@ -196,7 +196,7 @@ function startTimer()
 
                 if(event.data == "1:00")
                 {
-                    oneMinuteNotification();
+                    timerNotification(timeRemaining[0]);
                 }
                 else if(event.data == "0:00")
                 {
@@ -265,7 +265,7 @@ function tick(startTime, endTime, currentTime, delay)
             // 1 minute remaining notification
             if(MINUTES_REMAINING == 1 && secondsRemaining == "00")
             {
-                oneMinuteNotification();
+                timerNotification(MINUTES_REMAINING);
             }
 
             // Set delay based on how many milliseconds until another second has passed since the start
@@ -280,11 +280,11 @@ function tick(startTime, endTime, currentTime, delay)
     }, delay);
 }
 
-function oneMinuteNotification()
+function timerNotification(minutesRemaining)
 {
     if("Notification" in window && Notification.permission === "granted")
     {
-        new Notification(MINUTES_REMAINING + " minute remaining on your " + currentTimer + " timer.");
+        new Notification(minutesRemaining + " minute remaining on your " + currentTimer + " timer.");
     }
 }
 
