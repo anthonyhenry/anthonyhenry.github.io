@@ -177,6 +177,11 @@ function startTimer()
 
             workerTimer.onmessage = function(event) {
                 console.log("Worker response: " + event.data);
+
+                if(event.data == "0:00")
+                {
+                    stopTimer();
+                }
             };
         }
     }
