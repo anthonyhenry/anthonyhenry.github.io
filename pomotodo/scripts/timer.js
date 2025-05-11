@@ -176,6 +176,7 @@ function startTimer()
     // Check if the browser supports web workers
     if (typeof(Worker) !== "undefined")
     {
+        // Make sure web worker is not currently active
         if (typeof(workerTimer) === "undefined")
         {
             console.log("I'm using a web worker!!!!");
@@ -195,6 +196,7 @@ function startTimer()
                 if(event.data == "0:00")
                 {
                     stopTimer();
+                    endTimer();
 
                     console.log("Worker end time: " + new Date());
                     console.log("Expected end time: " + END_TIME);
@@ -211,30 +213,35 @@ function startTimer()
     }
 }
 
+function endTimer()
+{
+    TIMERS.get(currentTimer).alarmSfx.play();
+
+    if("Notification" in window && Notification.permission === "granted")
+    {
+        new Notification(currentTimer + " timer complete!");
+    }
+
+    // Change to idle state
+    currentState = changeState("end");
+    // Change current timer
+    changeCurrentTimer(getNextTimer());
+    // Change start button text 
+    changeStartButton("Start");
+}
+
 function tick(startTime, endTime, currentTime, delay)
 {
     timer = setTimeout(function(){
         // Timer finished
         if(currentTime >= endTime)
         {
-            TIMERS.get(currentTimer).alarmSfx.play();
-
-            if("Notification" in window && Notification.permission === "granted")
-            {
-                new Notification(currentTimer + " timer complete!");
-            }
-            
             console.log("============================")
             console.log("Start time: " + startTime);
             console.log("Expected end time: " + endTime);
             console.log("Actual end time: " + currentTime);
 
-            // Change to idle state
-            currentState = changeState("end");
-            // Change current timer
-            changeCurrentTimer(getNextTimer());
-            // Change start button text 
-            changeStartButton("Start");
+            endTimer();
         }
         // Timer still running
         else
@@ -273,6 +280,7 @@ function stopTimer()
     // Web worker supported
     if (typeof(Worker) !== "undefined")
     {
+        // Check if web worker is currently active
         if (typeof(workerTimer) !== "undefined")
         {
             workerTimer.terminate();
