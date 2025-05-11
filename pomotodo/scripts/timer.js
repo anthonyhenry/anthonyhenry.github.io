@@ -193,7 +193,12 @@ function startTimer()
                 timeRemaining = event.data.split(":");
                 updateTimerCountdown(timeRemaining[0], timeRemaining[1]);
 
-                if(event.data == "0:00")
+
+                if(event.data == "1:00")
+                {
+                    oneMinuteNotification();
+                }
+                else if(event.data == "0:00")
                 {
                     stopTimer();
                     endTimer();
@@ -258,9 +263,9 @@ function tick(startTime, endTime, currentTime, delay)
             updateTimerCountdown(MINUTES_REMAINING, secondsRemaining);
 
             // 1 minute remaining notification
-            if(MINUTES_REMAINING == 1 && secondsRemaining == "00" && "Notification" in window && Notification.permission === "granted")
+            if(MINUTES_REMAINING == 1 && secondsRemaining == "00")
             {
-                new Notification(MINUTES_REMAINING + " minute remaining on your " + currentTimer + " timer.");
+                oneMinuteNotification();
             }
 
             // Set delay based on how many milliseconds until another second has passed since the start
@@ -273,6 +278,14 @@ function tick(startTime, endTime, currentTime, delay)
             tick(startTime, endTime, CURRENT_TIME, MILLISECONDS_TO_NEXT_SECOND);
         }
     }, delay);
+}
+
+function oneMinuteNotification()
+{
+    if("Notification" in window && Notification.permission === "granted")
+    {
+        new Notification(MINUTES_REMAINING + " minute remaining on your " + currentTimer + " timer.");
+    }
 }
 
 function stopTimer()
