@@ -1,13 +1,5 @@
 // This handles incoming messages from the main thread
 onmessage = function(e) {
-
-    // test notif
-    if("Notification" in window && Notification.permission === "granted")
-    {
-        new Notification("Testing 1..2..3...");
-    }
-
-
     console.log(e.data);
 
     const TIME_REMAINING = e.data;
