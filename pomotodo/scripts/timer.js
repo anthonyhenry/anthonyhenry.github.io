@@ -273,7 +273,7 @@ function stopTimer()
     // Web worker supported
     if (typeof(Worker) !== "undefined")
     {
-        if (typeof(workerTimer) === "undefined")
+        if (typeof(workerTimer) !== "undefined")
         {
             workerTimer.terminate();
             workerTimer = undefined;
