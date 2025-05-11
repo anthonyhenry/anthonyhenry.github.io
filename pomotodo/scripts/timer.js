@@ -173,6 +173,7 @@ function startTimer()
     const START_TIME = new Date();
     const END_TIME = new Date(START_TIME.getTime() + MILLISECONDS_REMAINING);
 
+    // Check if the browser supports web workers
     if (typeof(Worker) !== "undefined")
     {
         if (typeof(workerTimer) === "undefined")
@@ -201,6 +202,7 @@ function startTimer()
             };
         }
     }
+    // Web workers not supported
     else
     {
         console.log("I'm using setTimeout!!!!");
@@ -268,9 +270,20 @@ function tick(startTime, endTime, currentTime, delay)
 
 function stopTimer()
 {
-    workerTimer.terminate();
-    workerTimer = undefined;
-    clearTimeout(timer);
+    // Web worker supported
+    if (typeof(Worker) !== "undefined")
+    {
+        if (typeof(workerTimer) === "undefined")
+        {
+            workerTimer.terminate();
+            workerTimer = undefined;
+        }
+    }
+    // Web worker not supported
+    else
+    {
+        clearTimeout(timer);
+    }
 }
 
 ////////////////////////// Modal Functions //////////////////////////
