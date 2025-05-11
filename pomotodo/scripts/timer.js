@@ -169,8 +169,14 @@ function startTimer()
     // Find out how many milliseconds remain
     const MILLISECONDS_REMAINING = (MINUTES_REMAINING * 60 * 1000) + (SECONDS_REMAINING * 1000);
 
-    if (typeof(Worker) !== "undefined") {
-        if (typeof(workerTimer) === "undefined") {
+    // Find out when the timer should stop
+    const START_TIME = new Date();
+    const END_TIME = new Date(START_TIME.getTime() + MILLISECONDS_REMAINING);
+
+    if (typeof(Worker) !== "undefined")
+    {
+        if (typeof(workerTimer) === "undefined")
+        {
             workerTimer = new Worker("scripts/worker-timer.js");
 
             workerTimer.postMessage(TIME_REMAINING);
@@ -181,14 +187,13 @@ function startTimer()
                 if(event.data == "0:00")
                 {
                     stopTimer();
+
+                    console.log("Worker end time: " + new Date());
+                    console.log("Expected end time: " + END_TIME);
                 }
             };
         }
     }
-
-    // Find out when the timer should stop
-    const START_TIME = new Date();
-    const END_TIME = new Date(START_TIME.getTime() + MILLISECONDS_REMAINING);
 
     // Run timer
     tick(START_TIME, END_TIME, START_TIME, 0);
