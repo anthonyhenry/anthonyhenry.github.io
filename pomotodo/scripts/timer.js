@@ -162,9 +162,9 @@ let workerTimer;
 function startTimer()
 {
     // Get the amount of time currently displayed in timer
-    const TIME_REMAINING = COUNTDOWN_DISPLAY.innerText.split(":");
-    const MINUTES_REMAINING = TIME_REMAINING[0];
-    const SECONDS_REMAINING = TIME_REMAINING[1];
+    let timeRemaining = COUNTDOWN_DISPLAY.innerText.split(":");
+    const MINUTES_REMAINING = timeRemaining[0];
+    const SECONDS_REMAINING = timeRemaining[1];
 
     // Find out how many milliseconds remain
     const MILLISECONDS_REMAINING = (MINUTES_REMAINING * 60 * 1000) + (SECONDS_REMAINING * 1000);
@@ -177,12 +177,19 @@ function startTimer()
     {
         if (typeof(workerTimer) === "undefined")
         {
+            console.log("I'm using a web worker!!!!");
             workerTimer = new Worker("scripts/worker-timer.js");
 
-            workerTimer.postMessage(TIME_REMAINING);
+            // Send the current time remaining to the worker
+            workerTimer.postMessage(timeRemaining);
 
+            // Every second the worker will send the new time for the timer
             workerTimer.onmessage = function(event) {
+                console.log("I'm using a web worker!!!!");
                 console.log("Worker response: " + event.data);
+
+                timeRemaining = event.data;
+                updateTimerCountdown(timeRemaining[0], timeRemaining[1]);
 
                 if(event.data == "0:00")
                 {
@@ -194,9 +201,12 @@ function startTimer()
             };
         }
     }
-
-    // Run timer
-    tick(START_TIME, END_TIME, START_TIME, 0);
+    else
+    {
+        console.log("I'm using setTimeout!!!!");
+        // Run timer
+        tick(START_TIME, END_TIME, START_TIME, 0);
+    }
 }
 
 function tick(startTime, endTime, currentTime, delay)
