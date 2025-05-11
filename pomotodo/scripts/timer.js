@@ -410,10 +410,13 @@ function timerNotification(minutesRemaining)
     }
 }
 
-// Display notifications
+// To Do
+    // Pause timer while incompatability modal is open
+    // Might not need hide() for skip timer modal
+    // Move web worker check into a Try/Catch so that timer works locally?
 
 // Features
-//      Local Storage
-//      Desktop Notifications
-//      Howler.js
-//      Web worker
+    // Local Storage
+    // Desktop Notifications
+    // Howler.js
+    // Web worker
