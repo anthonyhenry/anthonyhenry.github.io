@@ -190,7 +190,7 @@ function startTimer()
     const END_TIME = new Date(START_TIME.getTime() + MILLISECONDS_REMAINING);
 
     // Check if the browser supports web workers
-    if (typeof(Worker) /*!*/== "undefined")
+    if (typeof(Worker) !== "undefined")
     {
         // Make sure web worker is not currently active
         if (typeof(workerTimer) === "undefined")
@@ -300,7 +300,7 @@ function tick(startTime, endTime, currentTime, delay)
 function stopTimer()
 {
     // Web worker supported
-    if (typeof(Worker) /*!*/== "undefined")
+    if (typeof(Worker) !== "undefined")
     {
         // Check if web worker is currently active
         if (typeof(workerTimer) !== "undefined")
