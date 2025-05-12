@@ -39,7 +39,7 @@ let pomodoroCountSinceLongBreak = 0;
 let timer = null;
 let workerTimer;
 
-// Modal variables
+// Skip modal
 const SKIP_TIMER_MODAL_ELEMENT = document.querySelector("#skipTimerModal");
 const SKIP_TIMER_MODAL = new bootstrap.Modal(SKIP_TIMER_MODAL_ELEMENT);
 let modalConfirmCallback = null;
@@ -228,18 +228,27 @@ function startTimer()
     // Web workers not supported
     else
     {
-        if(sessionStorage.getItem("browserIncompatibilityWarningGiven") === null)
+        console.log("I'm using setTimeout!!!!");
+        
+        // First timer of session so give warning
+        if(sessionStorage.getItem("browserIncompatibilityWarningGiven") != "true") //=== null)
         {
             const BROWSER_INCOMPATIBILITY_MODAL_ELEMENT = document.querySelector("#browserIncompatibilityModal");
             const BROWSER_INCOMPATIBILITY_MODAL = new bootstrap.Modal(BROWSER_INCOMPATIBILITY_MODAL_ELEMENT);
             BROWSER_INCOMPATIBILITY_MODAL.show();
 
+            BROWSER_INCOMPATIBILITY_MODAL_ELEMENT.addEventListener("hidden.bs.modal", () => {
+                console.log("banana")
+                tick(START_TIME, END_TIME, START_TIME, 0);
+            });
+
             sessionStorage.setItem("browserIncompatibilityWarningGiven", "true");
         }
-
-        console.log("I'm using setTimeout!!!!");
-        // Run timer
-        tick(START_TIME, END_TIME, START_TIME, 0);
+        else
+        {
+            // Run timer
+            tick(START_TIME, END_TIME, START_TIME, 0);
+        }
     }
 }
 
@@ -307,7 +316,9 @@ function stopTimer()
     }
 }
 
-////////////////////////// Modal Functions //////////////////////////
+//////////////////////////////////////////////////////////////////////
+////////////////////////// Modal Functions ///////////////////////////
+/////////////////////////////////////////////////////////////////////
 
 // Modal confirm button pressed
 document.querySelector("#confirmSkip").onclick = function(){
@@ -328,6 +339,7 @@ SKIP_TIMER_MODAL_ELEMENT.addEventListener("hidden.bs.modal", () => {
         startTimer();
     }
 });
+
 
 ////////////////////////// Helper Functions //////////////////////////
 
