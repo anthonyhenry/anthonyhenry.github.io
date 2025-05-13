@@ -5,3 +5,5 @@ class Tasks {
         this.dueDate = dueDate;
     }
 }
+
+console.log("Hello from tasks.js!")
