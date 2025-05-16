@@ -14,7 +14,9 @@ function getTodaysDate()
 
     if((RIGHT_NOW - todaysDate) > MILLISECONDS_IN_A_DAY)
     {
-        todaysDate = RIGHT_NOW.setHours(0, 0, 0, 0);
+        RIGHT_NOW.setHours(0, 0, 0, 0)  // These 2 lines have to be seperate
+        todaysDate = RIGHT_NOW;         // Otherwise it this won't work
+
         updateDateDisplay();
     }
 
