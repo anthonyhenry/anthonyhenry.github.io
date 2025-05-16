@@ -7,6 +7,11 @@ todaysDate.setHours(0, 0, 0, 0); // Set to start of day
 // Show today's date at top right
 updateDateDisplay();
 
+function updateDateDisplay()
+{
+    document.querySelector("#date").innerText = todaysDate.toLocaleDateString();
+}
+
 function getTodaysDate()
 {
     // Update todaysDate if it has passed midnight
@@ -21,11 +26,6 @@ function getTodaysDate()
     }
 
     return todaysDate;
-}
-
-function updateDateDisplay()
-{
-    document.querySelector("#date").innerText = todaysDate.toLocaleDateString();
 }
 
 //////////////////////////
