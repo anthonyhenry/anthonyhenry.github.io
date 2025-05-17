@@ -8,6 +8,8 @@ class Task {
 
 document.querySelector("#newTaskForm").onsubmit = function()
 {
+    getTodaysDate();
+
     // Validate data
     const DESCRIPTION = document.querySelector("#newTaskDescription").value.trim();
     const DUE_DATE = document.querySelector("#newTaskDueDate").value;

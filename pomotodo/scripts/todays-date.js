@@ -1,41 +1,43 @@
-const MILLISECONDS_IN_A_DAY = 1000 * 1 * 60 * 60 * 24;
-
-// Get today's date
-let todaysDate = new Date();
-todaysDate.setHours(0, 0, 0, 0); // Set to start of day
+// Global Variables
+let todaysDate;
+const MILLISECONDS_IN_A_DAY = 1000 * 60 * 60 * 24;
 
 // Show today's date at top right
-updateDateDisplay();
-
-function updateDateDisplay()
-{
-    document.querySelector("#date").innerText = todaysDate.toLocaleDateString();
-}
+setTodaysDate();
 
 function getTodaysDate()
 {
-    // Update todaysDate if it has passed midnight
-    const RIGHT_NOW = new Date();
-
-    if((RIGHT_NOW - todaysDate) > MILLISECONDS_IN_A_DAY)
-    {
-        RIGHT_NOW.setHours(0, 0, 0, 0)  // These 2 lines have to be seperate
-        todaysDate = RIGHT_NOW;         // Otherwise it this won't work
-
-        updateDateDisplay();
-    }
+    maybeUpdateDate();
 
     return todaysDate;
 }
+
+function setTodaysDate()
+{
+    todaysDate = new Date();
+    todaysDate.setHours(0, 0, 0, 0); // Set to start of day
+
+    document.querySelector("#date").innerText = todaysDate.toLocaleDateString();
+}
+
+function maybeUpdateDate()
+{
+    // Update todaysDate if it has passed midnight
+    if((new Date() - todaysDate) >= MILLISECONDS_IN_A_DAY)
+    {
+        setTodaysDate();
+    }
+}
+
 
 //////////////////////////
 ////////////////////////// Will Probably move stuff below here to tasks.js later
 //////////////////////////
 
-getDaysFromNow(new Date(2025, 5-1, 14), todaysDate);
-getDaysFromNow(new Date(2025, 5-1, 15), todaysDate);
-getDaysFromNow(new Date(2025, 5-1, 17), todaysDate);
-getDaysFromNow(new Date(2025, 5-1, 18), todaysDate);
+// getDaysFromNow(new Date(2025, 5-1, 14), todaysDate);
+// getDaysFromNow(new Date(2025, 5-1, 15), todaysDate);
+// getDaysFromNow(new Date(2025, 5-1, 17), todaysDate);
+// getDaysFromNow(new Date(2025, 5-1, 18), todaysDate);
 
 function getDaysFromNow(date)
 {
