@@ -1,10 +1,4 @@
-class Task {
-    constructor(description, dueDate)
-    {
-        this.description = description;
-        this.dueDate = dueDate;
-    }
-}
+let savedTasks = [];
 
 document.querySelector("#newTaskForm").onsubmit = function()
 {
@@ -16,12 +10,7 @@ document.querySelector("#newTaskForm").onsubmit = function()
 
     if(validateTask(DESCRIPTION, DUE_DATE))
     {
-        const NEW_TASK = new Task(DESCRIPTION, DUE_DATE);
-        console.log(NEW_TASK);
-
-
-        console.log("Tasks validated");
-        return false;
+        console.log("Task valid!!!")
     }
     
 
