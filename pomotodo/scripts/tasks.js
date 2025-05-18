@@ -1,5 +1,8 @@
-let savedTasks = [];
+// Load saved tasks from local storage if anything is saved
+let savedTasks = localStorage.getItem("savedTasks") ? JSON.parse(localStorage.getItem("savedTasks")) : [];
+console.log(savedTasks);
 
+// New Task form submitted
 document.querySelector("#newTaskForm").onsubmit = function()
 {
     // Validate data
@@ -8,6 +11,7 @@ document.querySelector("#newTaskForm").onsubmit = function()
     
     if(validateTask(DESCRIPTION, dueDate))
     {
+        // Create new task
         dueDate = convertDateInputToDateObject(dueDate)
 
         const NEW_TASK = {
@@ -16,12 +20,27 @@ document.querySelector("#newTaskForm").onsubmit = function()
             priority: calculatePriority(dueDate)
         }
 
-        console.log(NEW_TASK);
+        saveTask(NEW_TASK);
     }
 
     // Block default behavior
     return false;
 }
+
+function saveTask(task)
+{
+    // Add task to array
+    savedTasks.push(task);
+    // Sort array by due dates
+    savedTasks.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+    // Save updated task list to local storage
+    localStorage.setItem("savedTasks", JSON.stringify(savedTasks))
+    console.log(localStorage.getItem("savedTasks"))
+}
+
+///////////////////////////////////////////////////////////////////////
+////////////////////////// Helper Functions //////////////////////////
+///////////////////////////////////////////////////////////////////////
 
 // Function that converts a date form input into a date object
 function convertDateInputToDateObject(input)
