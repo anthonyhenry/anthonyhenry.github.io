@@ -1,4 +1,5 @@
 let savedTasks = [];
+localStorage.clear();
 
 document.querySelector("#newTaskForm").onsubmit = function()
 {
