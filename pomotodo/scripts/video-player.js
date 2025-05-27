@@ -50,12 +50,16 @@ function getYouTubeEmbedURL(input)
     }
 
     // Youtube embed link submitted
-    const EMBED_LINK = input.match(/^https?:\/\/(?:www\.)?youtube(?:-nocookie)?\.com\/embed\/[a-zA-Z0-9_-]{11}/);
+    const EMBED_LINK = input.test(/^https?:\/\/(?:www\.)?youtube(?:-nocookie)?\.com\/embed\/[a-zA-Z0-9_-]{11}/);
     if(EMBED_LINK)
     {
         alert("Youtube Embed link submitted")
         console.log("EMBED_LINK: " + EMBED_LINK);
-        return EMBED_LINK;
+        return input;
+
+        // THIS CURRENTLY DOESN'T ALLOW FOR PARAMETERS TO BE PASSED LIKE VIDEOSERIES OR START TIMES
+        // SEE BELOW FOR AN EXAMPLE
+        // https://www.youtube.com/embed/videoseries?si=EW1p2MakJpk6QfUN&amp;start=2726&amp;list=PLdSUTU0oamrzflitm5wLvphEMVbsZwt7L
     }
     
 
