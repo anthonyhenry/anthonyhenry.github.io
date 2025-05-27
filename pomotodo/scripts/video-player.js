@@ -98,19 +98,37 @@ function getYouTubeEmbedURL(input)
                 // Input includes a playlist id
                 console.log("input includes playlist")
                 url += "?list=" + playlistID;
+            }            
+        }
+
+        // Check if a start time was included
+        let startTime = input.match(/[?&](?:start|t)=([0-9]+)/);
+        if(startTime)
+        {
+            console.log("startTime = " + startTime);
+            startTime = startTime[1];
+
+            if(url.includes("?"))
+            {
+                url += "&"
             }
+            else
+            {
+                url += "?"
+            }
+            url += "start=" + startTime;
         }
 
         return url;
     }
 
-    // Get start time parameter if there is one
-    let startTime = input.match(/[?&](?:start|t)=([0-9]+)/);
-    if(startTime)
-    {
-        startTime = startTime[1];
-        // console.log("startTime: " + startTime);
-    }
+    // // Get start time parameter if there is one
+    // let startTime = input.match(/[?&](?:start|t)=([0-9]+)/);
+    // if(startTime)
+    // {
+    //     startTime = startTime[1];
+    //     // console.log("startTime: " + startTime);
+    // }
 
     // Input is a playlist with no specific video
     // if (playlistID && !videoID)
