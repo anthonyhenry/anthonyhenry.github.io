@@ -97,7 +97,7 @@ function getYouTubeEmbedURL(input)
             {
                 // Input includes a playlist id
                 console.log("input includes playlist")
-                url += "?list" + playlistID;
+                url += "?list=" + playlistID;
             }
         }
 
