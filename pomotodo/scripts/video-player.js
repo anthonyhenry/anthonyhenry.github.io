@@ -1,26 +1,22 @@
 // Normal YT link: https://www.youtube.com/watch?v=BK7alfdvVbw
-// Share link: https://youtu.be/BK7alfdvVbw?si=KIuvTV83kxRNGA6S
-// <iframe width="560" height="315" src="https://www.youtube.com/embed/BK7alfdvVbw?si=KIuvTV83kxRNGA6S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 document.querySelector("#embedVideoButton").onclick = function(){
     const INPUT_ELEMENT = document.querySelector("#embedVideoInput");
     const INPUT = INPUT_ELEMENT.value.trim();
 
+    // Get an embed url from the user input
     const SRC_URL = getYouTubeEmbedURL(INPUT);
-
-    console.log(document.querySelector("#videoPlayer").src);
 
     // Valid input
     if(SRC_URL)
     {
         document.querySelector("#videoPlayer").src = SRC_URL;
     }
+    // Invalid input 
     else
     {
         alert("invalid");
     }
-
-    console.log("clicked!")
 
     // Clear input
     INPUT_ELEMENT.value = "";
@@ -33,42 +29,38 @@ function getYouTubeEmbedURL(input)
     // Replace &amp; with & for pattern matching
     input = input.replace(/&amp;/g, "&");
 
-    // Verify that input is a YouTube-related link before continuing
-    const isYouTubeLink = /(?:youtube(?:-nocookie)?\.com|youtu\.be)/.test(input);
-    if (!isYouTubeLink)
+    // Verify that input is a YouTube related link before continuing
+    const YOUTUBE_LINK_PATTERN = /(?:youtube(?:-nocookie)?\.com|youtu\.be)/;
+    const IS_YOUTUBE_LINK = YOUTUBE_LINK_PATTERN.test(input);
+    if (!IS_YOUTUBE_LINK)
     {
         return null;
     }
 
-    // Youtube embed code submitted
+    // Check if a YouTube embed code was submitted
     const IFRAME_SRC = input.match(/<iframe[^>]+src="([^"]+)"/i);
     if(IFRAME_SRC)
     {
-        alert("Youtube embed code submitted!")
         // Return extracted src attribute of iframe 
         return IFRAME_SRC[1];
     }
 
-    // Youtube embed link submitted
-    const EMBED_LINK_PATTERN = /^https?:\/\/(?:www\.)?youtube(?:-nocookie)?\.com\/embed\/[a-zA-Z0-9_-]{11}/;
+    // Check if a youtube embed link was submitted
+    const EMBED_LINK_PATTERN = /^https?:\/\/(?:www\.)?youtube(?:-nocookie)?\.com\/embed\/[^/?&]+/;
     if(EMBED_LINK_PATTERN.test(input))
     {
         alert("Youtube Embed link submitted")
         // console.log("EMBED_LINK: " + EMBED_LINK);
         return input;
-
-        // THIS CURRENTLY DOESN'T ALLOW FOR PARAMETERS TO BE PASSED LIKE VIDEOSERIES OR START TIMES
-        // SEE BELOW FOR AN EXAMPLE
-        // https://www.youtube.com/embed/videoseries?si=EW1p2MakJpk6QfUN&amp;start=2726&amp;list=PLdSUTU0oamrzflitm5wLvphEMVbsZwt7L
+        // Test this: https://www.youtube.com/embed/videoseries?si=EW1p2MakJpk6QfUN&amp;start=2726&amp;list=PLdSUTU0oamrzflitm5wLvphEMVbsZwt7L
     }
-    
+
 
     // Get video id if there is one
     let videoID = input.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube(?:-nocookie)?\.com\/(?:(?:watch\?v=|v\/|embed\/|shorts\/|live\/))|youtu\.be\/)(?!videoseries)([a-zA-Z0-9_-]{11})/);
     if(videoID)
     {
         videoID = videoID[1];
-        // console.log("videoID: " + videoID);
     }
 
     // Get playlist id if there is one
@@ -76,31 +68,30 @@ function getYouTubeEmbedURL(input)
     if(playlistID)
     {
         playlistID = playlistID[1];
-        // console.log("playlistID: " + playlistID);
     }
 
     // Yotube video or playlist link submitted
     if(videoID || playlistID)
     {
+        // Initialize youtube embed url
         let url = "https://www.youtube.com/embed/";
 
         // Input is a playlist with no specific video
         if(playlistID && !videoID)
         {
-            alert("Playlist link submitted");
+            // Add playlist to url
             url += "videoseries?list=" + playlistID;
         }
         // Input includes a video id
         else if(videoID)
         {
-            alert("Video link submitted");
+            // Add video id to url
             url += videoID;
-            console.log(playlistID);
 
+            // Check if a playlist id was also included
             if(playlistID)
             {
-                // Input includes a playlist id
-                console.log("input includes playlist")
+                // Add playlist id to url
                 url += "?list=" + playlistID;
             }            
         }
@@ -109,9 +100,9 @@ function getYouTubeEmbedURL(input)
         let startTime = input.match(/[?&](?:start|t)=([0-9]+)/);
         if(startTime)
         {
-            console.log("startTime = " + startTime);
             startTime = startTime[1];
 
+            // Add start time to url
             if(url.includes("?"))
             {
                 url += "&"
@@ -125,21 +116,6 @@ function getYouTubeEmbedURL(input)
 
         return url;
     }
-
-    // // Get start time parameter if there is one
-    // let startTime = input.match(/[?&](?:start|t)=([0-9]+)/);
-    // if(startTime)
-    // {
-    //     startTime = startTime[1];
-    //     // console.log("startTime: " + startTime);
-    // }
-
-    // Input is a playlist with no specific video
-    // if (playlistID && !videoID)
-    // {
-    //     let url = 
-    // }
-
 }
 
 // console.log("Youtube URL")
