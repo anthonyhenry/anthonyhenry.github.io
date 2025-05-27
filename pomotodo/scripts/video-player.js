@@ -92,6 +92,11 @@ function getYouTubeEmbedURL(input)
             alert("Video link submitted");
             url += videoID;
             console.log(playlistID);
+
+            if(playlistID)
+            {
+                url += "?list" + playlistID;
+            }
         }
 
         return url;
