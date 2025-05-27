@@ -15,7 +15,10 @@ document.querySelector("#embedVideoButton").onclick = function(){
     // Invalid input 
     else
     {
-        alert("invalid");
+        const INVALID_YT_MODAL_ELEMENT = document.querySelector("#invalidYouTubeModal");
+        const INVALID_YT_MODAL = new bootstrap.Modal(INVALID_YT_MODAL_ELEMENT);
+        INVALID_YT_MODAL.show();
+        // alert("Invalid input. Please provide a YouTube video link or embed code.");
     }
 
     // Clear input
@@ -49,10 +52,7 @@ function getYouTubeEmbedURL(input)
     const EMBED_LINK_PATTERN = /^https?:\/\/(?:www\.)?youtube(?:-nocookie)?\.com\/embed\/[^/?&]+/;
     if(EMBED_LINK_PATTERN.test(input))
     {
-        alert("Youtube Embed link submitted")
-        // console.log("EMBED_LINK: " + EMBED_LINK);
         return input;
-        // Test this: https://www.youtube.com/embed/videoseries?si=EW1p2MakJpk6QfUN&amp;start=2726&amp;list=PLdSUTU0oamrzflitm5wLvphEMVbsZwt7L
     }
 
 
@@ -114,8 +114,10 @@ function getYouTubeEmbedURL(input)
             url += "start=" + startTime;
         }
 
-        return url;
+        return url; 
     }
+
+    return null;
 }
 
 // console.log("Youtube URL")
