@@ -22,6 +22,8 @@ document.querySelector("#embedVideoButton").onclick = function(){
 
     console.log("clicked!")
 
+    // Clear input
+    INPUT_ELEMENT.value = "";
     // Block default behavior
     return false;
 }
