@@ -44,6 +44,7 @@ function getYouTubeEmbedURL(input)
     const IFRAME_SRC = input.match(/<iframe[^>]+src="([^"]+)"/i);
     if(IFRAME_SRC)
     {
+        alert("Youtube embed code submitted!")
         // Return extracted src attribute of iframe 
         return IFRAME_SRC[1];
     }
@@ -52,10 +53,10 @@ function getYouTubeEmbedURL(input)
     const EMBED_LINK = input.match(/^https?:\/\/(?:www\.)?youtube(?:-nocookie)?\.com\/embed\/[a-zA-Z0-9_-]{11}/);
     if(EMBED_LINK)
     {
+        alert("Youtube Embed link submitted")
         console.log("EMBED_LINK: " + EMBED_LINK);
-        // return EMBED_LINK;
+        return EMBED_LINK;
     }
-
     
 
     // Get video id if there is one
@@ -352,15 +353,15 @@ const inputs = [
 // playlist video share link
 // playlist video embed link
 
-let i = 1;
-inputs.forEach(input => {
-    console.log(i + "/" + inputs.length)
-    i++;
+// let i = 1;
+// inputs.forEach(input => {
+//     console.log(i + "/" + inputs.length)
+//     i++;
 
-    const id = getYouTubeEmbedURL(input);
-    console.log("===")
-});
-console.log("done testing")
+//     const id = getYouTubeEmbedURL(input);
+//     console.log("===")
+// });
+// console.log("done testing")
 
 
 
