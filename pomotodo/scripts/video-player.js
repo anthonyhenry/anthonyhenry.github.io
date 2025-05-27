@@ -4,7 +4,7 @@
 
 document.querySelector("#embedVideoButton").onclick = function(){
     const INPUT_ELEMENT = document.querySelector("#embedVideoInput");
-    const INPUT = INPUT_ELEMENT.value;
+    const INPUT = INPUT_ELEMENT.value.trim();
 
     const SRC_URL = getYouTubeEmbedURL(INPUT);
 
@@ -15,8 +15,10 @@ document.querySelector("#embedVideoButton").onclick = function(){
     {
         document.querySelector("#videoPlayer").src = SRC_URL;
     }
-
-    // console.log(INPUT_ELEMENT.value);
+    else
+    {
+        alert("invalid");
+    }
 
     console.log("clicked!")
 
