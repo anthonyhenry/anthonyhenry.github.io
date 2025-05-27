@@ -83,7 +83,14 @@ function getYouTubeEmbedURL(input)
         // Input is a playlist with no specific video
         if(playlistID && !videoID)
         {
+            alert("Playlist link submitted");
             url += "videoseries?list=" + playlistID;
+        }
+        // Input includes a video id
+        else if(videoID)
+        {
+            alert("Video link submitted");
+            url += videoID;
         }
 
         return url;
