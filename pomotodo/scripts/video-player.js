@@ -63,7 +63,6 @@ function getYouTubeEmbedURL(input)
     let videoID = input.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube(?:-nocookie)?\.com\/(?:(?:watch\?v=|v\/|embed\/|shorts\/|live\/))|youtu\.be\/)(?!videoseries)([a-zA-Z0-9_-]{11})/);
     if(videoID)
     {
-        console.log(videoID);
         videoID = videoID[1];
         // console.log("videoID: " + videoID);
     }
@@ -74,6 +73,20 @@ function getYouTubeEmbedURL(input)
     {
         playlistID = playlistID[1];
         // console.log("playlistID: " + playlistID);
+    }
+
+    // Yotube video or playlist link submitted
+    if(videoID || playlistID)
+    {
+        let url = "https://www.youtube.com/embed/";
+
+        // Input is a playlist with no specific video
+        if(playlistID && !videoID)
+        {
+            url += "videoseries?list=" + playlistID;
+        }
+
+        return url;
     }
 
     // Get start time parameter if there is one
