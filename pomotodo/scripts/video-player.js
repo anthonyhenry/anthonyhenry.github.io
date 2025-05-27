@@ -162,6 +162,42 @@ download(filename, textToSave);
 This code snippet defines a download function that takes the desired filename and the text content as arguments. It creates a temporary <a> element, sets its href attribute to a data URL containing the text content, and sets the download attribute to the specified filename. The element is then programmatically clicked to trigger the download, and finally removed from the DOM. This approach works entirely client-side and does not require any server-side interaction.
 */
 
+/*
+
+Here's how to upload and read a JSON file using JavaScript:
+HTML Structure: Create an input element of type "file" to allow users to select a file.
+Code
+
+<input type="file" id="jsonFile" accept=".json">
+JavaScript Code: Add an event listener to the input element that triggers when a file is selected. Inside the event listener, use the FileReader API to read the file's content as text. Then, parse the text as JSON using JSON.parse().
+JavaScript
+
+const fileInput = document.getElementById('jsonFile');
+
+fileInput.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      try {
+        const jsonContent = JSON.parse(e.target.result);
+        // Process the JSON data here
+        console.log(jsonContent);
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+      }
+    };
+
+    reader.readAsText(file);
+  }
+});
+This code snippet first gets the file selected by the user. If a file is selected, it creates a FileReader object. The onload event handler is defined to parse the file content as JSON when it's loaded. The readAsText method initiates the file reading process. Error handling is included in case the JSON parsing fails.
+
+
+*/
+
 // Star wars video: https://www.youtube.com/watch?v=BK7alfdvVbw
 
 
