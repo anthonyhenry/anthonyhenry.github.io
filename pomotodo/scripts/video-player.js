@@ -122,19 +122,9 @@ function getYouTubeEmbedURL(input)
 const inputs = [
     '<iframe width="560" height="315" src="https://www.youtube.com/embed/BK7alfdvVbw?si=KIuvTV83kxRNGA6S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
     'http://www.youtube-nocookie.com/embed/WOgQpjARYyc?rel=0', // DID NOT WORK
-    'https://www.youtube-nocookie.com/embed/WOgQpjARYyc?rel=0',
-    'http://www.youtube-nocookie.com/embed/lalOy8Mbfdc?rel=0',
-    'https://www.youtube-nocookie.com/embed/lalOy8Mbfdc?rel=0',
-    'http://www.youtube.com/embed/lalOy8Mbfdc',
-    'http://youtu.be/lalOy8Mbfdc?t=1s',
-    'https://youtu.be/lalOy8Mbfdc?t=1',
-    'http://youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
-    'http://m.youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
-    'https://www.youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
-    'https://youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
-    'https://m.youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
-    'http://www.youtube.com/watch?v=lalOy8Mbfdc&feature=youtu.be',
-    'http://youtube.com/watch?v=lalOy8Mbfdc&feature=youtu.be',
+    'https://www.youtube-nocookie.com/embed/WOgQpjARYyc?rel=0', // Works
+    'http://www.youtube-nocookie.com/embed/lalOy8Mbfdc?rel=0', // Does not work
+    'http://www.youtube.com/embed/lalOy8Mbfdc', // Does not work
 ];
 /*
 
