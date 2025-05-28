@@ -66,9 +66,16 @@ function getYouTubeEmbedURL(input)
     if(EMBED_LINK_PATTERN.test(input))
     {
         console.log(input);
-        input = input.replace(/http/g, "https");
-        console.log("Delta")
+
+        // Check if input starts with http://
+        if (/^http:\/\//i.test(input))
+        {
+            // Replace http:// with https://
+            input = input.replace(/^http:\/\//i, 'https://');
+        }
+        
         console.log(input);
+
         return input;
     }
 
