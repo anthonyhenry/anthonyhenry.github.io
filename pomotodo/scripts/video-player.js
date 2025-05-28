@@ -16,6 +16,7 @@ document.querySelector("#embedVideoButton").onclick = function(){
         } 
         catch (error)
         {
+            console.log("caught");
             const INVALID_YT_MODAL_ELEMENT = document.querySelector("#invalidYouTubeModal");
             const INVALID_YT_MODAL = new bootstrap.Modal(INVALID_YT_MODAL_ELEMENT);
             INVALID_YT_MODAL.show();
