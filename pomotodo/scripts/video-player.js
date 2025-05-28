@@ -10,7 +10,16 @@ document.querySelector("#embedVideoButton").onclick = function(){
     // Valid input
     if(SRC_URL)
     {
-        document.querySelector("#videoPlayer").src = SRC_URL;
+        try 
+        {
+            document.querySelector("#videoPlayer").src = SRC_URL;    
+        } 
+        catch (error)
+        {
+            const INVALID_YT_MODAL_ELEMENT = document.querySelector("#invalidYouTubeModal");
+            const INVALID_YT_MODAL = new bootstrap.Modal(INVALID_YT_MODAL_ELEMENT);
+            INVALID_YT_MODAL.show();
+        }
     }
     // Invalid input 
     else
