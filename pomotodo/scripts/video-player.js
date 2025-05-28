@@ -28,6 +28,8 @@ document.querySelector("#embedVideoButton").onclick = function(){
 
 function getYouTubeEmbedURL(input)
 {
+    console.log("Alpha")
+
     // Replace &amp; with & for pattern matching
     input = input.replace(/&amp;/g, "&");
 
@@ -36,6 +38,7 @@ function getYouTubeEmbedURL(input)
     const IS_YOUTUBE_LINK = YOUTUBE_LINK_PATTERN.test(input);
     if (!IS_YOUTUBE_LINK)
     {
+        console.log("Bravo")
         return null;
     }
 
@@ -43,6 +46,7 @@ function getYouTubeEmbedURL(input)
     const IFRAME_SRC = input.match(/<iframe[^>]+src="([^"]+)"/i);
     if(IFRAME_SRC)
     {
+        console.log("Charlie")
         // Return extracted src attribute of iframe 
         return IFRAME_SRC[1];
     }
@@ -51,6 +55,7 @@ function getYouTubeEmbedURL(input)
     const EMBED_LINK_PATTERN = /^https?:\/\/(?:www\.)?youtube(?:-nocookie)?\.com\/embed\/[^/?&]+/;
     if(EMBED_LINK_PATTERN.test(input))
     {
+        console.log("Delta")
         return input;
     }
 
@@ -59,6 +64,7 @@ function getYouTubeEmbedURL(input)
     let videoID = input.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube(?:-nocookie)?\.com\/(?:(?:watch\?v=|v\/|embed\/|shorts\/|live\/))|youtu\.be\/)(?!videoseries)([a-zA-Z0-9_-]{11})/);
     if(videoID)
     {
+        console.log("Echo")
         videoID = videoID[1];
     }
 
@@ -66,12 +72,14 @@ function getYouTubeEmbedURL(input)
     let playlistID = input.match(/[?&]list=([a-zA-Z0-9_-]+)/);
     if(playlistID)
     {
+        console.log("Foxtrot")
         playlistID = playlistID[1];
     }
 
     // Yotube video or playlist link submitted
     if(videoID || playlistID)
     {
+        console.log("Golf")
         // Initialize youtube embed url
         let url = "https://www.youtube.com/embed/";
 
@@ -120,9 +128,7 @@ function getYouTubeEmbedURL(input)
 }
 
 const inputs = [
-    '<iframe width="560" height="315" src="https://www.youtube.com/embed/BK7alfdvVbw?si=KIuvTV83kxRNGA6S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
     'http://www.youtube-nocookie.com/embed/WOgQpjARYyc?rel=0', // DID NOT WORK
-    'https://www.youtube-nocookie.com/embed/WOgQpjARYyc?rel=0', // Works
     'http://www.youtube-nocookie.com/embed/lalOy8Mbfdc?rel=0', // Does not work
     'http://www.youtube.com/embed/lalOy8Mbfdc', // Does not work
 ];
