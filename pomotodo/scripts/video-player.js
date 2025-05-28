@@ -56,6 +56,7 @@ function getYouTubeEmbedURL(input)
     if(EMBED_LINK_PATTERN.test(input))
     {
         console.log("Delta")
+        console.log(input);
         return input;
     }
 
