@@ -65,6 +65,8 @@ function getYouTubeEmbedURL(input)
     const EMBED_LINK_PATTERN = /^https?:\/\/(?:www\.)?youtube(?:-nocookie)?\.com\/embed\/[^/?&]+/;
     if(EMBED_LINK_PATTERN.test(input))
     {
+        console.log(input);
+        input = input.replace(/http/g, "https");
         console.log("Delta")
         console.log(input);
         return input;
