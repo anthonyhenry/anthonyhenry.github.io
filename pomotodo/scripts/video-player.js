@@ -225,41 +225,10 @@ function getYouTubeEmbedURL(input)
 
 /*
 const inputs = [
-    '<iframe width="560" height="315" src="https://www.youtube.com/embed/BK7alfdvVbw?si=KIuvTV83kxRNGA6S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-    'http://www.youtube-nocookie.com/embed/WOgQpjARYyc?rel=0', // DID NOT WORK
-    'https://www.youtube-nocookie.com/embed/WOgQpjARYyc?rel=0', // Works
-    'http://www.youtube-nocookie.com/embed/lalOy8Mbfdc?rel=0', // Does not work
-    'http://www.youtube.com/embed/lalOy8Mbfdc', // Does not work
-    'https://www.youtube-nocookie.com/embed/WOgQpjARYyc?rel=0',
-    'http://www.youtube-nocookie.com/embed/lalOy8Mbfdc?rel=0',
+    '',
     'https://www.youtube-nocookie.com/embed/lalOy8Mbfdc?rel=0',
     'http://www.youtube.com/embed/lalOy8Mbfdc',
-    'http://youtu.be/lalOy8Mbfdc?t=1s',
-    'https://youtu.be/lalOy8Mbfdc?t=1',
-    'http://youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
-    'http://m.youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
-    'https://www.youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
-    'https://youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
-    'https://m.youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
-    'http://www.youtube.com/watch?v=lalOy8Mbfdc&feature=youtu.be',
-    'http://youtube.com/watch?v=lalOy8Mbfdc&feature=youtu.be',
-    'https://www.youtube-nocookie.com/embed/WOgQpjARYyc?rel=0', // Works
-    'http://www.youtube-nocookie.com/embed/lalOy8Mbfdc?rel=0', // Does not work
-    'http://www.youtube.com/embed/lalOy8Mbfdc', // Does not work
-    '<iframe width="560" height="315" src="https://www.youtube.com/embed/BK7alfdvVbw?si=KIuvTV83kxRNGA6S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-    'http://www.youtube-nocookie.com/embed/WOgQpjARYyc?rel=0',
-    'http://www.youtube-nocookie.com/embed/WOgQpjARYyc?rel=0', // DID NOT WORK
-    'https://www.youtube-nocookie.com/embed/WOgQpjARYyc?rel=0',
-    'http://www.youtube-nocookie.com/embed/lalOy8Mbfdc?rel=0',
-    'https://www.youtube-nocookie.com/embed/lalOy8Mbfdc?rel=0',
-    'http://www.youtube.com/embed/lalOy8Mbfdc',
-    'http://m.youtube.com/embed/lalOy8Mbfdc',
-    'https://www.youtube.com/embed/lalOy8Mbfdc',
-    'https://youtube.com/embed/lalOy8Mbfdc',
-    'https://m.youtube.com/embed/lalOy8Mbfdc',
-    'http://youtu.be/lalOy8Mbfdc?t=1s',
-    'https://youtu.be/lalOy8Mbfdc?t=1',
-    'https://youtu.be/lalOy8Mbfdc?t=1s',
+    '',
     'http://www.youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
     'http://youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
     'http://m.youtube.com/watch?v=lalOy8Mbfdc&playnext_from=TL&videos=osPknwzXEas&feature=sub',
@@ -275,22 +244,8 @@ const inputs = [
     'https://www.youtube.com/watch?v=lalOy8Mbfdc',
     'https://youtube.com/watch?v=lalOy8Mbfdc',
     'https://m.youtube.com/watch?v=lalOy8Mbfdc',
-    'https://youtu.be/WOgQpjARYyc?si=S1juZXIFLLHOPuGq',
-    'https://www.youtube.com/watch?v=WOgQpjARYyc&list=PLFTG4_keyt5xWQnQu6TWQIG9i97EJ8JHu',
-    'https://youtube.com/playlist?list=PLFTG4_keyt5xWQnQu6TWQIG9i97EJ8JHu&si=jHxEoAO2jEIyD-IC',
-    'https://www.youtube.com/playlist?list=PLFTG4_keyt5xWQnQu6TWQIG9i97EJ8JHu', // Playlist link
-    'https://youtube.com/playlist?list=PLFTG4_keyt5xWQnQu6TWQIG9i97EJ8JHu&si=awQ41bBcjJheYyiv', // Playlist share link
-    'https://www.youtube.com/watch?v=WOgQpjARYyc&list=PLFTG4_keyt5xWQnQu6TWQIG9i97EJ8JHu&index=6', // Playlist video link
-    'https://youtu.be/WOgQpjARYyc?si=TQnZ5QvtGpIDOhwq', // Playlist video share link
-    // Playlist video embed link
-    '<iframe width="560" height="315" src="https://www.youtube.com/embed/WOgQpjARYyc?si=TQnZ5QvtGpIDOhwq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-    //Playlist embed link
-    '<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=awQ41bBcjJheYyiv&amp;list=PLFTG4_keyt5xWQnQu6TWQIG9i97EJ8JHu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>', 
-    'https://www.youtube.com/embed/videoseries?si=jHxEoAO2jEIyD-IC&amp;start=56&amp;list=PLFTG4_keyt5xWQnQu6TWQIG9i97EJ8JHu',
-    '<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=jHxEoAO2jEIyD-IC&amp;start=56&amp;list=PLFTG4_keyt5xWQnQu6TWQIG9i97EJ8JHu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-    '<iframe width="560" height="315" src="https://www.youtube.com/embed/WOgQpjARYyc?si=XYTFqJGjTQ8Gnyf8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-    '<iframe width="560" height="315" src="https://www.youtube.com/embed/WOgQpjARYyc?si=mu-nelx9DQlw5Uok&amp;start=54" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-    'https://www.youtube.com/embed/WOgQpjARYyc?si=mu-nelx9DQlw5Uok&amp;start=54'
+    '',
+    '',
 ];*/
 /*
 
