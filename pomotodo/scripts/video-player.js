@@ -1,5 +1,12 @@
 // Normal YT link: https://www.youtube.com/watch?v=BK7alfdvVbw
 
+// Load a saved video if there is one
+const SAVED_VID = localStorage.getItem("savedVideoUrl");
+if(SAVED_VID)
+{
+    setVideo(SAVED_VID);
+}
+
 document.querySelector("#embedVideoButton").onclick = function(){
     const INPUT_ELEMENT = document.querySelector("#embedVideoInput");
     const INPUT = INPUT_ELEMENT.value.trim();
@@ -10,7 +17,10 @@ document.querySelector("#embedVideoButton").onclick = function(){
     // Valid input
     if(SRC_URL)
     {
-        document.querySelector("#videoPlayer").src = SRC_URL;
+        // Change the video
+        setVideo(SRC_URL)
+        // Save the video to local storage 
+        localStorage.setItem("savedVideoUrl", SRC_URL);
     }
     // Invalid input 
     else
@@ -124,6 +134,11 @@ function getYouTubeEmbedURL(input)
     }
 
     return null;
+}
+
+function setVideo(url)
+{
+    document.querySelector("#videoPlayer").src = url;
 }
 
 /*
