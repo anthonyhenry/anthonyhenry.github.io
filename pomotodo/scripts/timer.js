@@ -275,8 +275,8 @@ function checkIfDateShouldBeUpdated(startTime, endTime)
     console.log(startTime.getDate())
     console.log(endTime.getDate())
     console.log(startTime.getDate() < endTime.getDate())
-    console.log(new Date())
-    console.log(new Date() < endTime)
+    console.log(new Date().getDate())
+    console.log(new Date().getDate != endTime.getDate())
 
     if(startTime.getDate() < endTime.getDate() && new Date() < endTime)
     {
