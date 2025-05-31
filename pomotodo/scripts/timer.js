@@ -175,6 +175,12 @@ function timerComplete()
     changeStartButton("Start");
 }
 
+const myFunction = (arg) => {
+  console.log("Function called with:", arg);
+  return arg * 2;
+}
+
+
 function startTimer()
 {
     // Get the amount of time currently displayed in timer
@@ -205,7 +211,8 @@ function startTimer()
                 {
                     startTime: START_TIME,
                     endTime: END_TIME,
-                    tickFunc: JSON.stringify(tickFunction)
+                    tickFunc: JSON.stringify(tickFunction),
+                    func: JSON.stringify(myFunction)
                 }
             )
 
