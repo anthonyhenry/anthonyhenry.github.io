@@ -206,16 +206,8 @@ function startTimer()
 
             let tickFunction = tick;
 
-            // Pass start time, end time, and tick function to worker
-            workerTimer.postMessage(
-                {
-                    startTime: START_TIME,
-                    endTime: END_TIME,
-                    tickFunc: tick.toString(),
-                    func: tickFunction.toString(),
-                    func2: myFunction.toString()
-                }
-            )
+            // Pass end time to worker
+            workerTimer.postMessage(END_TIME);
 
             /*
             // Send the current time remaining to the worker
