@@ -4,6 +4,11 @@ onmessage = function(e) {
 
     const END_TIME = e.data;
 
+    let delay = 0;
+    timer = setTimeout(function(){
+        console.log("I also ticked!!!")
+    }, delay)
+
     interval = setInterval(() => {
         // Get current time
         const CURRENT_TIME = new Date();
@@ -57,3 +62,10 @@ onmessage = function(e) {
     //     postMessage(RESPONSE);
     // }, 1000);
 };
+
+function workerTick(delay)
+{
+    timer = setTimeout(function(){
+        console.log("I ticked!")
+    }, delay)
+}
