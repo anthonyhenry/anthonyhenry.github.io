@@ -211,8 +211,8 @@ function startTimer()
                 {
                     startTime: START_TIME,
                     endTime: END_TIME,
-                    tickFunc: JSON.stringify(tickFunction),
-                    func: JSON.stringify(myFunction)
+                    tickFunc: JSON.toString(tickFunction),
+                    func: JSON.toString(myFunction)
                 }
             )
 
