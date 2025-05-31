@@ -269,16 +269,15 @@ function startTimer()
     }
 }
 
+// 
+// TODO: Test this, then add it to non-web worker and test there as well
+// 
 function checkIfDateShouldBeUpdated(startTime, endTime)
 {
-    console.log("==========")
-    console.log(startTime.getDate())
-    console.log(endTime.getDate())
-    console.log(startTime.getDate() < endTime.getDate())
-    console.log(new Date().getDate())
-    console.log(new Date().getDate() != endTime.getDate())
+    const START_DATE = startTime.getDate();
+    const END_DATE = endTime.getDate()
 
-    if(startTime.getDate() < endTime.getDate() && new Date() < endTime)
+    if(START_DATE < END_DATE && new Date().getDate() != END_DATE)
     {
         maybeUpdateDate();
     }

@@ -5,9 +5,9 @@ onmessage = function(e) {
     const END_TIME = e.data;
 
     let delay = 0;
-    timer = setTimeout(function(){
-        console.log("I also ticked!!!")
-    }, delay)
+    // timer = setTimeout(function(){
+    //     console.log("I also ticked!!!")
+    // }, delay)
     workerTick(delay);
 
     interval = setInterval(() => {
@@ -68,5 +68,5 @@ function workerTick(delay)
 {
     timer = setTimeout(function(){
         console.log("I ticked!")
-    }, delay)
+    }, 0)
 }
