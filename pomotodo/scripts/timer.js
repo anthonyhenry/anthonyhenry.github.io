@@ -198,6 +198,16 @@ function startTimer()
             console.log("I'm using a web worker!!!!");
             workerTimer = new Worker("scripts/worker-timer.js");
 
+            // Pass start time, end time, and tick function to worker
+            workerTimer.postMessage(
+                {
+                    startTime: START_TIME,
+                    endTime: END_TIME,
+                    tickFunc: JSON.stringify(tick)
+                }
+            )
+
+            /*
             // Send the current time remaining to the worker
             workerTimer.postMessage(timeRemaining);
 
@@ -223,6 +233,7 @@ function startTimer()
                     console.log("Expected end time: " + END_TIME);
                 }
             };
+            */
         }
     }
     // Web workers not supported
