@@ -26,6 +26,7 @@ function maybeUpdateDate()
     if((new Date() - todaysDate) >= MILLISECONDS_IN_A_DAY)
     {
         setTodaysDate();
+        updatePriorities();
     }
 }
 

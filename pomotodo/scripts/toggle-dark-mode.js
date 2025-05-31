@@ -8,7 +8,7 @@ if(PREFERRED_THEME)
     if(PREFERRED_THEME === "dark")
     {
         document.querySelector("#lightDarkToggle").classList.toggle("flip");
-        changeButtonColor()
+        // setButtonColor();
     }
 }
 
@@ -24,7 +24,7 @@ document.querySelector("#lightDarkToggle").onclick = function(){
     // Set new theme
     setLightDarkTheme(NEW_THEME);
     // Change buttons color
-    changeButtonColor()
+    setButtonColor()
 }
 
 function setLightDarkTheme(theme)

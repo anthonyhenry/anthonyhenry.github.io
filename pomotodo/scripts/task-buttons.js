@@ -1,20 +1,24 @@
-changeButtonColorOnHover();
+/////////////////////////////////////////////////////////////////////
+///////////////////// Bind Button Functionality /////////////////////
+/////////////////////////////////////////////////////////////////////
 
-function getEditAndDeleteButtons()
+bindEditAndDeleteButtons()
+
+function bindEditAndDeleteButtons()
 {
-    // First get all edit buttons
-    let buttons = document.querySelectorAll(".edit-btn");
-    // Convert node list to an array
-    buttons = Array.from(buttons);
-    // Add all delete buttons to the array
-    buttons = buttons.concat(Array.from(document.querySelectorAll(".delete-btn"))); // Converted delete buttons node list to an array
-
-    return buttons;
+    setButtonColor();
+    changeButtonColorOnHover();
+    bindDelete();
+    bindEdit();
 }
 
-function changeButtonColor()
+/////////////////////////////////////////////////////////////////////
+/////////////////////// Change Button Coloring ///////////////////////
+/////////////////////////////////////////////////////////////////////
+
+function setButtonColor()
 {
-    for(btn of getEditAndDeleteButtons())
+    for(const btn of getEditAndDeleteButtons())
     {
         // For dark mode buttons are white
         if(document.documentElement.getAttribute('data-bs-theme') == "dark")
@@ -31,7 +35,7 @@ function changeButtonColor()
 
 function changeButtonColorOnHover()
 {
-    for(btn of getEditAndDeleteButtons())
+    for(const btn of getEditAndDeleteButtons())
     {
         btn.onmouseenter = function(){
             // Light mode hover
@@ -63,4 +67,71 @@ function changeButtonColorOnHover()
         }
     
     }
+}
+
+/////////////////////////////////////////////////////////////////////
+//////////////////////////// Delete Tasks ////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
+function bindDelete()
+{
+    for(const button of getDeleteButtons())
+    {
+        button.onclick = function()
+        {
+            // Get LI element of the task to delete
+            const TASK_TO_DELETE = this.parentNode.parentNode;
+            // Get the UUID for the task to delete
+            const TASK_UUID = TASK_TO_DELETE.getAttribute("data-id");
+            // Make sure savedTasks is set to latest save from local storage
+            getLatestSavedTasks()
+            // Remove task from savedTask array
+            savedTasks = savedTasks.filter(task => task.id != TASK_UUID);
+            // Update savedTasks in local storage
+            saveLatestSavedTasks()
+            // Update list to show most up todate tasks saved in local storage
+            loadSavedTasks();
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////////////
+///////////////////////////// Edit Tasks /////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
+function bindEdit()
+{
+    for(const button of getEditButtons())
+    {
+        button.onclick = function()
+        {
+            console.log("You tried to edit a task.")
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////////////
+////////////////////////// Helper Functons //////////////////////////
+/////////////////////////////////////////////////////////////////////
+
+function getEditAndDeleteButtons()
+{
+    // First get all edit buttons
+    let buttons = getEditButtons()
+    // Convert node list to an array
+    buttons = Array.from(buttons);
+    // Add all delete buttons to the array
+    buttons = buttons.concat(Array.from(getDeleteButtons())); // Converted delete buttons node list to an array
+
+    return buttons;
+}
+
+function getDeleteButtons()
+{
+    return document.querySelectorAll(".delete-btn");
+}
+
+function getEditButtons()
+{
+    return document.querySelectorAll(".edit-btn");
 }
