@@ -205,7 +205,10 @@ function startTimer()
             workerTimer = new Worker("scripts/worker-timer.js");
 
             // Pass end time to worker
-            workerTimer.postMessage(END_TIME);
+            workerTimer.postMessage({
+                START_TIME,
+                END_TIME
+            });
 
             workerTimer.onmessage = function(event){
                 checkIfDateShouldBeUpdated(START_TIME, END_TIME);

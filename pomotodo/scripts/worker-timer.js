@@ -2,14 +2,16 @@
 onmessage = function(e) {
     console.log(e.data);
 
-    const END_TIME = e.data;
+    // Get variables that were passed through
+    const { START_TIME, END_TIME } = e.data;
 
     // let delay = 0;
     // timer = setTimeout(function(){
     //     console.log("I also ticked!!!")
     // }, delay)
-    workerTick(0);
+    workerTick(START_TIME, END_TIME, 0);
 
+    /*
     interval = setInterval(() => {
         // Get current time
         const CURRENT_TIME = new Date();
@@ -37,6 +39,7 @@ onmessage = function(e) {
             postMessage(timeRemaining);
         }
     }, 1000);
+    */
 
     // const TIME_REMAINING = e.data;
 
@@ -64,8 +67,16 @@ onmessage = function(e) {
     // }, 1000);
 };
 
-function workerTick(delay)
+function workerTick(startTime, endTime, delay)
 {
+    console.log(startTime);
+    console.log(endTime);
+
+    // Get current time
+    const CURRENT_TIME = new Date();
+
+
+
     timer = setTimeout(function(){
         console.log("I ticked!")
     }, delay)
