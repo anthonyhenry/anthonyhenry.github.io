@@ -1,7 +1,5 @@
 // This handles incoming messages from the main thread
 onmessage = function(e) {
-    console.log(e.data);
-
     // Get variables that were passed through
     const { START_TIME, END_TIME } = e.data;
 
@@ -69,15 +67,22 @@ onmessage = function(e) {
 
 function workerTick(startTime, endTime, delay)
 {
-    console.log(startTime);
-    console.log(endTime);
-
-    // Get current time
-    const CURRENT_TIME = new Date();
-
-
-
     timer = setTimeout(function(){
-        console.log("I ticked!")
+        // Get current time
+        const CURRENT_TIME = new Date();
+
+        // Find out how much time is left
+        let timeRemaining = endTime.getTime() - CURRENT_TIME.getTime();
+        const MINUTES_REMAINING = Math.floor(timeRemaining / 60000) % 60;
+        let secondsRemaining = Math.floor(timeRemaining / 1000) % 60;
+        if(secondsRemaining < 10)
+        {
+            secondsRemaining = "0" + secondsRemaining;
+        }
+
+        // Return time left
+        timeRemaining = [MINUTES_REMAINING, secondsRemaining];
+
+        postMessage(timeRemaining);
     }, delay)
 }
