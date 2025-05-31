@@ -209,6 +209,11 @@ function startTimer()
             // Pass end time to worker
             workerTimer.postMessage(END_TIME);
 
+            workerTimer.onmessage = function(event){
+                console.log("I'm using a web worker!!!!");
+                console.log("Worker response: " + event.data);
+            }
+
             /*
             // Send the current time remaining to the worker
             workerTimer.postMessage(timeRemaining);
