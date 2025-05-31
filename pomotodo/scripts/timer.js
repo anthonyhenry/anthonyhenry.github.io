@@ -198,12 +198,14 @@ function startTimer()
             console.log("I'm using a web worker!!!!");
             workerTimer = new Worker("scripts/worker-timer.js");
 
+            let tickFunction = tick;
+
             // Pass start time, end time, and tick function to worker
             workerTimer.postMessage(
                 {
                     startTime: START_TIME,
                     endTime: END_TIME,
-                    tickFunc: JSON.stringify(tick)
+                    tickFunc: JSON.stringify(tickFunction)
                 }
             )
 
