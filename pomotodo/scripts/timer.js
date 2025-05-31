@@ -214,6 +214,7 @@ function startTimer()
                 checkIfDateShouldBeUpdated(START_TIME, END_TIME);
                 console.log("I'm using a web worker!!!!");
                 console.log("Worker response: " + event.data);
+                updateTimerCountdown(event.data[0], event.data[1]);
             }
 
             /*
