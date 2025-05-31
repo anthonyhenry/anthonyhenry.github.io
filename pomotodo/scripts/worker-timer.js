@@ -8,6 +8,7 @@ onmessage = function(e) {
     timer = setTimeout(function(){
         console.log("I also ticked!!!")
     }, delay)
+    workerTick(delay);
 
     interval = setInterval(() => {
         // Get current time
