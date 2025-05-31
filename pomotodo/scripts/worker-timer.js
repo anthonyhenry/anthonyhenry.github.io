@@ -1,6 +1,37 @@
 // This handles incoming messages from the main thread
 onmessage = function(e) {
     console.log(e.data);
+    console.log("this: " + this);
+
+    const END_TIME = e.data;
+
+    interval = setInterval(() => {
+        // Get current time
+        const CURRENT_TIME = new Date();
+
+        // Timer finished
+        if(CURRENT_TIME >= END_TIME)
+        {
+            postMessage("done");
+            clearInterval(interval);
+        }
+        // Timer still running
+        else
+        {
+            let timeRemaining = END_TIME.getTime() - CURRENT_TIME.getTime();
+            const MINUTES_REMAINING = Math.floor(timeRemaining / 60000) % 60;
+            let secondsRemaining = Math.floor(timeRemaining / 1000) % 60;
+            if(secondsRemaining < 10)
+            {
+                secondsRemaining = "0" + secondsRemaining;
+            }
+
+            timeRemaining = MINUTES_REMAINING + ":" + secondsRemaining;
+            console.log(timeRemaining);
+
+            postMessage(timeRemaining);
+        }
+    }, 1000);
 
     // const TIME_REMAINING = e.data;
 
