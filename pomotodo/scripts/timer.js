@@ -204,12 +204,11 @@ function startTimer()
             console.log("I'm using a web worker!!!!");
             workerTimer = new Worker("scripts/worker-timer.js");
 
-            let tickFunction = tick;
-
             // Pass end time to worker
             workerTimer.postMessage(END_TIME);
 
             workerTimer.onmessage = function(event){
+                checkIfDateShouldBeUpdated(START_TIME, END_TIME);
                 console.log("I'm using a web worker!!!!");
                 console.log("Worker response: " + event.data);
             }
@@ -267,6 +266,21 @@ function startTimer()
             // Run timer
             tick(START_TIME, END_TIME, START_TIME, 0);
         }
+    }
+}
+
+function checkIfDateShouldBeUpdated(startTime, endTime)
+{
+    console.log("==========")
+    console.log(startTime.getDate())
+    console.log(endTime.getDate())
+    console.log(startTime.getDate() < endTime.getDate())
+    console.log(new Date())
+    console.log(new Date() < endTime)
+
+    if(startTime.getDate() < endTime.getDate() && new Date() < endTime)
+    {
+        maybeUpdateDate();
     }
 }
 

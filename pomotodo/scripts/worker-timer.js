@@ -1,7 +1,6 @@
 // This handles incoming messages from the main thread
 onmessage = function(e) {
     console.log(e.data);
-    console.log("this: " + this);
 
     const END_TIME = e.data;
 
