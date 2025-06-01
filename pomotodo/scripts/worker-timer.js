@@ -80,10 +80,18 @@ function workerTick(startTime, endTime, delay)
             secondsRemaining = "0" + secondsRemaining;
         }
 
+        
+
+        // Set delay based on how many milliseconds until another second has passed since the start
+        const MILLISECONDS_PASSED = CURRENT_TIME.getTime() - startTime.getTime();
+        // console.log("Milliseconds passed: " + MILLISECONDS_PASSED);
+        const MILLISECONDS_TO_NEXT_SECOND = 1000 - (MILLISECONDS_PASSED % 1000);
+
         // Post time left to main thread
-        timeRemaining = [MINUTES_REMAINING, secondsRemaining, CURRENT_TIME.getTime(), new Date().getTime()];
+        timeRemaining = [MINUTES_REMAINING, secondsRemaining, MILLISECONDS_PASSED, MILLISECONDS_TO_NEXT_SECOND];
         postMessage(timeRemaining);
 
+        workerTick(startTime, endTime, MILLISECONDS_TO_NEXT_SECOND);
 
     }, delay)
 }
