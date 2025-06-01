@@ -4,17 +4,14 @@ onmessage = function(e) {
     const { START_TIME, END_TIME } = e.data;
 
     // Run timer first time
-    workerTick(START_TIME, END_TIME, 0);
+    workerTick(START_TIME, END_TIME, START_TIME, 0);
 };
 
-function workerTick(startTime, endTime, delay)
+function workerTick(startTime, endTime, currentTime, delay)
 {
     timer = setTimeout(function(){
-        // Get current time
-        const CURRENT_TIME = new Date();
-
         // Find out how much time is left
-        let timeRemaining = endTime.getTime() - CURRENT_TIME.getTime();
+        let timeRemaining = endTime.getTime() - currentTime.getTime();
         const MINUTES_REMAINING = Math.floor(timeRemaining / 60000) % 60;
         let secondsRemaining = Math.floor(timeRemaining / 1000) % 60;
         if(secondsRemaining < 10)
@@ -25,6 +22,7 @@ function workerTick(startTime, endTime, delay)
         
 
         // Set delay based on how many milliseconds until another second has passed since the start
+        const CURRENT_TIME = new Date();
         const MILLISECONDS_PASSED = CURRENT_TIME.getTime() - startTime.getTime();
         // console.log("Milliseconds passed: " + MILLISECONDS_PASSED);
         const MILLISECONDS_TO_NEXT_SECOND = 1000 - (MILLISECONDS_PASSED % 1000);
@@ -33,7 +31,7 @@ function workerTick(startTime, endTime, delay)
         timeRemaining = [MINUTES_REMAINING, secondsRemaining, MILLISECONDS_PASSED, MILLISECONDS_TO_NEXT_SECOND];
         postMessage(timeRemaining);
 
-        workerTick(startTime, endTime, MILLISECONDS_TO_NEXT_SECOND);
+        workerTick(startTime, endTime, CURRENT_TIME, MILLISECONDS_TO_NEXT_SECOND);
 
     }, delay)
 }
