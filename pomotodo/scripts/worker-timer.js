@@ -81,7 +81,9 @@ function workerTick(startTime, endTime, delay)
         }
 
         // Post time left to main thread
-        timeRemaining = [MINUTES_REMAINING, secondsRemaining];
+        timeRemaining = [MINUTES_REMAINING, secondsRemaining, CURRENT_TIME, new Date()];
         postMessage(timeRemaining);
+
+
     }, delay)
 }
