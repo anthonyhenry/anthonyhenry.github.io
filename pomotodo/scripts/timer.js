@@ -214,8 +214,8 @@ function startTimer()
                 console.log("I'm using a web worker!!!!");
                 console.log("Worker response: " + event.data);
                 updateTimerCountdown(event.data[0], event.data[1]);
-                console.log(event.data[2]);
-                console.log(event.data[3]);
+                // console.log(event.data[2]);
+                // console.log(event.data[3]);
             }
         }
     }
