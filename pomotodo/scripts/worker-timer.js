@@ -30,7 +30,7 @@ function workerTick(startTime, endTime, currentTime, delay)
         millisecondsToNextSecond = Math.min(millisecondsToNextSecond, 999);
 
         // Post time left to main thread
-        timeRemaining = [MINUTES_REMAINING, secondsRemaining, MILLISECONDS_PASSED, MILLISECONDS_TO_NEXT_SECOND];
+        timeRemaining = [MINUTES_REMAINING, secondsRemaining, MILLISECONDS_PASSED, millisecondsToNextSecond];
         postMessage(timeRemaining);
 
         workerTick(startTime, endTime, new Date(), millisecondsToNextSecond);
