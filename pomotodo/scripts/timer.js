@@ -204,10 +204,7 @@ function startTimer()
             workerTimer = new Worker("scripts/worker-timer.js");
 
             // Pass end time to worker
-            workerTimer.postMessage({
-                START_TIME,
-                END_TIME
-            });
+            workerTimer.postMessage(END_TIME);
 
             workerTimer.onmessage = function(event){
                 // console.log("I'm using a web worker!!!!");
