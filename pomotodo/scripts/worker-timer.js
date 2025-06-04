@@ -33,7 +33,7 @@ function workerTick(startTime, endTime, currentTime, delay)
         // timeRemaining = [MINUTES_REMAINING, secondsRemaining, MILLISECONDS_PASSED, MILLISECONDS_TO_NEXT_SECOND];
         // postMessage(timeRemaining);
 
-        workerTick(startTime, endTime, CURRENT_TIME, MILLISECONDS_TO_NEXT_SECOND);
+        workerTick(startTime, endTime, new Date(), MILLISECONDS_TO_NEXT_SECOND);
 
     }, delay)
 }
