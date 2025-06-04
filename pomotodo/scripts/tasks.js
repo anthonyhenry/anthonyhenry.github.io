@@ -242,9 +242,11 @@ function loadSavedTasks()
         PRIORITY_BADGE.innerText = task.priority;
         BADGE_N_BUTTONS_DIV.appendChild(PRIORITY_BADGE);
 
+        /*
         EDIT_BUTTON.classList.add("fa-solid", "fa-pen", "ms-2", "edit-btn");
         EDIT_BUTTON.title = "Edit";
         BADGE_N_BUTTONS_DIV.appendChild(EDIT_BUTTON);
+        */
 
         DELETE_BUTTON.classList.add("fa-solid", "fa-circle-xmark", "ms-1", "delete-btn");
         DELETE_BUTTON.title = "Remove";
