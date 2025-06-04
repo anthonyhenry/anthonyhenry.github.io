@@ -17,7 +17,7 @@ onmessage = function(e) {
         }
 
         // Post time remaining to main thread
-        timeRemaining = [MINUTES_REMAINING, secondsRemaining];
+        timeRemaining = [MINUTES_REMAINING, secondsRemaining, END_TIME, END_TIME.getTime()];
         postMessage(timeRemaining);
 
     }, 250);
