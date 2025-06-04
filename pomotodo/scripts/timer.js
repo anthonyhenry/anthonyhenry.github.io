@@ -413,7 +413,7 @@ function updateTimerCountdown(minutes, seconds)
 // 
 function checkIfDateShouldBeUpdated(startTime, endTime)
 {
-    startTime = new Date(2025, 5, 4, 11, 59, 0);
+    startTime = new Date(2025, 5, 3, 11, 59, 0);
     console.log(startTime);
     console.log(endTime);
 
