@@ -413,12 +413,18 @@ function updateTimerCountdown(minutes, seconds)
 // 
 function checkIfDateShouldBeUpdated(startTime, endTime)
 {
-    console.log("I'm checking if the date has changed!!!")
+    console.log(startTime);
+    console.log(endTime);
+
     const START_DATE = startTime.getDate();
     const END_DATE = endTime.getDate()
 
+    console.log(START_DATE);
+    console.log(END_DATE);
+
     if(START_DATE < END_DATE && new Date().getDate() != END_DATE)
     {
+        console.log("I'm checking if the date has changed!!!")
         maybeUpdateDate();
     }
 }
