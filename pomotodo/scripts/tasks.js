@@ -224,10 +224,10 @@ function loadSavedTasks()
         switch(task.priority)
         {
             case "Overdue":
-                PRIORITY_BADGE.classList.add("bg-white", "text-dark");
+                PRIORITY_BADGE.classList.add("bg-dark");
                 break;
             case "Due Today":
-                PRIORITY_BADGE.classList.add("bg-dark");
+                PRIORITY_BADGE.classList.add("bg-secondary");
                 break;
             case "High":
                 PRIORITY_BADGE.classList.add("bg-danger");
