@@ -27,7 +27,7 @@ function workerTick(startTime, endTime, currentTime, delay)
         const CURRENT_TIME = new Date();
         const MILLISECONDS_PASSED = CURRENT_TIME.getTime() - startTime.getTime();
         let millisecondsToNextSecond = 1000 - (MILLISECONDS_PASSED % 1000);
-        millisecondsToNextSecond = Math.min(millisecondsToNextSecond, 998);
+        millisecondsToNextSecond = Math.min(millisecondsToNextSecond, 990);
 
         // Post time left to main thread
         timeRemaining = [MINUTES_REMAINING, secondsRemaining, MILLISECONDS_PASSED, millisecondsToNextSecond];
