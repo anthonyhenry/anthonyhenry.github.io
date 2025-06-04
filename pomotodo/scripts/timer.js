@@ -423,7 +423,7 @@ function checkIfDateShouldBeUpdated(startTime, endTime)
     const START_DATE = startTime.getDate();
     const END_DATE = endTime.getDate()
 
-    if(START_DATE != END_DATE && new Date().getDate() != END_DATE)
+    if(START_DATE != END_DATE)
     {
         console.log("I'm checking if the date has changed!!!")
         maybeUpdateDate();
