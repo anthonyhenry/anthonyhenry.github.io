@@ -4,7 +4,23 @@ onmessage = function(e) {
     const { START_TIME, END_TIME } = e.data;
 
     // Run timer first time
-    workerTick(START_TIME, END_TIME, START_TIME);
+    // workerTick(START_TIME, END_TIME, START_TIME);
+
+    setInterval(function(){
+        let timeRemaining = END_TIME.getTime - new Date().getTime();
+        
+        const MINUTES_REMAINING = Math.floor(timeRemaining / 60000) % 60;
+        let secondsRemaining = Math.floor(timeRemaining / 1000) % 60;
+        if(secondsRemaining < 10)
+        {
+            secondsRemaining = "0" + secondsRemaining;
+        }
+
+        // Post time remaining to main thread
+        timeRemaining = [MINUTES_REMAINING, secondsRemaining];
+        postMessage(timeRemaining);
+
+    }, 250);
 };
 
 function workerTick(startTime, endTime, currentTime)
@@ -23,7 +39,7 @@ function workerTick(startTime, endTime, currentTime)
         timeRemaining = [MINUTES_REMAINING, secondsRemaining];
         postMessage(timeRemaining);
 
-        
+
         workerTick(startTime, endTime, new Date());
     }, 250) // Tick 4 times a second
 }
