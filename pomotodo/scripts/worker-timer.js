@@ -25,7 +25,7 @@ function workerTick(startTime, endTime, currentTime, delay)
 
         // Set delay based on how many milliseconds until another second has passed since the start
         // const CURRENT_TIME = new Date();
-        const MILLISECONDS_PASSED = currentTime.getTime() - startTime.getTime();
+        const MILLISECONDS_PASSED = new Date().getTime() - startTime.getTime();
         // console.log("Milliseconds passed: " + MILLISECONDS_PASSED);
         const MILLISECONDS_TO_NEXT_SECOND = 1000 - (MILLISECONDS_PASSED % 1000);
 
