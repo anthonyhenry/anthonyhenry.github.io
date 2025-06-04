@@ -7,7 +7,7 @@ onmessage = function(e) {
     // workerTick(START_TIME, END_TIME, START_TIME);
 
     setInterval(function(){
-        let timeRemaining = END_TIME.getTime - new Date().getTime();
+        let timeRemaining = END_TIME.getTime() - new Date().getTime();
         
         const MINUTES_REMAINING = Math.floor(timeRemaining / 60000) % 60;
         let secondsRemaining = Math.floor(timeRemaining / 1000) % 60;
