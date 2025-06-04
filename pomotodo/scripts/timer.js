@@ -422,6 +422,8 @@ function checkIfDateShouldBeUpdated(startTime, endTime)
     console.log(START_DATE);
     console.log(END_DATE);
 
+    console.log(new Date().getDate());
+
     if(START_DATE < END_DATE && new Date().getDate() != END_DATE)
     {
         console.log("I'm checking if the date has changed!!!")
