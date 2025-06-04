@@ -211,9 +211,9 @@ function startTimer()
 
             workerTimer.onmessage = function(event){
                 // console.log("I'm using a web worker!!!!");
-                // console.log("Worker response: " + event.data);
                 updateTimerCountdown(event.data[0], event.data[1]);
                 checkIfDateShouldBeUpdated(START_TIME, END_TIME);
+                console.log("Worker response: " + event.data);
                 console.log("Milliseconds passed: " +  event.data[2]);
                 console.log("Milliseconds to next second: " + event.data[3]);
             }

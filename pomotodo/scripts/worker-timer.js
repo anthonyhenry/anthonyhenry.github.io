@@ -26,13 +26,14 @@ function workerTick(startTime, endTime, currentTime, delay)
         // Set delay based on how many milliseconds until another second has passed since the start
         const CURRENT_TIME = new Date();
         const MILLISECONDS_PASSED = CURRENT_TIME.getTime() - startTime.getTime();
-        const MILLISECONDS_TO_NEXT_SECOND = 1000 - (MILLISECONDS_PASSED % 1000);
+        let millisecondsToNextSecond = 1000 - (MILLISECONDS_PASSED % 1000);
+        millisecondsToNextSecond = Math.min(millisecondsToNextSecond, 999);
 
         // Post time left to main thread
         timeRemaining = [MINUTES_REMAINING, secondsRemaining, MILLISECONDS_PASSED, MILLISECONDS_TO_NEXT_SECOND];
         postMessage(timeRemaining);
 
-        workerTick(startTime, endTime, new Date(), MILLISECONDS_TO_NEXT_SECOND);
+        workerTick(startTime, endTime, new Date(), millisecondsToNextSecond);
 
     }, delay)
 }
