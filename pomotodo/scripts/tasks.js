@@ -215,6 +215,7 @@ function loadSavedTasks()
         let deadlineText = new Date(task.deadline);
         deadlineText = " [" + deadlineText.toLocaleDateString() + "]";
         DUE_DATE_SPAN.innerText = deadlineText;
+        DUE_DATE_SPAN.classList.add("fw-bold");
         DESCRIPTION_DIV.appendChild(DUE_DATE_SPAN);
 
         BADGE_N_BUTTONS_DIV.classList.add("d-flex", "align-items-center");
