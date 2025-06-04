@@ -212,10 +212,6 @@ function startTimer()
                 checkIfDateShouldBeUpdated(START_TIME, END_TIME);
 
                 // Check if timer is over
-                console.log(event.data[0])
-                console.log(event.data[1])
-                console.log(event.data[2])
-                console.log(event.data[3])
                 if(event.data[0] == 0 && event.data[1] == "00")
                 {
                     stopTimer();
