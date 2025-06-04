@@ -35,5 +35,5 @@ function workerTick(startTime, endTime, currentTime, delay)
 
         workerTick(startTime, endTime, new Date(), millisecondsToNextSecond);
 
-    }, delay)
+    }, 500)
 }
