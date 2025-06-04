@@ -1,4 +1,6 @@
-////////////////////////// Global Variables //////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////// Global Variables ////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 
 const TIMER_BUTTONS = document.querySelectorAll(".timer-buttons"); // Pomodoro, Short Break, Long Break buttons
 const CONTROL_BUTTONS = document.querySelectorAll(".timer-control-buttons"); // Start/Resume and Skip buttons
@@ -44,7 +46,9 @@ const SKIP_TIMER_MODAL_ELEMENT = document.querySelector("#skipTimerModal");
 const SKIP_TIMER_MODAL = new bootstrap.Modal(SKIP_TIMER_MODAL_ELEMENT);
 let modalConfirmCallback = null;
 
+///////////////////////////////////////////////////////////////////////////
 ////////////////////////// Timer Button Handlers //////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
 for(const btn of TIMER_BUTTONS)
 {
@@ -122,7 +126,9 @@ for(const button of CONTROL_BUTTONS)
     }
 }
 
-////////////////////////// Timer Controls //////////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////// Timer Controls /////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
 function skipTimer(newTimer)
 {
@@ -175,12 +181,6 @@ function timerComplete()
     changeStartButton("Start");
 }
 
-const myFunction = (arg) => {
-  console.log("Function called with:", arg);
-  return arg * 2;
-}
-
-
 function startTimer()
 {
     // Get the amount of time currently displayed in timer
@@ -201,7 +201,6 @@ function startTimer()
         // Make sure web worker is not currently active
         if (typeof(workerTimer) === "undefined")
         {
-            console.log("I'm using a web worker!!!!");
             workerTimer = new Worker("scripts/worker-timer.js");
 
             // Pass end time to worker
@@ -218,34 +217,6 @@ function startTimer()
                 console.log(event.data[2]);
                 console.log(event.data[3]);
             }
-
-            /*
-            // Send the current time remaining to the worker
-            workerTimer.postMessage(timeRemaining);
-
-            // Every second the worker will send the new time for the timer
-            workerTimer.onmessage = function(event) {
-                console.log("I'm using a web worker!!!!");
-                console.log("Worker response: " + event.data);
-
-                timeRemaining = event.data.split(":");
-                updateTimerCountdown(timeRemaining[0], timeRemaining[1]);
-
-
-                if(event.data == "1:00")
-                {
-                    timerNotification(timeRemaining[0]);
-                }
-                else if(event.data == "0:00")
-                {
-                    stopTimer();
-                    timerComplete();
-
-                    console.log("Worker end time: " + new Date());
-                    console.log("Expected end time: " + END_TIME);
-                }
-            };
-            */
         }
     }
     // Web workers not supported
@@ -256,12 +227,13 @@ function startTimer()
         // First timer of session so give warning
         if(sessionStorage.getItem("browserIncompatibilityWarningGiven") != "true") //=== null)
         {
+            // Show incompatability modal
             const BROWSER_INCOMPATIBILITY_MODAL_ELEMENT = document.querySelector("#browserIncompatibilityModal");
             const BROWSER_INCOMPATIBILITY_MODAL = new bootstrap.Modal(BROWSER_INCOMPATIBILITY_MODAL_ELEMENT);
             BROWSER_INCOMPATIBILITY_MODAL.show();
 
+            // Start timer when incompatability modal is closed
             BROWSER_INCOMPATIBILITY_MODAL_ELEMENT.addEventListener("hidden.bs.modal", () => {
-                console.log("banana")
                 tick(START_TIME, END_TIME, START_TIME, 0);
             });
 
@@ -272,20 +244,6 @@ function startTimer()
             // Run timer
             tick(START_TIME, END_TIME, START_TIME, 0);
         }
-    }
-}
-
-// 
-// TODO: Test this, then add it to non-web worker and test there as well
-// 
-function checkIfDateShouldBeUpdated(startTime, endTime)
-{
-    const START_DATE = startTime.getDate();
-    const END_DATE = endTime.getDate()
-
-    if(START_DATE < END_DATE && new Date().getDate() != END_DATE)
-    {
-        maybeUpdateDate();
     }
 }
 
@@ -353,9 +311,9 @@ function stopTimer()
     }
 }
 
-//////////////////////////////////////////////////////////////////////
-////////////////////////// Modal Functions ///////////////////////////
-/////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+//////////////////////////// Modal Functions /////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
 // Modal confirm button pressed
 document.querySelector("#confirmSkip").onclick = function(){
@@ -378,7 +336,9 @@ SKIP_TIMER_MODAL_ELEMENT.addEventListener("hidden.bs.modal", () => {
 });
 
 
-////////////////////////// Helper Functions //////////////////////////
+///////////////////////////////////////////////////////////////////////////
+//////////////////////////// Helper Functions ////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
 function changeCurrentTimer(newTimer)
 {
@@ -449,6 +409,21 @@ function getColorClass(classPrefix, color)
 function updateTimerCountdown(minutes, seconds)
 {
     COUNTDOWN_DISPLAY.innerText = minutes + ":" + seconds;
+}
+
+// 
+// TODO: Test this, then add it to non-web worker and test there as well
+// 
+function checkIfDateShouldBeUpdated(startTime, endTime)
+{
+    console.log("I'm checking if the date has changed!!!")
+    const START_DATE = startTime.getDate();
+    const END_DATE = endTime.getDate()
+
+    if(START_DATE < END_DATE && new Date().getDate() != END_DATE)
+    {
+        maybeUpdateDate();
+    }
 }
 
 function timerNotification(minutesRemaining)
