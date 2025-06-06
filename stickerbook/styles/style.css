@@ -1,0 +1,16 @@
+#canvas
+{
+    display: flex;
+    justify-content: center;
+}
+
+#scene
+{
+    height: 500px;
+}
+#stickers
+{
+    width: 150px;
+    height: 500px;
+    overflow-y: scroll;
+}
