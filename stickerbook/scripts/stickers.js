@@ -38,6 +38,11 @@ for(const sticker of TEMPLATE_STICKERS)
         function onMouseUp() {
 			document.removeEventListener("mousemove", onMouseMove);
 			document.removeEventListener("mouseup", onMouseUp);
+
+            const SCENE_DIV = document.querySelector("#scene");
+
+            // Change the sticker's parent to the scene div
+            SCENE_DIV.appendChild(CLONED_STICKER)
 		}
 		document.addEventListener("mouseup", onMouseUp);
     }
