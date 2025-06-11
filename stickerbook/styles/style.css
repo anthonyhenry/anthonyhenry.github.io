@@ -1,14 +1,27 @@
-#canvas
+main
 {
     display: flex;
     justify-content: center;
+    overflow: hidden;
+}
+
+#stickerPage
+{
+    /* Use these two lines instead of styling main */
+    /* margin: auto; */
+    /* width: fit-content; */
+
+    display: flex;
     position: relative;
     overflow: hidden;
+    background-color: tan;
 }
 
 #scene
 {
     height: 500px;
+    position: relative;
+    overflow: hidden;
 }
 
 #stickers
@@ -16,10 +29,5 @@
     width: 150px;
     height: 500px;
     overflow-y: scroll;
-    /* position: relative; */
-}
-
-.sticker
-{
     /* position: relative; */
 }
