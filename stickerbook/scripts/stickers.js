@@ -31,6 +31,7 @@ for(const sticker of TEMPLATE_STICKERS)
         // Move the sticker with the mouse
         function onMouseMove(e){
             moveSticker(CLONED_STICKER, e.pageX, e.pageY)
+            // console.log(e.pageX + ", " + e.pageY)
         }
         document.addEventListener("mousemove", onMouseMove)
 
@@ -39,10 +40,35 @@ for(const sticker of TEMPLATE_STICKERS)
 			document.removeEventListener("mousemove", onMouseMove);
 			document.removeEventListener("mouseup", onMouseUp);
 
+            // Get top, right, left, bottom coordinates of the scene div
             const SCENE_DIV = document.querySelector("#scene");
+            const SCENE_RECT = SCENE_DIV.getBoundingClientRect();
+            // console.log(SCENE_RECT)
 
-            // Change the sticker's parent to the scene div
-            SCENE_DIV.appendChild(CLONED_STICKER)
+            // Get top, right, left, bottom coordinates of the sticker img
+            const STICKER_RECT = CLONED_STICKER.getBoundingClientRect();
+            // console.log(STICKER_RECT)
+
+            if(STICKER_RECT.right >= SCENE_RECT.left
+                && STICKER_RECT.left <= SCENE_RECT.right
+                && STICKER_RECT.bottom >= SCENE_RECT.top
+                && STICKER_RECT.top <= SCENE_RECT.bottom
+            )
+            {
+                // Change the sticker's parent to the scene div
+                SCENE_DIV.appendChild(CLONED_STICKER)
+            }
+
+            if(CLONED_STICKER.parentElement.id == "scene")
+            {
+                console.log("good placement")
+            }
+            else
+            {
+                console.log("BAD placement")
+            }
+
+
 		}
 		document.addEventListener("mouseup", onMouseUp);
     }
