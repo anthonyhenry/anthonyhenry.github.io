@@ -45,6 +45,7 @@ for(const sticker of TEMPLATE_STICKERS)
 
 function moveSticker(sticker, mousePosX, mousePosY)
 {
-    sticker.style.left = mousePosX - STICKER_PAGE_DIV.offsetLeft - (sticker.width / 2) + "px";
+    // offsetLeft/Top returns the distance in pixels from the specified edge of an element to the specified edge of its nearest positioned ancestor
+    sticker.style.left = mousePosX - STICKER_PAGE_DIV.offsetLeft - (sticker.width / 2) + "px"; 
     sticker.style.top = mousePosY - STICKER_PAGE_DIV.offsetTop - (sticker.height / 2) + "px";
 }
