@@ -26,11 +26,11 @@ for(const sticker of TEMPLATE_STICKERS)
         CLONED_STICKER.style.width = sticker.width + "px";
 
         // Place the cloned sticker under the mouse cursor
-        moveSticker(CLONED_STICKER, event.clientX, event.clientY)
+        moveSticker(CLONED_STICKER, event.pageX, event.pageY)
 
         // Move the sticker with the mouse
         function onMouseMove(e){
-            moveSticker(CLONED_STICKER, e.clientX, e.clientY)
+            moveSticker(CLONED_STICKER, e.pageX, e.pageY)
         }
         document.addEventListener("mousemove", onMouseMove)
 
