@@ -26,49 +26,44 @@ for(const sticker of TEMPLATE_STICKERS)
         CLONED_STICKER.style.width = sticker.width + "px";
 
         // Place the cloned sticker under the mouse cursor
-        moveSticker(CLONED_STICKER, event.pageX, event.pageY)
+        moveSticker(CLONED_STICKER, event.pageX, event.pageY);
 
         // Move the sticker with the mouse
         function onMouseMove(e){
             moveSticker(CLONED_STICKER, e.pageX, e.pageY)
-            // console.log(e.pageX + ", " + e.pageY)
         }
         document.addEventListener("mousemove", onMouseMove)
 
         // Place the sticker when the mouse is released
         function onMouseUp() {
+
+            // Disable listeners
 			document.removeEventListener("mousemove", onMouseMove);
 			document.removeEventListener("mouseup", onMouseUp);
 
             // Get top, right, left, bottom coordinates of the scene div
             const SCENE_DIV = document.querySelector("#scene");
             const SCENE_RECT = SCENE_DIV.getBoundingClientRect();
-            // console.log(SCENE_RECT)
 
             // Get top, right, left, bottom coordinates of the sticker img
             const STICKER_RECT = CLONED_STICKER.getBoundingClientRect();
-            // console.log(STICKER_RECT)
-
-            if(STICKER_RECT.right >= SCENE_RECT.left
-                && STICKER_RECT.left <= SCENE_RECT.right
-                && STICKER_RECT.bottom >= SCENE_RECT.top
-                && STICKER_RECT.top <= SCENE_RECT.bottom
-            )
+            
+            // Only add the sticker if it is visible within the scene
+            if(STICKER_RECT.right >= SCENE_RECT.left 
+                && STICKER_RECT.left <= SCENE_RECT.right 
+                && STICKER_RECT.bottom >= SCENE_RECT.top 
+                && STICKER_RECT.top <= SCENE_RECT.bottom)
             {
                 // Change the sticker's parent to the scene div
-                SCENE_DIV.appendChild(CLONED_STICKER)
-            }
-
-            if(CLONED_STICKER.parentElement.id == "scene")
-            {
-                console.log("good placement")
+                SCENE_DIV.appendChild(CLONED_STICKER);
+                // Give the sticker the placed sticker class
+                CLONED_STICKER.classList.add("placed-sticker");
             }
             else
             {
-                console.log("BAD placement")
+                // Delete stickers that aren't in the scene
+                CLONED_STICKER.parentElement.removeChild(CLONED_STICKER);
             }
-
-
 		}
 		document.addEventListener("mouseup", onMouseUp);
     }

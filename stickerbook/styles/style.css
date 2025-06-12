@@ -2,7 +2,7 @@ main
 {
     display: flex;
     justify-content: center;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 #stickerPage
@@ -13,7 +13,7 @@ main
 
     display: flex;
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     background-color: tan;
 }
 
