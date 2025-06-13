@@ -88,6 +88,10 @@ function bindPlacedStickers()
             // Prevent default behavior (ghost image)
             event.preventDefault();
 
+            // Set grabbing cursor
+            sticker.style.cursor = "grabbing";
+
+
             // Add the sticker to the sticker page div
             // STICKER_PAGE_DIV.appendChild(CLONED_STICKER);
 
@@ -114,6 +118,8 @@ function test(sticker)
 
     // Place the sticker when the mouse is released
     function onMouseUp() {
+        // Reset cursor to default
+        sticker.style.cursor = "default";
 
         // Disable listeners
         document.removeEventListener("mousemove", onMouseMove);
