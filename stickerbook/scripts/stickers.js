@@ -98,7 +98,8 @@ function bindPlacedStickers()
             // Place the cloned sticker under the mouse cursor
             // moveSticker(this, event.pageX, event.pageY);
 
-            test(sticker);
+            // Needs to be this, otherwise only the last sticker placed will be moved for some reason
+            test(this);
 
 
         }
@@ -109,6 +110,7 @@ function bindPlacedStickers()
 function test(sticker)
 {
     // console.log(e);
+    // console.log(sticker)
 
     function onMouseMove(e)
     {
