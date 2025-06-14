@@ -26,10 +26,14 @@ for(const sticker of TEMPLATE_STICKERS)
         CLONED_STICKER.style.width = sticker.width + "px";
 
         // Place the cloned sticker under the mouse cursor
-        setStickerPos(CLONED_STICKER, event.pageX, event.pageY);
+        const ANCHOR = {
+            x: CLONED_STICKER.width / 2,
+            y: CLONED_STICKER.height / 2
+        }
+        setStickerPos(CLONED_STICKER, event.pageX, event.pageY, ANCHOR);
 
         // Allow sticker to be moved
-        moveSticker(CLONED_STICKER);
+        moveSticker(CLONED_STICKER, ANCHOR);
     }
 }
 
@@ -50,8 +54,15 @@ function bindPlacedStickers()
             // Add the sticker to the sticker page div
             // STICKER_PAGE_DIV.appendChild(this);
 
+            // 
+
+            const ANCHOR = {
+                x: this.width / 2,
+                y: this.height / 2
+            }
+
             // Allow sticker to be moved
-            moveSticker(this); // Needs to be this, otherwise only the last sticker placed will be moved for some reason
+            moveSticker(this, ANCHOR); // Needs to be this, otherwise only the last sticker placed will be moved for some reason
         }
     }
 }
@@ -60,14 +71,12 @@ function bindPlacedStickers()
 /////////////////////////////// Helper Functions ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function moveSticker(sticker)
+function moveSticker(sticker, anchor)
 {
     function onMouseMove(e)
     {
-        // Set grabbing cursor
-        sticker.style.cursor = "grabbing";
         // Move sticker position
-        setStickerPos(sticker, e.pageX, e.pageY);
+        setStickerPos(sticker, e.pageX, e.pageY, anchor);
     }
     document.addEventListener("mousemove", onMouseMove);
 
@@ -116,9 +125,11 @@ function moveSticker(sticker)
     document.addEventListener("mouseup", onMouseUp);
 }
 
-function setStickerPos(sticker, mousePosX, mousePosY)
+function setStickerPos(sticker, mousePosX, mousePosY, anchor)
 {
+    // Set grabbing cursor
+    sticker.style.cursor = "grabbing";
     // offsetLeft/Top returns the distance in pixels from the specified edge of an element to the specified edge of its nearest positioned ancestor
-    sticker.style.left = mousePosX - STICKER_PAGE_DIV.offsetLeft - (sticker.width / 2) + "px"; 
-    sticker.style.top = mousePosY - STICKER_PAGE_DIV.offsetTop - (sticker.height / 2) + "px";
+    sticker.style.left = mousePosX - STICKER_PAGE_DIV.offsetLeft - anchor.x + "px"; 
+    sticker.style.top = mousePosY - STICKER_PAGE_DIV.offsetTop - anchor.y + "px";
 }
