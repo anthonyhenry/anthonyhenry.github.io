@@ -28,45 +28,8 @@ for(const sticker of TEMPLATE_STICKERS)
         // Place the cloned sticker under the mouse cursor
         setStickerPos(CLONED_STICKER, event.pageX, event.pageY);
 
-        // Move the sticker with the mouse
-        function onMouseMove(e){
-            setStickerPos(CLONED_STICKER, e.pageX, e.pageY)
-        }
-        document.addEventListener("mousemove", onMouseMove)
-
-        // Place the sticker when the mouse is released
-        function onMouseUp() {
-
-            // Disable listeners
-			document.removeEventListener("mousemove", onMouseMove);
-			document.removeEventListener("mouseup", onMouseUp);
-
-            // Get top, right, left, bottom coordinates of the scene div
-            const SCENE_DIV = document.querySelector("#scene");
-            const SCENE_RECT = SCENE_DIV.getBoundingClientRect();
-
-            // Get top, right, left, bottom coordinates of the sticker img
-            const STICKER_RECT = CLONED_STICKER.getBoundingClientRect();
-            
-            // Only add the sticker if it is visible within the scene
-            if(STICKER_RECT.right >= SCENE_RECT.left 
-                && STICKER_RECT.left <= SCENE_RECT.right 
-                && STICKER_RECT.bottom >= SCENE_RECT.top 
-                && STICKER_RECT.top <= SCENE_RECT.bottom)
-            {
-                // Change the sticker's parent to the scene div
-                SCENE_DIV.appendChild(CLONED_STICKER);
-                // Give the sticker the placed sticker class
-                CLONED_STICKER.classList.add("placed-sticker");
-                bindPlacedStickers();
-            }
-            else
-            {
-                // Delete stickers that aren't in the scene
-                CLONED_STICKER.parentElement.removeChild(CLONED_STICKER);
-            }
-		}
-		document.addEventListener("mouseup", onMouseUp);
+        // Allow sticker to be moved
+        moveSticker(CLONED_STICKER);
     }
 }
 
@@ -84,12 +47,11 @@ function bindPlacedStickers()
             // Prevent default behavior (ghost image)
             event.preventDefault();
 
-
             // Add the sticker to the sticker page div
-            // STICKER_PAGE_DIV.appendChild(CLONED_STICKER);
+            // STICKER_PAGE_DIV.appendChild(this);
 
-            // Needs to be this, otherwise only the last sticker placed will be moved for some reason
-            moveSticker(this);
+            // Allow sticker to be moved
+            moveSticker(this); // Needs to be this, otherwise only the last sticker placed will be moved for some reason
         }
     }
 }
@@ -126,17 +88,24 @@ function moveSticker(sticker)
         // Get top, right, left, bottom coordinates of the sticker img
         const STICKER_RECT = sticker.getBoundingClientRect();
         
-        // Only add the sticker if it is visible within the scene
+        // Only keep stickers that are visible within the scene
         if(STICKER_RECT.right >= SCENE_RECT.left 
             && STICKER_RECT.left <= SCENE_RECT.right 
             && STICKER_RECT.bottom >= SCENE_RECT.top 
             && STICKER_RECT.top <= SCENE_RECT.bottom)
         {
-            // Change the sticker's parent to the scene div
-            // SCENE_DIV.appendChild(CLONED_STICKER);
-            // Give the sticker the placed sticker class
-            // CLONED_STICKER.classList.add("placed-sticker");
-            // bindPlacedStickers();
+            if(sticker.parentElement != SCENE_DIV)
+            {
+                // Change the sticker's parent to the scene div
+                SCENE_DIV.appendChild(sticker);
+
+                // Give the sticker the placed sticker class
+                if(!sticker.classList.contains("placed-sticker"))
+                {
+                    sticker.classList.add("placed-sticker");
+                    bindPlacedStickers();
+                }
+            }
         }
         else
         {
