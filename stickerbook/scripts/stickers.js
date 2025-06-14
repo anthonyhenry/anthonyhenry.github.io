@@ -84,9 +84,6 @@ function bindPlacedStickers()
             // Prevent default behavior (ghost image)
             event.preventDefault();
 
-            // Set grabbing cursor
-            sticker.style.cursor = "grabbing";
-
 
             // Add the sticker to the sticker page div
             // STICKER_PAGE_DIV.appendChild(CLONED_STICKER);
@@ -105,6 +102,9 @@ function moveSticker(sticker)
 {
     function onMouseMove(e)
     {
+        // Set grabbing cursor
+        sticker.style.cursor = "grabbing";
+        // Move sticker position
         setStickerPos(sticker, e.pageX, e.pageY);
     }
     document.addEventListener("mousemove", onMouseMove);
