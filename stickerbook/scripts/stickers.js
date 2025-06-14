@@ -54,13 +54,12 @@ function bindPlacedStickers()
             // Add the sticker to the sticker page div
             // STICKER_PAGE_DIV.appendChild(this);
 
-            // 
-
+            // Set anchor for sticker movement
+            const STICKER_RECT = this.getBoundingClientRect();
             const ANCHOR = {
-                x: this.width / 2,
-                y: this.height / 2
+                x: event.pageX - STICKER_RECT.left,
+                y: event.pageY - STICKER_RECT.top
             }
-
             // Allow sticker to be moved
             moveSticker(this, ANCHOR); // Needs to be this, otherwise only the last sticker placed will be moved for some reason
         }
