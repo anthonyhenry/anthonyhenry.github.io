@@ -21,7 +21,7 @@ for(const sticker of TEMPLATE_STICKERS)
         STICKER_DIV.style.position = "absolute";
         STICKER_DIV.style.width = sticker.width + "px";
         STICKER_DIV.style.height = sticker.height + "px";
-        STICKER_DIV.style.backgroundColor = "white";
+        // STICKER_DIV.style.backgroundColor = "white";
 
         // Add the sticker div to the sticker page div
         STICKER_PAGE_DIV.appendChild(STICKER_DIV);
@@ -35,6 +35,7 @@ for(const sticker of TEMPLATE_STICKERS)
 
         // Style sticker
         CLONED_STICKER.style.height = "100%";
+        // CLONED_STICKER.style.transform = "rotate(90deg)"
 
         // Place the new sticker under the mouse cursor
         const ANCHOR = {
@@ -76,6 +77,23 @@ function bindPlacedStickers()
         }
     }
 }
+
+let lastClickedSticker = ""
+document.addEventListener("click", function(event){
+
+    // Remove outline from last clicked sticker
+    if(lastClickedSticker && event.target != lastClickedSticker)
+    {
+        lastClickedSticker.style.outline = "";
+        lastClickedSticker = "";
+    }
+
+    if(event.target.classList.contains("placed-sticker") || event.target.parentElement.classList.contains("placed-sticker"))
+    {
+        event.target.style.outline = "2px dashed #0000FF"
+        lastClickedSticker = event.target;
+    }
+});
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Helper Functions ///////////////////////////////
