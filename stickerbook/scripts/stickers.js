@@ -14,26 +14,37 @@ for(const sticker of TEMPLATE_STICKERS)
         // Prevent default behavior (ghost image)
         event.preventDefault();
 
+        // Create a div for the new sticker
+        const STICKER_DIV = document.createElement("div");
+
+        // Style sticker div
+        STICKER_DIV.style.position = "absolute";
+        STICKER_DIV.style.width = sticker.width + "px";
+        STICKER_DIV.style.height = sticker.height + "px";
+        STICKER_DIV.style.backgroundColor = "white";
+
+        // Add the sticker div to the sticker page div
+        STICKER_PAGE_DIV.appendChild(STICKER_DIV);
+
         // Create a duplicate of the sticker
         const CLONED_STICKER = document.createElement("img");
         CLONED_STICKER.src = sticker.src;
 
-        // Add the sticker to the sticker page div
-        STICKER_PAGE_DIV.appendChild(CLONED_STICKER);
+        // Add the sticker to the sticker div
+        STICKER_DIV.appendChild(CLONED_STICKER);
 
-        // Style cloned sticker
-        CLONED_STICKER.style.position = "absolute";
-        CLONED_STICKER.style.width = sticker.width + "px";
+        // Style sticker
+        CLONED_STICKER.style.height = "100%";
 
-        // Place the cloned sticker under the mouse cursor
+        // Place the new sticker under the mouse cursor
         const ANCHOR = {
-            x: CLONED_STICKER.width / 2,
-            y: CLONED_STICKER.height / 2
+            x: parseInt(STICKER_DIV.style.width) / 2,
+            y: parseInt(STICKER_DIV.style.height) / 2
         }
-        setStickerPos(CLONED_STICKER, event.pageX, event.pageY, ANCHOR);
+        setStickerPos(STICKER_DIV, event.pageX, event.pageY, ANCHOR);
 
         // Allow sticker to be moved
-        moveSticker(CLONED_STICKER, ANCHOR);
+        moveSticker(STICKER_DIV, ANCHOR);
     }
 }
 
