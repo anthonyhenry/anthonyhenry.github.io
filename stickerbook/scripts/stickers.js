@@ -73,14 +73,14 @@ function bindPlacedStickers()
             // Add the sticker to the sticker page div
             // STICKER_PAGE_DIV.appendChild(this);
 
-            // Add an outline to this sticker
-            if(activeSticker && activeSticker != this)
-            {
-                activeSticker.style.outline = "";
-            }
-            this.style.outline = "2px dashed #0000FF"
-            activeSticker = this;
-            console.log(this)
+            // // Add an outline to this sticker
+            // if(activeSticker && activeSticker != this)
+            // {
+            //     activeSticker.style.outline = "";
+            // }
+            // this.style.outline = "2px dashed #0000FF"
+            // activeSticker = this;
+            // console.log(this)
 
 
             // Set anchor for sticker movement
@@ -98,19 +98,19 @@ function bindPlacedStickers()
 document.addEventListener("click", function(event){
 
     // console.log(event.target)
-    console.log(activeSticker)
-    console.log(event.target.parentElement)
-    console.log(event.target != activeSticker)
-    console.log(event.target.parentElement != activeSticker)
+    // console.log(activeSticker)
+    // console.log(event.target.parentElement)
+    // console.log(event.target != activeSticker)
+    // console.log(event.target.parentElement != activeSticker)
 
 
 
-    // Remove outline from last clicked sticker
-    if(activeSticker && (event.target != activeSticker && event.target.parentElement != activeSticker))
-    {
-        activeSticker.style.outline = "";
-        activeSticker = "";
-    }
+    // // Remove outline from last clicked sticker
+    // if(activeSticker && (event.target != activeSticker && event.target.parentElement != activeSticker))
+    // {
+    //     activeSticker.style.outline = "";
+    //     activeSticker = "";
+    // }
 
     // if(event.target.nodeName == "DIV" || event.target.nodeName == "IMG")
     // {
@@ -166,10 +166,9 @@ function moveSticker(sticker, anchor)
                 // Give the sticker the placed sticker class
                 if(!sticker.classList.contains("placed-sticker"))
                 {
-                    // setActiveSticker(sticker);
-
                     sticker.classList.add("placed-sticker");
                     bindPlacedStickers();
+                    setActiveSticker(sticker);
                 }
             }
         }
@@ -191,9 +190,20 @@ function setStickerPos(sticker, mousePosX, mousePosY, anchor)
     sticker.style.top = mousePosY - STICKER_PAGE_DIV.offsetTop - anchor.y + "px";
 }
 
-// function setActiveSticker(sticker)
-// {
-//     sticker.style.outline = "1px dashed green";
-//     activeSticker = sticker;
-//     console.log("I set the active sticker!")
-// }
+function setActiveSticker(sticker)
+{
+    clearActiveSticker();
+
+    sticker.style.outline = "2px dashed blue";
+    activeSticker = sticker;
+    console.log("I set the active sticker!")
+}
+
+function clearActiveSticker()
+{
+    if(activeSticker)
+    {
+        activeSticker.style.outline = "";
+        activeSticker = "";
+    }
+}
