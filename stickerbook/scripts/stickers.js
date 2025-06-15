@@ -74,15 +74,10 @@ function bindPlacedStickers()
             // STICKER_PAGE_DIV.appendChild(this);
 
             // Add an outline to this sticker
-            if(activeSticker && activeSticker != this)
+            if(activeSticker != this)
             {
                 setActiveSticker(this);
-                // activeSticker.style.outline = "";
             }
-            // this.style.outline = "2px dashed #0000FF"
-            // activeSticker = this;
-            // console.log(this)
-
 
             // Set anchor for sticker movement
             const STICKER_RECT = this.getBoundingClientRect();
@@ -96,31 +91,26 @@ function bindPlacedStickers()
     }
 }
 
-document.addEventListener("click", function(event){
+////////////////////////////////////////////////////////////////////////////////
+/////////////////// Handler for Clearing the Active Sticker ///////////////////
+////////////////////////////////////////////////////////////////////////////////
 
-    // console.log(event.target)
-    // console.log(activeSticker)
-    // console.log(event.target.parentElement)
-    // console.log(event.target != activeSticker)
-    // console.log(event.target.parentElement != activeSticker)
+document.addEventListener("click", function(){
 
-
-
-    // // Remove outline from last clicked sticker
-    // if(activeSticker && (event.target != activeSticker && event.target.parentElement != activeSticker))
+    //  // This won't make newly placed stickers active
+    // if(activeSticker && event.target != activeSticker && event.target.parentElement != activeSticker)
     // {
-    //     activeSticker.style.outline = "";
-    //     activeSticker = "";
+    //     clearActiveSticker();
     // }
 
-    // if(event.target.nodeName == "DIV" || event.target.nodeName == "IMG")
-    // {
-    //     if(event.target.classList.contains("placed-sticker") || event.target.parentElement.classList.contains("placed-sticker"))
-    //     {
-    //         event.target.style.outline = "2px dashed #0000FF"
-    //         activeSticker = event.target;
-    //     }
-    // }
+    function test(e)
+    {
+        if(activeSticker && e.target != activeSticker && e.target.parentElement != activeSticker)
+        {
+            clearActiveSticker();
+        }
+    }
+    document.addEventListener("mouseup", test);
 });
 
 ////////////////////////////////////////////////////////////////////////////////
