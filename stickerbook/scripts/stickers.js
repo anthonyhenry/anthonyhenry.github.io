@@ -73,11 +73,12 @@ function bindPlacedStickers()
             // Add the sticker to the sticker page div
             // STICKER_PAGE_DIV.appendChild(this);
 
-            // // Add an outline to this sticker
-            // if(activeSticker && activeSticker != this)
-            // {
-            //     activeSticker.style.outline = "";
-            // }
+            // Add an outline to this sticker
+            if(activeSticker && activeSticker != this)
+            {
+                setActiveSticker(this);
+                // activeSticker.style.outline = "";
+            }
             // this.style.outline = "2px dashed #0000FF"
             // activeSticker = this;
             // console.log(this)
