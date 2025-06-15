@@ -41,7 +41,7 @@ for(const sticker of TEMPLATE_STICKERS)
 
         // Style sticker
         CLONED_STICKER.style.height = "100%";
-        CLONED_STICKER.style.transform = "rotate(90deg)"
+        // CLONED_STICKER.style.transform = "rotate(90deg)"
 
         // Place the new sticker under the mouse cursor
         const ANCHOR = {
