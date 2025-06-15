@@ -162,14 +162,12 @@ function moveSticker(sticker, anchor)
             {
                 // Change the sticker's parent to the scene div
                 SCENE_DIV.appendChild(sticker);
-
-                // Give the sticker the placed sticker class
-                if(!sticker.classList.contains("placed-sticker"))
-                {
-                    sticker.classList.add("placed-sticker");
-                    bindPlacedStickers();
-                    setActiveSticker(sticker);
-                }
+                // Give the sticker the placed sticker class and set active
+                sticker.classList.add("placed-sticker");
+                // Bind placed sticker behavior
+                bindPlacedStickers();
+                // Set sticker as active sticker
+                setActiveSticker(sticker);
             }
         }
         else
