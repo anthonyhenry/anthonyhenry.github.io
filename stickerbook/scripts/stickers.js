@@ -1,7 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// Global Variables ///////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 // Get all sticker templates
 const TEMPLATE_STICKERS = document.querySelectorAll(".template-sticker");
 // Get a reference to the sticker page div
 const STICKER_PAGE_DIV = document.querySelector("#stickerPage");
+// Element of the last clicked sticker
+let activeSticker = ""
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////// Handler for Creating New Stickers //////////////////////
@@ -35,7 +41,7 @@ for(const sticker of TEMPLATE_STICKERS)
 
         // Style sticker
         CLONED_STICKER.style.height = "100%";
-        // CLONED_STICKER.style.transform = "rotate(90deg)"
+        CLONED_STICKER.style.transform = "rotate(90deg)"
 
         // Place the new sticker under the mouse cursor
         const ANCHOR = {
@@ -53,6 +59,7 @@ for(const sticker of TEMPLATE_STICKERS)
 ////////////////////// Handler for Moving Placed Stickers //////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+
 function bindPlacedStickers()
 {
     const PLACED_STICKERS = document.querySelectorAll(".placed-sticker");
@@ -66,6 +73,16 @@ function bindPlacedStickers()
             // Add the sticker to the sticker page div
             // STICKER_PAGE_DIV.appendChild(this);
 
+            // Add an outline to this sticker
+            if(activeSticker && activeSticker != this)
+            {
+                activeSticker.style.outline = "";
+            }
+            this.style.outline = "2px dashed #0000FF"
+            activeSticker = this;
+            console.log(this)
+
+
             // Set anchor for sticker movement
             const STICKER_RECT = this.getBoundingClientRect();
             const ANCHOR = {
@@ -78,21 +95,31 @@ function bindPlacedStickers()
     }
 }
 
-let lastClickedSticker = ""
 document.addEventListener("click", function(event){
 
+    // console.log(event.target)
+    console.log(activeSticker)
+    console.log(event.target.parentElement)
+    console.log(event.target != activeSticker)
+    console.log(event.target.parentElement != activeSticker)
+
+
+
     // Remove outline from last clicked sticker
-    if(lastClickedSticker && event.target != lastClickedSticker)
+    if(activeSticker && (event.target != activeSticker && event.target.parentElement != activeSticker))
     {
-        lastClickedSticker.style.outline = "";
-        lastClickedSticker = "";
+        activeSticker.style.outline = "";
+        activeSticker = "";
     }
 
-    if(event.target.classList.contains("placed-sticker") || event.target.parentElement.classList.contains("placed-sticker"))
-    {
-        event.target.style.outline = "2px dashed #0000FF"
-        lastClickedSticker = event.target;
-    }
+    // if(event.target.nodeName == "DIV" || event.target.nodeName == "IMG")
+    // {
+    //     if(event.target.classList.contains("placed-sticker") || event.target.parentElement.classList.contains("placed-sticker"))
+    //     {
+    //         event.target.style.outline = "2px dashed #0000FF"
+    //         activeSticker = event.target;
+    //     }
+    // }
 });
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -139,6 +166,8 @@ function moveSticker(sticker, anchor)
                 // Give the sticker the placed sticker class
                 if(!sticker.classList.contains("placed-sticker"))
                 {
+                    // setActiveSticker(sticker);
+
                     sticker.classList.add("placed-sticker");
                     bindPlacedStickers();
                 }
@@ -161,3 +190,10 @@ function setStickerPos(sticker, mousePosX, mousePosY, anchor)
     sticker.style.left = mousePosX - STICKER_PAGE_DIV.offsetLeft - anchor.x + "px"; 
     sticker.style.top = mousePosY - STICKER_PAGE_DIV.offsetTop - anchor.y + "px";
 }
+
+// function setActiveSticker(sticker)
+// {
+//     sticker.style.outline = "1px dashed green";
+//     activeSticker = sticker;
+//     console.log("I set the active sticker!")
+// }
