@@ -20,6 +20,9 @@ for(const sticker of TEMPLATE_STICKERS)
         // Prevent default behavior (ghost image)
         event.preventDefault();
 
+        // Clear active sticker
+        clearActiveSticker();
+
         // Create a div for the new sticker
         const STICKER_DIV = document.createElement("div");
 
@@ -41,7 +44,7 @@ for(const sticker of TEMPLATE_STICKERS)
 
         // Style sticker
         CLONED_STICKER.style.height = "100%";
-        // CLONED_STICKER.style.transform = "rotate(90deg)"
+        CLONED_STICKER.style.transform = "rotate(90deg)"
 
         // Place the new sticker under the mouse cursor
         const ANCHOR = {
@@ -105,10 +108,13 @@ document.addEventListener("click", function(){
 
     function test(e)
     {
+        console.log(e.target);
         if(activeSticker && e.target != activeSticker && e.target.parentElement != activeSticker)
         {
             clearActiveSticker();
         }
+
+        document.removeEventListener("mouseup", test);
     }
     document.addEventListener("mouseup", test);
 });
