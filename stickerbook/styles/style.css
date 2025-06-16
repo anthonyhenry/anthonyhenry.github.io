@@ -35,7 +35,7 @@ main
 .sticker-rotate-handle {
     width: 15px;
     height: 15px;
-    background-color: blue;
+    background-color: white;
     border-radius: 50%;
     position: absolute;
     top: -25px; /* Adjust for spacing above the sticker */
@@ -43,4 +43,6 @@ main
     transform: translateX(-50%);
     cursor: grab;
     z-index: 2;
+    text-align: center;
+    line-height: 15px;
 }

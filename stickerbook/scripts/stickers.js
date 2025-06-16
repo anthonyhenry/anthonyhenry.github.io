@@ -218,10 +218,10 @@ function clearActiveSticker()
 }
 
 let test = document.querySelector("#test");
+test.innerText = '\u21BB'
 
 document.addEventListener("mousedown", function(event){
     event.preventDefault();
-    console.log(test)
 
     const CENTER_X = test.parentElement.offsetLeft + test.parentElement.offsetWidth / 2;
     const CENTER_Y = test.parentElement.offsetTop + test.parentElement.offsetHeight / 2;
@@ -236,7 +236,7 @@ document.addEventListener("mousedown", function(event){
     function onMouseMove(e) {
         const dx = e.pageX - CENTER_X;
         const dy = e.pageY - CENTER_Y;
-        const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+        const angle = Math.atan2(dy, dx) * (180 / Math.PI);
         console.log(angle)
         TEST.style.transform = `rotate(${angle}deg)`;
     }
