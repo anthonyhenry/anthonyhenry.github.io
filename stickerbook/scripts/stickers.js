@@ -226,19 +226,26 @@ document.addEventListener("mousedown", function(event){
     const CENTER_X = test.parentElement.offsetLeft + test.parentElement.offsetWidth / 2;
     const CENTER_Y = test.parentElement.offsetTop + test.parentElement.offsetHeight / 2;
 
-    console.log(CENTER_X)
-    console.log(CENTER_Y)
+    const INITIAL_X = event.pageX;
+    const INITIAL_Y = event.pageY;
 
-    console.log(test.parentElement.children[0]);
+    const INITIAL_ANGLE = Math.atan2(INITIAL_Y - CENTER_Y, INITIAL_X - CENTER_X);
 
-    const TEST = test.parentElement.children[0]
+    const STICKER = test.parentElement.children[0]
+
+    // Get sticker current rotation
+    const CURRENT_ROTATION = parseFloat(STICKER.dataset.rotation || "0");
 
     function onMouseMove(e) {
         const dx = e.pageX - CENTER_X;
         const dy = e.pageY - CENTER_Y;
-        const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+        let angle = Math.atan2(dy, dx)
+        angle -= INITIAL_ANGLE;
+        angle *= (180 / Math.PI);
+        angle += CURRENT_ROTATION;
         console.log(angle)
-        TEST.style.transform = `rotate(${angle}deg)`;
+        STICKER.style.transform = `rotate(${angle}deg)`;
+        STICKER.dataset.rotation = angle;
     }
 
     function onMouseUp() {
