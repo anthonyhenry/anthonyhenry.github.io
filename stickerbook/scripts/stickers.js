@@ -230,7 +230,7 @@ test.addEventListener("mousedown", function(event){
 
     const INITIAL_ANGLE = Math.atan2(INITIAL_Y - CENTER_Y, INITIAL_X - CENTER_X);
 
-    const STICKER = test.parentElement.children[0]
+    const STICKER = document.querySelector("#activeSticker") // test.parentElement.children[0]
 
     // Get sticker current rotation
     const CURRENT_ROTATION = getStickerRotation(STICKER);
@@ -242,6 +242,7 @@ test.addEventListener("mousedown", function(event){
         angle -= INITIAL_ANGLE;
         angle *= (180 / Math.PI);
         angle += CURRENT_ROTATION;
+        test.parentElement.style.transform = `rotate(${angle}deg)`;
         STICKER.style.transform = `rotate(${angle}deg)`;
     }
 

@@ -32,7 +32,8 @@ main
     /* position: relative; */
 }
 
-.sticker-rotate-handle {
+.sticker-rotate-handle
+{
     width: 15px;
     height: 15px;
     background-color: white;
@@ -45,6 +46,10 @@ main
     z-index: 2;
     text-align: center;
     line-height: 15px;
+}
+.sticker-rotate-handle:active
+{
+    cursor: grabbing;
 }
 
 .sticker-rotate-handle::before
