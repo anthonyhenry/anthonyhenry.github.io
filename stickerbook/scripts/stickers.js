@@ -218,9 +218,8 @@ function clearActiveSticker()
 }
 
 let test = document.querySelector("#test");
-test.innerText = '\u21BB'
 
-document.addEventListener("mousedown", function(event){
+test.addEventListener("mousedown", function(event){
     event.preventDefault();
 
     const CENTER_X = test.parentElement.offsetLeft + test.parentElement.offsetWidth / 2;
@@ -234,7 +233,7 @@ document.addEventListener("mousedown", function(event){
     const STICKER = test.parentElement.children[0]
 
     // Get sticker current rotation
-    const CURRENT_ROTATION = parseFloat(STICKER.dataset.rotation || "0");
+    const CURRENT_ROTATION = getStickerRotation(STICKER);
 
     function onMouseMove(e) {
         const dx = e.pageX - CENTER_X;
@@ -243,9 +242,7 @@ document.addEventListener("mousedown", function(event){
         angle -= INITIAL_ANGLE;
         angle *= (180 / Math.PI);
         angle += CURRENT_ROTATION;
-        console.log(angle)
         STICKER.style.transform = `rotate(${angle}deg)`;
-        STICKER.dataset.rotation = angle;
     }
 
     function onMouseUp() {
@@ -255,6 +252,21 @@ document.addEventListener("mousedown", function(event){
 
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseup", onMouseUp);
-
-
 })
+
+function getStickerRotation(sticker)
+{
+    let rotation = sticker.style.transform;
+    console.log(rotation)
+
+    if(rotation)
+    {
+        rotation = rotation.split("(");
+        rotation = parseFloat(rotation[1]);
+        return rotation;
+    }
+    else
+    {
+        return 0;
+    }
+}

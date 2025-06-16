@@ -46,3 +46,9 @@ main
     text-align: center;
     line-height: 15px;
 }
+
+.sticker-rotate-handle::before
+{
+    content: '\21BB';
+
+}
