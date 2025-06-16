@@ -254,6 +254,8 @@ function startTimer()
 function tick(startTime, endTime, currentTime, delay)
 {
     timer = setTimeout(function(){
+        checkIfDateShouldBeUpdated(startTime, endTime);
+
         // Timer finished
         if(currentTime >= endTime)
         {
@@ -266,7 +268,7 @@ function tick(startTime, endTime, currentTime, delay)
         }
         // Timer still running
         else
-        {
+        {   
             // Update countdown
             const TIME_REMAINING = endTime.getTime() - currentTime.getTime();
             const MINUTES_REMAINING = Math.floor(TIME_REMAINING / 60000) % 60;
