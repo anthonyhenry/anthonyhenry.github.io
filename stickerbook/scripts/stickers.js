@@ -192,6 +192,20 @@ function setActiveSticker(sticker)
     sticker.style.outline = "2px dashed blue";
     activeSticker = sticker;
     console.log("I set the active sticker!")
+    console.log("sticker: " + activeSticker)
+
+    const ACTIVE_STICKER_RECT = activeSticker.getBoundingClientRect();
+    console.log(ACTIVE_STICKER_RECT);
+
+    const rotateHandle = document.createElement("div");
+    rotateHandle.classList.add("sticker-rotate-handle");
+    activeSticker.appendChild(rotateHandle);
+
+    rotateHandle.addEventListener("mousedown", function(event){
+        event.preventDefault();
+
+
+    })
 }
 
 function clearActiveSticker()
@@ -202,3 +216,38 @@ function clearActiveSticker()
         activeSticker = "";
     }
 }
+
+let test = document.querySelector("#test");
+
+document.addEventListener("mousedown", function(event){
+    event.preventDefault();
+    console.log(test)
+
+    const CENTER_X = test.parentElement.offsetLeft + test.parentElement.offsetWidth / 2;
+    const CENTER_Y = test.parentElement.offsetTop + test.parentElement.offsetHeight / 2;
+
+    console.log(CENTER_X)
+    console.log(CENTER_Y)
+
+    console.log(test.parentElement.children[0]);
+
+    const TEST = test.parentElement.children[0]
+
+    function onMouseMove(e) {
+        const dx = e.pageX - CENTER_X;
+        const dy = e.pageY - CENTER_Y;
+        const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+        console.log(angle)
+        TEST.style.transform = `rotate(${angle}deg)`;
+    }
+
+    function onMouseUp() {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+    }
+
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+
+
+})
