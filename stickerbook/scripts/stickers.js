@@ -126,6 +126,7 @@ function bindPlacedStickers()
                     STICKER_IMG.parentElement.appendChild(ROTATION_HANDLE);
                     outlineElement(STICKER_IMG.parentElement)
                     SCENE_DIV.removeChild(CLONED_DIV);
+                    clearActiveSticker();
 
                     document.removeEventListener("mousemove", rotateSticker);
                     document.removeEventListener("mouseup", stopRotating);
