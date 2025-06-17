@@ -162,24 +162,24 @@ function bindPlacedStickers()
 /////////////////// Handler for Clearing the Active Sticker ///////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-document.addEventListener("click", function(){
+document.addEventListener("mouseup", function(event){
 
     // This won't make newly placed stickers active
-    // if(activeSticker && event.target != activeSticker && event.target.parentElement != activeSticker)
-    // {
-    //     clearActiveSticker();
-    // }
-
-    function test(e)
+    if(activeSticker && event.target != activeSticker && event.target.parentElement != activeSticker)
     {
-        if(activeSticker && e.target != activeSticker && e.target.parentElement != activeSticker)
-        {
-            clearActiveSticker();
-        }
-
-        document.removeEventListener("mouseup", test);
+        clearActiveSticker();
     }
-    document.addEventListener("mouseup", test);
+
+    // function test(e)
+    // {
+    //     if(activeSticker && e.target != activeSticker && e.target.parentElement != activeSticker)
+    //     {
+    //         clearActiveSticker();
+    //     }
+
+    //     document.removeEventListener("mouseup", test);
+    // }
+    // document.addEventListener("mouseup", test);
 });
 
 ////////////////////////////////////////////////////////////////////////////////
