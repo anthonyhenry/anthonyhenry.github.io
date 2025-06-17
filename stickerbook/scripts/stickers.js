@@ -1,11 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Global Variables ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
 // Get all sticker templates
 const TEMPLATE_STICKERS = document.querySelectorAll(".template-sticker");
 // Get a reference to the sticker page div
 const STICKER_PAGE_DIV = document.querySelector("#stickerPage");
+// Reference to scene div
+const SCENE_DIV = document.querySelector("#scene");
 // Element of the last clicked sticker
 let activeSticker = ""
 
@@ -44,7 +45,7 @@ for(const sticker of TEMPLATE_STICKERS)
 
         // Style sticker
         CLONED_STICKER.style.height = "100%";
-        CLONED_STICKER.style.transform = "rotate(90deg)"
+        // CLONED_STICKER.style.transform = "rotate(90deg)"
 
         // Place the new sticker under the mouse cursor
         const ANCHOR = {
@@ -73,23 +74,84 @@ function bindPlacedStickers()
             // Prevent default behavior (ghost image)
             event.preventDefault();
 
+            console.log(event.target)
+
+            if(event.target.classList.contains("sticker-rotate-handle"))
+            {
+                const ROTATION_HANDLE = event.target;
+                const STICKER_IMG = this.children[0]
+
+                // Create a clone of the sticker div
+                const CLONED_DIV = this.cloneNode();
+                CLONED_DIV.style.transform = getComputedStyle(this).transform;
+                // Add the clone underneath the active sticker
+                SCENE_DIV.insertBefore(CLONED_DIV, this)
+                // Clone the sticker img
+                const CLONED_IMG = STICKER_IMG.cloneNode();
+                // Add the cloned sticker to the cloned div
+                CLONED_DIV.appendChild(CLONED_IMG);
+                // Move the rotation handler to the cloned div
+                CLONED_DIV.appendChild(ROTATION_HANDLE);
+
+                const CENTER_X = CLONED_DIV.offsetLeft + CLONED_DIV.offsetWidth;
+                const CENTER_Y = CLONED_DIV.offsetTop + CLONED_DIV.offsetHeight;
+
+                const INITIAL_X = event.pageX;
+                const INITIAL_Y = event.pageY;
+
+                const INITIAL_ANGLE = Math.atan2(INITIAL_Y - CENTER_Y, INITIAL_X - CENTER_X);
+
+                const CURRENT_ROTATION = getStickerRotation(STICKER_IMG);
+                
+                function rotateSticker(e)
+                {
+                    const dx = e.pageX - CENTER_X;
+                    const dy = e.pageY - CENTER_Y;
+                    let angle = Math.atan2(dy, dx);
+                    angle -= INITIAL_ANGLE;
+                    angle *= (180 / Math.PI);
+                    angle += CURRENT_ROTATION;
+
+                    // Rotate the cloned div
+                    CLONED_DIV.style.transform = `rotate(${angle}deg)`;
+                    // Rotate the sticker
+                    STICKER_IMG.style.transform = `rotate(${angle}deg)`;
+                }
+                document.addEventListener("mousemove", rotateSticker);
+
+                function stopRotating()
+                {
+                    STICKER_IMG.parentElement.appendChild(ROTATION_HANDLE);
+                    SCENE_DIV.removeChild(CLONED_DIV);
+
+                    document.removeEventListener("mousemove", rotateSticker);
+                    document.removeEventListener("mouseup", stopRotating);
+                }
+                document.addEventListener("mouseup", stopRotating);
+
+            }
+            else
+            {
+                // Add an outline to this sticker
+                if(activeSticker != this)
+                {
+                    setActiveSticker(this);
+                }
+
+                // Set anchor for sticker movement
+                const STICKER_RECT = this.getBoundingClientRect();
+                const ANCHOR = {
+                    x: event.pageX - STICKER_RECT.left,
+                    y: event.pageY - STICKER_RECT.top
+                }
+                // Allow sticker to be moved
+                moveSticker(this, ANCHOR); // Needs to be this, otherwise only the last sticker placed will be moved for some reason    
+            }
+
             // Add the sticker to the sticker page div
             // STICKER_PAGE_DIV.appendChild(this);
 
-            // Add an outline to this sticker
-            if(activeSticker != this)
-            {
-                setActiveSticker(this);
-            }
-
-            // Set anchor for sticker movement
-            const STICKER_RECT = this.getBoundingClientRect();
-            const ANCHOR = {
-                x: event.pageX - STICKER_RECT.left,
-                y: event.pageY - STICKER_RECT.top
-            }
-            // Allow sticker to be moved
-            moveSticker(this, ANCHOR); // Needs to be this, otherwise only the last sticker placed will be moved for some reason
+            
         }
     }
 }
@@ -143,7 +205,6 @@ function moveSticker(sticker, anchor)
         document.removeEventListener("mouseup", onMouseUp);
 
         // Get top, right, left, bottom coordinates of the scene div
-        const SCENE_DIV = document.querySelector("#scene");
         const SCENE_RECT = SCENE_DIV.getBoundingClientRect();
 
         // Get top, right, left, bottom coordinates of the sticker img
@@ -212,9 +273,12 @@ function clearActiveSticker()
 {
     if(activeSticker)
     {
-        activeSticker.removeChild(activeSticker.children[1]);
-        activeSticker.style.outline = "";
-        activeSticker = "";
+        if(activeSticker.childElementCount > 1)
+        {
+            activeSticker.removeChild(activeSticker.children[1]);
+            activeSticker.style.outline = "";
+            activeSticker = "";
+        }
     }
 }
 
