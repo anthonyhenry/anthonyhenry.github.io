@@ -89,6 +89,7 @@ function bindPlacedStickers()
                 SCENE_DIV.insertBefore(CLONED_DIV, this)
                 // Clone the sticker img
                 const CLONED_IMG = STICKER_IMG.cloneNode();
+                CLONED_IMG.style.opacity = 0.0;
                 // Add the cloned sticker to the cloned div
                 CLONED_DIV.appendChild(CLONED_IMG);
                 // Move the rotation handler to the cloned div
