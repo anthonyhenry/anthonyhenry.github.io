@@ -93,8 +93,8 @@ function bindPlacedStickers()
                 // Move the rotation handler to the cloned div
                 CLONED_DIV.appendChild(ROTATION_HANDLE);
 
-                const CENTER_X = CLONED_DIV.offsetLeft + CLONED_DIV.offsetWidth;
-                const CENTER_Y = CLONED_DIV.offsetTop + CLONED_DIV.offsetHeight;
+                const CENTER_X = CLONED_DIV.offsetLeft + CLONED_DIV.offsetWidth / 2;
+                const CENTER_Y = CLONED_DIV.offsetTop + CLONED_DIV.offsetHeight / 2;
 
                 const INITIAL_X = event.pageX;
                 const INITIAL_Y = event.pageY;
