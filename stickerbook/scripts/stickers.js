@@ -76,6 +76,7 @@ function bindPlacedStickers()
 
             console.log(event.target)
 
+            // Rotate sticker
             if(event.target.classList.contains("sticker-rotate-handle"))
             {
                 const ROTATION_HANDLE = event.target;
@@ -83,15 +84,21 @@ function bindPlacedStickers()
 
                 // Create a clone of the sticker div
                 const CLONED_DIV = this.cloneNode();
-                CLONED_DIV.style.transform = getComputedStyle(this).transform;
-                this.style.outline = ""
+
                 // Add the clone underneath the active sticker
                 SCENE_DIV.insertBefore(CLONED_DIV, this)
-                // Clone the sticker img
+                
+                // Remove outline temporarily 
+                this.style.outline = ""
+
+                
+                // Clone the sticker img and make it invisible
                 const CLONED_IMG = STICKER_IMG.cloneNode();
                 CLONED_IMG.style.opacity = 0.0;
+
                 // Add the cloned sticker to the cloned div
                 CLONED_DIV.appendChild(CLONED_IMG);
+
                 // Move the rotation handler to the cloned div
                 CLONED_DIV.appendChild(ROTATION_HANDLE);
 
@@ -123,9 +130,18 @@ function bindPlacedStickers()
 
                 function stopRotating()
                 {
-                    STICKER_IMG.parentElement.appendChild(ROTATION_HANDLE);
-                    outlineElement(STICKER_IMG.parentElement)
+                    const STICKER_DIV = STICKER_IMG.parentElement;
+
+                    // Return rotation handle to 
+                    STICKER_DIV.appendChild(ROTATION_HANDLE);
+                    
+                    // Apply outline again
+                    // outlineElement(STICKER_DIV)
+                    
+                    // Remove the cloned sticker
                     SCENE_DIV.removeChild(CLONED_DIV);
+
+                    // Clear active sticker
                     clearActiveSticker();
 
                     document.removeEventListener("mousemove", rotateSticker);
@@ -134,6 +150,7 @@ function bindPlacedStickers()
                 document.addEventListener("mouseup", stopRotating);
 
             }
+            // Move sticker
             else
             {
                 // Add an outline to this sticker
