@@ -212,6 +212,7 @@ function clearActiveSticker()
 {
     if(activeSticker)
     {
+        activeSticker.removeChild(activeSticker.children[1]);
         activeSticker.style.outline = "";
         activeSticker = "";
     }
