@@ -84,6 +84,7 @@ function bindPlacedStickers()
                 // Create a clone of the sticker div
                 const CLONED_DIV = this.cloneNode();
                 CLONED_DIV.style.transform = getComputedStyle(this).transform;
+                this.style.outline = ""
                 // Add the clone underneath the active sticker
                 SCENE_DIV.insertBefore(CLONED_DIV, this)
                 // Clone the sticker img
@@ -113,7 +114,7 @@ function bindPlacedStickers()
                     angle += CURRENT_ROTATION;
 
                     // Rotate the cloned div
-                    CLONED_DIV.style.transform = `rotate(${angle}deg)`;
+                    CLONED_DIV.style.transform = `rotate(${angle - CURRENT_ROTATION}deg)`;
                     // Rotate the sticker
                     STICKER_IMG.style.transform = `rotate(${angle}deg)`;
                 }
@@ -122,6 +123,7 @@ function bindPlacedStickers()
                 function stopRotating()
                 {
                     STICKER_IMG.parentElement.appendChild(ROTATION_HANDLE);
+                    outlineElement(STICKER_IMG.parentElement)
                     SCENE_DIV.removeChild(CLONED_DIV);
 
                     document.removeEventListener("mousemove", rotateSticker);
@@ -162,7 +164,7 @@ function bindPlacedStickers()
 
 document.addEventListener("click", function(){
 
-    //  // This won't make newly placed stickers active
+    // This won't make newly placed stickers active
     // if(activeSticker && event.target != activeSticker && event.target.parentElement != activeSticker)
     // {
     //     clearActiveSticker();
@@ -170,7 +172,6 @@ document.addEventListener("click", function(){
 
     function test(e)
     {
-        console.log(e.target);
         if(activeSticker && e.target != activeSticker && e.target.parentElement != activeSticker)
         {
             clearActiveSticker();
@@ -250,13 +251,8 @@ function setActiveSticker(sticker)
 {
     clearActiveSticker();
 
-    sticker.style.outline = "2px dashed blue";
+    outlineElement(sticker)
     activeSticker = sticker;
-    console.log("I set the active sticker!")
-    console.log("sticker: " + activeSticker)
-
-    const ACTIVE_STICKER_RECT = activeSticker.getBoundingClientRect();
-    console.log(ACTIVE_STICKER_RECT);
 
     const rotateHandle = document.createElement("div");
     rotateHandle.classList.add("sticker-rotate-handle");
@@ -267,6 +263,11 @@ function setActiveSticker(sticker)
 
 
     })
+}
+
+function outlineElement(element)
+{
+    element.style.outline = "2px dashed blue";
 }
 
 function clearActiveSticker()
