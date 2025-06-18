@@ -78,7 +78,7 @@ function bindPlacedStickers()
             if(event.target.classList.contains("sticker-rotate-handle"))
             {
                 const ROTATION_HANDLE = event.target;
-                const STICKER_IMG = this.children[0]
+                const STICKER_IMG = this.children[0];
 
                 // Create a clone of the sticker div
                 const CLONED_DIV = this.cloneNode();
@@ -89,7 +89,6 @@ function bindPlacedStickers()
                 // Remove outline temporarily 
                 this.style.outline = ""
 
-                
                 // Clone the sticker img and make it invisible
                 const CLONED_IMG = STICKER_IMG.cloneNode();
                 CLONED_IMG.style.opacity = 0.0;
@@ -100,8 +99,9 @@ function bindPlacedStickers()
                 // Move the rotation handler to the cloned div
                 CLONED_DIV.appendChild(ROTATION_HANDLE);
 
-                const CENTER_X = CLONED_DIV.offsetLeft + CLONED_DIV.offsetWidth / 2;
-                const CENTER_Y = CLONED_DIV.offsetTop + CLONED_DIV.offsetHeight / 2;
+                const rect = CLONED_DIV.getBoundingClientRect();
+                const CENTER_X = rect.left + rect.width / 2
+                const CENTER_Y = rect.top + rect.height / 2
 
                 const INITIAL_X = event.pageX;
                 const INITIAL_Y = event.pageY;
@@ -121,8 +121,10 @@ function bindPlacedStickers()
 
                     // Rotate the cloned div
                     CLONED_DIV.style.transform = `rotate(${angle - CURRENT_ROTATION}deg)`;
+                    CLONED_DIV.style.willChange = "transform";
                     // Rotate the sticker
                     STICKER_IMG.style.transform = `rotate(${angle}deg)`;
+                    STICKER_IMG.style.willChange = "transform";
                 }
                 document.addEventListener("mousemove", rotateSticker);
 
