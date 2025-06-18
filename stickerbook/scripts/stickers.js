@@ -146,42 +146,6 @@ function bindPlacedStickers()
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////
-////////// Handler for Setting Cursor and Clearing the Active Sticker //////////
-////////////////////////////////////////////////////////////////////////////////
-
-document.addEventListener("mousedown", function(event){
-    // Check if a sticker was clicked
-    const STICKER_CLICKED = (
-        event.target.classList.contains("template-sticker")
-        || event.target.classList.contains("sticker-rotate-handle")
-        || event.target.parentElement.classList.contains("placed-sticker")
-    )
-    if(STICKER_CLICKED)
-    {
-        // Set cursor to grabbing
-        document.querySelector("body").style.cursor = "grabbing";
-        
-        // Reset cursor on mouse up
-        function resetCursor()
-        {
-            document.querySelector("body").style.cursor = "default";
-
-            document.removeEventListener("mouseup", resetCursor);
-        }
-        document.addEventListener("mouseup", resetCursor);
-    }
-    // Sticker not clicked
-    else
-    {
-        clearActiveSticker();
-    }
-});
-
-////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////// Helper Functions ///////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
 function moveSticker(sticker, anchor)
 {
     // Set will change to help with performance
@@ -244,6 +208,42 @@ function setStickerPos(sticker, mousePosX, mousePosY, anchor)
     sticker.style.top = mousePosY - STICKER_PAGE_DIV.offsetTop - anchor.y + "px";
 }
 
+////////////////////////////////////////////////////////////////////////////////
+////////// Handler for Setting Cursor and Clearing the Active Sticker //////////
+////////////////////////////////////////////////////////////////////////////////
+
+document.addEventListener("mousedown", function(event){
+    // Check if a sticker was clicked
+    const STICKER_CLICKED = (
+        event.target.classList.contains("template-sticker")
+        || event.target.classList.contains("sticker-rotate-handle")
+        || event.target.parentElement.classList.contains("placed-sticker")
+    )
+    if(STICKER_CLICKED)
+    {
+        // Set cursor to grabbing
+        document.querySelector("body").style.cursor = "grabbing";
+        
+        // Reset cursor on mouse up
+        function resetCursor()
+        {
+            document.querySelector("body").style.cursor = "default";
+
+            document.removeEventListener("mouseup", resetCursor);
+        }
+        document.addEventListener("mouseup", resetCursor);
+    }
+    // Sticker not clicked
+    else
+    {
+        clearActiveSticker();
+    }
+});
+
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// Helper Functions ///////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 function setActiveSticker(sticker)
 {
     // Clear previous active sticker and set new one
@@ -257,13 +257,6 @@ function setActiveSticker(sticker)
     const rotateHandle = document.createElement("div");
     rotateHandle.classList.add("sticker-rotate-handle");
     activeSticker.appendChild(rotateHandle);
-
-    rotateHandle.addEventListener("mousedown", function(event){
-        event.preventDefault();
-        console.log("test")
-
-
-    })
 }
 
 function clearActiveSticker()
