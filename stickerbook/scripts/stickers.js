@@ -74,8 +74,6 @@ function bindPlacedStickers()
             // Prevent default behavior (ghost image)
             event.preventDefault();
 
-            console.log(event.target)
-
             // Rotate sticker
             if(event.target.classList.contains("sticker-rotate-handle"))
             {
@@ -343,7 +341,6 @@ test.addEventListener("mousedown", function(event){
 function getStickerRotation(sticker)
 {
     let rotation = sticker.style.transform;
-    console.log(rotation)
 
     if(rotation)
     {
