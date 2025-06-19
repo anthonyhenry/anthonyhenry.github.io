@@ -215,9 +215,12 @@ function setStickerPos(sticker, mousePosX, mousePosY, anchor)
 document.addEventListener("mousedown", function(event){
     // Check if a sticker was clicked
     const STICKER_CLICKED = (
-        event.target.classList.contains("template-sticker")
+        (event.target.classList.length > 0
+        || (event.target.parentElement && event.target.parentElement.classList.length > 0))
+        && 
+        (event.target.classList.contains("template-sticker")
         || event.target.classList.contains("sticker-rotate-handle")
-        || event.target.parentElement.classList.contains("placed-sticker")
+        || event.target.parentElement.classList.contains("placed-sticker"))
     )
     if(STICKER_CLICKED)
     {
