@@ -74,6 +74,12 @@ function bindPlacedStickers()
             // Prevent default behavior (ghost image)
             event.preventDefault();
 
+            // Move placed sticker to sticker page div
+            STICKER_PAGE_DIV.appendChild(this);
+
+            // Make this the active sticker
+            setActiveSticker(this);
+
             // Rotate sticker
             if(event.target.classList.contains("sticker-rotate-handle"))
             {
@@ -116,17 +122,11 @@ function bindPlacedStickers()
             // Move sticker
             else
             {
-                // Make this the active sticker
-                if(activeSticker != this)
-                {
-                    setActiveSticker(this);
-                }
-
                 // Clone the node to get the correct anchor
                 const CLONED_NODE = this.cloneNode();
                 CLONED_NODE.style.transform = "rotate(0deg)"
                 CLONED_NODE.style.outline = ""
-                SCENE_DIV.insertBefore(CLONED_NODE, this)
+                STICKER_PAGE_DIV.insertBefore(CLONED_NODE, this)
                 
 
                 // Set anchor for sticker movement
@@ -137,7 +137,7 @@ function bindPlacedStickers()
                 }
 
                 // Delete the cloned node
-                SCENE_DIV.removeChild(CLONED_NODE);
+                STICKER_PAGE_DIV.removeChild(CLONED_NODE);
 
                 // Allow sticker to be moved
                 moveSticker(this, ANCHOR); // Needs to be this, otherwise only the last sticker placed will be moved for some reason    
@@ -176,17 +176,10 @@ function moveSticker(sticker, anchor)
             // Reset will change
             resetWillChange(sticker);
 
-            if(sticker.parentElement != SCENE_DIV)
-            {
-                // Change the sticker's parent to the scene div
-                SCENE_DIV.appendChild(sticker);
-                // Give the sticker the placed sticker class
-                sticker.classList.add("placed-sticker");
-                // Bind placed sticker behavior
-                bindPlacedStickers();
-                // Set sticker as active sticker
-                setActiveSticker(sticker);
-            }
+            // Set sticker as active sticker
+            setActiveSticker(sticker);
+
+
         }
         else
         {
@@ -249,23 +242,43 @@ document.addEventListener("mousedown", function(event){
 
 function setActiveSticker(sticker)
 {
-    // Clear previous active sticker and set new one
-    clearActiveSticker();
-    activeSticker = sticker;
+    if(activeSticker != sticker)
+    {
+        // Clear previous active sticker and set new one
+        clearActiveSticker();
+        activeSticker = sticker;
 
-    // Give the new active sticker an outline
-    sticker.style.outline = "2px dashed blue";
+        // Give the new active sticker an outline
+        sticker.style.outline = "2px dashed blue";
 
-    // Create rotate handle for the active sticker
-    const rotateHandle = document.createElement("div");
-    rotateHandle.classList.add("sticker-rotate-handle");
-    activeSticker.appendChild(rotateHandle);
+        // Create rotate handle for the active sticker
+        const rotateHandle = document.createElement("div");
+        rotateHandle.classList.add("sticker-rotate-handle");
+        activeSticker.appendChild(rotateHandle);
+        rotateHandle.style.zIndex = 20;
+
+        // TO DO: Create and style rotate handles here
+        // In clear active sticker use a loop to delete all handles
+
+        // OR create a slightly larger div behind the sticker and rotate sticker when that is dragged
+
+        // Give newly placed stickers the placed-sticker class
+        if(!activeSticker.classList.contains("placed-sticker"))
+        {
+            activeSticker.classList.add("placed-sticker");
+            // Bind placed sticker behavior
+            bindPlacedStickers();
+        }
+    }
 }
 
 function clearActiveSticker()
 {
     if(activeSticker)
     {
+        // Change the sticker's parent to the scene div
+        SCENE_DIV.appendChild(activeSticker);
+
         // Remove rotation handle
         activeSticker.removeChild(activeSticker.children[1]);
 
