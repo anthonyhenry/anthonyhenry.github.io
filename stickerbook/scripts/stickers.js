@@ -9,6 +9,10 @@ const STICKER_PAGE_DIV = document.querySelector("#stickerPage");
 const SCENE_DIV = document.querySelector("#scene");
 // Element of the last clicked sticker
 let activeSticker = ""
+// Offset for setting how much bigger than a sticker the rotation div should be
+const ROTATION_DIV_OFFSET = 25;
+// Body element
+const BODY = document.querySelector("body");
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Create New Stickers /////////////////////////////
@@ -59,7 +63,7 @@ for(const sticker of TEMPLATE_STICKERS)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/////////////////////// Move and Rotate Placed Stickers ///////////////////////
+///////////////////////////// Move Placed Stickers /////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 function bindPlacedStickers()
@@ -74,93 +78,72 @@ function bindPlacedStickers()
             // Prevent default behavior (ghost image)
             event.preventDefault();
 
-            // Rotate sticker
-            if(event.target.classList.contains("sticker-rotate-handle"))
+            // Make this the active sticker
+            if(activeSticker != this)
             {
-                const STICKER_DIV_RECT = this.getBoundingClientRect();
-                const CENTER_X = STICKER_DIV_RECT.left + STICKER_DIV_RECT.width / 2
-                const CENTER_Y = STICKER_DIV_RECT.top + STICKER_DIV_RECT.height / 2
-
-                const INITIAL_X = event.pageX;
-                const INITIAL_Y = event.pageY;
-
-                const INITIAL_ANGLE = Math.atan2(INITIAL_Y - CENTER_Y, INITIAL_X - CENTER_X);
-
-                const CURRENT_ROTATION = getStickerRotation(this);
-
-                const STICKER_DIV = this;
-                STICKER_DIV.style.willChange = "transform"; // this is to help with performance
-                function rotateSticker(e)
-                {
-                    const dx = e.pageX - CENTER_X;
-                    const dy = e.pageY - CENTER_Y;
-                    let angle = Math.atan2(dy, dx);
-                    angle -= INITIAL_ANGLE;
-                    angle *= (180 / Math.PI);
-                    angle += CURRENT_ROTATION;
-
-                    STICKER_DIV.style.transform = `rotate(${angle}deg)`;
-                }
-                document.addEventListener("mousemove", rotateSticker);
-
-                function stopRotating()
-                {
-                    // Need to reset willChange to save memory
-                    resetWillChange(STICKER_DIV)
-
-                    document.removeEventListener("mousemove", rotateSticker);
-                    document.removeEventListener("mouseup", stopRotating);
-                }
-                document.addEventListener("mouseup", stopRotating);
+                setActiveSticker(this);
             }
-            // Move sticker
-            else
-            {
-                // Make this the active sticker
-                if(activeSticker != this)
-                {
-                    setActiveSticker(this);
-                }
 
-                // Clone the node to get the correct anchor
-                const CLONED_NODE = this.cloneNode();
-                CLONED_NODE.style.transform = "rotate(0deg)"
-                CLONED_NODE.style.outline = ""
-                SCENE_DIV.insertBefore(CLONED_NODE, this)
-                
+            // Clone the node to get the correct anchor
+            const CLONED_NODE = this.cloneNode();
+            CLONED_NODE.style.transform = "rotate(0deg)"
+            CLONED_NODE.style.outline = ""
+            SCENE_DIV.insertBefore(CLONED_NODE, this)
+            
 
-                // Set anchor for sticker movement
-                const STICKER_RECT = CLONED_NODE.getBoundingClientRect();
-                const ANCHOR = {
-                    x: event.pageX - STICKER_RECT.left,
-                    y: event.pageY - STICKER_RECT.top
-                }
-
-                // Delete the cloned node
-                SCENE_DIV.removeChild(CLONED_NODE);
-
-                // Allow sticker to be moved
-                moveSticker(this, ANCHOR); // Needs to be this, otherwise only the last sticker placed will be moved for some reason    
+            // Set anchor for sticker movement
+            const STICKER_RECT = CLONED_NODE.getBoundingClientRect();
+            const ANCHOR = {
+                x: event.pageX - STICKER_RECT.left,
+                y: event.pageY - STICKER_RECT.top
             }
+
+            // Delete the cloned node
+            SCENE_DIV.removeChild(CLONED_NODE);
+
+            // Allow sticker to be moved
+            moveSticker(this, ANCHOR); // Needs to be this, otherwise only the last sticker placed will be moved for some reason
         }
     }
 }
 
 function moveSticker(sticker, anchor)
 {
-    // Set will change to help with performance
-    sticker.style.willChange = "left, top";
+    // Get a reference to the rotate div if it exists (only exists on placed stickers)
+    const ROTATE_DIV = document.querySelector("#rotationDiv")
 
     function onMouseMove(e)
     {
+        // Set will change to help with performance
+        sticker.style.willChange = "left, top";
+
         // Move sticker position
         setStickerPos(sticker, e.pageX, e.pageY, anchor);
+
+        // Move rotate div if it exists
+        if(ROTATE_DIV)
+        {
+            ROTATE_DIV.style.willChange = "left, top";
+
+            const ROTATE_DIV_ANCHOR = {
+                x: anchor.x + ROTATION_DIV_OFFSET,
+                y: anchor.y + ROTATION_DIV_OFFSET
+            }
+            setStickerPos(ROTATE_DIV, e.pageX, e.pageY, ROTATE_DIV_ANCHOR)
+        }
     }
     document.addEventListener("mousemove", onMouseMove);
 
     // Place the sticker when the mouse is released
     function onMouseUp()
     {
+        // Reset will change for sticker and rotate div to save memory
+        resetWillChange(sticker);
+        if(ROTATE_DIV)
+        {
+            resetWillChange(ROTATE_DIV);
+        }
+
         // Get top, right, left, bottom coordinates of the scene div
         const SCENE_RECT = SCENE_DIV.getBoundingClientRect();
 
@@ -173,9 +156,7 @@ function moveSticker(sticker, anchor)
             && STICKER_RECT.bottom >= SCENE_RECT.top 
             && STICKER_RECT.top <= SCENE_RECT.bottom)
         {
-            // Reset will change
-            resetWillChange(sticker);
-
+            // Check if this is a new sticker
             if(sticker.parentElement != SCENE_DIV)
             {
                 // Change the sticker's parent to the scene div
@@ -209,8 +190,34 @@ function setStickerPos(sticker, mousePosX, mousePosY, anchor)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-////////// Handler for Setting Cursor and Clearing the Active Sticker //////////
+///////////////////////// Set and Clear Active Sticker /////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+function setActiveSticker(sticker)
+{
+    // Clear previous active sticker and set new one
+    clearActiveSticker();
+    activeSticker = sticker;
+
+    // Give the new active sticker an outline
+    activeSticker.style.outline = "2px dashed blue";
+
+    allowActiveStickerToBeRotated(activeSticker);
+}
+
+function clearActiveSticker()
+{
+    if(activeSticker)
+    {
+        // Remove rotation div
+        const ROTATION_DIV = document.querySelector("#rotationDiv");
+        SCENE_DIV.removeChild(ROTATION_DIV);
+
+        // Reset active sticker
+        activeSticker.style.outline = "";
+        activeSticker = "";
+    }
+}
 
 document.addEventListener("mousedown", function(event){
     // Check if a sticker was clicked
@@ -225,55 +232,152 @@ document.addEventListener("mousedown", function(event){
     if(STICKER_CLICKED)
     {
         // Set cursor to grabbing
-        document.querySelector("body").style.cursor = "grabbing";
+        BODY.style.cursor = "grabbing";
         
         // Reset cursor on mouse up
         function resetCursor()
         {
-            document.querySelector("body").style.cursor = "default";
+            BODY.style.cursor = "default";
 
             document.removeEventListener("mouseup", resetCursor);
         }
         document.addEventListener("mouseup", resetCursor);
     }
     // Sticker not clicked
-    else
+    else if(event.target.id != "rotationDiv")
     {
         clearActiveSticker();
     }
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////// Helper Functions ///////////////////////////////
+//////////////////////////// Rotate Active Sticker ////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function setActiveSticker(sticker)
+function allowActiveStickerToBeRotated(sticker)
 {
-    // Clear previous active sticker and set new one
-    clearActiveSticker();
-    activeSticker = sticker;
+    // Create a rotate div
+    const ROTATE_DIV = document.createElement("div");
+    ROTATE_DIV.style.position = "absolute"
+    ROTATE_DIV.style.left = parseFloat(activeSticker.style.left) - ROTATION_DIV_OFFSET + "px";
+    ROTATE_DIV.style.top = parseFloat(activeSticker.style.top) - ROTATION_DIV_OFFSET + "px";
+    ROTATE_DIV.style.width = parseInt(activeSticker.style.width) + (ROTATION_DIV_OFFSET * 2) + "px";
+    ROTATE_DIV.style.height = parseInt(activeSticker.style.height) + (ROTATION_DIV_OFFSET * 2) + "px";
+    ROTATE_DIV.style.transform = activeSticker.style.transform;
+    ROTATE_DIV.id = "rotationDiv";
+    SCENE_DIV.insertBefore(ROTATE_DIV, activeSticker);
+    ROTATE_DIV.style.backgroundColor = "white"
 
-    // Give the new active sticker an outline
-    sticker.style.outline = "2px dashed blue";
+    // Create a rotate icon div
+    const ICON = document.querySelector("#rotateIcon");
 
-    // Create rotate handle for the active sticker
-    const rotateHandle = document.createElement("div");
-    rotateHandle.classList.add("sticker-rotate-handle");
-    activeSticker.appendChild(rotateHandle);
-}
+    // Initialize rotate variables
+    let rotatingSticker = false;
+    let insideRotateDiv = false;
 
-function clearActiveSticker()
-{
-    if(activeSticker)
+    // Move the rotate icon while the cursor is in the rotate div
+    ROTATE_DIV.addEventListener("mouseenter", function(event){        
+        // Make rotate icon visible
+        ICON.style.display = "block";
+        // Hide the default cursor
+        BODY.style.cursor = "none"
+        // Set inside div flag to true
+        insideRotateDiv = true;
+
+        // Move the rotate icon to the cursor position
+        document.addEventListener("mousemove", setRotateIconPos)
+
+        ROTATE_DIV.addEventListener("mouseleave", exitRotationDiv);
+    })
+
+    // Set rotate icon position to mouse position
+    function setRotateIconPos(e)
     {
-        // Remove rotation handle
-        activeSticker.removeChild(activeSticker.children[1]);
+        const ICON_STYLE = window.getComputedStyle(ICON);
+        const X_POS = e.pageX - parseInt(ICON_STYLE.width) + "px";
+        const Y_POS = e.pageY - parseInt(ICON_STYLE.height) + "px";
 
-        // Reset active sticker
-        activeSticker.style.outline = "";
-        activeSticker = "";
+        ICON.style.left = X_POS;
+        ICON.style.top = Y_POS;
     }
+
+    function exitRotationDiv()
+    {
+        insideRotateDiv = false;
+        resetRotateIcon();
+        ROTATE_DIV.removeEventListener("mouseleave", exitRotationDiv);
+    }
+
+    // Reset cursor to default
+    function resetRotateIcon()
+    {
+        // Check if the sticker is not being rotated and the cursor is not in the rotate div
+        if(rotatingSticker == false && insideRotateDiv == false)
+        {
+            // Reset cursor
+            BODY.style.cursor = "default";
+            // Reset custom rotate cursor
+            ICON.style.top = "0px";
+            ICON.style.left = "0px";
+            ICON.style.display = "none";
+            document.removeEventListener("mousemove", setRotateIconPos);
+        }
+    }
+
+    // Rotate sticker and rotateDiv on click and drag
+    ROTATE_DIV.addEventListener("mousedown", function(event){
+        event.preventDefault();
+
+        const STICKER_DIV_RECT = sticker.getBoundingClientRect();
+        const CENTER_X = STICKER_DIV_RECT.left + STICKER_DIV_RECT.width / 2;
+        const CENTER_Y = STICKER_DIV_RECT.top + STICKER_DIV_RECT.height / 2;
+
+        const INITIAL_X = event.pageX;
+        const INITIAL_Y = event.pageY;
+
+        const INITIAL_ANGLE = Math.atan2(INITIAL_Y - CENTER_Y, INITIAL_X - CENTER_X);
+
+        const CURRENT_ROTATION = getStickerRotation(sticker);
+
+        // This is to help with performance
+        sticker.style.willChange = "transform";
+        ROTATE_DIV.style.willChange = "transform";
+
+        function rotateSticker(e)
+        {
+            const dx = e.pageX - CENTER_X;
+            const dy = e.pageY - CENTER_Y;
+            let angle = Math.atan2(dy, dx);
+            angle -= INITIAL_ANGLE;
+            angle *= (180 / Math.PI);
+            angle += CURRENT_ROTATION;
+
+            sticker.style.transform = `rotate(${angle}deg)`;
+            ROTATE_DIV.style.transform = `rotate(${angle}deg)`;
+        }
+        document.addEventListener("mousemove", rotateSticker);
+
+        rotatingSticker = true;
+
+        function stopRotating()
+        {
+            rotatingSticker = false;
+            resetRotateIcon();
+
+            // Need to reset willChange to save memory
+            resetWillChange(sticker);
+            resetWillChange(ROTATE_DIV);
+
+            document.removeEventListener("mousemove", rotateSticker);
+            document.removeEventListener("mouseup", stopRotating);
+        }
+        document.addEventListener("mouseup", stopRotating);
+    })
 }
+
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// Helper Functions ///////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 function getStickerRotation(sticker)
 {
@@ -295,3 +399,6 @@ function resetWillChange(element)
 {
     element.style.willChange = "";
 }
+
+// TODO:
+    // Change setStickerPos function name to attachElementToMouse

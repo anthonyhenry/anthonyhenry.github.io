@@ -32,27 +32,22 @@ main
     /* position: relative; */
 }
 
-.sticker-rotate-handle
+#rotateIcon
 {
-    width: 15px;
-    height: 15px;
-    background-color: white;
-    border-radius: 50%;
     position: absolute;
-    top: -25px; /* Adjust for spacing above the sticker */
-    left: 50%;
-    transform: translateX(-50%);
-    cursor: grab;
-    /* z-index: 2; */
+    height: 15px;
+    width: 15px;
+    background-color: white;
+    z-index: 999;
     text-align: center;
     line-height: 15px;
+    font-size: 15px;
+    border-radius: 50%;
+    display: none;
+    transform: translate(50%, 50%);
+    pointer-events: none;
 }
-.sticker-rotate-handle:active
-{
-    cursor: grabbing;
-}
-
-.sticker-rotate-handle::before
+#rotateIcon::before
 {
     content: '\21BB';
 
