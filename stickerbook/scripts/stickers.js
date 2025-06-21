@@ -12,7 +12,7 @@ let activeSticker = ""
 // Offset for setting how much bigger than a sticker the rotation div should be
 const ROTATION_DIV_OFFSET = 25;
 // Body element
-const BODY = document.querySelector("body");
+const HTML_ELEMENT = document.querySelector("html");
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Create New Stickers /////////////////////////////
@@ -35,7 +35,6 @@ for(const sticker of TEMPLATE_STICKERS)
         STICKER_DIV.style.position = "absolute";
         STICKER_DIV.style.width = sticker.width + "px";
         STICKER_DIV.style.height = sticker.height + "px";
-        // STICKER_DIV.style.backgroundColor = "white";
 
         // Add the sticker div to the sticker page div
         STICKER_PAGE_DIV.appendChild(STICKER_DIV);
@@ -232,12 +231,13 @@ document.addEventListener("mousedown", function(event){
     if(STICKER_CLICKED)
     {
         // Set cursor to grabbing
-        BODY.style.cursor = "grabbing";
+        HTML_ELEMENT.style.cursor = "grabbing";
         
         // Reset cursor on mouse up
         function resetCursor()
         {
-            BODY.style.cursor = "default";
+            HTML_ELEMENT.style.cursor = "default";
+            console.log("alpha")
 
             document.removeEventListener("mouseup", resetCursor);
         }
@@ -266,7 +266,6 @@ function allowActiveStickerToBeRotated(sticker)
     ROTATE_DIV.style.transform = activeSticker.style.transform;
     ROTATE_DIV.id = "rotationDiv";
     SCENE_DIV.insertBefore(ROTATE_DIV, activeSticker);
-    ROTATE_DIV.style.backgroundColor = "white"
 
     // Create a rotate icon div
     const ICON = document.querySelector("#rotateIcon");
@@ -280,7 +279,7 @@ function allowActiveStickerToBeRotated(sticker)
         // Make rotate icon visible
         ICON.style.display = "block";
         // Hide the default cursor
-        BODY.style.cursor = "none"
+        HTML_ELEMENT.style.cursor = "none"
         // Set inside div flag to true
         insideRotateDiv = true;
 
@@ -315,7 +314,8 @@ function allowActiveStickerToBeRotated(sticker)
         if(rotatingSticker == false && insideRotateDiv == false)
         {
             // Reset cursor
-            BODY.style.cursor = "default";
+            HTML_ELEMENT.style.cursor = "default";
+            console.log("bravo")
             // Reset custom rotate cursor
             ICON.style.top = "0px";
             ICON.style.left = "0px";
