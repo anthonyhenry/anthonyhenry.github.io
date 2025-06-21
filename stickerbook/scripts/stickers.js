@@ -238,7 +238,6 @@ document.addEventListener("mousedown", function(event){
         function resetCursor()
         {
             HTML_ELEMENT.style.cursor = "default";
-            console.log("alpha")
 
             document.removeEventListener("mouseup", resetCursor);
         }
