@@ -142,18 +142,9 @@ function moveSticker(sticker, anchor)
         {
             resetWillChange(ROTATE_DIV);
         }
-
-        // Get top, right, left, bottom coordinates of the scene div
-        const SCENE_RECT = SCENE_DIV.getBoundingClientRect();
-
-        // Get top, right, left, bottom coordinates of the sticker img
-        const STICKER_RECT = sticker.getBoundingClientRect();
         
         // Only keep stickers that are visible within the scene
-        if(STICKER_RECT.right >= SCENE_RECT.left 
-            && STICKER_RECT.left <= SCENE_RECT.right 
-            && STICKER_RECT.bottom >= SCENE_RECT.top 
-            && STICKER_RECT.top <= SCENE_RECT.bottom)
+        if(isActiveStickerInScence(sticker))
         {
             // Check if this is a new sticker
             if(sticker.parentElement != SCENE_DIV)
@@ -170,9 +161,7 @@ function moveSticker(sticker, anchor)
         }
         else
         {
-            clearActiveSticker();
-            // Delete stickers that aren't in the scene
-            sticker.parentElement.removeChild(sticker);
+            removeElement(sticker)
         }
 
         // Disable listeners
@@ -367,6 +356,13 @@ function allowActiveStickerToBeRotated(sticker)
             resetWillChange(sticker);
             resetWillChange(ROTATE_DIV);
 
+            if(!isActiveStickerInScence(activeSticker))
+            {
+                removeElement(activeSticker);
+                insideRotateDiv = false;
+                resetRotateIcon();
+            }
+
             document.removeEventListener("mousemove", rotateSticker);
             document.removeEventListener("mouseup", stopRotating);
         }
@@ -378,9 +374,36 @@ function allowActiveStickerToBeRotated(sticker)
 /////////////////////////////// Helper Functions ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function removeOutOfBoundsStickers(sticker)
+function isActiveStickerInScence(sticker)
 {
-    SCENE_DIV.removeChild(sticker);    
+    // Get top, right, left, bottom coordinates of the scene div
+    const SCENE_RECT = SCENE_DIV.getBoundingClientRect();
+
+    // Get top, right, left, bottom coordinates of the sticker img
+    const STICKER_RECT = sticker.getBoundingClientRect();
+
+
+    if(STICKER_RECT.right >= SCENE_RECT.left 
+        && STICKER_RECT.left <= SCENE_RECT.right 
+        && STICKER_RECT.bottom >= SCENE_RECT.top 
+        && STICKER_RECT.top <= SCENE_RECT.bottom)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function removeElement(element)
+{
+    if(element == activeSticker)
+    {
+        clearActiveSticker();
+    }
+
+    element.parentElement.removeChild(element);    
 }
 
 function getStickerRotation(sticker)
