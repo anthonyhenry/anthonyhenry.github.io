@@ -170,6 +170,7 @@ function moveSticker(sticker, anchor)
         }
         else
         {
+            clearActiveSticker();
             // Delete stickers that aren't in the scene
             sticker.parentElement.removeChild(sticker);
         }
@@ -315,7 +316,6 @@ function allowActiveStickerToBeRotated(sticker)
         {
             // Reset cursor
             HTML_ELEMENT.style.cursor = "default";
-            console.log("bravo")
             // Reset custom rotate cursor
             ICON.style.top = "0px";
             ICON.style.left = "0px";
@@ -378,6 +378,11 @@ function allowActiveStickerToBeRotated(sticker)
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Helper Functions ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+function removeOutOfBoundsStickers(sticker)
+{
+    SCENE_DIV.removeChild(sticker);    
+}
 
 function getStickerRotation(sticker)
 {
