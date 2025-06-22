@@ -78,6 +78,7 @@ SCENE_DIV.addEventListener("mousedown", function(event){
         function resizeSticker(event)
         {
             event.preventDefault();
+            document.body.style.userSelect = "none"; // Prevent highlighting 
             activeSticker.style.willChange = "width, height";
 
             activeSticker.style.height = Math.max(MIN_WIDTH_HEIGHT, event.pageY - STICKER_RECT.top) + "px";
@@ -87,6 +88,7 @@ SCENE_DIV.addEventListener("mousedown", function(event){
 
         function stopResizing()
         {
+            document.body.style.userSelect = ""; // Reset to allow highlighting again
             resetWillChange(activeSticker);
             setActiveSticker(activeSticker); // Reset active sticker so that rotate div also updates
             document.removeEventListener("mousemove", resizeSticker);
@@ -483,3 +485,5 @@ function resetWillChange(element)
 // // Take a look at my code. How can I make sticker placement mobile friendly. It currently uses dragging with a mousedown event but that doesn't work on mobile
 
 // Find a better way to delete the resize handle when clearing active stickers
+
+// Let me know if you'd like to add resizing from other corners, preserve aspect ratio
