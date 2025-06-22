@@ -480,6 +480,10 @@ function resetWillChange(element)
 }
 
 // TODO:
+    // Get help with resizing a rotated sticker
+    // Implement a way to keep aspect ratio
+    // Add resize handles to all corners
+    // Deal with horizontal/vertical flipping when resizing?
     // Change setStickerPos function name to attachElementToMouse
 
 // // Take a look at my code. How can I make sticker placement mobile friendly. It currently uses dragging with a mousedown event but that doesn't work on mobile
