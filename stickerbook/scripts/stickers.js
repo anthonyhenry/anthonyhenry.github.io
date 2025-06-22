@@ -65,46 +65,37 @@ for(const sticker of TEMPLATE_STICKERS)
 ///////////////////////////// Move Placed Stickers /////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function bindPlacedStickers()
-{
-    // Get all placed stickers
-    const PLACED_STICKERS = document.querySelectorAll(".placed-sticker");
-
-    for(sticker of PLACED_STICKERS)
+SCENE_DIV.addEventListener("mousedown", function(event){
+    // Check if a sticker was clicked
+    if(event.target.parentElement.classList.contains("placed-sticker"))
     {
-        // Sticker div clicked
-        sticker.onmousedown = function(event){
-            // Prevent default behavior (ghost image)
-            event.preventDefault();
+        // Prevent default behavior (ghost image)
+        event.preventDefault();
 
-            // Make this the active sticker
-            if(activeSticker != this)
-            {
-                setActiveSticker(this);
-            }
+        const CLICKED_STICKER = event.target.parentElement;
 
-            // Clone the node to get the correct anchor
-            const CLONED_NODE = this.cloneNode();
-            CLONED_NODE.style.transform = "rotate(0deg)"
-            CLONED_NODE.style.outline = ""
-            SCENE_DIV.insertBefore(CLONED_NODE, this)
-            
-
-            // Set anchor for sticker movement
-            const STICKER_RECT = CLONED_NODE.getBoundingClientRect();
-            const ANCHOR = {
-                x: event.pageX - STICKER_RECT.left,
-                y: event.pageY - STICKER_RECT.top
-            }
-
-            // Delete the cloned node
-            SCENE_DIV.removeChild(CLONED_NODE);
-
-            // Allow sticker to be moved
-            moveSticker(this, ANCHOR); // Needs to be this, otherwise only the last sticker placed will be moved for some reason
+        // Make this the active sticker
+        if(activeSticker != CLICKED_STICKER)
+        {
+            setActiveSticker(CLICKED_STICKER);
         }
+
+        // Get anchor of unrotated sticker
+        const PREVIOUS_ROTATION = CLICKED_STICKER.style.transform;
+        CLICKED_STICKER.style.transform = "rotate(0deg)";
+        // Set anchor for sticker movement
+        const STICKER_RECT = CLICKED_STICKER.getBoundingClientRect();
+        const ANCHOR = {
+            x: event.pageX - STICKER_RECT.left,
+            y: event.pageY - STICKER_RECT.top
+        }
+        // Reset sticker rotation
+        CLICKED_STICKER.style.transform = PREVIOUS_ROTATION;
+
+        // Allow sticker to be moved
+        moveSticker(CLICKED_STICKER, ANCHOR);
     }
-}
+})
 
 function moveSticker(sticker, anchor)
 {
@@ -153,8 +144,6 @@ function moveSticker(sticker, anchor)
                 SCENE_DIV.appendChild(sticker);
                 // Give the sticker the placed sticker class
                 sticker.classList.add("placed-sticker");
-                // Bind placed sticker behavior
-                bindPlacedStickers();
                 // Set sticker as active sticker
                 setActiveSticker(sticker);
             }
@@ -371,6 +360,26 @@ function allowActiveStickerToBeRotated(sticker)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// Keyboard Inputs ///////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+document.addEventListener("keydown", function(event){
+    // console.log(event.key)
+
+    switch(event.key)
+    {
+        // Deselect active sticker with escape key    
+        case "Escape":
+            clearActiveSticker();
+            break;
+        // Delete active sticker with delete key
+        case "Delete":
+            removeElement(activeSticker);
+            break;
+    }
+});
+
+////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Helper Functions ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -429,3 +438,6 @@ function resetWillChange(element)
 
 // TODO:
     // Change setStickerPos function name to attachElementToMouse
+
+/// 5. Use parseFloat Consistently Over parseInt
+// You're using both parseInt() and parseFloat() in places where subpixel precision may be important (e.g., mouse placement). Prefer parseFloat() unless truncating to integers is intentional.
