@@ -48,11 +48,12 @@ for(const sticker of TEMPLATE_STICKERS)
 
         // Style sticker
         CLONED_STICKER.style.height = "100%";
+        CLONED_STICKER.style.width = "100%";
 
         // Place the new sticker under the mouse cursor
         const ANCHOR = {
-            x: parseInt(STICKER_DIV.style.width) / 2,
-            y: parseInt(STICKER_DIV.style.height) / 2
+            x: parseFloat(STICKER_DIV.style.width) / 2,
+            y: parseFloat(STICKER_DIV.style.height) / 2
         };
         setStickerPos(STICKER_DIV, event.pageX, event.pageY, ANCHOR);
 
@@ -66,8 +67,37 @@ for(const sticker of TEMPLATE_STICKERS)
 ////////////////////////////////////////////////////////////////////////////////
 
 SCENE_DIV.addEventListener("mousedown", function(event){
+
+    // Check if resize handle clicked
+    if(event.target.classList.contains("sticker-resize-handle"))
+    {
+        const STICKER_RECT = activeSticker.getBoundingClientRect();
+
+        const MIN_WIDTH_HEIGHT = 16;
+
+        function resizeSticker(event)
+        {
+            event.preventDefault();
+            activeSticker.style.willChange = "width, height";
+
+            activeSticker.style.height = Math.max(MIN_WIDTH_HEIGHT, event.pageY - STICKER_RECT.top) + "px";
+            activeSticker.style.width = Math.max(MIN_WIDTH_HEIGHT, event.pageX - STICKER_RECT.left) + "px";
+        }
+        document.addEventListener("mousemove", resizeSticker)
+
+        function stopResizing()
+        {
+            resetWillChange(activeSticker);
+            setActiveSticker(activeSticker); // Reset active sticker so that rotate div also updates
+            document.removeEventListener("mousemove", resizeSticker);
+            document.removeEventListener("mouseup", stopResizing);
+        }
+        document.addEventListener("mouseup", stopResizing)
+    }
+
+
     // Check if a sticker was clicked
-    if(event.target.parentElement.classList.contains("placed-sticker"))
+    else if(event.target.parentElement.classList.contains("placed-sticker"))
     {
         // Prevent default behavior (ghost image)
         event.preventDefault();
@@ -135,7 +165,7 @@ function moveSticker(sticker, anchor)
         }
         
         // Only keep stickers that are visible within the scene
-        if(isActiveStickerInScence(sticker))
+        if(isActiveStickerInScene(sticker))
         {
             // Check if this is a new sticker
             if(sticker.parentElement != SCENE_DIV)
@@ -180,6 +210,11 @@ function setActiveSticker(sticker)
     // Give the new active sticker an outline
     activeSticker.style.outline = "2px dashed blue";
 
+    // Create resize handle for the active sticker
+    const resizeHandle = document.createElement("div");
+    resizeHandle.classList.add("sticker-resize-handle");
+    activeSticker.appendChild(resizeHandle);
+
     allowActiveStickerToBeRotated(activeSticker);
 }
 
@@ -190,6 +225,9 @@ function clearActiveSticker()
         // Remove rotation div
         const ROTATION_DIV = document.querySelector("#rotationDiv");
         SCENE_DIV.removeChild(ROTATION_DIV);
+
+        const RESIZE_HANDLE = activeSticker.children[1];
+        removeElement(RESIZE_HANDLE)
 
         // Reset active sticker
         activeSticker.style.outline = "";
@@ -239,8 +277,8 @@ function allowActiveStickerToBeRotated(sticker)
     ROTATE_DIV.style.position = "absolute"
     ROTATE_DIV.style.left = parseFloat(activeSticker.style.left) - ROTATION_DIV_OFFSET + "px";
     ROTATE_DIV.style.top = parseFloat(activeSticker.style.top) - ROTATION_DIV_OFFSET + "px";
-    ROTATE_DIV.style.width = parseInt(activeSticker.style.width) + (ROTATION_DIV_OFFSET * 2) + "px";
-    ROTATE_DIV.style.height = parseInt(activeSticker.style.height) + (ROTATION_DIV_OFFSET * 2) + "px";
+    ROTATE_DIV.style.width = parseFloat(activeSticker.style.width) + (ROTATION_DIV_OFFSET * 2) + "px";
+    ROTATE_DIV.style.height = parseFloat(activeSticker.style.height) + (ROTATION_DIV_OFFSET * 2) + "px";
     ROTATE_DIV.style.transform = activeSticker.style.transform;
     ROTATE_DIV.id = "rotationDiv";
     SCENE_DIV.insertBefore(ROTATE_DIV, activeSticker);
@@ -271,8 +309,8 @@ function allowActiveStickerToBeRotated(sticker)
     function setRotateIconPos(e)
     {
         const ICON_STYLE = window.getComputedStyle(ICON);
-        const X_POS = e.pageX - parseInt(ICON_STYLE.width) + "px";
-        const Y_POS = e.pageY - parseInt(ICON_STYLE.height) + "px";
+        const X_POS = e.pageX - parseFloat(ICON_STYLE.width) + "px";
+        const Y_POS = e.pageY - parseFloat(ICON_STYLE.height) + "px";
 
         ICON.style.left = X_POS;
         ICON.style.top = Y_POS;
@@ -345,7 +383,7 @@ function allowActiveStickerToBeRotated(sticker)
             resetWillChange(sticker);
             resetWillChange(ROTATE_DIV);
 
-            if(!isActiveStickerInScence(activeSticker))
+            if(!isActiveStickerInScene(activeSticker))
             {
                 removeElement(activeSticker);
                 insideRotateDiv = false;
@@ -374,7 +412,10 @@ document.addEventListener("keydown", function(event){
             break;
         // Delete active sticker with delete key
         case "Delete":
-            removeElement(activeSticker);
+            if(activeSticker)
+            {
+                removeElement(activeSticker);
+            }
             break;
     }
 });
@@ -383,7 +424,7 @@ document.addEventListener("keydown", function(event){
 /////////////////////////////// Helper Functions ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function isActiveStickerInScence(sticker)
+function isActiveStickerInScene(sticker)
 {
     // Get top, right, left, bottom coordinates of the scene div
     const SCENE_RECT = SCENE_DIV.getBoundingClientRect();
@@ -439,5 +480,6 @@ function resetWillChange(element)
 // TODO:
     // Change setStickerPos function name to attachElementToMouse
 
-/// 5. Use parseFloat Consistently Over parseInt
-// You're using both parseInt() and parseFloat() in places where subpixel precision may be important (e.g., mouse placement). Prefer parseFloat() unless truncating to integers is intentional.
+// // Take a look at my code. How can I make sticker placement mobile friendly. It currently uses dragging with a mousedown event but that doesn't work on mobile
+
+// Find a better way to delete the resize handle when clearing active stickers
