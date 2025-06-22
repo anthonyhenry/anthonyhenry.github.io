@@ -487,3 +487,5 @@ function resetWillChange(element)
 // Find a better way to delete the resize handle when clearing active stickers
 
 // Let me know if you'd like to add resizing from other corners, preserve aspect ratio
+
+// Will probably have to deal with multiple transforms for horizontal/vertical flipping. Chat GPT suggested a way to handle this.
