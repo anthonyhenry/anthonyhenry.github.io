@@ -493,3 +493,5 @@ function resetWillChange(element)
 // Let me know if you'd like to add resizing from other corners, preserve aspect ratio
 
 // Will probably have to deal with multiple transforms for horizontal/vertical flipping. Chat GPT suggested a way to handle this.
+
+// Make is so that scrolling on the center of a sticker makes it bigger/smaller
