@@ -49,6 +49,7 @@ for(const sticker of TEMPLATE_STICKERS)
         // Style sticker
         CLONED_STICKER.style.height = "100%";
         CLONED_STICKER.style.width = "100%";
+        CLONED_STICKER.style.pointerEvents = "none";
 
         // Place the new sticker under the mouse cursor
         const ANCHOR = {
@@ -67,7 +68,6 @@ for(const sticker of TEMPLATE_STICKERS)
 ////////////////////////////////////////////////////////////////////////////////
 
 SCENE_DIV.addEventListener("mousedown", function(event){
-
     // Check if resize handle clicked
     if(event.target.classList.contains("sticker-resize-handle"))
     {
@@ -99,12 +99,12 @@ SCENE_DIV.addEventListener("mousedown", function(event){
 
 
     // Check if a sticker was clicked
-    else if(event.target.parentElement.classList.contains("placed-sticker"))
+    else if(event.target.classList.contains("placed-sticker"))
     {
         // Prevent default behavior (ghost image)
         event.preventDefault();
 
-        const CLICKED_STICKER = event.target.parentElement;
+        const CLICKED_STICKER = event.target;
 
         // Make this the active sticker
         if(activeSticker != CLICKED_STICKER)
@@ -240,12 +240,11 @@ function clearActiveSticker()
 document.addEventListener("mousedown", function(event){
     // Check if a sticker was clicked
     const STICKER_CLICKED = (
-        (event.target.classList.length > 0
-        || (event.target.parentElement && event.target.parentElement.classList.length > 0))
+        (event.target.classList.length > 0)
         && 
         (event.target.classList.contains("template-sticker")
         || event.target.classList.contains("sticker-rotate-handle")
-        || event.target.parentElement.classList.contains("placed-sticker"))
+        || event.target.classList.contains("placed-sticker"))
     )
     if(STICKER_CLICKED)
     {
