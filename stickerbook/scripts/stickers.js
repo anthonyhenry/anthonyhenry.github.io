@@ -1,6 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Global Variables ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
 // Get all sticker templates
 const TEMPLATE_STICKERS = document.querySelectorAll(".template-sticker");
 // Get a reference to the sticker page div
@@ -178,41 +179,53 @@ function setStickerPos(sticker, mousePosX, mousePosY, anchor)
 SCENE_DIV.addEventListener("wheel", function(event){
     if(event.target == activeSticker)
     {
-        activeSticker.style.willChange = "width, height, top, left";
+        event.preventDefault() // Prevent page scrolling
 
-        const INITIAL_STICKER_SIZE = getStickerDimensionFloatValues(activeSticker);
-
-        const MIN_STICKER_SIZE = 16;
+        const INITIAL_SIZE = getStickerDimensionFloatValues(activeSticker);
+        const MIN_SIZE = 16;
 
         const SCROLL_DIRECTION = event.deltaY < 0 ? 1 : -1;
         const SCROLL_SPEED = shiftKeyDown ? 15 : 5;
 
-        const NEW_WIDTH = INITIAL_STICKER_SIZE.width + (SCROLL_DIRECTION * SCROLL_SPEED)
+        const NEW_WIDTH = INITIAL_SIZE.width + (SCROLL_DIRECTION * SCROLL_SPEED)
 
-        if(NEW_WIDTH >= MIN_STICKER_SIZE)
+        if(NEW_WIDTH >= MIN_SIZE)
         {
-            const NEW_HEIGHT = (INITIAL_STICKER_SIZE.height * NEW_WIDTH) / INITIAL_STICKER_SIZE.width;
-            if(NEW_HEIGHT >= MIN_STICKER_SIZE)
+            const NEW_HEIGHT = (INITIAL_SIZE.height * NEW_WIDTH) / INITIAL_SIZE.width;
+            if(NEW_HEIGHT >= MIN_SIZE)
             {
+                activeSticker.style.willChange = "width, height, top, left";
+
+                // Get mouse coordinates relative to sticker left, top
+                let stickerLeft = STICKER_PAGE_DIV.offsetLeft + parseFloat(activeSticker.style.left);
+                let stickerTop = STICKER_PAGE_DIV.offsetTop + parseFloat(activeSticker.style.top);
+                let anchor = {
+                    x: event.pageX - stickerLeft,
+                    y: event.pageY - stickerTop
+                };
+
+                // Set new width and height
                 activeSticker.style.width = NEW_WIDTH + "px";
                 activeSticker.style.height = NEW_HEIGHT + "px";
 
-                const STICKER_CENTER_POS_X = parseFloat(activeSticker.style.left) + (INITIAL_STICKER_SIZE.width / 2);
-                const STICKER_CENTER_POS_Y = parseFloat(activeSticker.style.top) + (INITIAL_STICKER_SIZE.height / 2);
-                
-                activeSticker.style.top = STICKER_CENTER_POS_Y - (NEW_HEIGHT / 2) + "px";
-                activeSticker.style.left = STICKER_CENTER_POS_X - (NEW_WIDTH / 2) + "px";
-                
+                // Use proportion to get new anchor
+                anchor = {
+                    x: (anchor.x * NEW_WIDTH) / INITIAL_SIZE.width,
+                    y: (anchor.y * NEW_HEIGHT) / INITIAL_SIZE.height
+                };
+
+                // Update sticker position using new anchor
+                setStickerPos(activeSticker, event.pageX, event.pageY, anchor)
+
+                setActiveSticker(activeSticker); // Reset active sticker so that rotate div also updates
                 resetWillChange(activeSticker);
             }
         }
-
-        setActiveSticker(activeSticker); // Reset active sticker so that rotate div also updates
     }
-    // else if(event.target.classList.contains("placed-sticker"))
-    // {
-    //     setActiveSticker(event.target)
-    // }
+    else if(event.target.classList.contains("placed-sticker"))
+    {
+        setActiveSticker(event.target)
+    }
 });
 
 ////////////////////////////////////////////////////////////////////////////////
