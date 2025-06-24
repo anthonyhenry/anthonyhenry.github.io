@@ -13,6 +13,8 @@ let activeSticker = ""
 const ROTATION_DIV_OFFSET = 25;
 // Body element
 const HTML_ELEMENT = document.querySelector("html");
+// Track if the shift key is being held down
+let shiftKeyDown = false;
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Create New Stickers /////////////////////////////
@@ -68,38 +70,8 @@ for(const sticker of TEMPLATE_STICKERS)
 ////////////////////////////////////////////////////////////////////////////////
 
 SCENE_DIV.addEventListener("mousedown", function(event){
-    // Check if resize handle clicked
-    if(event.target.classList.contains("sticker-resize-handle"))
-    {
-        const STICKER_RECT = activeSticker.getBoundingClientRect();
-
-        const MIN_WIDTH_HEIGHT = 16;
-
-        function resizeSticker(event)
-        {
-            event.preventDefault();
-            document.body.style.userSelect = "none"; // Prevent highlighting 
-            activeSticker.style.willChange = "width, height";
-
-            activeSticker.style.height = Math.max(MIN_WIDTH_HEIGHT, event.pageY - STICKER_RECT.top) + "px";
-            activeSticker.style.width = Math.max(MIN_WIDTH_HEIGHT, event.pageX - STICKER_RECT.left) + "px";
-        }
-        document.addEventListener("mousemove", resizeSticker)
-
-        function stopResizing()
-        {
-            document.body.style.userSelect = ""; // Reset to allow highlighting again
-            resetWillChange(activeSticker);
-            setActiveSticker(activeSticker); // Reset active sticker so that rotate div also updates
-            document.removeEventListener("mousemove", resizeSticker);
-            document.removeEventListener("mouseup", stopResizing);
-        }
-        document.addEventListener("mouseup", stopResizing)
-    }
-
-
     // Check if a sticker was clicked
-    else if(event.target.classList.contains("placed-sticker"))
+    if(stickerTargeted(event.target))
     {
         // Prevent default behavior (ghost image)
         event.preventDefault();
@@ -200,6 +172,50 @@ function setStickerPos(sticker, mousePosX, mousePosY, anchor)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+//////////////////////////// Resize Active Sticker ////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+SCENE_DIV.addEventListener("wheel", function(event){
+    if(event.target == activeSticker)
+    {
+        activeSticker.style.willChange = "width, height, top, left";
+
+        const INITIAL_STICKER_SIZE = getStickerDimensionFloatValues(activeSticker);
+
+        const MIN_STICKER_SIZE = 16;
+
+        const SCROLL_DIRECTION = event.deltaY < 0 ? 1 : -1;
+        const SCROLL_SPEED = shiftKeyDown ? 15 : 5;
+
+        const NEW_WIDTH = INITIAL_STICKER_SIZE.width + (SCROLL_DIRECTION * SCROLL_SPEED)
+
+        if(NEW_WIDTH >= MIN_STICKER_SIZE)
+        {
+            const NEW_HEIGHT = (INITIAL_STICKER_SIZE.height * NEW_WIDTH) / INITIAL_STICKER_SIZE.width;
+            if(NEW_HEIGHT >= MIN_STICKER_SIZE)
+            {
+                activeSticker.style.width = NEW_WIDTH + "px";
+                activeSticker.style.height = NEW_HEIGHT + "px";
+
+                const STICKER_CENTER_POS_X = parseFloat(activeSticker.style.left) + (INITIAL_STICKER_SIZE.width / 2);
+                const STICKER_CENTER_POS_Y = parseFloat(activeSticker.style.top) + (INITIAL_STICKER_SIZE.height / 2);
+                
+                activeSticker.style.top = STICKER_CENTER_POS_Y - (NEW_HEIGHT / 2) + "px";
+                activeSticker.style.left = STICKER_CENTER_POS_X - (NEW_WIDTH / 2) + "px";
+                
+                resetWillChange(activeSticker);
+            }
+        }
+
+        setActiveSticker(activeSticker); // Reset active sticker so that rotate div also updates
+    }
+    // else if(event.target.classList.contains("placed-sticker"))
+    // {
+    //     setActiveSticker(event.target)
+    // }
+});
+
+////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Set and Clear Active Sticker /////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -212,11 +228,6 @@ function setActiveSticker(sticker)
     // Give the new active sticker an outline
     activeSticker.style.outline = "2px dashed blue";
 
-    // Create resize handle for the active sticker
-    const resizeHandle = document.createElement("div");
-    resizeHandle.classList.add("sticker-resize-handle");
-    activeSticker.appendChild(resizeHandle);
-
     allowActiveStickerToBeRotated(activeSticker);
 }
 
@@ -227,9 +238,6 @@ function clearActiveSticker()
         // Remove rotation div
         const ROTATION_DIV = document.querySelector("#rotationDiv");
         SCENE_DIV.removeChild(ROTATION_DIV);
-
-        const RESIZE_HANDLE = activeSticker.children[1];
-        removeElement(RESIZE_HANDLE)
 
         // Reset active sticker
         activeSticker.style.outline = "";
@@ -353,7 +361,7 @@ function allowActiveStickerToBeRotated(sticker)
 
         const INITIAL_ANGLE = Math.atan2(INITIAL_Y - CENTER_Y, INITIAL_X - CENTER_X);
 
-        const CURRENT_ROTATION = getStickerRotation(sticker);
+        const CURRENT_ROTATION = getStickerRotationFloatValue(sticker);
 
         // This is to help with performance
         sticker.style.willChange = "transform";
@@ -418,8 +426,18 @@ document.addEventListener("keydown", function(event){
                 removeElement(activeSticker);
             }
             break;
+        case "Shift":
+            shiftKeyDown = true;
+            break;
     }
 });
+
+document.addEventListener("keyup", function(event){
+    if(event.key == "Shift")
+    {
+        shiftKeyDown = false;
+    }
+})
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Helper Functions ///////////////////////////////
@@ -457,7 +475,12 @@ function removeElement(element)
     element.parentElement.removeChild(element);    
 }
 
-function getStickerRotation(sticker)
+function stickerTargeted(element)
+{
+    return element.classList.contains("placed-sticker");
+}
+
+function getStickerRotationFloatValue(sticker)
 {
     let rotation = sticker.style.transform;
 
@@ -473,24 +496,23 @@ function getStickerRotation(sticker)
     }
 }
 
+function getStickerDimensionFloatValues(sticker)
+{
+    const dimensions = {
+        width: parseFloat(sticker.style.width),
+        height: parseFloat(sticker.style.height)
+    };
+    return dimensions;
+}
+
 function resetWillChange(element)
 {
     element.style.willChange = "";
 }
 
 // TODO:
-    // Get help with resizing a rotated sticker
-    // Implement a way to keep aspect ratio
-    // Add resize handles to all corners
-    // Deal with horizontal/vertical flipping when resizing?
     // Change setStickerPos function name to attachElementToMouse
 
 // // Take a look at my code. How can I make sticker placement mobile friendly. It currently uses dragging with a mousedown event but that doesn't work on mobile
 
-// Find a better way to delete the resize handle when clearing active stickers
-
-// Let me know if you'd like to add resizing from other corners, preserve aspect ratio
-
 // Will probably have to deal with multiple transforms for horizontal/vertical flipping. Chat GPT suggested a way to handle this.
-
-// Make is so that scrolling on the center of a sticker makes it bigger/smaller
