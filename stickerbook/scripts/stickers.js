@@ -326,7 +326,8 @@ function allowActiveStickerToBeRotated(sticker)
         // Make rotate icon visible
         ROTATE_ICON.style.display = "block";
         // Hide the default cursor
-        HTML_ELEMENT.style.cursor = "none"
+        HTML_ELEMENT.style.cursor = "none";
+        activeSticker.style.cursor = "none";
         // Set inside div flag to true
         insideRotateDiv = true;
 
@@ -360,6 +361,7 @@ function allowActiveStickerToBeRotated(sticker)
         // Check if the sticker is not being rotated and the cursor is not in the rotate div
         if(rotatingSticker == false && insideRotateDiv == false)
         {
+            activeSticker.style.cursor = "all-scroll";
             resetRotateIcon();
         }
     }
