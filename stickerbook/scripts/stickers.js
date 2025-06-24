@@ -10,6 +10,8 @@ const STICKER_PAGE_DIV = document.querySelector("#stickerPage");
 const SCENE_DIV = document.querySelector("#scene");
 // Element of the last clicked sticker
 let activeSticker = ""
+// Custom rotate icon
+const ROTATE_ICON = document.querySelector("#rotateIcon");
 // Offset for setting how much bigger than a sticker the rotation div should be
 const ROTATION_DIV_OFFSET = 25;
 // Body element
@@ -315,9 +317,6 @@ function allowActiveStickerToBeRotated(sticker)
     ROTATE_DIV.id = "rotationDiv";
     SCENE_DIV.insertBefore(ROTATE_DIV, activeSticker);
 
-    // Create a rotate icon div
-    const ICON = document.querySelector("#rotateIcon");
-
     // Initialize rotate variables
     let rotatingSticker = false;
     let insideRotateDiv = false;
@@ -325,7 +324,7 @@ function allowActiveStickerToBeRotated(sticker)
     // Move the rotate icon while the cursor is in the rotate div
     ROTATE_DIV.addEventListener("mouseenter", function(event){        
         // Make rotate icon visible
-        ICON.style.display = "block";
+        ROTATE_ICON.style.display = "block";
         // Hide the default cursor
         HTML_ELEMENT.style.cursor = "none"
         // Set inside div flag to true
@@ -338,36 +337,30 @@ function allowActiveStickerToBeRotated(sticker)
     })
 
     // Set rotate icon position to mouse position
-    function setRotateIconPos(e)
+    setRotateIconPos = function(e)
     {
-        const ICON_STYLE = window.getComputedStyle(ICON);
+        const ICON_STYLE = window.getComputedStyle(ROTATE_ICON);
         const X_POS = e.pageX - parseFloat(ICON_STYLE.width) + "px";
         const Y_POS = e.pageY - parseFloat(ICON_STYLE.height) + "px";
 
-        ICON.style.left = X_POS;
-        ICON.style.top = Y_POS;
+        ROTATE_ICON.style.left = X_POS;
+        ROTATE_ICON.style.top = Y_POS;
     }
 
     function exitRotationDiv()
     {
         insideRotateDiv = false;
-        resetRotateIcon();
+        resetCursor();
         ROTATE_DIV.removeEventListener("mouseleave", exitRotationDiv);
     }
 
     // Reset cursor to default
-    function resetRotateIcon()
+    function resetCursor()
     {
         // Check if the sticker is not being rotated and the cursor is not in the rotate div
         if(rotatingSticker == false && insideRotateDiv == false)
         {
-            // Reset cursor
-            HTML_ELEMENT.style.cursor = "default";
-            // Reset custom rotate cursor
-            ICON.style.top = "0px";
-            ICON.style.left = "0px";
-            ICON.style.display = "none";
-            document.removeEventListener("mousemove", setRotateIconPos);
+            resetRotateIcon();
         }
     }
 
@@ -409,7 +402,7 @@ function allowActiveStickerToBeRotated(sticker)
         function stopRotating()
         {
             rotatingSticker = false;
-            resetRotateIcon();
+            resetCursor();
 
             // Need to reset willChange to save memory
             resetWillChange(sticker);
@@ -419,7 +412,7 @@ function allowActiveStickerToBeRotated(sticker)
             {
                 removeElement(activeSticker);
                 insideRotateDiv = false;
-                resetRotateIcon();
+                resetCursor();
             }
 
             document.removeEventListener("mousemove", rotateSticker);
@@ -447,6 +440,7 @@ document.addEventListener("keydown", function(event){
             if(activeSticker)
             {
                 removeElement(activeSticker);
+                resetRotateIcon();
             }
             break;
         case "Shift":
@@ -531,6 +525,18 @@ function getStickerDimensionFloatValues(sticker)
 function resetWillChange(element)
 {
     element.style.willChange = "";
+}
+
+let setRotateIconPos; // This needs to be here to remove the event function
+function resetRotateIcon()
+{
+    // Reset cursor
+    HTML_ELEMENT.style.cursor = "default";
+    // Reset custom rotate cursor
+    ROTATE_ICON.style.top = "0px";
+    ROTATE_ICON.style.left = "0px";
+    ROTATE_ICON.style.display = "none";
+    document.removeEventListener("mousemove", setRotateIconPos);
 }
 
 // TODO:
