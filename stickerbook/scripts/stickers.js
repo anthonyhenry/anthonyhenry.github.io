@@ -224,6 +224,7 @@ function setActiveSticker(sticker)
     // Clear previous active sticker and set new one
     clearActiveSticker();
     activeSticker = sticker;
+    activeSticker.style.cursor = "all-scroll";
 
     // Give the new active sticker an outline
     activeSticker.style.outline = "2px dashed blue";
@@ -241,6 +242,7 @@ function clearActiveSticker()
 
         // Reset active sticker
         activeSticker.style.outline = "";
+        activeSticker.style.cursor = "default";
         activeSticker = "";
     }
 }
@@ -257,12 +259,20 @@ document.addEventListener("mousedown", function(event){
     if(STICKER_CLICKED)
     {
         // Set cursor to grabbing
+        if(activeSticker)
+        {
+            activeSticker.style.cursor = "";
+        }
         HTML_ELEMENT.style.cursor = "grabbing";
         
         // Reset cursor on mouse up
         function resetCursor()
         {
             HTML_ELEMENT.style.cursor = "default";
+            if(activeSticker)
+            {
+                activeSticker.style.cursor = "all-scroll";
+            }
 
             document.removeEventListener("mouseup", resetCursor);
         }
