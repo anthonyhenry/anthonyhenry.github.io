@@ -436,6 +436,7 @@ document.addEventListener("keydown", function(event){
         // Deselect active sticker with escape key    
         case "Escape":
             clearActiveSticker();
+            resetRotateIcon();
             break;
         // Delete active sticker with delete key
         case "Delete":
@@ -532,12 +533,12 @@ function resetWillChange(element)
 let setRotateIconPos; // This needs to be here to remove the event function
 function resetRotateIcon()
 {
-    // Reset cursor
-    HTML_ELEMENT.style.cursor = "default";
     // Reset custom rotate cursor
+    ROTATE_ICON.style.display = "none";
     ROTATE_ICON.style.top = "0px";
     ROTATE_ICON.style.left = "0px";
-    ROTATE_ICON.style.display = "none";
+    // Reset cursor
+    HTML_ELEMENT.style.cursor = "default";
     document.removeEventListener("mousemove", setRotateIconPos);
 }
 
