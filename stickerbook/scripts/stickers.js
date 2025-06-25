@@ -548,3 +548,5 @@ function resetRotateIcon()
 // // Take a look at my code. How can I make sticker placement mobile friendly. It currently uses dragging with a mousedown event but that doesn't work on mobile
 
 // Will probably have to deal with multiple transforms for horizontal/vertical flipping. Chat GPT suggested a way to handle this.
+
+// I think it would be a good idea to allow users to undo actions by doing something like pressing ctrl + z. How would I go about implementing this?
