@@ -61,7 +61,7 @@ for(const sticker of TEMPLATE_STICKERS)
             x: parseFloat(STICKER_DIV.style.width) / 2,
             y: parseFloat(STICKER_DIV.style.height) / 2
         };
-        setStickerPos(STICKER_DIV, event.pageX, event.pageY, ANCHOR);
+        setStickerPos(STICKER_DIV, event.clientX, event.clientY, ANCHOR);
 
         // Allow sticker to be moved
         moveSticker(STICKER_DIV, ANCHOR);
@@ -93,8 +93,8 @@ SCENE_DIV.addEventListener("mousedown", function(event){
         // Set anchor for sticker movement
         const STICKER_RECT = CLICKED_STICKER.getBoundingClientRect();
         const ANCHOR = {
-            x: event.pageX - STICKER_RECT.left,
-            y: event.pageY - STICKER_RECT.top
+            x: event.clientX - STICKER_RECT.left,
+            y: event.clientY - STICKER_RECT.top
         }
         // Reset sticker rotation
         CLICKED_STICKER.style.transform = PREVIOUS_ROTATION;
@@ -115,7 +115,7 @@ function moveSticker(sticker, anchor)
         sticker.style.willChange = "left, top";
 
         // Move sticker position
-        setStickerPos(sticker, e.pageX, e.pageY, anchor);
+        setStickerPos(sticker, e.clientX, e.clientY, anchor);
 
         // Move rotate div if it exists
         if(ROTATE_DIV)
@@ -126,7 +126,7 @@ function moveSticker(sticker, anchor)
                 x: anchor.x + ROTATION_DIV_OFFSET,
                 y: anchor.y + ROTATION_DIV_OFFSET
             }
-            setStickerPos(ROTATE_DIV, e.pageX, e.pageY, ROTATE_DIV_ANCHOR)
+            setStickerPos(ROTATE_DIV, e.clientX, e.clientY, ROTATE_DIV_ANCHOR)
         }
     }
     document.addEventListener("mousemove", onMouseMove);
@@ -169,9 +169,8 @@ function moveSticker(sticker, anchor)
 
 function setStickerPos(sticker, mousePosX, mousePosY, anchor)
 {
-    // offsetLeft/Top returns the distance in pixels from the specified edge of an element to the specified edge of its nearest positioned ancestor
-    sticker.style.left = mousePosX - STICKER_PAGE_DIV.offsetLeft - anchor.x + "px"; 
-    sticker.style.top = mousePosY - STICKER_PAGE_DIV.offsetTop - anchor.y + "px";
+    sticker.style.left = mousePosX - STICKER_PAGE_DIV.getBoundingClientRect().left - anchor.x + "px"; 
+    sticker.style.top = mousePosY - STICKER_PAGE_DIV.getBoundingClientRect().top - anchor.y + "px";
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -199,11 +198,11 @@ SCENE_DIV.addEventListener("wheel", function(event){
                 activeSticker.style.willChange = "width, height, top, left";
 
                 // Get mouse coordinates relative to sticker left, top
-                let stickerLeft = STICKER_PAGE_DIV.offsetLeft + parseFloat(activeSticker.style.left);
-                let stickerTop = STICKER_PAGE_DIV.offsetTop + parseFloat(activeSticker.style.top);
+                let stickerLeft = STICKER_PAGE_DIV.getBoundingClientRect().left + parseFloat(activeSticker.style.left);
+                let stickerTop = STICKER_PAGE_DIV.getBoundingClientRect().top + parseFloat(activeSticker.style.top);
                 let anchor = {
-                    x: event.pageX - stickerLeft,
-                    y: event.pageY - stickerTop
+                    x: event.clientX - stickerLeft,
+                    y: event.clientY - stickerTop
                 };
 
                 // Set new width and height
@@ -217,7 +216,7 @@ SCENE_DIV.addEventListener("wheel", function(event){
                 };
 
                 // Update sticker position using new anchor
-                setStickerPos(activeSticker, event.pageX, event.pageY, anchor)
+                setStickerPos(activeSticker, event.clientX, event.clientY, anchor)
 
                 setActiveSticker(activeSticker); // Reset active sticker so that rotate div also updates
                 resetWillChange(activeSticker);
@@ -341,7 +340,7 @@ function allowActiveStickerToBeRotated(sticker)
     setRotateIconPos = function(e)
     {
         const ICON_STYLE = window.getComputedStyle(ROTATE_ICON);
-        const X_POS = e.pageX - parseFloat(ICON_STYLE.width) + "px";
+        const X_POS = e.pageX - parseFloat(ICON_STYLE.width) + "px"; // Use pageX/Y here because the ROTATE_ICON is rooted at 0,0 in the document
         const Y_POS = e.pageY - parseFloat(ICON_STYLE.height) + "px";
 
         ROTATE_ICON.style.left = X_POS;
@@ -374,8 +373,8 @@ function allowActiveStickerToBeRotated(sticker)
         const CENTER_X = STICKER_DIV_RECT.left + STICKER_DIV_RECT.width / 2;
         const CENTER_Y = STICKER_DIV_RECT.top + STICKER_DIV_RECT.height / 2;
 
-        const INITIAL_X = event.pageX;
-        const INITIAL_Y = event.pageY;
+        const INITIAL_X = event.clientX;
+        const INITIAL_Y = event.clientY;
 
         const INITIAL_ANGLE = Math.atan2(INITIAL_Y - CENTER_Y, INITIAL_X - CENTER_X);
 
@@ -387,8 +386,8 @@ function allowActiveStickerToBeRotated(sticker)
 
         function rotateSticker(e)
         {
-            const dx = e.pageX - CENTER_X;
-            const dy = e.pageY - CENTER_Y;
+            const dx = e.clientX - CENTER_X;
+            const dy = e.clientY - CENTER_Y;
             let angle = Math.atan2(dy, dx);
             angle -= INITIAL_ANGLE;
             angle *= (180 / Math.PI);
