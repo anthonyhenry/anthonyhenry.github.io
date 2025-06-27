@@ -25,8 +25,11 @@ let shiftKeyDown = false;
 
 for(const sticker of TEMPLATE_STICKERS)
 {
+    const test = document.querySelector("#test");
+
     // Sticker template clicked
     sticker.onmousedown = function(event){
+        console.log(event)
         // Prevent default behavior (ghost image)
         event.preventDefault();
 
@@ -65,8 +68,26 @@ for(const sticker of TEMPLATE_STICKERS)
 
         // Allow sticker to be moved
         moveSticker(STICKER_DIV, ANCHOR);
+
+        let testP = document.createElement("p");
+        testP.innerText = "click!"
+        test.appendChild(testP);
     }
+
+    function createNewSticker(event)
+    {
+        
+    }
+
+
+    sticker.addEventListener("touchstart", function(event){
+        console.log(event)
+        let testP = document.createElement("p");
+        testP.innerText = "touch!"
+        test.appendChild(testP);
+    })
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Move Placed Stickers /////////////////////////////
