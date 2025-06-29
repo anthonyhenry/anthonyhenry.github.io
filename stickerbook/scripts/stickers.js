@@ -19,6 +19,13 @@ const HTML_ELEMENT = document.querySelector("html");
 // Track if the shift key is being held down
 let shiftKeyDown = false;
 
+document.addEventListener("touchstart", function(){
+    let test = document.createElement("div");
+    let text = activeSticker ? activeSticker : "No active sticker";
+    test.innerText = text
+    document.querySelector("#test").appendChild(test);
+})
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Create New Stickers /////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -67,8 +74,8 @@ for(const sticker of TEMPLATE_STICKERS)
         // Allow sticker to be moved
         handleStickerMovement(STICKER_DIV, ANCHOR);
     }
-    sticker.addEventListener("touchstart", createNewSticker)
     sticker.addEventListener("mousedown", createNewSticker)
+    sticker.addEventListener("touchstart", createNewSticker)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
