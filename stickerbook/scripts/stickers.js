@@ -19,12 +19,15 @@ const HTML_ELEMENT = document.querySelector("html");
 // Track if the shift key is being held down
 let shiftKeyDown = false;
 
-document.addEventListener("touchstart", function(){
-    let test = document.createElement("div");
-    let text = activeSticker ? activeSticker : "No active sticker";
-    test.innerText = text
-    document.querySelector("#test").appendChild(test);
-})
+function debug(msg)
+{
+    document.addEventListener("touchstart", function(){
+        let test = document.createElement("div");
+        // let text = activeSticker ? activeSticker : "No active sticker";
+        test.innerText = msg
+        document.querySelector("#test").appendChild(test);
+    })
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Create New Stickers /////////////////////////////
@@ -38,6 +41,7 @@ for(const sticker of TEMPLATE_STICKERS)
         event.preventDefault(); // For touchstart, this will prevent mousedown from also firing
 
         // Clear active sticker
+        debug("Alpha")
         clearActiveSticker();
 
         // Create a div for the new sticker
@@ -258,6 +262,8 @@ SCENE_DIV.addEventListener("wheel", function(event){
 function setActiveSticker(sticker)
 {
     // Clear previous active sticker and set new one
+    debug("Bravo")
+    console.log(sticker)
     clearActiveSticker();
     activeSticker = sticker;
     activeSticker.style.cursor = "all-scroll";
@@ -317,6 +323,7 @@ document.addEventListener("mousedown", function(event){
     // Sticker not clicked
     else if(event.target.id != "rotationDiv")
     {
+        debug("Charlie")
         clearActiveSticker();
     }
 });
@@ -456,6 +463,7 @@ document.addEventListener("keydown", function(event){
     {
         // Deselect active sticker with escape key    
         case "Escape":
+            debug("Delta")
             clearActiveSticker();
             resetRotateIcon();
             break;
@@ -519,6 +527,7 @@ function removeElement(element)
 {
     if(element == activeSticker)
     {
+        debug("Echo")
         clearActiveSticker();
     }
 
