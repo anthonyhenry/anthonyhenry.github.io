@@ -82,3 +82,48 @@ main
     margin-left: 5px;
     margin-right: 5px;
 }
+
+/* Small devices */
+@media screen and (min-width: 576px)
+{
+    body
+    {
+        background-color: black;
+    }
+}
+
+/* Medium devices (tablets, 768 and up) */
+@media screen and (min-width: 768px)
+{
+    body
+    {
+        background-color: red;
+    }
+}
+
+/* Large devices (desktops, 992 and up) */
+@media screen and (min-width: 992px)
+{
+    body
+    {
+        background-color: yellow;
+    }
+}
+
+/* X-Large devices (large desktops, 1200 and up) */
+@media screen and (min-width: 1200px)
+{
+    body
+    {
+        background-color: blue;
+    }
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media screen and (min-width: 1400px)
+{
+    body
+    {
+        background-color: purple;
+    }
+}
