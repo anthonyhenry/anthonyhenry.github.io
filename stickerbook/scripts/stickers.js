@@ -10,7 +10,7 @@ const STICKER_PAGE_DIV = document.querySelector("#stickerPage");
 const SCENE_DIV = document.querySelector("#scene");
 // Element of the last clicked sticker
 let activeSticker = ""
-// Custom rotate icon
+// Custom rotate cursor
 const ROTATE_ICON = document.querySelector("#rotateIcon");
 // Offset for setting how much bigger than a sticker the rotation div should be
 const ROTATION_DIV_OFFSET = 25;
@@ -25,13 +25,10 @@ let shiftKeyDown = false;
 
 for(const sticker of TEMPLATE_STICKERS)
 {
-    const test = document.querySelector("#test");
-
-    // Sticker template clicked
-    sticker.onmousedown = function(event){
-        console.log(event)
+    function createNewSticker(event)
+    {
         // Prevent default behavior (ghost image)
-        event.preventDefault();
+        event.preventDefault(); // For touchstart, this will prevent mousedown from also firing
 
         // Clear active sticker
         clearActiveSticker();
@@ -59,41 +56,27 @@ for(const sticker of TEMPLATE_STICKERS)
         CLONED_STICKER.style.width = "100%";
         CLONED_STICKER.style.pointerEvents = "none";
 
-        // Place the new sticker under the mouse cursor
+        // Place the new sticker under the cursor
         const ANCHOR = {
             x: parseFloat(STICKER_DIV.style.width) / 2,
             y: parseFloat(STICKER_DIV.style.height) / 2
         };
-        setStickerPos(STICKER_DIV, event.clientX, event.clientY, ANCHOR);
+        const MOUSE_POS = getMousePos(event);
+        setStickerPos(STICKER_DIV, MOUSE_POS.x, MOUSE_POS.y, ANCHOR);
 
         // Allow sticker to be moved
-        moveSticker(STICKER_DIV, ANCHOR);
-
-        let testP = document.createElement("p");
-        testP.innerText = "click!"
-        test.appendChild(testP);
+        handleStickerMovement(STICKER_DIV, ANCHOR);
     }
-
-    function createNewSticker(event)
-    {
-        
-    }
-
-
-    sticker.addEventListener("touchstart", function(event){
-        console.log(event)
-        let testP = document.createElement("p");
-        testP.innerText = "touch!"
-        test.appendChild(testP);
-    })
+    sticker.addEventListener("touchstart", createNewSticker)
+    sticker.addEventListener("mousedown", createNewSticker)
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Move Placed Stickers /////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-SCENE_DIV.addEventListener("mousedown", function(event){
+function handlePlacedStickerClicked(event)
+{
     // Check if a sticker was clicked
     if(stickerTargeted(event.target))
     {
@@ -112,31 +95,36 @@ SCENE_DIV.addEventListener("mousedown", function(event){
         const PREVIOUS_ROTATION = CLICKED_STICKER.style.transform;
         CLICKED_STICKER.style.transform = "rotate(0deg)";
         // Set anchor for sticker movement
+        const MOUSE_POS = getMousePos(event);
         const STICKER_RECT = CLICKED_STICKER.getBoundingClientRect();
         const ANCHOR = {
-            x: event.clientX - STICKER_RECT.left,
-            y: event.clientY - STICKER_RECT.top
+            x: MOUSE_POS.x - STICKER_RECT.left,
+            y: MOUSE_POS.y - STICKER_RECT.top
         }
         // Reset sticker rotation
         CLICKED_STICKER.style.transform = PREVIOUS_ROTATION;
 
         // Allow sticker to be moved
-        moveSticker(CLICKED_STICKER, ANCHOR);
+        handleStickerMovement(CLICKED_STICKER, ANCHOR);
     }
-})
+}
+SCENE_DIV.addEventListener("mousedown", handlePlacedStickerClicked);
+SCENE_DIV.addEventListener("touchstart", handlePlacedStickerClicked);
 
-function moveSticker(sticker, anchor)
+function handleStickerMovement(sticker, anchor)
 {
     // Get a reference to the rotate div if it exists (only exists on placed stickers)
     const ROTATE_DIV = document.querySelector("#rotationDiv")
 
-    function onMouseMove(e)
+    function moveSticker(event)
     {
         // Set will change to help with performance
         sticker.style.willChange = "left, top";
 
+        const MOUSE_POS = getMousePos(event);
+
         // Move sticker position
-        setStickerPos(sticker, e.clientX, e.clientY, anchor);
+        setStickerPos(sticker, MOUSE_POS.x, MOUSE_POS.y, anchor);
 
         // Move rotate div if it exists
         if(ROTATE_DIV)
@@ -147,13 +135,14 @@ function moveSticker(sticker, anchor)
                 x: anchor.x + ROTATION_DIV_OFFSET,
                 y: anchor.y + ROTATION_DIV_OFFSET
             }
-            setStickerPos(ROTATE_DIV, e.clientX, e.clientY, ROTATE_DIV_ANCHOR)
+            setStickerPos(ROTATE_DIV, MOUSE_POS.x, MOUSE_POS.y, ROTATE_DIV_ANCHOR)
         }
     }
-    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mousemove", moveSticker);
+    document.addEventListener("touchmove", moveSticker);
 
     // Place the sticker when the mouse is released
-    function onMouseUp()
+    function stopMovingSticker()
     {
         // Reset will change for sticker and rotate div to save memory
         resetWillChange(sticker);
@@ -182,10 +171,15 @@ function moveSticker(sticker, anchor)
         }
 
         // Disable listeners
-        document.removeEventListener("mousemove", onMouseMove);
-        document.removeEventListener("mouseup", onMouseUp);
+        document.removeEventListener("mousemove", moveSticker);
+        document.removeEventListener("touchmove", moveSticker);
+        document.removeEventListener("mouseup", stopMovingSticker);
+        document.removeEventListener("touchend", stopMovingSticker);
+        document.removeEventListener("touchcancel", stopMovingSticker);
     }
-    document.addEventListener("mouseup", onMouseUp);
+    document.addEventListener("mouseup", stopMovingSticker);
+    document.addEventListener("touchend", stopMovingSticker);
+    document.addEventListener("touchcancel", stopMovingSticker);
 }
 
 function setStickerPos(sticker, mousePosX, mousePosY, anchor)
@@ -482,6 +476,15 @@ document.addEventListener("keyup", function(event){
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Helper Functions ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+
+function getMousePos(event)
+{
+    const MOUSE_POS = {
+        x: event.clientX ? event.clientX : event.touches[0].clientX,
+        y: event.clientY ? event.clientY : event.touches[0].clientY
+    }
+    return MOUSE_POS;
+}
 
 function isActiveStickerInScene(sticker)
 {
