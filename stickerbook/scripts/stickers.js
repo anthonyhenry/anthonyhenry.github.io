@@ -21,12 +21,10 @@ let shiftKeyDown = false;
 
 function debug(msg)
 {
-    document.addEventListener("touchstart", function(){
-        let test = document.createElement("div");
-        // let text = activeSticker ? activeSticker : "No active sticker";
-        test.innerText = msg
-        document.querySelector("#test").appendChild(test);
-    })
+    let test = document.createElement("div");
+    // let text = activeSticker ? activeSticker : "No active sticker";
+    test.innerText = msg
+    document.querySelector("#test").appendChild(test);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,6 +33,7 @@ function debug(msg)
 
 for(const sticker of TEMPLATE_STICKERS)
 {
+    console.log(sticker)
     function createNewSticker(event)
     {
         // Prevent default behavior (ghost image)
