@@ -19,7 +19,7 @@ main
 
 #scene
 {
-    height: 500px;
+    height: 450px;
     position: relative;
     overflow: hidden;
 }
@@ -27,7 +27,7 @@ main
 #stickers
 {
     width: 150px;
-    height: 500px;
+    height: 450px;
     overflow-y: scroll;
     /* position: relative; */
 }
@@ -127,3 +127,4 @@ main
         background-color: purple;
     }
 }
+
