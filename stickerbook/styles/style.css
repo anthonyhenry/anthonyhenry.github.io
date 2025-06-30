@@ -83,6 +83,33 @@ main
     margin-right: 5px;
 }
 
+/*  */
+/*  */
+/*  */
+
+#canvas
+{
+    background-color: white;
+    padding: 20px;
+}
+
+#toolbar
+{
+    border: 2px solid black;
+}
+
+#stickerGallery
+{
+    height: 100px;
+    overflow-x: scroll;
+    display: flex;
+}
+.template-sticker
+{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 /* Small devices */
 @media screen and (min-width: 576px)
 {
