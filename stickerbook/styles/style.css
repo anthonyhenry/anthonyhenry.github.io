@@ -1,36 +1,4 @@
-main
-{
-    display: flex;
-    justify-content: center;
-    /* overflow: hidden; */
-}
 
-#stickerPage
-{
-    /* Use these two lines instead of styling main */
-    /* margin: auto; */
-    /* width: fit-content; */
-
-    display: flex;
-    position: relative;
-    /* overflow: hidden; */
-    background-color: tan;
-}
-
-#scene
-{
-    height: 450px;
-    position: relative;
-    overflow: hidden;
-}
-
-#stickers
-{
-    width: 150px;
-    height: 450px;
-    overflow-y: scroll;
-    /* position: relative; */
-}
 
 #rotateIcon
 {
@@ -50,42 +18,7 @@ main
 #rotateIcon::before
 {
     content: '\21BB';
-
 }
-
-.sticker-resize-handle
-{
-  position: absolute;
-  right: -6px;
-  bottom: -6px;
-  width: 12px;
-  height: 12px;
-  background-color: white;
-  border: 2px solid #000;
-  cursor: nwse-resize;
-  z-index: 2;
-}
-
-#backgroundGallery
-{
-    width: 800px;
-    height: 100px;
-    outline: 1px solid black;
-    margin: 50px auto;
-    overflow-x: scroll;
-    display: flex;
-}
-
-#backgroundGallery > img
-{
-    height: 100%;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-/*  */
-/*  */
-/*  */
 
 #container
 {
@@ -98,28 +31,19 @@ main
     border: 2px solid black;
 }
 
-#stickerGallery
-{
-    height: 100px;
-    overflow-x: scroll;
-    display: flex;
-    border: 2px solid black;
-}
-.template-sticker
-{
-    margin: 0px 5px;
-}
 
-#backgroundGallery-new
+
+
+#backgroundGallery
 {
     /* width: 95%; */
     height: 100px;
     border: 2px solid black;
-    /* margin: 50px auto; */
+    margin-top: 50px;
     overflow-x: scroll;
     display: flex;   
 }
-#backgroundGallery-new > img
+#backgroundGallery > img
 {
     height: 100%;
     margin-left: 5px;
@@ -128,7 +52,23 @@ main
 
 #saves
 {
+    margin-top: 50px;
     border: 2px solid black;
+}
+
+@media screen and (max-width: 768px)
+{
+    #stickerGallery
+    {
+        height: 100px;
+        overflow-x: scroll;
+        display: flex;
+        border: 2px solid black;
+    }
+    .template-sticker
+    {
+        margin: 0px 5px;
+    }
 }
 
 /* Medium devices (tablets, 768 and up) */
