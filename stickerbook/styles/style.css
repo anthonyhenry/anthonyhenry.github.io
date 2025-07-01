@@ -107,8 +107,7 @@ main
 }
 .template-sticker
 {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 0px 5px;
 }
 
 #backgroundGallery-new
@@ -138,6 +137,33 @@ main
     body
     {
         background-color: red;
+    }
+    
+    #canvas
+    {
+        display: flex;
+        justify-content: center;
+    }
+
+    #scene-new
+    {
+        width: 600px;
+    }
+
+    #stickerGallery
+    {
+        display: block;
+        width: 90px;
+        overflow-x: auto;
+        border: none;
+        height: 360px;
+    }
+
+    .template-sticker
+    {
+        margin: 0px;
+        width: 100%;
+        height: auto;
     }
 }
 
