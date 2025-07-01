@@ -31,12 +31,13 @@
     border: 2px solid black;
 }
 
-
-
+#sceneBackground
+{
+    width: 100%;
+}
 
 #backgroundGallery
 {
-    /* width: 95%; */
     height: 100px;
     border: 2px solid black;
     margin-top: 50px;
@@ -56,7 +57,7 @@
     border: 2px solid black;
 }
 
-@media screen and (max-width: 768px)
+@media screen and (max-width: 767px)
 {
     #stickerGallery
     {
@@ -83,28 +84,45 @@
     {
         display: flex;
         justify-content: center;
+        width: 700px;
+        height: 360px;
+        margin: auto;
+        /* height: 371px; */
     }
 
-    #scene-new
+    #scene
     {
-        width: 600px;
+        width: 85%;
+        /* width: 600px; */
     }
 
     #stickerGallery
+    {
+        width: 15%;
+        overflow-y: scroll;
+        background-color: tan;
+    }
+
+    .template-sticker
+    {
+        width: 100%;
+    }
+
+    /* #stickerGallery
     {
         display: block;
         width: 90px;
         overflow-x: auto;
         border: none;
         height: 360px;
-    }
+    } */
 
-    .template-sticker
+    /* .template-sticker
     {
         margin: 0px;
         width: 100%;
         height: auto;
-    }
+    } */
 }
 
 /* Large devices (desktops, 992 and up) */
