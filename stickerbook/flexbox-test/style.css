@@ -11,6 +11,21 @@ header
     text-align: center;
 }
 
+#outerContainer
+{
+    padding: 10px;
+}
+
+#toolbar
+{
+    border: 2px solid black;
+}
+
+#sceneBackground
+{
+    width: 100%;
+}
+
 #saves
 {
     background-color: aqua;
@@ -38,13 +53,21 @@ header
     #canvas
     {
         border: 1px solid blue;
-        width: 75%;
+        /* width: 75%; */
+        width: 85%;
     }
 
     #stickerGallery
     {
         border: 1px solid gold;
-        width: 25%;
+        /* width: 25%; */
+        width: 15%;
+        background-color: tan;
+    }
+
+    .template-sticker
+    {
+        width: 100%;
     }
 }
 
@@ -60,12 +83,12 @@ header
     
     #stickerbook
     {
-        width: 50%;
+        width: 70%;
     }
 
     #saves
     {
-        width: 25%;
+        width: 15%;
     }
 }
 
