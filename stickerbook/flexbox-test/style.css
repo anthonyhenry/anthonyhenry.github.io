@@ -58,19 +58,14 @@ header
     
     #canvas
     {
-        /* border: 1px solid blue; */
-        /* width: 75%; */
-        /* width: 85%; */
         width: 620px;
+        height: 348.8px;
     }
 
     #stickerGallery
     {
-        /* border: 1px solid gold; */
-        /* width: 25%; */
-        /* width: 15%; */
         width: 110px;
-        height: 348px;
+        height: 348.8px;
         background-color: tan;
         overflow-y: scroll;
     }
