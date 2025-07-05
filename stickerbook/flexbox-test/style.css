@@ -50,8 +50,21 @@ header
         margin: auto;
     }
 
+    #stickerbook
+    {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    #toolbar
+    {
+        order: 2;
+    }
+
     #stickerpage
     {
+        order: 1;
         display: flex;
         background-color: green;
     }
@@ -73,6 +86,11 @@ header
     .template-sticker
     {
         width: 100%;
+    }
+
+    #backgroundGallery
+    {
+        order: 3;
     }
 }
 
