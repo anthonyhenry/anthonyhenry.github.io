@@ -44,6 +44,12 @@ header
 /* Medium devices (tablets, 768 and up) */
 @media screen and (min-width: 768px)
 {
+    #outerContainer
+    {
+        width: 730px;
+        margin: auto;
+    }
+
     #stickerpage
     {
         display: flex;
@@ -52,17 +58,21 @@ header
     
     #canvas
     {
-        border: 1px solid blue;
+        /* border: 1px solid blue; */
         /* width: 75%; */
-        width: 85%;
+        /* width: 85%; */
+        width: 620px;
     }
 
     #stickerGallery
     {
-        border: 1px solid gold;
+        /* border: 1px solid gold; */
         /* width: 25%; */
-        width: 15%;
+        /* width: 15%; */
+        width: 110px;
+        height: 348px;
         background-color: tan;
+        overflow-y: scroll;
     }
 
     .template-sticker
