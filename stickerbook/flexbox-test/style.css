@@ -26,14 +26,28 @@ header
     width: 100%;
 }
 
-#saves
-{
-    background-color: aqua;
-}
-
 #stickerbook
 {
     background-color: brown;
+}
+
+#stickerGallery
+{
+    height: 100px;
+    display: flex;
+    overflow-x: scroll;
+}
+
+.template-sticker
+{
+    height: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#saves
+{
+    background-color: aqua;
 }
 
 @media screen and (max-width: 767px)
@@ -77,6 +91,7 @@ header
 
     #stickerGallery
     {
+        display: block;
         width: 110px;
         height: 348.8px;
         background-color: tan;
@@ -86,6 +101,8 @@ header
     .template-sticker
     {
         width: 100%;
+        height: auto;
+        margin: 0px;
     }
 
     #backgroundGallery
