@@ -58,6 +58,11 @@ header
 /* Medium devices (tablets, 768 and up) */
 @media screen and (min-width: 768px)
 {
+    body
+    {
+        /* background-color: blueviolet; */
+    }
+
     #outerContainer
     {
         width: 730px;
@@ -114,18 +119,19 @@ header
 /* Large devices (desktops, 992 and up) */
 @media screen and (min-width: 992px)
 {
+    body
+    {
+        /* background-color: red; */
+    }
+
     /* Start 2 sides here */
     #outerContainer
     {
         display: flex;
         justify-content: space-evenly;
+        width: 100%;
     }
     
-    #stickerbook
-    {
-        width: 70%;
-    }
-
     #saves
     {
         width: 15%;
@@ -135,11 +141,34 @@ header
 /* X-Large devices (large desktops, 1200 and up) */
 @media screen and (min-width: 1200px)
 {
+    body
+    {
+        /* background-color: yellow; */
+    }
 
+    #stickerbook
+    {
+        width: 815px;
+    }
+
+    #canvas
+    {
+        width: 693px;
+        height: 389.81px;
+    }
+
+    #stickerGallery
+    {
+        width: 122px;
+        height: 389.81px;
+    }
 }
 
 /* XX-Large devices (larger desktops, 1400px and up) */
 @media screen and (min-width: 1400px)
 {
-
+    body
+    {
+        /* background-color: blue; */
+    }
 }
