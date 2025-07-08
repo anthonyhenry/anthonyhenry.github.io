@@ -35,6 +35,11 @@ header
 {
     height: 100px;
     display: flex;
+    /* overflow-x: scroll; */
+}
+#stickers
+{
+    display: flex;
     overflow-x: scroll;
 }
 
@@ -48,6 +53,30 @@ header
 #saves
 {
     background-color: aqua;
+}
+
+.arrow
+{
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 50px 50px 50px 0;
+    border-color: transparent #FF4532 transparent transparent;
+}
+.first
+{
+    transform: rotate(0deg);
+}
+.second
+{
+    transform: rotate(180deg);
+}
+
+@media (pointer: fine) {
+    .arrow
+    {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 767px)
@@ -73,7 +102,6 @@ header
     {
         display: flex;
         flex-direction: column;
-
     }
 
     #toolbar
@@ -96,11 +124,26 @@ header
 
     #stickerGallery
     {
-        display: block;
+        /* display: block; */
+        flex-direction: column;
+        align-items: center;
         width: 110px;
         height: 348.8px;
         background-color: tan;
+        /* overflow-y: scroll; */
+    }
+    #stickers
+    {
+        display: block;
         overflow-y: scroll;
+    }
+    .arrow
+    {
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        border-width: 0 50.5px 50px 50.5px;
+        border-color: transparent transparent #FF4532 transparent;
     }
 
     .template-sticker
