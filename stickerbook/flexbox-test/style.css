@@ -59,7 +59,8 @@ header
 #stickers
 {
     display: flex;
-    overflow-x: scroll;
+    overflow: hidden;
+    /* overflow-x: scroll; */
 }
 
 .template-sticker
@@ -80,6 +81,10 @@ header
     .arrow
     {
         display: none;
+    }
+    #stickers
+    {
+        overflow: auto;
     }
 }
 
@@ -139,7 +144,7 @@ header
     #stickers
     {
         display: block;
-        overflow-y: scroll;
+        /* overflow-y: scroll; */
     }
     .arrow
     {
