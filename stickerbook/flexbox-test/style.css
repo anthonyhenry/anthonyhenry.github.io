@@ -46,12 +46,12 @@ header
     border-width: 50px 50px 50px 0;
     border-color: transparent #FF4532 transparent transparent;
 }
-.first
+.left-up
 {
     transform: rotate(0deg);
     display: none;
 }
-.second
+.right-down
 {
     transform: rotate(180deg);
 }
@@ -76,7 +76,7 @@ header
 }
 
 /* Hide arrows if the device has mouse support */
-@media (pointer: fine)
+/* @media (pointer: fine)
 {
     .arrow
     {
@@ -86,7 +86,7 @@ header
     {
         overflow: auto;
     }
-}
+} */
 
 @media screen and (max-width: 767px)
 {
