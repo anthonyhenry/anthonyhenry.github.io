@@ -52,7 +52,7 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
                     LEFT_UP_ARROW.style.display = "none";
                     stopScrolling();
                 }
-                if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop >= STICKERS_CONTAINER.scrollHeight)
+                if(Math.ceil(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop) >= Math.ceil(STICKERS_CONTAINER.scrollHeight))
                 {
                     RIGHT_DOWN_ARROW.style.display = "none";
                     stopScrolling();
@@ -73,7 +73,7 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
                     LEFT_UP_ARROW.style.display = "none";
                     stopScrolling();
                 }
-                if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft >= STICKERS_CONTAINER.scrollWidth)
+                if(Math.ceil(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft) >= Math.ceil(STICKERS_CONTAINER.scrollWidth))
                 {
                     RIGHT_DOWN_ARROW.style.display = "none";
                     stopScrolling();
