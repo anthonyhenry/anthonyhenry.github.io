@@ -5,8 +5,7 @@
 const LEFT_UP_ARROW = document.querySelector("#left-up-arrow");
 const RIGHT_DOWN_ARROW = document.querySelector("#right-down-arrow");
 
-
-let scrollInterval = null;
+let scrollAnimationFrameRequest = null;
 let scrolling = false
 
 for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
@@ -14,6 +13,8 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
     function stopScrolling()
     {
         scrolling = false;
+        cancelAnimationFrame(scrollAnimationFrameRequest);
+        scrollAnimationFrameRequest = null;
         arrow.removeEventListener("touchend", stopScrolling);
     }
 
@@ -25,13 +26,11 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
         const SCROLL_SPEED = 3;
         const STICKERS_CONTAINER = document.querySelector("#stickers");
         const SCROLL_AXIS = window.getComputedStyle(STICKERS_CONTAINER).display == "block" ? "vertical" : "horizontal";
-        console.log(SCROLL_AXIS);
         const SCROLL_OPTIONS = {
             top: SCROLL_AXIS == "vertical" ? SCROLL_DIRECTION * SCROLL_SPEED : 0,
             left: SCROLL_AXIS == "horizontal" ? SCROLL_DIRECTION * SCROLL_SPEED : 0,
             behavior: "auto"
         }
-        console.log(SCROLL_OPTIONS);
 
         function scroll()
         {
@@ -88,13 +87,12 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
                 // scrollHeight is the total height of an element's content, including any content that is not currently visible due to overflow
 
                 // Loop while scrolling is true
-                requestAnimationFrame(scroll);
+                scrollAnimationFrameRequest = requestAnimationFrame(scroll);
             }
-
         }
 
         scrolling = true;
-        requestAnimationFrame(scroll)
+        scrollAnimationFrameRequest = requestAnimationFrame(scroll)
 
         arrow.addEventListener("touchend", stopScrolling);
     }
