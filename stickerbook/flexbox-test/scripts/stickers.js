@@ -2,44 +2,94 @@
 ////////////////////////// Sticker Gallery Scrolling //////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+const LEFT_UP_ARROW = document.querySelector("#left-up-arrow");
+const RIGHT_DOWN_ARROW = document.querySelector("#right-down-arrow");
+
+
 let scrollInterval = null;
 let scrolling = false
 
-const ARROWS = document.querySelectorAll(".arrow");
-for(let arrow of ARROWS)
+for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
 {
     function stopScrolling()
     {
         scrolling = false;
+        arrow.removeEventListener("touchend", stopScrolling);
     }
 
     function scrollStickers(event)
     {
         event.preventDefault();
 
-        const SCROLL_DIRECTION = arrow.classList.contains("left-up") ? -1 : 1;
-        const SCROLL_SPEED = 2;
-        // const SCROLL_AXIS = 
+        const SCROLL_DIRECTION = arrow.dataset.direction == "left-up" ? -1 : 1;
+        const SCROLL_SPEED = 3;
         const STICKERS_CONTAINER = document.querySelector("#stickers");
-        const STICKERS_CONTAINER_STYLES = window.getComputedStyle(STICKERS_CONTAINER);
-        console.log(this);
-        
-        console.log(STICKERS_CONTAINER_STYLES.display);
-        console.log(STICKERS_CONTAINER.scrollTop);
+        const SCROLL_AXIS = window.getComputedStyle(STICKERS_CONTAINER).display == "block" ? "vertical" : "horizontal";
+        console.log(SCROLL_AXIS);
+        const SCROLL_OPTIONS = {
+            top: SCROLL_AXIS == "vertical" ? SCROLL_DIRECTION * SCROLL_SPEED : 0,
+            left: SCROLL_AXIS == "horizontal" ? SCROLL_DIRECTION * SCROLL_SPEED : 0,
+            behavior: "auto"
+        }
+        console.log(SCROLL_OPTIONS);
 
         function scroll()
         {
-            console.log("test");
-            if(!scrolling)
+            if(scrolling)
             {
-                return;
-            }
+                // Scroll through stickers
+                STICKERS_CONTAINER.scrollBy(SCROLL_OPTIONS);
 
-            console.log(STICKERS_CONTAINER.scrollTop);
-            STICKERS_CONTAINER.scrollBy({ top: SCROLL_DIRECTION * SCROLL_SPEED, behavior: "auto" });
-            requestAnimationFrame(scroll)
-            console.log(STICKERS_CONTAINER.scrollTop);
-            console.log("===")
+                // Only show arrows if there is room to scroll in that direction
+                if(SCROLL_AXIS == "vertical")
+                {
+                    if(STICKERS_CONTAINER.scrollTop > 0 && window.getComputedStyle(LEFT_UP_ARROW).display == "none")
+                    {
+                        LEFT_UP_ARROW.style.display = "block";
+                    }
+                    else if(STICKERS_CONTAINER.scrollTop == 0)
+                    {
+                        LEFT_UP_ARROW.style.display = "none";
+                        stopScrolling();
+                    }
+                    else if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop == STICKERS_CONTAINER.scrollHeight)
+                    {
+                        RIGHT_DOWN_ARROW.style.display = "none";
+                        stopScrolling();
+                    }
+                    else if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop < STICKERS_CONTAINER.scrollHeight && window.getComputedStyle(RIGHT_DOWN_ARROW).display == "none")
+                    {
+                        RIGHT_DOWN_ARROW.style.display = "block";
+                    }
+                }
+                else
+                {
+                    if(STICKERS_CONTAINER.scrollLeft > 0 && window.getComputedStyle(LEFT_UP_ARROW).display == "none")
+                    {
+                        LEFT_UP_ARROW.style.display = "block";
+                    }
+                    else if(STICKERS_CONTAINER.scrollLeft == 0)
+                    {
+                        LEFT_UP_ARROW.style.display = "none";
+                        stopScrolling();
+                    }
+                    else if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft == STICKERS_CONTAINER.scrollWidth)
+                    {
+                        RIGHT_DOWN_ARROW.style.display = "none";
+                        stopScrolling();
+                    }
+                    else if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft < STICKERS_CONTAINER.scrollWidth && window.getComputedStyle(RIGHT_DOWN_ARROW).display == "none")
+                    {
+                        RIGHT_DOWN_ARROW.style.display = "block";
+                    }
+                }
+                // clientHeight is the viewable height of an element
+                // scrollTop is the number of pixels an element's content is scrolled upward from its top edge
+                // scrollHeight is the total height of an element's content, including any content that is not currently visible due to overflow
+
+                // Loop while scrolling is true
+                requestAnimationFrame(scroll);
+            }
 
         }
 
