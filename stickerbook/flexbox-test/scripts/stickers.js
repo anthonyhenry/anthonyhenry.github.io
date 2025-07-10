@@ -89,6 +89,14 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
 
             // Loop until touch ends
             scrollAnimationFrameRequest = requestAnimationFrame(scroll);
+
+            document.querySelector("#test").innerText = ""
+            let msg = document.createElement("p");
+            msg.innerText = Math.ceil(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop)
+            document.querySelector("#test").appendChild(msg)
+            msg = document.createElement("p");
+            msg.innerText = Math.ceil(STICKERS_CONTAINER.scrollHeight)
+            document.querySelector("#test").appendChild(msg)
         }
 
         scrollAnimationFrameRequest = requestAnimationFrame(scroll)
