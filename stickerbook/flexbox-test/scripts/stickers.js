@@ -2,20 +2,21 @@
 ////////////////////////// Sticker Gallery Scrolling //////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+// Bug when you scroll all the way as far right or down as you can go then resize the screen. Both arrows are invisible
+
 const LEFT_UP_ARROW = document.querySelector("#left-up-arrow");
 const RIGHT_DOWN_ARROW = document.querySelector("#right-down-arrow");
 
 let scrollAnimationFrameRequest = null;
-let scrolling = false
 
 for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
 {
     function stopScrolling()
     {
-        scrolling = false;
         cancelAnimationFrame(scrollAnimationFrameRequest);
         scrollAnimationFrameRequest = null;
         arrow.removeEventListener("touchend", stopScrolling);
+        arrow.removeEventListener("touchcancel", stopScrolling);
     }
 
     function scrollStickers(event)
@@ -34,67 +35,64 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
 
         function scroll()
         {
-            if(scrolling)
+            // Scroll through stickers
+            STICKERS_CONTAINER.scrollBy(SCROLL_OPTIONS);
+
+            // Only show arrows if there is room to scroll in that direction
+            if(SCROLL_AXIS == "vertical")
             {
-                // Scroll through stickers
-                STICKERS_CONTAINER.scrollBy(SCROLL_OPTIONS);
-
-                // Only show arrows if there is room to scroll in that direction
-                if(SCROLL_AXIS == "vertical")
+                if(STICKERS_CONTAINER.scrollTop > 0 && window.getComputedStyle(LEFT_UP_ARROW).display == "none")
                 {
-                    if(STICKERS_CONTAINER.scrollTop > 0 && window.getComputedStyle(LEFT_UP_ARROW).display == "none")
-                    {
-                        LEFT_UP_ARROW.style.display = "block";
-                    }
-                    else if(STICKERS_CONTAINER.scrollTop == 0)
-                    {
-                        LEFT_UP_ARROW.style.display = "none";
-                        stopScrolling();
-                    }
-                    else if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop == STICKERS_CONTAINER.scrollHeight)
-                    {
-                        RIGHT_DOWN_ARROW.style.display = "none";
-                        stopScrolling();
-                    }
-                    else if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop < STICKERS_CONTAINER.scrollHeight && window.getComputedStyle(RIGHT_DOWN_ARROW).display == "none")
-                    {
-                        RIGHT_DOWN_ARROW.style.display = "block";
-                    }
+                    LEFT_UP_ARROW.style.display = "block";
                 }
-                else
+                else if(STICKERS_CONTAINER.scrollTop == 0)
                 {
-                    if(STICKERS_CONTAINER.scrollLeft > 0 && window.getComputedStyle(LEFT_UP_ARROW).display == "none")
-                    {
-                        LEFT_UP_ARROW.style.display = "block";
-                    }
-                    else if(STICKERS_CONTAINER.scrollLeft == 0)
-                    {
-                        LEFT_UP_ARROW.style.display = "none";
-                        stopScrolling();
-                    }
-                    else if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft == STICKERS_CONTAINER.scrollWidth)
-                    {
-                        RIGHT_DOWN_ARROW.style.display = "none";
-                        stopScrolling();
-                    }
-                    else if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft < STICKERS_CONTAINER.scrollWidth && window.getComputedStyle(RIGHT_DOWN_ARROW).display == "none")
-                    {
-                        RIGHT_DOWN_ARROW.style.display = "block";
-                    }
+                    LEFT_UP_ARROW.style.display = "none";
+                    stopScrolling();
                 }
-                // clientHeight is the viewable height of an element
-                // scrollTop is the number of pixels an element's content is scrolled upward from its top edge
-                // scrollHeight is the total height of an element's content, including any content that is not currently visible due to overflow
-
-                // Loop while scrolling is true
-                scrollAnimationFrameRequest = requestAnimationFrame(scroll);
+                else if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop == STICKERS_CONTAINER.scrollHeight)
+                {
+                    RIGHT_DOWN_ARROW.style.display = "none";
+                    stopScrolling();
+                }
+                else if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop < STICKERS_CONTAINER.scrollHeight && window.getComputedStyle(RIGHT_DOWN_ARROW).display == "none")
+                {
+                    RIGHT_DOWN_ARROW.style.display = "block";
+                }
             }
+            else
+            {
+                if(STICKERS_CONTAINER.scrollLeft > 0 && window.getComputedStyle(LEFT_UP_ARROW).display == "none")
+                {
+                    LEFT_UP_ARROW.style.display = "block";
+                }
+                else if(STICKERS_CONTAINER.scrollLeft == 0)
+                {
+                    LEFT_UP_ARROW.style.display = "none";
+                    stopScrolling();
+                }
+                else if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft == STICKERS_CONTAINER.scrollWidth)
+                {
+                    RIGHT_DOWN_ARROW.style.display = "none";
+                    stopScrolling();
+                }
+                else if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft < STICKERS_CONTAINER.scrollWidth && window.getComputedStyle(RIGHT_DOWN_ARROW).display == "none")
+                {
+                    RIGHT_DOWN_ARROW.style.display = "block";
+                }
+            }
+            // clientHeight is the viewable height of an element
+            // scrollTop is the number of pixels an element's content is scrolled upward from its top edge
+            // scrollHeight is the total height of an element's content, including any content that is not currently visible due to overflow
+
+            // Loop until touch ends
+            scrollAnimationFrameRequest = requestAnimationFrame(scroll);
         }
 
-        scrolling = true;
         scrollAnimationFrameRequest = requestAnimationFrame(scroll)
 
         arrow.addEventListener("touchend", stopScrolling);
+        arrow.addEventListener("touchcancel", stopScrolling);
     }
     arrow.addEventListener("touchstart", scrollStickers);
 }
