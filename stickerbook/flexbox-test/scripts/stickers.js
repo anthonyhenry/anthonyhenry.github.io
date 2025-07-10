@@ -47,17 +47,17 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
                 {
                     LEFT_UP_ARROW.style.display = "block";
                 }
-                else if(STICKERS_CONTAINER.scrollTop == 0)
+                if(STICKERS_CONTAINER.scrollTop == 0)
                 {
                     LEFT_UP_ARROW.style.display = "none";
                     stopScrolling();
                 }
-                else if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop >= STICKERS_CONTAINER.scrollHeight)
+                if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop >= STICKERS_CONTAINER.scrollHeight)
                 {
                     RIGHT_DOWN_ARROW.style.display = "none";
                     stopScrolling();
                 }
-                else if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop < STICKERS_CONTAINER.scrollHeight && window.getComputedStyle(RIGHT_DOWN_ARROW).display == "none")
+                if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop < STICKERS_CONTAINER.scrollHeight && window.getComputedStyle(RIGHT_DOWN_ARROW).display == "none")
                 {
                     RIGHT_DOWN_ARROW.style.display = "block";
                 }
@@ -68,17 +68,17 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
                 {
                     LEFT_UP_ARROW.style.display = "block";
                 }
-                else if(STICKERS_CONTAINER.scrollLeft == 0)
+                if(STICKERS_CONTAINER.scrollLeft == 0)
                 {
                     LEFT_UP_ARROW.style.display = "none";
                     stopScrolling();
                 }
-                else if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft >= STICKERS_CONTAINER.scrollWidth)
+                if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft >= STICKERS_CONTAINER.scrollWidth)
                 {
                     RIGHT_DOWN_ARROW.style.display = "none";
                     stopScrolling();
                 }
-                else if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft < STICKERS_CONTAINER.scrollWidth && window.getComputedStyle(RIGHT_DOWN_ARROW).display == "none")
+                if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft < STICKERS_CONTAINER.scrollWidth && window.getComputedStyle(RIGHT_DOWN_ARROW).display == "none")
                 {
                     RIGHT_DOWN_ARROW.style.display = "block";
                 }
