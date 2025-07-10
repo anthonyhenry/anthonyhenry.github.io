@@ -17,8 +17,6 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
     {
         cancelAnimationFrame(scrollAnimationFrameRequest);
         scrollAnimationFrameRequest = null;
-        arrow.removeEventListener("touchend", stopScrolling);
-        arrow.removeEventListener("touchcancel", stopScrolling);
     }
 
     function scrollStickers(event)
@@ -49,13 +47,13 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
                 }
                 if(STICKERS_CONTAINER.scrollTop == 0)
                 {
-                    LEFT_UP_ARROW.style.display = "none";
                     stopScrolling();
+                    LEFT_UP_ARROW.style.display = "none";
                 }
                 if(Math.ceil(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop) >= Math.ceil(STICKERS_CONTAINER.scrollHeight))
                 {
-                    RIGHT_DOWN_ARROW.style.display = "none";
                     stopScrolling();
+                    RIGHT_DOWN_ARROW.style.display = "none";
                 }
                 if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop < STICKERS_CONTAINER.scrollHeight && window.getComputedStyle(RIGHT_DOWN_ARROW).display == "none")
                 {
@@ -70,13 +68,13 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
                 }
                 if(STICKERS_CONTAINER.scrollLeft == 0)
                 {
-                    LEFT_UP_ARROW.style.display = "none";
                     stopScrolling();
+                    LEFT_UP_ARROW.style.display = "none";
                 }
                 if(Math.ceil(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft) >= Math.ceil(STICKERS_CONTAINER.scrollWidth))
                 {
-                    RIGHT_DOWN_ARROW.style.display = "none";
                     stopScrolling();
+                    RIGHT_DOWN_ARROW.style.display = "none";
                 }
                 if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft < STICKERS_CONTAINER.scrollWidth && window.getComputedStyle(RIGHT_DOWN_ARROW).display == "none")
                 {
@@ -100,11 +98,10 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
         }
 
         scrollAnimationFrameRequest = requestAnimationFrame(scroll)
-
-        arrow.addEventListener("touchend", stopScrolling);
-        arrow.addEventListener("touchcancel", stopScrolling);
     }
     arrow.addEventListener("touchstart", scrollStickers);
+    arrow.addEventListener("touchend", stopScrolling);
+    arrow.addEventListener("touchcancel", stopScrolling);
 }
 
 const stickersContainer = document.getElementById("stickers");
