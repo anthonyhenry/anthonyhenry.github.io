@@ -3,6 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // Bug when you scroll all the way as far right or down as you can go then resize the screen. Both arrows are invisible
+// Ask chatGPT if I should add mouse events
 
 const LEFT_UP_ARROW = document.querySelector("#left-up-arrow");
 const RIGHT_DOWN_ARROW = document.querySelector("#right-down-arrow");
