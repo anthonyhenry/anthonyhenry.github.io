@@ -88,15 +88,16 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
             // Loop until touch ends
             scrollAnimationFrameRequest = requestAnimationFrame(scroll);
 
-            document.querySelector("#test").innerText = ""
-            let msg = document.createElement("p");
-            msg.innerText = Math.ceil(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop)
-            document.querySelector("#test").appendChild(msg)
-            msg = document.createElement("p");
-            msg.innerText = Math.ceil(STICKERS_CONTAINER.scrollHeight)
-            document.querySelector("#test").appendChild(msg)
+            // document.querySelector("#test").innerText = ""
+            // let msg = document.createElement("p");
+            // msg.innerText = Math.ceil(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop)
+            // document.querySelector("#test").appendChild(msg)
+            // msg = document.createElement("p");
+            // msg.innerText = Math.ceil(STICKERS_CONTAINER.scrollHeight)
+            // document.querySelector("#test").appendChild(msg)
         }
 
+        // First loop
         scrollAnimationFrameRequest = requestAnimationFrame(scroll)
     }
     arrow.addEventListener("touchstart", scrollStickers);
@@ -120,6 +121,7 @@ window.addEventListener("resize", function(){
             percentScrolled = scrollAmount.horizontal / scrollAmount.width;
             STICKERS_CONTAINER.scrollTop = percentScrolled * STICKERS_CONTAINER.scrollHeight;
 
+            // Need to comment this
             if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop != STICKERS_CONTAINER.scrollHeight)
             {
                 RIGHT_DOWN_ARROW.style.display = "block";
@@ -128,11 +130,8 @@ window.addEventListener("resize", function(){
         scrollAmount = getScrollAmount();
         scrollAxis = getScrollAxis();
     }
-    else
-    {
-        
-    }
 
+    // Need to comment these
     if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft != STICKERS_CONTAINER.scrollWidth)
     {
         RIGHT_DOWN_ARROW.style.display = "block";
