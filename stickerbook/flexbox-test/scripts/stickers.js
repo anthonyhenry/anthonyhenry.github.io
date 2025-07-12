@@ -6,7 +6,7 @@ const LEFT_UP_ARROW = document.querySelector("#left-up-arrow");
 const RIGHT_DOWN_ARROW = document.querySelector("#right-down-arrow");
 const STICKERS_CONTAINER = document.querySelector("#stickers");
 
-let scrollAxis = getScrollAxis()
+let scrollAxis = getScrollAxis();
 let scrollAmount = getScrollAmount();
 
 let scrollAnimationFrameRequest = null;
@@ -30,7 +30,7 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
             top: scrollAxis == "vertical" ? SCROLL_DIRECTION * SCROLL_SPEED : 0,
             left: scrollAxis == "horizontal" ? SCROLL_DIRECTION * SCROLL_SPEED : 0,
             behavior: "auto"
-        } // This is an object that will be passed through STICKERS_CONTAINER.scrollBy
+        }; // This is an object that will be passed through STICKERS_CONTAINER.scrollBy
 
         function scroll()
         {
@@ -97,7 +97,7 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
         }
 
         // First loop
-        scrollAnimationFrameRequest = requestAnimationFrame(scroll)
+        scrollAnimationFrameRequest = requestAnimationFrame(scroll);
     }
     arrow.addEventListener("touchstart", scrollStickers);
     arrow.addEventListener("touchend", stopScrolling);
