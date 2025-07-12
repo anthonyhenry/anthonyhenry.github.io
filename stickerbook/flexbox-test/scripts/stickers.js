@@ -26,7 +26,6 @@ for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
 
         const SCROLL_DIRECTION = arrow.dataset.direction == "left-up" ? -1 : 1;
         const SCROLL_SPEED = 3;
-        // scrollAxis = getScrollAxis();
         const SCROLL_OPTIONS = {
             top: scrollAxis == "vertical" ? SCROLL_DIRECTION * SCROLL_SPEED : 0,
             left: scrollAxis == "horizontal" ? SCROLL_DIRECTION * SCROLL_SPEED : 0,
@@ -121,7 +120,7 @@ window.addEventListener("resize", function(){
             percentScrolled = scrollAmount.horizontal / scrollAmount.width;
             STICKERS_CONTAINER.scrollTop = percentScrolled * STICKERS_CONTAINER.scrollHeight;
 
-            // Need to comment this
+            // Show right/down arrow if moving to vertical means the stickers aren't scrolled all the way
             if(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop != STICKERS_CONTAINER.scrollHeight)
             {
                 RIGHT_DOWN_ARROW.style.display = "block";
@@ -130,15 +129,19 @@ window.addEventListener("resize", function(){
         scrollAmount = getScrollAmount();
         scrollAxis = getScrollAxis();
     }
-
-    // Need to comment these
-    if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft != STICKERS_CONTAINER.scrollWidth)
+    
+    if(scrollAxis == "horizontal")
     {
-        RIGHT_DOWN_ARROW.style.display = "block";
-    }
-    if(scrollAxis == "horizontal" && STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft == STICKERS_CONTAINER.scrollWidth)
-    {
-        RIGHT_DOWN_ARROW.style.display = "none";
+        // Show the right/down arrow if resizing means the stickers container won't be scrolled all the way
+        if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft != STICKERS_CONTAINER.scrollWidth)
+        {
+            RIGHT_DOWN_ARROW.style.display = "block";
+        }
+        // Show the right/down arrow if resizing means the stickers container will be scrolled all the way
+        if(STICKERS_CONTAINER.clientWidth + STICKERS_CONTAINER.scrollLeft == STICKERS_CONTAINER.scrollWidth)
+        {
+            RIGHT_DOWN_ARROW.style.display = "none";
+        }
     }
 })
 
