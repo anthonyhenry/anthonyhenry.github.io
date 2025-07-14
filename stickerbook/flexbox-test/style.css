@@ -1,3 +1,7 @@
+/* * {
+  outline: 1px solid red;
+} */
+
 body
 /* .chewy-regular */
 {
@@ -182,6 +186,7 @@ header
         display: flex;
         justify-content: space-evenly;
         width: 100%;
+        padding: 0px;
     }
     
     #saves
