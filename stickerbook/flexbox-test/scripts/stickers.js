@@ -1,17 +1,67 @@
 ////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// Global Variables ///////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+const STICKER_PAGE_DIV = document.querySelector("#stickerPage")
+const STICKERS_CONTAINER = document.querySelector("#stickers");
+
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////// Create New Stickers /////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// console.log(STICKERS_CONTAINER);
+// console.log(STICKERS_CONTAINER.children);
+
+for(const sticker of STICKERS_CONTAINER.children)
+{
+    function createNewSticker(event)
+    {
+        console.log(sticker.width)
+        event.preventDefault(); // For touchstart, this will prevent mousedown from also firing
+
+        // Create a div for the new sticker
+        const NEW_STICKER_DIV = document.createElement("div");
+
+        // Style new sticker div
+        NEW_STICKER_DIV.style.position = "absolute";
+        NEW_STICKER_DIV.style.width = sticker.width + "px";
+        NEW_STICKER_DIV.style.height = sticker.height + "px";
+
+        // Add the sticker div to the sticker page element
+        STICKER_PAGE_DIV.appendChild(NEW_STICKER_DIV);
+
+        // Create a duplicate of the sticker
+        const NEW_STICKER_IMG = document.createElement("img");
+        NEW_STICKER_IMG.src = sticker.src;
+
+        // Add the sticker to the new sticker div
+        NEW_STICKER_DIV.appendChild(NEW_STICKER_IMG);
+
+        // Style the sticker
+        NEW_STICKER_IMG.style.height = "100%";
+        NEW_STICKER_IMG.style.width = "100%";
+        NEW_STICKER_IMG.style.pointerEvents = "none";
+
+    }
+    sticker.addEventListener("mousedown", createNewSticker);
+    sticker.addEventListener("touchstart", createNewSticker);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
 ////////////////////////// Sticker Gallery Scrolling //////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
 const LEFT_UP_ARROW = document.querySelector("#left-up-arrow");
 const RIGHT_DOWN_ARROW = document.querySelector("#right-down-arrow");
-const STICKERS_CONTAINER = document.querySelector("#stickers");
 
 let scrollAxis = getScrollAxis();
 let scrollAmount = getScrollAmount();
 
 let scrollAnimationFrameRequest = null;
 
-for(let arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
+for(const arrow of [LEFT_UP_ARROW, RIGHT_DOWN_ARROW])
 {
     function stopScrolling()
     {
