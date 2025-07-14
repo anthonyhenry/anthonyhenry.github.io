@@ -80,7 +80,7 @@ header
 }
 
 /* Hide arrows if the device has mouse support */
-/* @media (pointer: fine)
+@media (pointer: fine)
 {
     .arrow
     {
@@ -90,7 +90,7 @@ header
     {
         overflow: auto;
     }
-} */
+}
 
 @media screen and (max-width: 767px)
 {
