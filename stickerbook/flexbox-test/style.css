@@ -30,6 +30,11 @@ header
     width: 100%;
 }
 
+#stickerPage
+{
+    position: relative;
+}
+
 #stickerbook
 {
     background-color: brown;

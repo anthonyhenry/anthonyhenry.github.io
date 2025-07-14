@@ -43,11 +43,32 @@ for(const sticker of STICKERS_CONTAINER.children)
         NEW_STICKER_IMG.style.width = "100%";
         NEW_STICKER_IMG.style.pointerEvents = "none";
 
+        // Place the new sticker under the cursor
+        const ANCHOR = {
+            x: parseFloat(NEW_STICKER_DIV.style.width) / 2,
+            y: parseFloat(NEW_STICKER_DIV.style.height) / 2
+        };
+        const MOUSE_POS = getMousePos(event);
+        setStickerPos(NEW_STICKER_DIV, MOUSE_POS.x, MOUSE_POS.y, ANCHOR);
     }
     sticker.addEventListener("mousedown", createNewSticker);
     sticker.addEventListener("touchstart", createNewSticker);
 }
 
+function getMousePos(event)
+{
+    const MOUSE_POS = {
+        x: event.clientX ? event.clientX : event.touches[0].clientX,
+        y: event.clientY ? event.clientY : event.touches[0].clientY
+    };
+    return MOUSE_POS;
+}
+
+function setStickerPos(sticker, mousePosX, mousePosY, anchor)
+{
+    sticker.style.left = mousePosX - STICKER_PAGE_DIV.getBoundingClientRect().left - anchor.x + "px"; 
+    sticker.style.top = mousePosY - STICKER_PAGE_DIV.getBoundingClientRect().top - anchor.y + "px";
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////// Sticker Gallery Scrolling //////////////////////////
