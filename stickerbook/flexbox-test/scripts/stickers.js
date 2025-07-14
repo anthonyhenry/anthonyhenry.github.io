@@ -17,7 +17,6 @@ for(const sticker of STICKERS_CONTAINER.children)
 {
     function createNewSticker(event)
     {
-        console.log(sticker.width)
         event.preventDefault(); // For touchstart, this will prevent mousedown from also firing
 
         // Create a div for the new sticker
@@ -49,7 +48,10 @@ for(const sticker of STICKERS_CONTAINER.children)
             y: parseFloat(NEW_STICKER_DIV.style.height) / 2
         };
         const MOUSE_POS = getMousePos(event);
-        setStickerPos(NEW_STICKER_DIV, MOUSE_POS.x, MOUSE_POS.y, ANCHOR);
+        setPositionRelativeToMouse(NEW_STICKER_DIV, MOUSE_POS.x, MOUSE_POS.y, ANCHOR);
+
+        // Allow sticker to be moved
+        handleStickerMovement(NEW_STICKER_DIV, ANCHOR)
     }
     sticker.addEventListener("mousedown", createNewSticker);
     sticker.addEventListener("touchstart", createNewSticker);
@@ -64,10 +66,22 @@ function getMousePos(event)
     return MOUSE_POS;
 }
 
-function setStickerPos(sticker, mousePosX, mousePosY, anchor)
+function handleStickerMovement(sticker, anchor)
 {
-    sticker.style.left = mousePosX - STICKER_PAGE_DIV.getBoundingClientRect().left - anchor.x + "px"; 
-    sticker.style.top = mousePosY - STICKER_PAGE_DIV.getBoundingClientRect().top - anchor.y + "px";
+    function moveSticker(event)
+    {
+        const MOUSE_POS = getMousePos(event)
+
+        setPositionRelativeToMouse(sticker, MOUSE_POS.x, MOUSE_POS.y, anchor)
+    }
+    document.addEventListener("mousemove", moveSticker);
+    document.addEventListener("touchmove", moveSticker);
+}
+
+function setPositionRelativeToMouse(element, mousePosX, mousePosY, anchor)
+{
+    element.style.left = mousePosX - STICKER_PAGE_DIV.getBoundingClientRect().left - anchor.x + "px"; 
+    element.style.top = mousePosY - STICKER_PAGE_DIV.getBoundingClientRect().top - anchor.y + "px";
 }
 
 ////////////////////////////////////////////////////////////////////////////////
