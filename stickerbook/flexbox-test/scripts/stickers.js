@@ -4,20 +4,21 @@
 
 const STICKER_PAGE_DIV = document.querySelector("#stickerPage")
 const STICKERS_CONTAINER = document.querySelector("#stickers");
-
+const CANVAS_DIV = document.querySelector("#canvas");
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Create New Stickers /////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
-// console.log(STICKERS_CONTAINER);
-// console.log(STICKERS_CONTAINER.children);
 
 for(const sticker of STICKERS_CONTAINER.children)
 {
     function createNewSticker(event)
     {
         event.preventDefault(); // For touchstart, this will prevent mousedown from also firing
+
+        /////////////////////////////////////// 
+        // NEED TO CLEAR ACTIVE STICKER HERE //
+        ///////////////////////////////////////
 
         // Create a div for the new sticker
         const NEW_STICKER_DIV = document.createElement("div");
@@ -57,14 +58,9 @@ for(const sticker of STICKERS_CONTAINER.children)
     sticker.addEventListener("touchstart", createNewSticker);
 }
 
-function getMousePos(event)
-{
-    const MOUSE_POS = {
-        x: event.clientX ? event.clientX : event.touches[0].clientX,
-        y: event.clientY ? event.clientY : event.touches[0].clientY
-    };
-    return MOUSE_POS;
-}
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// Move Stickers ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 function handleStickerMovement(sticker, anchor)
 {
@@ -76,6 +72,33 @@ function handleStickerMovement(sticker, anchor)
     }
     document.addEventListener("mousemove", moveSticker);
     document.addEventListener("touchmove", moveSticker);
+
+    function stopMovingSticker()
+    {
+        if(stickerIsOnCanvas(sticker))
+        {
+            // Add new stickers to the canvas
+            if(sticker.parentElement != CANVAS_DIV)
+            {
+                CANVAS_DIV.appendChild(sticker);
+                sticker.classList.add("placed-sticker");
+            }
+        }
+        else
+        {
+            removeElement(sticker);
+        }
+
+        // Disable listeners
+        document.removeEventListener("mousemove", moveSticker);
+        document.removeEventListener("touchmove", moveSticker);
+        document.removeEventListener("mouseup", stopMovingSticker);
+        document.removeEventListener("touchend", stopMovingSticker);
+        document.removeEventListener("touchcancel", stopMovingSticker);
+    }
+    document.addEventListener("mouseup", stopMovingSticker);
+    document.addEventListener("touchend", stopMovingSticker);
+    document.addEventListener("touchcancel", stopMovingSticker);
 }
 
 function setPositionRelativeToMouse(element, mousePosX, mousePosY, anchor)
@@ -83,6 +106,12 @@ function setPositionRelativeToMouse(element, mousePosX, mousePosY, anchor)
     element.style.left = mousePosX - STICKER_PAGE_DIV.getBoundingClientRect().left - anchor.x + "px"; 
     element.style.top = mousePosY - STICKER_PAGE_DIV.getBoundingClientRect().top - anchor.y + "px";
 }
+
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Set and Clear Active Sticker /////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////// Sticker Gallery Scrolling //////////////////////////
@@ -253,3 +282,35 @@ if(!window.matchMedia("(pointer: fine)").matches)
 /////////////////////////////// Helper Functions ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+function getMousePos(event)
+{
+    const MOUSE_POS = {
+        x: event.clientX ? event.clientX : event.touches[0].clientX,
+        y: event.clientY ? event.clientY : event.touches[0].clientY
+    };
+    return MOUSE_POS;
+}
+
+function stickerIsOnCanvas(sticker)
+{
+    const CANVAS_RECT = CANVAS_DIV.getBoundingClientRect();
+
+    const STICKER_RECT = sticker.getBoundingClientRect();
+
+    if(STICKER_RECT.right >= CANVAS_RECT.left 
+        && STICKER_RECT.left <= CANVAS_RECT.right 
+        && STICKER_RECT.bottom >= CANVAS_RECT.top 
+        && STICKER_RECT.top <= CANVAS_RECT.bottom)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function removeElement(element)
+{
+    element.parentElement.removeChild(element);
+}
