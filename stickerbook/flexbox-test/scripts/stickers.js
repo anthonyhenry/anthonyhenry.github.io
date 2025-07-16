@@ -7,6 +7,7 @@ const STICKERS_CONTAINER = document.querySelector("#stickers");
 const CANVAS_DIV = document.querySelector("#canvas");
 let activeSticker = null;
 const TOOLBAR = document.querySelector("#toolbar");
+const HTML_ELEMENT = document.querySelector("html");
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Create New Stickers /////////////////////////////
@@ -185,6 +186,39 @@ function clearActiveSticker()
         activeSticker = null;
     }
 }
+
+function changeActiveSticker(event)
+{
+    const TARGET_CLASSES = event.target.classList;
+    const STICKER_CLICKED = TARGET_CLASSES.contains("template-sticker") || TARGET_CLASSES.contains("placed-sticker");
+
+    if(STICKER_CLICKED)
+    {
+        // set cursor to grabbing
+        if(activeSticker)
+        {
+            activeSticker.style.cursor = "";
+        }
+        HTML_ELEMENT.style.cursor = "grabbing";
+
+        // Reset cursor on mouse up
+        function resetCursor()
+        {
+            HTML_ELEMENT.style.cursor = "default";
+            if(activeSticker)
+            {
+                activeSticker.style.cursor = "all-scroll";
+            }
+            document.removeEventListener("mouseup", resetCursor);
+        }
+        document.addEventListener("mouseup", resetCursor);
+    }
+    else
+    {
+        clearActiveSticker();
+    }
+}
+// document.addEventListener("mousedown", changeActiveSticker);
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Keyboard Inputs ///////////////////////////////
