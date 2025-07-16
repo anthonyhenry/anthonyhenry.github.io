@@ -62,6 +62,33 @@ for(const sticker of STICKERS_CONTAINER.children)
 //////////////////////////////// Move Stickers ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+function handlePlacedStickerClicked(event)
+{
+    if(event.target.classList.contains("placed-sticker"))
+    {
+        event.preventDefault();
+
+        const CLICKED_STICKER = event.target;
+
+        // Make this the active sticker
+        if(activeSticker != CLICKED_STICKER)
+        {
+            setActiveSticker(CLICKED_STICKER);
+        }
+
+        // Allow sticker to be moved
+        const MOUSE_POS = getMousePos(event);
+        const STICKER_RECT = CLICKED_STICKER.getBoundingClientRect();
+        const ANCHOR = {
+            x: MOUSE_POS.x - STICKER_RECT.left,
+            y: MOUSE_POS.y - STICKER_RECT.top
+        }
+        handleStickerMouseMovement(CLICKED_STICKER, ANCHOR);
+    }
+}
+CANVAS_DIV.addEventListener("mousedown", handlePlacedStickerClicked);
+CANVAS_DIV.addEventListener("touchstart", handlePlacedStickerClicked);
+
 function handleStickerMouseMovement(sticker, anchor)
 {
     function moveSticker(event)
