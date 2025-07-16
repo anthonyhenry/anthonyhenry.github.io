@@ -5,6 +5,7 @@
 const STICKER_PAGE_DIV = document.querySelector("#stickerPage")
 const STICKERS_CONTAINER = document.querySelector("#stickers");
 const CANVAS_DIV = document.querySelector("#canvas");
+let activeSticker = null;
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Create New Stickers /////////////////////////////
@@ -16,9 +17,7 @@ for(const sticker of STICKERS_CONTAINER.children)
     {
         event.preventDefault(); // For touchstart, this will prevent mousedown from also firing
 
-        /////////////////////////////////////// 
-        // NEED TO CLEAR ACTIVE STICKER HERE //
-        ///////////////////////////////////////
+        clearActiveSticker();
 
         // Create a div for the new sticker
         const NEW_STICKER_DIV = document.createElement("div");
@@ -75,13 +74,15 @@ function handleStickerMovement(sticker, anchor)
 
     function stopMovingSticker()
     {
-        if(stickerIsOnCanvas(sticker))
+        // Only keep stickers that are visible on the canvas
+        if(stickerIsVisibleOnCanvas(sticker))
         {
             // Add new stickers to the canvas
             if(sticker.parentElement != CANVAS_DIV)
             {
                 CANVAS_DIV.appendChild(sticker);
                 sticker.classList.add("placed-sticker");
+                setActiveSticker(sticker);
             }
         }
         else
@@ -111,6 +112,25 @@ function setPositionRelativeToMouse(element, mousePosX, mousePosY, anchor)
 ///////////////////////// Set and Clear Active Sticker /////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+function setActiveSticker(sticker)
+{
+    clearActiveSticker();
+
+    activeSticker = sticker;
+    activeSticker.style.cursor = "all-scroll";
+    activeSticker.style.outline = "2px dashed blue";
+}
+
+function clearActiveSticker()
+{
+    if(activeSticker)
+    {
+        // Reset active sticker
+        activeSticker.style.outline = "initial";
+        activeSticker.style.cursor = "default";
+        activeSticker = null;
+    }
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -278,6 +298,7 @@ if(!window.matchMedia("(pointer: fine)").matches)
         return window.getComputedStyle(STICKERS_CONTAINER).display == "block" ? "vertical" : "horizontal";
     }
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Helper Functions ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -291,7 +312,7 @@ function getMousePos(event)
     return MOUSE_POS;
 }
 
-function stickerIsOnCanvas(sticker)
+function stickerIsVisibleOnCanvas(sticker)
 {
     const CANVAS_RECT = CANVAS_DIV.getBoundingClientRect();
 
