@@ -134,6 +134,29 @@ function handleStickerArrowMovement(direction)
     }
 }
 
+document.querySelector("#toolbar").addEventListener("mousedown", function(event){
+    // Arrow clicked
+    if(event.target.classList.contains("arrow-movement-control"))
+    {
+        event.preventDefault();
+        let moveAnimationRequest = null;
+        function moveSticker()
+        {
+            handleStickerArrowMovement(event.target.dataset.direction);
+            moveAnimationRequest = requestAnimationFrame(moveSticker);
+        }
+        moveAnimationRequest = requestAnimationFrame(moveSticker);
+        
+        function stopMovingSticker()
+        {
+            cancelAnimationFrame(moveAnimationRequest);
+            moveAnimationRequest = null;
+            document.removeEventListener("mouseup", stopMovingSticker);
+        }
+        document.addEventListener("mouseup", stopMovingSticker);
+    }
+})
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Set and Clear Active Sticker /////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
