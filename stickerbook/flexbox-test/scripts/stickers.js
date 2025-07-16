@@ -6,6 +6,7 @@ const STICKER_PAGE_DIV = document.querySelector("#stickerPage")
 const STICKERS_CONTAINER = document.querySelector("#stickers");
 const CANVAS_DIV = document.querySelector("#canvas");
 let activeSticker = null;
+const TOOLBAR = document.querySelector("#toolbar");
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Create New Stickers /////////////////////////////
@@ -108,7 +109,7 @@ function setPositionRelativeToMouse(element, mousePosX, mousePosY, anchor)
     element.style.top = mousePosY - STICKER_PAGE_DIV.getBoundingClientRect().top - anchor.y + "px";
 }
 
-function handleStickerArrowMovement(direction)
+function setPositionRelativeToPreviousPosition(direction)
 {
     if(activeSticker)
     {
@@ -133,29 +134,6 @@ function handleStickerArrowMovement(direction)
         }
     }
 }
-
-document.querySelector("#toolbar").addEventListener("mousedown", function(event){
-    // Arrow clicked
-    if(event.target.classList.contains("arrow-movement-control"))
-    {
-        event.preventDefault();
-        let moveAnimationRequest = null;
-        function moveSticker()
-        {
-            handleStickerArrowMovement(event.target.dataset.direction);
-            moveAnimationRequest = requestAnimationFrame(moveSticker);
-        }
-        moveAnimationRequest = requestAnimationFrame(moveSticker);
-        
-        function stopMovingSticker()
-        {
-            cancelAnimationFrame(moveAnimationRequest);
-            moveAnimationRequest = null;
-            document.removeEventListener("mouseup", stopMovingSticker);
-        }
-        document.addEventListener("mouseup", stopMovingSticker);
-    }
-})
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Set and Clear Active Sticker /////////////////////////
@@ -190,22 +168,59 @@ document.addEventListener("keydown", function(event){
     {
         case "ArrowUp":
             event.preventDefault();
-            handleStickerArrowMovement("up");
+            setPositionRelativeToPreviousPosition("up");
             break;
         case "ArrowDown":
             event.preventDefault();
-            handleStickerArrowMovement("down");
+            setPositionRelativeToPreviousPosition("down");
             break;
         case "ArrowLeft":
             event.preventDefault();
-            handleStickerArrowMovement("left");
+            setPositionRelativeToPreviousPosition("left");
             break;
         case "ArrowRight":
             event.preventDefault();
-            handleStickerArrowMovement("right");
+            setPositionRelativeToPreviousPosition("right");
             break;
     }
 })
+
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// Toolbar Inputs ////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+function handleToolbarInputs(event)
+{
+    // Arrow inputs
+    if(event.target.classList.contains("arrow-movement-control"))
+    {
+        event.preventDefault();
+        
+        // Animation frame loop to move active sticker
+        let moveAnimationRequest = null;
+        function moveSticker()
+        {
+            setPositionRelativeToPreviousPosition(event.target.dataset.direction);
+            moveAnimationRequest = requestAnimationFrame(moveSticker);
+        }
+        moveAnimationRequest = requestAnimationFrame(moveSticker);
+        
+        // End animation frame loop
+        function stopMovingSticker()
+        {
+            cancelAnimationFrame(moveAnimationRequest);
+            moveAnimationRequest = null;
+            document.removeEventListener("mouseup", stopMovingSticker);
+            document.removeEventListener("touchend", stopMovingSticker);
+            document.removeEventListener("touchcancel", stopMovingSticker);
+        }
+        document.addEventListener("mouseup", stopMovingSticker);
+        document.addEventListener("touchend", stopMovingSticker);
+        document.addEventListener("touchcancel", stopMovingSticker);
+    }
+}
+TOOLBAR.addEventListener("mousedown", handleToolbarInputs);
+TOOLBAR.addEventListener("touchstart", handleToolbarInputs);
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////// Sticker Gallery Scrolling //////////////////////////
