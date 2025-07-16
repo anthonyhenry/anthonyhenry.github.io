@@ -51,7 +51,7 @@ for(const sticker of STICKERS_CONTAINER.children)
         setPositionRelativeToMouse(NEW_STICKER_DIV, MOUSE_POS.x, MOUSE_POS.y, ANCHOR);
 
         // Allow sticker to be moved
-        handleStickerMovement(NEW_STICKER_DIV, ANCHOR)
+        handleStickerMouseMovement(NEW_STICKER_DIV, ANCHOR)
     }
     sticker.addEventListener("mousedown", createNewSticker);
     sticker.addEventListener("touchstart", createNewSticker);
@@ -61,7 +61,7 @@ for(const sticker of STICKERS_CONTAINER.children)
 //////////////////////////////// Move Stickers ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function handleStickerMovement(sticker, anchor)
+function handleStickerMouseMovement(sticker, anchor)
 {
     function moveSticker(event)
     {
@@ -108,6 +108,32 @@ function setPositionRelativeToMouse(element, mousePosX, mousePosY, anchor)
     element.style.top = mousePosY - STICKER_PAGE_DIV.getBoundingClientRect().top - anchor.y + "px";
 }
 
+function handleStickerArrowMovement(direction)
+{
+    if(activeSticker)
+    {
+        const CURRENT_Y_POS = parseFloat(activeSticker.style.top);
+        const CURRENT_X_POS = parseFloat(activeSticker.style.left);
+        const MOVE_SPEED = 3;
+
+        switch(direction)
+        {
+            case "up":
+                activeSticker.style.top = CURRENT_Y_POS - MOVE_SPEED + "px";
+                break;
+            case "down":
+                activeSticker.style.top = CURRENT_Y_POS + MOVE_SPEED + "px";
+                break;
+            case "left":
+                activeSticker.style.left = CURRENT_X_POS - MOVE_SPEED + "px";
+                break;
+            case "right":
+                activeSticker.style.left = CURRENT_X_POS + MOVE_SPEED + "px";
+                break;
+        }
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Set and Clear Active Sticker /////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -132,6 +158,31 @@ function clearActiveSticker()
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// Keyboard Inputs ///////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+document.addEventListener("keydown", function(event){    
+    switch(event.key)
+    {
+        case "ArrowUp":
+            event.preventDefault();
+            handleStickerArrowMovement("up");
+            break;
+        case "ArrowDown":
+            event.preventDefault();
+            handleStickerArrowMovement("down");
+            break;
+        case "ArrowLeft":
+            event.preventDefault();
+            handleStickerArrowMovement("left");
+            break;
+        case "ArrowRight":
+            event.preventDefault();
+            handleStickerArrowMovement("right");
+            break;
+    }
+})
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////// Sticker Gallery Scrolling //////////////////////////
