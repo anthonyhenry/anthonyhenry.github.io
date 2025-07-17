@@ -189,10 +189,8 @@ function clearActiveSticker()
 
 function changeActiveSticker(event)
 {
-    const TARGET_CLASSES = event.target.classList;
-    const STICKER_CLICKED = TARGET_CLASSES.contains("template-sticker") || TARGET_CLASSES.contains("placed-sticker");
-
-    if(STICKER_CLICKED)
+    // A sticker was clicked
+    if(stickerClicked(event.target))
     {
         // set cursor to grabbing
         if(activeSticker)
@@ -213,12 +211,13 @@ function changeActiveSticker(event)
         }
         document.addEventListener("mouseup", resetCursor);
     }
-    else
+    // Clicked element is not a sticker or a button in the toolbar
+    else if(!stickerControlClicked(event.target))
     {
         clearActiveSticker();
     }
 }
-// document.addEventListener("mousedown", changeActiveSticker);
+document.addEventListener("mousedown", changeActiveSticker);
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Keyboard Inputs ///////////////////////////////
@@ -485,3 +484,17 @@ function removeElement(element)
 {
     element.parentElement.removeChild(element);
 }
+
+function stickerClicked(clickedElement)
+{
+    return clickedElement.classList.contains("template-sticker") || clickedElement.classList.contains("placed-sticker");
+}
+
+function stickerControlClicked(clickedElement)
+{
+    return clickedElement.hasAttribute("id") && clickedElement.parentElement.id == "toolbar";
+}
+
+// Delete stickers that are moved out of frame by keyboard or toolbar controls
+// See about setting active sticker in document mousedown event instead of move sticker function
+// Ask chat-gpt if there is a more efficient way to handle movement controls
