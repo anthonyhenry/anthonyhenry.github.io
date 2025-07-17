@@ -37,14 +37,20 @@ header
     width: 100%;
 }
 
+#stickerbook
+{
+    /* background-color: brown; */
+}
+
 #stickerPage
 {
     position: relative;
 }
 
-#stickerbook
+#canvas
 {
-    /* background-color: brown; */
+    overflow: hidden;
+    position: relative;
 }
 
 #stickerGallery
