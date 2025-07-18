@@ -30,6 +30,7 @@ header
     margin: 0px 5px;
     border: 1px solid black;
     font-size: 18pt;
+    color: lightgray;
 }
 
 #sceneBackground

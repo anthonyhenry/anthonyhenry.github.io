@@ -160,6 +160,16 @@ function setPositionRelativeToPreviousPosition(direction)
                 activeSticker.style.left = CURRENT_X_POS + MOVE_SPEED + "px";
                 break;
         }
+
+        if(!stickerIsVisibleOnCanvas(activeSticker))
+        {
+            console.log(activeSticker)
+            removeElement(activeSticker);
+            console.log(activeSticker)
+            clearActiveSticker();
+            console.log(activeSticker)
+            console.log("===")
+        }
     }
 }
 
@@ -174,6 +184,11 @@ function setActiveSticker(sticker)
     activeSticker = sticker;
     activeSticker.style.cursor = "all-scroll";
     activeSticker.style.outline = "2px dashed blue";
+
+    for(const button of TOOLBAR.children)
+    {
+        button.style.color = "black";   
+    }
 }
 
 function clearActiveSticker()
@@ -184,6 +199,11 @@ function clearActiveSticker()
         activeSticker.style.outline = "initial";
         activeSticker.style.cursor = "default";
         activeSticker = null;
+    }
+
+    for(const button of TOOLBAR.children)
+    {
+        button.style.color = "lightgray";   
     }
 }
 
@@ -492,7 +512,7 @@ function stickerClicked(clickedElement)
 
 function stickerControlClicked(clickedElement)
 {
-    return clickedElement.hasAttribute("id") && clickedElement.parentElement.id == "toolbar";
+    return clickedElement.parentElement.hasAttribute("id") && clickedElement.parentElement.id == "toolbar";
 }
 
 // Delete stickers that are moved out of frame by keyboard or toolbar controls
