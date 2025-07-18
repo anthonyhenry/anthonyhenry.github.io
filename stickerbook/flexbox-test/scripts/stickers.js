@@ -56,7 +56,7 @@ for(const sticker of STICKERS_CONTAINER.children)
         handleStickerMouseMovement(NEW_STICKER_DIV, ANCHOR)
     }
     sticker.addEventListener("mousedown", createNewSticker);
-    sticker.addEventListener("touchstart", createNewSticker);
+    // sticker.addEventListener("touchstart", createNewSticker);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -515,6 +515,4 @@ function stickerControlClicked(clickedElement)
     return clickedElement.parentElement.hasAttribute("id") && clickedElement.parentElement.id == "toolbar";
 }
 
-// Delete stickers that are moved out of frame by keyboard or toolbar controls
-// See about setting active sticker in document mousedown event instead of move sticker function
-// Ask chat-gpt if there is a more efficient way to handle movement controls
+// Test turning off touch start. Test on phone and MS surface. Turned off touch start for creating new stickers to test
