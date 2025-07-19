@@ -2,7 +2,7 @@
 /////////////////////////////// Global Variables ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-const STICKER_PAGE_DIV = document.querySelector("#stickerPage")
+const STICKER_PAGE_DIV = document.querySelector("#stickerPage");
 const STICKERS_CONTAINER = document.querySelector("#stickers");
 const CANVAS_DIV = document.querySelector("#canvas");
 let activeSticker = null;
@@ -53,10 +53,10 @@ for(const sticker of STICKERS_CONTAINER.children)
         setPositionRelativeToMouse(NEW_STICKER_DIV, MOUSE_POS.x, MOUSE_POS.y, ANCHOR);
 
         // Allow sticker to be moved
-        handleStickerMouseMovement(NEW_STICKER_DIV, ANCHOR)
+        handleStickerMouseMovement(NEW_STICKER_DIV, ANCHOR);
     }
     sticker.addEventListener("mousedown", createNewSticker);
-    // sticker.addEventListener("touchstart", createNewSticker);
+    sticker.addEventListener("touchstart", createNewSticker);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -163,12 +163,7 @@ function setPositionRelativeToPreviousPosition(direction)
 
         if(!stickerIsVisibleOnCanvas(activeSticker))
         {
-            console.log(activeSticker)
             removeElement(activeSticker);
-            console.log(activeSticker)
-            clearActiveSticker();
-            console.log(activeSticker)
-            console.log("===")
         }
     }
 }
@@ -502,6 +497,11 @@ function stickerIsVisibleOnCanvas(sticker)
 
 function removeElement(element)
 {
+    if(element == activeSticker)
+    {
+        clearActiveSticker();
+    }
+
     element.parentElement.removeChild(element);
 }
 
@@ -512,7 +512,7 @@ function stickerClicked(clickedElement)
 
 function stickerControlClicked(clickedElement)
 {
-    return clickedElement.parentElement.hasAttribute("id") && clickedElement.parentElement.id == "toolbar";
+    return clickedElement == TOOLBAR || clickedElement.parentElement == TOOLBAR;
 }
 
 // Test turning off touch start. Test on phone and MS surface. Turned off touch start for creating new stickers to test
