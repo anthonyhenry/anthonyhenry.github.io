@@ -63,33 +63,6 @@ for(const sticker of STICKERS_CONTAINER.children)
 //////////////////////////////// Move Stickers ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function handlePlacedStickerClicked(event)
-{
-    if(event.target.classList.contains("placed-sticker"))
-    {
-        event.preventDefault();
-
-        const CLICKED_STICKER = event.target;
-
-        // Make this the active sticker
-        if(activeSticker != CLICKED_STICKER)
-        {
-            setActiveSticker(CLICKED_STICKER);
-        }
-
-        // Allow sticker to be moved
-        const MOUSE_POS = getMousePos(event);
-        const STICKER_RECT = CLICKED_STICKER.getBoundingClientRect();
-        const ANCHOR = {
-            x: MOUSE_POS.x - STICKER_RECT.left,
-            y: MOUSE_POS.y - STICKER_RECT.top
-        }
-        handleStickerMouseMovement(CLICKED_STICKER, ANCHOR);
-    }
-}
-CANVAS_DIV.addEventListener("mousedown", handlePlacedStickerClicked);
-CANVAS_DIV.addEventListener("touchstart", handlePlacedStickerClicked);
-
 function handleStickerMouseMovement(sticker, anchor)
 {
     function moveSticker(event)
@@ -202,7 +175,48 @@ function clearActiveSticker()
     }
 }
 
-function changeActiveSticker(event)
+function clearActiveStickerOnClickOrTouch(event)
+{
+    if(!stickerClicked(event.target) && !toolbarClicked(event.target))
+    {
+        clearActiveSticker();
+    }
+}
+document.addEventListener("mousedown", clearActiveStickerOnClickOrTouch);
+document.addEventListener("touchstart", clearActiveStickerOnClickOrTouch);
+
+function handlePlacedStickerClicked(event)
+{
+    if(event.target.classList.contains("placed-sticker"))
+    {
+        event.preventDefault();
+
+        const CLICKED_STICKER = event.target;
+
+        // Make this the active sticker
+        if(activeSticker != CLICKED_STICKER)
+        {
+            setActiveSticker(CLICKED_STICKER);
+        }
+
+        // Allow sticker to be moved
+        const MOUSE_POS = getMousePos(event);
+        const STICKER_RECT = CLICKED_STICKER.getBoundingClientRect();
+        const ANCHOR = {
+            x: MOUSE_POS.x - STICKER_RECT.left,
+            y: MOUSE_POS.y - STICKER_RECT.top
+        }
+        handleStickerMouseMovement(CLICKED_STICKER, ANCHOR);
+    }
+}
+CANVAS_DIV.addEventListener("mousedown", handlePlacedStickerClicked);
+CANVAS_DIV.addEventListener("touchstart", handlePlacedStickerClicked);
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// Set Cursor //////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+function setCursor(event)
 {
     // A sticker was clicked
     if(stickerClicked(event.target))
@@ -226,13 +240,9 @@ function changeActiveSticker(event)
         }
         document.addEventListener("mouseup", resetCursor);
     }
-    // Clicked element is not a sticker or a button in the toolbar
-    else if(!stickerControlClicked(event.target))
-    {
-        clearActiveSticker();
-    }
 }
-document.addEventListener("mousedown", changeActiveSticker);
+document.addEventListener("mousedown", setCursor);
+
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Keyboard Inputs ///////////////////////////////
@@ -510,7 +520,7 @@ function stickerClicked(clickedElement)
     return clickedElement.classList.contains("template-sticker") || clickedElement.classList.contains("placed-sticker");
 }
 
-function stickerControlClicked(clickedElement)
+function toolbarClicked(clickedElement)
 {
     return clickedElement == TOOLBAR || clickedElement.parentElement == TOOLBAR;
 }
