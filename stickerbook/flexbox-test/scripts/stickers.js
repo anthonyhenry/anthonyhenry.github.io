@@ -185,7 +185,7 @@ function clearActiveStickerOnClickOrTouch(event)
 document.addEventListener("mousedown", clearActiveStickerOnClickOrTouch);
 document.addEventListener("touchstart", clearActiveStickerOnClickOrTouch);
 
-function handlePlacedStickerClicked(event)
+function handlePlacedStickerInteraction(event)
 {
     if(event.target.classList.contains("placed-sticker"))
     {
@@ -209,8 +209,8 @@ function handlePlacedStickerClicked(event)
         handleStickerMouseMovement(CLICKED_STICKER, ANCHOR);
     }
 }
-CANVAS_DIV.addEventListener("mousedown", handlePlacedStickerClicked);
-CANVAS_DIV.addEventListener("touchstart", handlePlacedStickerClicked);
+CANVAS_DIV.addEventListener("mousedown", handlePlacedStickerInteraction);
+CANVAS_DIV.addEventListener("touchstart", handlePlacedStickerInteraction);
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Set Cursor //////////////////////////////////
