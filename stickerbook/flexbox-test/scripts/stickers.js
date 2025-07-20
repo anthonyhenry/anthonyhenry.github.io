@@ -536,11 +536,14 @@ function toolbarClicked(clickedElement)
 
 function test()
 {
-    console.log("left: " + activeSticker.style.left);
-    console.log("top: " + activeSticker.style.top);
-    console.log("width: " + activeSticker.style.width);
-    console.log("height: " + activeSticker.style.height);
+    // console.log("left: " + activeSticker.style.left);
+    // console.log("top: " + activeSticker.style.top);
+    // console.log("width: " + activeSticker.style.width);
+    // console.log("height: " + activeSticker.style.height);
+    document.querySelector("#test").innerText = window.getComputedStyle(CANVAS_DIV).width
+    console.log(window.getComputedStyle(CANVAS_DIV).width);
 }
+document.addEventListener("touchstart", test);
 
 function convertPixelPositionToPercent()
 {
