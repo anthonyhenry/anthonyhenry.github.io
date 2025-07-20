@@ -86,6 +86,7 @@ function handleStickerMouseMovement(sticker, anchor)
                 sticker.classList.add("placed-sticker");
                 setActiveSticker(sticker);
             }
+            convertPixelPositionToPercent();
         }
         else
         {
@@ -114,6 +115,7 @@ function setPositionRelativeToPreviousPosition(direction)
 {
     if(activeSticker)
     {
+        convertPercentPositionToPixels();
         const CURRENT_Y_POS = parseFloat(activeSticker.style.top);
         const CURRENT_X_POS = parseFloat(activeSticker.style.left);
         const MOVE_SPEED = 3;
@@ -137,6 +139,10 @@ function setPositionRelativeToPreviousPosition(direction)
         if(!stickerIsVisibleOnCanvas(activeSticker))
         {
             removeElement(activeSticker);
+        }
+        else
+        {
+            convertPixelPositionToPercent();
         }
     }
 }
@@ -200,6 +206,7 @@ function handlePlacedStickerInteraction(event)
         }
 
         // Allow sticker to be moved
+        convertPercentPositionToPixels();
         const MOUSE_POS = getMousePos(event);
         const STICKER_RECT = CLICKED_STICKER.getBoundingClientRect();
         const ANCHOR = {
@@ -526,3 +533,34 @@ function toolbarClicked(clickedElement)
 }
 
 // Test turning off touch start. Test on phone and MS surface. Turned off touch start for creating new stickers to test
+
+function test()
+{
+    console.log("left: " + activeSticker.style.left);
+    console.log("top: " + activeSticker.style.top);
+    console.log("width: " + activeSticker.style.width);
+    console.log("height: " + activeSticker.style.height);
+}
+
+function convertPixelPositionToPercent()
+{
+    if(activeSticker.style.left.includes("px"))
+    {
+        const CANVAS_RECT = CANVAS_DIV.getBoundingClientRect();
+        activeSticker.style.left = ((parseFloat(activeSticker.style.left) / parseFloat(CANVAS_RECT.width)) * 100) + "%";
+        activeSticker.style.top = ((parseFloat(activeSticker.style.top) / parseFloat(CANVAS_RECT.height)) * 100) + "%";
+        activeSticker.style.width = ((parseFloat(activeSticker.style.width) / parseFloat(CANVAS_RECT.width)) * 100) + "%";
+        activeSticker.style.height = ((parseFloat(activeSticker.style.height) / parseFloat(CANVAS_RECT.height)) * 100) + "%";
+    }
+}
+function convertPercentPositionToPixels()
+{
+    if(activeSticker.style.left.includes("%"))
+    {
+        const CANVAS_RECT = CANVAS_DIV.getBoundingClientRect();
+        activeSticker.style.left = ((parseFloat(activeSticker.style.left) / 100) * parseFloat(CANVAS_RECT.width)) + "px";
+        activeSticker.style.top = ((parseFloat(activeSticker.style.top) / 100) * parseFloat(CANVAS_RECT.height)) + "px";
+        activeSticker.style.width = ((parseFloat(activeSticker.style.width) / 100) * parseFloat(CANVAS_RECT.width)) + "px";
+        activeSticker.style.height = ((parseFloat(activeSticker.style.height) / 100) * parseFloat(CANVAS_RECT.height)) + "px";
+    }
+}
