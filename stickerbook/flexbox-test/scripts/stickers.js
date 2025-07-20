@@ -63,6 +63,33 @@ for(const sticker of STICKERS_CONTAINER.children)
 //////////////////////////////// Move Stickers ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+function handlePlacedStickerClicked(event)
+{
+    if(event.target.classList.contains("placed-sticker"))
+    {
+        event.preventDefault();
+
+        const CLICKED_STICKER = event.target;
+
+        // Make this the active sticker
+        if(activeSticker != CLICKED_STICKER)
+        {
+            setActiveSticker(CLICKED_STICKER);
+        }
+
+        // Allow sticker to be moved
+        const MOUSE_POS = getMousePos(event);
+        const STICKER_RECT = CLICKED_STICKER.getBoundingClientRect();
+        const ANCHOR = {
+            x: MOUSE_POS.x - STICKER_RECT.left,
+            y: MOUSE_POS.y - STICKER_RECT.top
+        }
+        handleStickerMouseMovement(CLICKED_STICKER, ANCHOR);
+    }
+}
+CANVAS_DIV.addEventListener("mousedown", handlePlacedStickerClicked);
+CANVAS_DIV.addEventListener("touchstart", handlePlacedStickerClicked);
+
 function handleStickerMouseMovement(sticker, anchor)
 {
     function moveSticker(event)
@@ -145,31 +172,17 @@ function setPositionRelativeToPreviousPosition(direction)
 ///////////////////////// Set and Clear Active Sticker /////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function setActiveSticker(sticker, event = null)
+function setActiveSticker(sticker)
 {
-    if(sticker != activeSticker)
-    {
-        clearActiveSticker();
+    clearActiveSticker();
 
-        activeSticker = sticker;
-        activeSticker.style.cursor = "all-scroll";
-        activeSticker.style.outline = "2px dashed blue";
+    activeSticker = sticker;
+    activeSticker.style.cursor = "all-scroll";
+    activeSticker.style.outline = "2px dashed blue";
 
-        for(const button of TOOLBAR.children)
-        {
-            button.style.color = "black";   
-        }
-    }
-    if(event)
+    for(const button of TOOLBAR.children)
     {
-        // Allow sticker to be moved by mouse or touch input
-        const MOUSE_POS = getMousePos(event);
-        const STICKER_RECT = sticker.getBoundingClientRect();
-        const ANCHOR = {
-            x: MOUSE_POS.x - STICKER_RECT.left,
-            y: MOUSE_POS.y - STICKER_RECT.top
-        };
-        handleStickerMouseMovement(sticker, ANCHOR);
+        button.style.color = "black";   
     }
 }
 
@@ -189,31 +202,7 @@ function clearActiveSticker()
     }
 }
 
-function updateActiveStickerOnClickOrTouch(event)
-{
-    // A sticker was clicked
-    if(stickerClicked(event.target))
-    {
-        if(event.target.classList.contains("placed-sticker"))
-        {
-            event.preventDefault();
-            setActiveSticker(event.target, event);
-        }
-    }
-    // Clicked element is not a sticker or a button in the toolbar
-    else if(!stickerControlClicked(event.target))
-    {
-        clearActiveSticker();
-    }
-}
-document.addEventListener("mousedown", updateActiveStickerOnClickOrTouch);
-document.addEventListener("touchstart", updateActiveStickerOnClickOrTouch);
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////// Set Cursor //////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-function setCursor(event)
+function changeActiveSticker(event)
 {
     // A sticker was clicked
     if(stickerClicked(event.target))
@@ -237,8 +226,13 @@ function setCursor(event)
         }
         document.addEventListener("mouseup", resetCursor);
     }
+    // Clicked element is not a sticker or a button in the toolbar
+    else if(!stickerControlClicked(event.target))
+    {
+        clearActiveSticker();
+    }
 }
-document.addEventListener("mousedown", setCursor);
+document.addEventListener("mousedown", changeActiveSticker);
 
 ////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Keyboard Inputs ///////////////////////////////
