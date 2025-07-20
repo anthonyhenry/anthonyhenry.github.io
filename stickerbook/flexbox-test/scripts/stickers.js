@@ -171,7 +171,7 @@ function clearActiveSticker()
 
     for(const button of TOOLBAR.children)
     {
-        button.style.color = "lightgray";   
+        button.style.color = "lightgray";
     }
 }
 
