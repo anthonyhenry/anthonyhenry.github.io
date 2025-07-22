@@ -13,11 +13,14 @@ body
 header
 {
     text-align: center;
+    width: 484px;
+    margin: auto;
 }
 
 #outerContainer
 {
     padding: 10px;
+    min-width: 464px;
 }
 
 #toolbar
