@@ -36,6 +36,7 @@ header
 #sceneBackground
 {
     width: 100%;
+    display: block; /* Turn the img into a block element to remove extra space for potential text descenders (like letters "g" or "y") that inline elements have */
 }
 
 #stickerbook
