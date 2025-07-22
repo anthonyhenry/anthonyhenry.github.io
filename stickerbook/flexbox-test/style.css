@@ -36,6 +36,7 @@ header
 #sceneBackground
 {
     width: 100%;
+    aspect-ratio: 16 / 9;
     display: block; /* Turn the img into a block element to remove extra space for potential text descenders (like letters "g" or "y") that inline elements have */
 }
 
@@ -53,6 +54,7 @@ header
 {
     overflow: hidden;
     position: relative;
+    aspect-ratio: 16 / 9;
 }
 
 #stickerGallery
@@ -157,7 +159,7 @@ header
     #canvas
     {
         width: 620px;
-        height: 348.8px;
+        /* height: 348.8px; */
     }
 
     #stickerGallery
@@ -236,7 +238,7 @@ header
     #canvas
     {
         width: 693px;
-        height: 389.81px;
+        /* height: 389.81px; */
     }
 
     #stickerGallery
