@@ -404,14 +404,6 @@ if(!window.matchMedia("(pointer: fine)").matches)
 
                 // Loop until touch ends
                 scrollAnimationFrameRequest = requestAnimationFrame(scroll);
-
-                // document.querySelector("#test").innerText = ""
-                // let msg = document.createElement("p");
-                // msg.innerText = Math.ceil(STICKERS_CONTAINER.clientHeight + STICKERS_CONTAINER.scrollTop)
-                // document.querySelector("#test").appendChild(msg)
-                // msg = document.createElement("p");
-                // msg.innerText = Math.ceil(STICKERS_CONTAINER.scrollHeight)
-                // document.querySelector("#test").appendChild(msg)
             }
 
             // First loop
@@ -531,19 +523,6 @@ function toolbarClicked(clickedElement)
 {
     return clickedElement == TOOLBAR || clickedElement.parentElement == TOOLBAR;
 }
-
-// Test turning off touch start. Test on phone and MS surface. Turned off touch start for creating new stickers to test
-
-function test()
-{
-    // console.log("left: " + activeSticker.style.left);
-    // console.log("top: " + activeSticker.style.top);
-    // console.log("width: " + activeSticker.style.width);
-    // console.log("height: " + activeSticker.style.height);
-    document.querySelector("#test").innerText = window.getComputedStyle(CANVAS_DIV).width
-    console.log(window.getComputedStyle(CANVAS_DIV).width);
-}
-document.addEventListener("touchstart", test);
 
 function convertPixelPositionToPercent()
 {
