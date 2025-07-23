@@ -28,6 +28,7 @@ for(const sticker of STICKERS_CONTAINER.children)
         NEW_STICKER_DIV.style.position = "absolute";
         NEW_STICKER_DIV.style.width = sticker.width + "px";
         NEW_STICKER_DIV.style.height = sticker.height + "px";
+        NEW_STICKER_DIV.style.transform = "rotate(0deg) scale(1,1)";
 
         // Add the sticker div to the sticker page element
         STICKER_PAGE_DIV.appendChild(NEW_STICKER_DIV);
