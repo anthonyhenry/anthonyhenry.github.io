@@ -256,6 +256,7 @@ document.addEventListener("mousedown", setCursor);
 ////////////////////////////////////////////////////////////////////////////////
 
 document.addEventListener("keydown", function(event){    
+    console.log(event.key);
     switch(event.key)
     {
         case "ArrowUp":
@@ -273,6 +274,15 @@ document.addEventListener("keydown", function(event){
         case "ArrowRight":
             event.preventDefault();
             setPositionRelativeToPreviousPosition("right");
+            break;
+        case "Escape":
+            clearActiveSticker();
+            break;
+        case "Delete":
+            if(activeSticker)
+            {
+                removeElement(activeSticker);
+            }
             break;
     }
 })
