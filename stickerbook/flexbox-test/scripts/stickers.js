@@ -84,9 +84,9 @@ function handleStickerMouseMovement(sticker, anchor)
             {
                 CANVAS_DIV.appendChild(sticker);
                 sticker.classList.add("placed-sticker");
+                convertPixelPositionToPercent(sticker);
                 setActiveSticker(sticker);
             }
-            convertPixelPositionToPercent();
         }
         else
         {
@@ -107,7 +107,7 @@ function handleStickerMouseMovement(sticker, anchor)
 
 function setPositionRelativeToMouse(element, mousePosX, mousePosY, anchor)
 {
-    element.style.left = mousePosX - STICKER_PAGE_DIV.getBoundingClientRect().left - anchor.x + "px"; 
+    element.style.left = mousePosX - STICKER_PAGE_DIV.getBoundingClientRect().left - anchor.x + "px";
     element.style.top = mousePosY - STICKER_PAGE_DIV.getBoundingClientRect().top - anchor.y + "px";
 }
 
@@ -115,7 +115,6 @@ function setPositionRelativeToPreviousPosition(direction)
 {
     if(activeSticker)
     {
-        convertPercentPositionToPixels();
         const CURRENT_Y_POS = parseFloat(activeSticker.style.top);
         const CURRENT_X_POS = parseFloat(activeSticker.style.left);
         const MOVE_SPEED = 3;
@@ -140,10 +139,6 @@ function setPositionRelativeToPreviousPosition(direction)
         {
             removeElement(activeSticker);
         }
-        else
-        {
-            convertPixelPositionToPercent();
-        }
     }
 }
 
@@ -159,6 +154,8 @@ function setActiveSticker(sticker)
     activeSticker.style.cursor = "all-scroll";
     activeSticker.style.outline = "2px dashed blue";
 
+    convertPercentPositionToPixels(activeSticker)
+
     for(const button of TOOLBAR.children)
     {
         button.style.color = "black";   
@@ -170,6 +167,7 @@ function clearActiveSticker()
     if(activeSticker)
     {
         // Reset active sticker
+        convertPixelPositionToPercent(activeSticker);
         activeSticker.style.outline = "initial";
         activeSticker.style.cursor = "default";
         activeSticker = null;
@@ -206,7 +204,6 @@ function handlePlacedStickerInteraction(event)
         }
 
         // Allow sticker to be moved
-        convertPercentPositionToPixels();
         const MOUSE_POS = getMousePos(event);
         const STICKER_RECT = CLICKED_STICKER.getBoundingClientRect();
         const ANCHOR = {
@@ -218,6 +215,8 @@ function handlePlacedStickerInteraction(event)
 }
 CANVAS_DIV.addEventListener("mousedown", handlePlacedStickerInteraction);
 CANVAS_DIV.addEventListener("touchstart", handlePlacedStickerInteraction);
+
+window.addEventListener("resize", clearActiveSticker);
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Set Cursor //////////////////////////////////
@@ -534,25 +533,26 @@ function toolbarClicked(clickedElement)
     return clickedElement == TOOLBAR || clickedElement.parentElement == TOOLBAR;
 }
 
-function convertPixelPositionToPercent()
+function convertPixelPositionToPercent(element)
 {
-    if(activeSticker.style.left.includes("px"))
+    if(element.style.left.includes("px"))
     {
         const CANVAS_RECT = CANVAS_DIV.getBoundingClientRect();
-        activeSticker.style.left = ((parseFloat(activeSticker.style.left) / parseFloat(CANVAS_RECT.width)) * 100) + "%";
-        activeSticker.style.top = ((parseFloat(activeSticker.style.top) / parseFloat(CANVAS_RECT.height)) * 100) + "%";
-        activeSticker.style.width = ((parseFloat(activeSticker.style.width) / parseFloat(CANVAS_RECT.width)) * 100) + "%";
-        activeSticker.style.height = ((parseFloat(activeSticker.style.height) / parseFloat(CANVAS_RECT.height)) * 100) + "%";
+        element.style.left = ((parseFloat(element.style.left) / parseFloat(CANVAS_RECT.width)) * 100).toFixed(4) + "%";
+        element.style.top = ((parseFloat(element.style.top) / parseFloat(CANVAS_RECT.height)) * 100).toFixed(4) + "%";
+        element.style.width = ((parseFloat(element.style.width) / parseFloat(CANVAS_RECT.width)) * 100).toFixed(4) + "%";
+        element.style.height = ((parseFloat(element.style.height) / parseFloat(CANVAS_RECT.height)) * 100).toFixed(4) + "%";
     }
 }
-function convertPercentPositionToPixels()
+function convertPercentPositionToPixels(element)
 {
-    if(activeSticker.style.left.includes("%"))
+    if(element.style.left.includes("%"))
     {
         const CANVAS_RECT = CANVAS_DIV.getBoundingClientRect();
-        activeSticker.style.left = ((parseFloat(activeSticker.style.left) / 100) * parseFloat(CANVAS_RECT.width)) + "px";
-        activeSticker.style.top = ((parseFloat(activeSticker.style.top) / 100) * parseFloat(CANVAS_RECT.height)) + "px";
-        activeSticker.style.width = ((parseFloat(activeSticker.style.width) / 100) * parseFloat(CANVAS_RECT.width)) + "px";
-        activeSticker.style.height = ((parseFloat(activeSticker.style.height) / 100) * parseFloat(CANVAS_RECT.height)) + "px";
+
+        element.style.left = ((parseFloat(element.style.left) / 100) * parseFloat(CANVAS_RECT.width)).toFixed(4) + "px";
+        element.style.top = ((parseFloat(element.style.top) / 100) * parseFloat(CANVAS_RECT.height)).toFixed(4) + "px";
+        element.style.width = ((parseFloat(element.style.width) / 100) * parseFloat(CANVAS_RECT.width)).toFixed(4) + "px";
+        element.style.height = ((parseFloat(element.style.height) / 100) * parseFloat(CANVAS_RECT.height)).toFixed(4) + "px";
     }
 }
