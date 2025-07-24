@@ -2,12 +2,15 @@
 /////////////////////////////// Global Variables ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+const BROWSER_SUPPORTS_MOUSE = window.matchMedia("(pointer: fine)").matches;
 const STICKER_PAGE_DIV = document.querySelector("#stickerPage");
 const STICKERS_CONTAINER = document.querySelector("#stickers");
 const CANVAS_DIV = document.querySelector("#canvas");
 let activeSticker = null;
 const TOOLBAR = document.querySelector("#toolbar");
 const HTML_ELEMENT = document.querySelector("html");
+let rotationDiv = null;
+const ROTATION_DIV_OFFSET = 25; // Offset for setting how much bigger than a sticker the rotation div should be
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Create New Stickers /////////////////////////////
@@ -110,6 +113,10 @@ function setPositionRelativeToMouse(element, mousePosX, mousePosY, anchor)
 {
     element.style.left = mousePosX - STICKER_PAGE_DIV.getBoundingClientRect().left - anchor.x + "px";
     element.style.top = mousePosY - STICKER_PAGE_DIV.getBoundingClientRect().top - anchor.y + "px";
+    if(rotationDiv)
+    {
+        positionRotationDiv();
+    }
 }
 
 function setPositionRelativeToPreviousPosition(direction)
@@ -136,11 +143,43 @@ function setPositionRelativeToPreviousPosition(direction)
                 break;
         }
 
+        positionRotationDiv();
+
         if(!stickerIsVisibleOnCanvas(activeSticker))
         {
             removeElement(activeSticker);
         }
     }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// Rotate Stickers ///////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// CAN YOU MOVE AND SIZE A STICKER AT THE SAME TIME?
+
+function allowActiveStickerToBeRotated(sticker)
+{
+    // Create rotation div
+    rotationDiv = document.createElement("div");
+    rotationDiv.style.position = "absolute";
+    positionRotationDiv();
+    sizeRotationDiv();
+    rotationDiv.style.transform = activeSticker.style.transform;
+    rotationDiv.id = "rotationDiv";
+    CANVAS_DIV.insertBefore(rotationDiv, activeSticker);
+    rotationDiv.style.backgroundColor = "white";
+}
+
+function positionRotationDiv()
+{
+    rotationDiv.style.left = parseFloat(activeSticker.style.left) - ROTATION_DIV_OFFSET + "px";
+    rotationDiv.style.top = parseFloat(activeSticker.style.top) - ROTATION_DIV_OFFSET + "px";
+}
+function sizeRotationDiv()
+{
+    rotationDiv.style.width = parseFloat(activeSticker.style.width) + (ROTATION_DIV_OFFSET * 2) + "px";
+    rotationDiv.style.height = parseFloat(activeSticker.style.height) + (ROTATION_DIV_OFFSET * 2) + "px";
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -155,7 +194,12 @@ function setActiveSticker(sticker)
     activeSticker.style.cursor = "all-scroll";
     activeSticker.style.outline = "2px dashed blue";
 
-    convertPercentPositionToPixels(activeSticker)
+    convertPercentPositionToPixels(activeSticker);
+
+    if(BROWSER_SUPPORTS_MOUSE)
+    {
+        allowActiveStickerToBeRotated(activeSticker);
+    }
 
     for(const button of TOOLBAR.children)
     {
@@ -167,6 +211,10 @@ function clearActiveSticker()
 {
     if(activeSticker)
     {
+        // Remove rotation div
+        removeElement(rotationDiv);
+        rotationDiv = null;
+
         // Reset active sticker
         convertPixelPositionToPercent(activeSticker);
         activeSticker.style.outline = "initial";
@@ -217,7 +265,7 @@ function handlePlacedStickerInteraction(event)
 CANVAS_DIV.addEventListener("mousedown", handlePlacedStickerInteraction);
 CANVAS_DIV.addEventListener("touchstart", handlePlacedStickerInteraction);
 
-window.addEventListener("resize", clearActiveSticker);
+window.addEventListener("resize", clearActiveSticker); // Clear active sticker on window resize
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////// Set Cursor //////////////////////////////////
@@ -329,7 +377,7 @@ TOOLBAR.addEventListener("touchstart", handleToolbarInputs);
 ////////////////////////////////////////////////////////////////////////////////
 
 // Only run following code for devices that do not have mouse support
-if(!window.matchMedia("(pointer: fine)").matches)
+if(!BROWSER_SUPPORTS_MOUSE)
 {
     const LEFT_UP_ARROW = document.querySelector("#left-up-arrow");
     const RIGHT_DOWN_ARROW = document.querySelector("#right-down-arrow");
@@ -557,3 +605,6 @@ function convertPercentPositionToPixels(element)
         element.style.height = ((parseFloat(element.style.height) / 100) * parseFloat(CANVAS_RECT.height)).toFixed(4) + "px";
     }
 }
+
+// https://www.fiverr.com/naeemayaqoob/do-figma-website-design-website-ui-ux-design-figma-design-website-mockup?context_referrer=search_gigs&source=drop_down_filters&ref_ctx_id=7bdbbc81f30649d185aa3523d24428f9&pckg_id=1&pos=16&context_type=auto&funnel=7bdbbc81f30649d185aa3523d24428f9&ref=price_buckets%3A0&seller_online=true&imp_id=da2c0494-c67b-441f-933d-bee1f518d96f&ad_key=8435a193-1630-4ef7-9b59-21d7e65aa18a
+// https://www.fiverr.com/wix_buddy/be-your-front-end-web-developer-using-html-css-bootstrap-gsap-react-js-jquery?context_referrer=search_gigs_with_modalities&source=top-bar&ref_ctx_id=69e7b67ca6f945e5962c6cd4de571e43&pckg_id=1&pos=5&context_type=auto&funnel=69e7b67ca6f945e5962c6cd4de571e43&imp_id=ebac8fce-0533-452f-8320-24e76a800704
