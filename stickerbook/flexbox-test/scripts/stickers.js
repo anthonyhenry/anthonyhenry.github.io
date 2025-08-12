@@ -11,6 +11,7 @@ const TOOLBAR = document.querySelector("#toolbar");
 const HTML_ELEMENT = document.querySelector("html");
 let rotationDiv = null;
 const ROTATION_DIV_OFFSET = 25; // Offset for setting how much bigger than a sticker the rotation div should be
+const ROTATE_ICON = document.querySelector("#rotateIcon");
 
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Create New Stickers /////////////////////////////
@@ -157,7 +158,6 @@ function setPositionRelativeToPreviousPosition(direction)
 ////////////////////////////////////////////////////////////////////////////////
 
 // CAN YOU MOVE AND SIZE A STICKER AT THE SAME TIME?
-let num = 0;
 function allowActiveStickerToBeRotated(sticker)
 {
     // Create rotation div
@@ -168,15 +168,50 @@ function allowActiveStickerToBeRotated(sticker)
     rotationDiv.style.transform = activeSticker.style.transform;
     rotationDiv.id = "rotationDiv";
     CANVAS_DIV.insertBefore(rotationDiv, activeSticker);
-    rotationDiv.style.backgroundColor = "black";
+    // rotationDiv.style.backgroundColor = "white";
 
-    rotationDiv.addEventListener("mouseenter", test);
+    // Initialize rotate variables
+    let rotatingSticker = false;
+    let insideRotateDiv = false;
 
+    rotationDiv.addEventListener("mouseenter", function(event){
+        // Make the rotate icon visible
+        ROTATE_ICON.style.display = "flex"; // Needs to be flex because of element alignment
+        // Hide the default cursor
+        HTML_ELEMENT.style.cursor = "none";
+        activeSticker.style.cursor = "none";
 
-    function test()
+        insideRotateDiv = true;
+
+        document.addEventListener("mousemove", setRotateIconPos);
+
+        rotationDiv.addEventListener("mouseleave", exitRotationDiv);
+    });
+
+    setRotateIconPos = function(event)
     {
-        num++;
-        console.log(num)
+        const ICON_STYLE = window.getComputedStyle(ROTATE_ICON);
+        const X_POS = event.pageX - parseFloat(ICON_STYLE.width) + "px"; // Use pageX/Y here because the ROTATE_ICON is rooted at 0,0 in the document
+        const Y_POS = event.pageY - parseFloat(ICON_STYLE.height) + "px";
+
+        ROTATE_ICON.style.left = X_POS;
+        ROTATE_ICON.style.top = Y_POS;
+    }
+
+    function exitRotationDiv()
+    {
+        insideRotateDiv = false;
+        resetCursor();
+        rotationDiv.removeEventListener("mouseleave", exitRotationDiv);
+    }
+
+    function resetCursor()
+    {
+        if(!rotatingSticker && !insideRotateDiv)
+        {
+            activeSticker.style.cursor = "all-scroll";
+            resetRotateIcon();
+        }
     }
 }
 
@@ -613,6 +648,20 @@ function convertPercentPositionToPixels(element)
         element.style.width = ((parseFloat(element.style.width) / 100) * parseFloat(CANVAS_RECT.width)).toFixed(4) + "px";
         element.style.height = ((parseFloat(element.style.height) / 100) * parseFloat(CANVAS_RECT.height)).toFixed(4) + "px";
     }
+}
+
+let setRotateIconPos; // This needs to be here to remove the event function
+function resetRotateIcon()
+{
+    // Reset custom rotate cursor
+    ROTATE_ICON.style.display = "none";
+    ROTATE_ICON.style.top = "0px";
+    ROTATE_ICON.style.left = "0px";
+
+    // Reset cursor
+    HTML_ELEMENT.style.cursor = "default";
+    
+    document.removeEventListener("mousemove", setRotateIconPos);
 }
 
 // https://www.fiverr.com/naeemayaqoob/do-figma-website-design-website-ui-ux-design-figma-design-website-mockup?context_referrer=search_gigs&source=drop_down_filters&ref_ctx_id=7bdbbc81f30649d185aa3523d24428f9&pckg_id=1&pos=16&context_type=auto&funnel=7bdbbc81f30649d185aa3523d24428f9&ref=price_buckets%3A0&seller_online=true&imp_id=da2c0494-c67b-441f-933d-bee1f518d96f&ad_key=8435a193-1630-4ef7-9b59-21d7e65aa18a
