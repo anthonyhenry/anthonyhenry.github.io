@@ -157,7 +157,7 @@ function setPositionRelativeToPreviousPosition(direction)
 ////////////////////////////////////////////////////////////////////////////////
 
 // CAN YOU MOVE AND SIZE A STICKER AT THE SAME TIME?
-
+let num = 0;
 function allowActiveStickerToBeRotated(sticker)
 {
     // Create rotation div
@@ -168,7 +168,16 @@ function allowActiveStickerToBeRotated(sticker)
     rotationDiv.style.transform = activeSticker.style.transform;
     rotationDiv.id = "rotationDiv";
     CANVAS_DIV.insertBefore(rotationDiv, activeSticker);
-    rotationDiv.style.backgroundColor = "white";
+    rotationDiv.style.backgroundColor = "black";
+
+    rotationDiv.addEventListener("mouseenter", test);
+
+
+    function test()
+    {
+        num++;
+        console.log(num)
+    }
 }
 
 function positionRotationDiv()
