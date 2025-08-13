@@ -157,7 +157,6 @@ function setPositionRelativeToPreviousPosition(direction)
 /////////////////////////////// Rotate Stickers ///////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// CAN YOU MOVE AND SIZE A STICKER AT THE SAME TIME?
 function allowActiveStickerToBeRotated(sticker)
 {
     // Create rotation div
@@ -213,6 +212,51 @@ function allowActiveStickerToBeRotated(sticker)
             resetRotateIcon();
         }
     }
+
+    rotationDiv.addEventListener("mousedown", function(event){
+        event.preventDefault();
+
+        const ACTIVE_STICKER_DIV = activeSticker.getBoundingClientRect();
+        const CENTER_X = ACTIVE_STICKER_DIV.left + ACTIVE_STICKER_DIV.width / 2;
+        const CENTER_Y = ACTIVE_STICKER_DIV.top + ACTIVE_STICKER_DIV.height / 2;
+
+        const MOUSE_POS = getMousePos(event);
+        const INITIAL_ANGLE = Math.atan2(MOUSE_POS.y - CENTER_Y, MOUSE_POS.x - CENTER_X);
+
+        const CURRENT_ROTATION = getStickerRotationFloatValue(activeSticker);
+
+        function rotateSticker(e)
+        {
+            const dx = e.clientX - CENTER_X;
+            const dy = e.clientY - CENTER_Y;
+            let angle = Math.atan2(dy, dx);
+            angle -= INITIAL_ANGLE;
+            angle *= (180 / Math.PI);
+            angle += CURRENT_ROTATION;
+
+            activeSticker.style.transform = `rotate(${angle}deg)`;
+            rotationDiv.style.transform = `rotate(${angle}deg)`;
+        }
+        document.addEventListener("mousemove", rotateSticker);
+
+        rotatingSticker = true;
+
+        function stopRotating()
+        {
+            rotatingSticker = false;
+            resetCursor();
+
+            if(!stickerIsVisibleOnCanvas(activeSticker))
+            {
+                removeElement(activeSticker);
+                insideRotateDiv = false;
+            }
+
+            document.removeEventListener("mousemove", rotateSticker);
+            document.removeEventListener("mouseup", stopRotating);
+        }
+        document.addEventListener("mouseup", stopRotating);
+    });
 }
 
 function positionRotationDiv()
@@ -618,7 +662,7 @@ function removeElement(element)
 
 function stickerClicked(clickedElement)
 {
-    return clickedElement.classList.contains("template-sticker") || clickedElement.classList.contains("placed-sticker");
+    return clickedElement.classList.contains("template-sticker") || clickedElement.classList.contains("placed-sticker") || clickedElement.id == "rotationDiv";
 }
 
 function toolbarClicked(clickedElement)
@@ -637,6 +681,7 @@ function convertPixelPositionToPercent(element)
         element.style.height = ((parseFloat(element.style.height) / parseFloat(CANVAS_RECT.height)) * 100).toFixed(4) + "%";
     }
 }
+
 function convertPercentPositionToPixels(element)
 {
     if(element.style.left.includes("%"))
@@ -664,5 +709,23 @@ function resetRotateIcon()
     document.removeEventListener("mousemove", setRotateIconPos);
 }
 
+function getStickerRotationFloatValue(sticker)
+{
+    let rotation = sticker.style.transform;
+
+    if(rotation)
+    {
+        rotation = rotation.split("(");
+        rotation = parseFloat(rotation[1]);
+        return rotation;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 // https://www.fiverr.com/naeemayaqoob/do-figma-website-design-website-ui-ux-design-figma-design-website-mockup?context_referrer=search_gigs&source=drop_down_filters&ref_ctx_id=7bdbbc81f30649d185aa3523d24428f9&pckg_id=1&pos=16&context_type=auto&funnel=7bdbbc81f30649d185aa3523d24428f9&ref=price_buckets%3A0&seller_online=true&imp_id=da2c0494-c67b-441f-933d-bee1f518d96f&ad_key=8435a193-1630-4ef7-9b59-21d7e65aa18a
 // https://www.fiverr.com/wix_buddy/be-your-front-end-web-developer-using-html-css-bootstrap-gsap-react-js-jquery?context_referrer=search_gigs_with_modalities&source=top-bar&ref_ctx_id=69e7b67ca6f945e5962c6cd4de571e43&pckg_id=1&pos=5&context_type=auto&funnel=69e7b67ca6f945e5962c6cd4de571e43&imp_id=ebac8fce-0533-452f-8320-24e76a800704
+
+// CAN YOU MOVE AND SIZE A STICKER AT THE SAME TIME?
