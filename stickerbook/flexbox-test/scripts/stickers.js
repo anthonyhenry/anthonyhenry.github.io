@@ -167,7 +167,7 @@ function allowActiveStickerToBeRotated(sticker)
     rotationDiv.style.transform = activeSticker.style.transform;
     rotationDiv.id = "rotationDiv";
     CANVAS_DIV.insertBefore(rotationDiv, activeSticker);
-    // rotationDiv.style.backgroundColor = "white";
+    // rotationDiv.style.backgroundColor = "black";
 
     // Initialize rotate variables
     let rotatingSticker = false;
@@ -234,8 +234,8 @@ function allowActiveStickerToBeRotated(sticker)
             angle *= (180 / Math.PI);
             angle += CURRENT_ROTATION;
 
-            activeSticker.style.transform = `rotate(${angle}deg)`;
-            rotationDiv.style.transform = `rotate(${angle}deg)`;
+            setStickerRotation(activeSticker, angle);
+            rotationDiv.style.transform = activeSticker.style.transform;
         }
         document.addEventListener("mousemove", rotateSticker);
 
@@ -709,10 +709,34 @@ function resetRotateIcon()
     document.removeEventListener("mousemove", setRotateIconPos);
 }
 
+function getStickerScale(sticker)
+{
+    // Get full transform
+    let scale = sticker.style.transform.split(" ");
+    // Remove rotation from transform (first element) 
+    scale.shift();
+
+    if(scale.length > 0)
+    {
+        scale = {
+            x: parseInt(scale[0].slice(scale[0].indexOf("(") + 1)),
+            y: parseInt(scale[1])
+        };
+    }
+    else
+    {
+        scale = {
+            x: 1,
+            y: 1
+        };
+    }
+    return scale;
+}
+
 function getStickerRotationFloatValue(sticker)
 {
-    let rotation = sticker.style.transform;
-
+    let rotation = sticker.style.transform.split(" ")[0];
+    
     if(rotation)
     {
         rotation = rotation.split("(");
@@ -723,6 +747,12 @@ function getStickerRotationFloatValue(sticker)
     {
         return 0;
     }
+}
+
+function setStickerRotation(sticker, angle)
+{
+    const SCALE = getStickerScale(sticker);
+    sticker.style.transform = `rotate(${angle}deg) scale(${SCALE.x}, ${SCALE.y})`;
 }
 
 // https://www.fiverr.com/naeemayaqoob/do-figma-website-design-website-ui-ux-design-figma-design-website-mockup?context_referrer=search_gigs&source=drop_down_filters&ref_ctx_id=7bdbbc81f30649d185aa3523d24428f9&pckg_id=1&pos=16&context_type=auto&funnel=7bdbbc81f30649d185aa3523d24428f9&ref=price_buckets%3A0&seller_online=true&imp_id=da2c0494-c67b-441f-933d-bee1f518d96f&ad_key=8435a193-1630-4ef7-9b59-21d7e65aa18a
