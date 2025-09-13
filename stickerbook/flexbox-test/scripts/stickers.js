@@ -68,6 +68,21 @@ for(const sticker of STICKERS_CONTAINER.children)
 //////////////////////////////// Move Stickers ////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+function allowActiveStickerMouseMovement()
+{
+    // Allow sticker to be moved
+    const PREVIOUS_ROTATION = getStickerRotationFloatValue(activeSticker);
+    setStickerRotation(activeSticker, 0)
+    const MOUSE_POS = getMousePos(event);
+    const STICKER_RECT = activeSticker.getBoundingClientRect();
+    const ANCHOR = {
+        x: MOUSE_POS.x - STICKER_RECT.left,
+        y: MOUSE_POS.y - STICKER_RECT.top
+    }
+    handleStickerMouseMovement(activeSticker, ANCHOR);
+    setStickerRotation(activeSticker, PREVIOUS_ROTATION)
+}
+
 function handleStickerMouseMovement(sticker, anchor)
 {
     function moveSticker(event)
@@ -340,14 +355,7 @@ function handlePlacedStickerInteraction(event)
             setActiveSticker(CLICKED_STICKER);
         }
 
-        // Allow sticker to be moved
-        const MOUSE_POS = getMousePos(event);
-        const STICKER_RECT = CLICKED_STICKER.getBoundingClientRect();
-        const ANCHOR = {
-            x: MOUSE_POS.x - STICKER_RECT.left,
-            y: MOUSE_POS.y - STICKER_RECT.top
-        }
-        handleStickerMouseMovement(CLICKED_STICKER, ANCHOR);
+        allowActiveStickerMouseMovement();
     }
 }
 CANVAS_DIV.addEventListener("mousedown", handlePlacedStickerInteraction);
