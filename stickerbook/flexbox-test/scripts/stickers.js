@@ -285,6 +285,16 @@ function sizeRotationDiv()
     rotationDiv.style.height = parseFloat(activeSticker.style.height) + (ROTATION_DIV_OFFSET * 2) + "px";
 }
 
+function setRotationRelativeToPreviousRotation(direction)
+{
+    const ROTATE_SPEED = 2;
+    const ROTATE_DIRECTION = direction == "left" ? -1 : 1;
+
+    const NEW_ROTATION = getStickerRotationFloatValue(activeSticker) + (ROTATE_SPEED * ROTATE_DIRECTION);
+
+    setStickerRotation(activeSticker, NEW_ROTATION);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Set and Clear Active Sticker /////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -437,7 +447,7 @@ document.addEventListener("keydown", function(event){
 
 function handleToolbarInputs(event)
 {
-    // Arrow inputs
+    // Move arrow inputs
     if(event.target.classList.contains("arrow-movement-control"))
     {
         event.preventDefault();
@@ -463,6 +473,31 @@ function handleToolbarInputs(event)
         document.addEventListener("mouseup", stopMovingSticker);
         document.addEventListener("touchend", stopMovingSticker);
         document.addEventListener("touchcancel", stopMovingSticker);
+    }
+    // Rotate inputs
+    else if(event.target.classList.contains("arrow-rotate-control"))
+    {
+        event.preventDefault();
+
+        let rotateAnimationRequest = null;
+        function rotateSticker()
+        {
+            setRotationRelativeToPreviousRotation(event.target.dataset.direction);
+            rotateAnimationRequest = requestAnimationFrame(rotateSticker);
+        }
+        rotateAnimationRequest = requestAnimationFrame(rotateSticker);
+
+        function stopRotating()
+        {
+            cancelAnimationFrame(rotateAnimationRequest);
+            rotateAnimationRequest = null;
+            document.removeEventListener("mouseup", stopRotating);
+            document.removeEventListener("touchend", stopRotating);
+            document.removeEventListener("touchcancel", stopRotating);
+        }
+        document.addEventListener("mouseup", stopRotating);
+        document.addEventListener("touchend", stopRotating);
+        document.addEventListener("touchcancel", stopRotating);
     }
 }
 TOOLBAR.addEventListener("mousedown", handleToolbarInputs);
