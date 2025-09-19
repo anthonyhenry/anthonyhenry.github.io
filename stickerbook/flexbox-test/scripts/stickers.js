@@ -387,12 +387,18 @@ function setCursor(event)
         {
             activeSticker.style.cursor = "";
         }
-        HTML_ELEMENT.style.cursor = "grabbing";
+        if(event.target.id != "rotationDiv")
+        {
+            HTML_ELEMENT.style.cursor = "grabbing";
+        }
 
         // Reset cursor on mouse up
         function resetCursor()
         {
-            HTML_ELEMENT.style.cursor = "default";
+            if(event.target.id != "rotationDiv")
+            {
+                HTML_ELEMENT.style.cursor = "default";
+            }
             if(activeSticker)
             {
                 activeSticker.style.cursor = "all-scroll";
