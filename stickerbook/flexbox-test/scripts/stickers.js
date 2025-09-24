@@ -26,6 +26,8 @@ for(const sticker of STICKERS_CONTAINER.children)
         {
             event.preventDefault();
         }
+        debugLog("creating new sticker")
+        debugLog(event.type)
 
         clearActiveSticker();
 
