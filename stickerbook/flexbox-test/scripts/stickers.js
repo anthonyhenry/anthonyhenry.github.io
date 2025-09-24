@@ -21,7 +21,11 @@ for(const sticker of STICKERS_CONTAINER.children)
 {
     function createNewSticker(event)
     {
-        event.preventDefault(); // For touchstart, this will prevent mousedown from also firing
+        // For touchstart, this will prevent mousedown from also firing
+        if(event.type == "touchstart")
+        {
+            event.preventDefault();
+        }
 
         clearActiveSticker();
 
