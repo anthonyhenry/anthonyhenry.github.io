@@ -343,6 +343,7 @@ function clearActiveSticker()
 
 function clearActiveStickerOnClickOrTouch(event)
 {
+    // This is to prevent a bug that shrinks stickers if there are multiple touch inputs
     if(event.touches && event.touches.length > 1)
     {
         return;
