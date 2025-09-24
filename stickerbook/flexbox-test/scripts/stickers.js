@@ -3,6 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 const BROWSER_SUPPORTS_MOUSE = window.matchMedia("(pointer: fine)").matches;
+debugLog(BROWSER_SUPPORTS_MOUSE);
 const STICKER_PAGE_DIV = document.querySelector("#stickerPage");
 const STICKERS_CONTAINER = document.querySelector("#stickers");
 const CANVAS_DIV = document.querySelector("#canvas");
