@@ -24,7 +24,7 @@ for(const sticker of STICKERS_CONTAINER.children)
         // For touchstart, this will prevent mousedown from also firing
         if(event.type == "touchstart")
         {
-            event.preventDefault();
+            // event.preventDefault();
         }
         debugLog("creating new sticker")
         debugLog(event.type)
