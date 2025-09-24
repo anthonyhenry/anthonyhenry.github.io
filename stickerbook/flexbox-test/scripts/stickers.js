@@ -472,6 +472,7 @@ function handleToolbarInputs(event)
         let moveAnimationRequest = null;
         function moveSticker()
         {
+            debugLog("Moving")
             setPositionRelativeToPreviousPosition(event.target.dataset.direction);
             moveAnimationRequest = requestAnimationFrame(moveSticker);
         }
@@ -498,6 +499,7 @@ function handleToolbarInputs(event)
         let rotateAnimationRequest = null;
         function rotateSticker()
         {
+            debugLog("Rotating")
             setRotationRelativeToPreviousRotation(event.target.dataset.direction);
             rotateAnimationRequest = requestAnimationFrame(rotateSticker);
         }
