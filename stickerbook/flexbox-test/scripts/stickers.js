@@ -343,6 +343,11 @@ function clearActiveSticker()
 
 function clearActiveStickerOnClickOrTouch(event)
 {
+    if(event.touches && event.touches.length > 1)
+    {
+        return;
+    }
+
     if(!stickerClicked(event.target) && !toolbarClicked(event.target))
     {
         clearActiveSticker();
