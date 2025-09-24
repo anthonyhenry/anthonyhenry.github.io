@@ -22,10 +22,7 @@ for(const sticker of STICKERS_CONTAINER.children)
     function createNewSticker(event)
     {
         // For touchstart, this will prevent mousedown from also firing
-        if(event.type == "touchstart")
-        {
-            // event.preventDefault();
-        }
+        event.preventDefault();
         debugLog("creating new sticker")
         debugLog(event.type)
 
@@ -188,7 +185,7 @@ function allowActiveStickerToBeRotated(sticker)
     rotationDiv.style.transform = activeSticker.style.transform;
     rotationDiv.id = "rotationDiv";
     CANVAS_DIV.insertBefore(rotationDiv, activeSticker);
-    // rotationDiv.style.backgroundColor = "black";
+    rotationDiv.style.backgroundColor = "black";
 
     // Initialize rotate variables
     let rotatingSticker = false;
@@ -333,12 +330,14 @@ function clearActiveSticker()
         // Remove rotation div
         removeElement(rotationDiv);
         rotationDiv = null;
+        debugLog("clearing active sticker")
 
         // Reset active sticker
         convertPixelPositionToPercent(activeSticker);
         activeSticker.style.outline = "initial";
         activeSticker.style.cursor = "default";
         activeSticker = null;
+        debugLog("cleared active sticker")
     }
 
     for(const button of TOOLBAR.children)
