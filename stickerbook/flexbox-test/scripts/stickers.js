@@ -824,3 +824,6 @@ function setStickerRotation(sticker, angle)
 // https://www.fiverr.com/wix_buddy/be-your-front-end-web-developer-using-html-css-bootstrap-gsap-react-js-jquery?context_referrer=search_gigs_with_modalities&source=top-bar&ref_ctx_id=69e7b67ca6f945e5962c6cd4de571e43&pckg_id=1&pos=5&context_type=auto&funnel=69e7b67ca6f945e5962c6cd4de571e43&imp_id=ebac8fce-0533-452f-8320-24e76a800704
 
 // CAN YOU MOVE AND SIZE A STICKER AT THE SAME TIME?
+
+// BUG: You can add a sticker with a second finger while you are moving a placed sticker
+// BUG: You can select a placed sticker while you are moving another placed sticker. This makes a sticker shrink
