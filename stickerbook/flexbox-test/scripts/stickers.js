@@ -3,7 +3,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 const BROWSER_SUPPORTS_MOUSE = window.matchMedia("(pointer: fine)").matches;
-debugLog(BROWSER_SUPPORTS_MOUSE);
 const STICKER_PAGE_DIV = document.querySelector("#stickerPage");
 const STICKERS_CONTAINER = document.querySelector("#stickers");
 const CANVAS_DIV = document.querySelector("#canvas");
@@ -24,8 +23,6 @@ for(const sticker of STICKERS_CONTAINER.children)
     {
         // For touchstart, this will prevent mousedown from also firing
         event.preventDefault();
-        debugLog("creating new sticker")
-        debugLog(event.type)
 
         clearActiveSticker();
 
@@ -186,7 +183,7 @@ function allowActiveStickerToBeRotated(sticker)
     rotationDiv.style.transform = activeSticker.style.transform;
     rotationDiv.id = "rotationDiv";
     CANVAS_DIV.insertBefore(rotationDiv, activeSticker);
-    rotationDiv.style.backgroundColor = "black";
+    // rotationDiv.style.backgroundColor = "black";
 
     // Initialize rotate variables
     let rotatingSticker = false;
@@ -280,19 +277,19 @@ function allowActiveStickerToBeRotated(sticker)
 
 function positionRotationDiv()
 {
-    if(rotationDiv)
-    {
+    // if(rotationDiv)
+    // {
         rotationDiv.style.left = parseFloat(activeSticker.style.left) - ROTATION_DIV_OFFSET + "px";
         rotationDiv.style.top = parseFloat(activeSticker.style.top) - ROTATION_DIV_OFFSET + "px";
-    }
+    // }
 }
 function sizeRotationDiv()
 {
-    if(rotationDiv)
-    {
+    // if(rotationDiv)
+    // {
         rotationDiv.style.width = parseFloat(activeSticker.style.width) + (ROTATION_DIV_OFFSET * 2) + "px";
         rotationDiv.style.height = parseFloat(activeSticker.style.height) + (ROTATION_DIV_OFFSET * 2) + "px";
-    }
+    // }
 }
 
 function setRotationRelativeToPreviousRotation(direction)
@@ -340,14 +337,12 @@ function clearActiveSticker()
             removeElement(rotationDiv);
             rotationDiv = null;
         }
-        debugLog("clearing active sticker")
 
         // Reset active sticker
         convertPixelPositionToPercent(activeSticker);
         activeSticker.style.outline = "initial";
         activeSticker.style.cursor = "default";
         activeSticker = null;
-        debugLog("cleared active sticker")
     }
 
     for(const button of TOOLBAR.children)
@@ -483,7 +478,6 @@ function handleToolbarInputs(event)
         let moveAnimationRequest = null;
         function moveSticker()
         {
-            debugLog("Moving")
             setPositionRelativeToPreviousPosition(event.target.dataset.direction);
             moveAnimationRequest = requestAnimationFrame(moveSticker);
         }
@@ -510,7 +504,6 @@ function handleToolbarInputs(event)
         let rotateAnimationRequest = null;
         function rotateSticker()
         {
-            debugLog("Rotating")
             setRotationRelativeToPreviousRotation(event.target.dataset.direction);
             rotateAnimationRequest = requestAnimationFrame(rotateSticker);
         }
