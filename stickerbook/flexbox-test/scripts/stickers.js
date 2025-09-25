@@ -277,19 +277,19 @@ function allowActiveStickerToBeRotated(sticker)
 
 function positionRotationDiv()
 {
-    // if(rotationDiv)
-    // {
+    if(rotationDiv)
+    {
         rotationDiv.style.left = parseFloat(activeSticker.style.left) - ROTATION_DIV_OFFSET + "px";
         rotationDiv.style.top = parseFloat(activeSticker.style.top) - ROTATION_DIV_OFFSET + "px";
-    // }
+    }
 }
 function sizeRotationDiv()
 {
-    // if(rotationDiv)
-    // {
+    if(rotationDiv)
+    {
         rotationDiv.style.width = parseFloat(activeSticker.style.width) + (ROTATION_DIV_OFFSET * 2) + "px";
         rotationDiv.style.height = parseFloat(activeSticker.style.height) + (ROTATION_DIV_OFFSET * 2) + "px";
-    // }
+    }
 }
 
 function setRotationRelativeToPreviousRotation(direction)
