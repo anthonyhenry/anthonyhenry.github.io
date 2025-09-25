@@ -335,8 +335,11 @@ function clearActiveSticker()
     if(activeSticker)
     {
         // Remove rotation div
-        removeElement(rotationDiv);
-        rotationDiv = null;
+        if(rotationDiv)
+        {
+            removeElement(rotationDiv);
+            rotationDiv = null;
+        }
         debugLog("clearing active sticker")
 
         // Reset active sticker
