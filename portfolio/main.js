@@ -46,13 +46,25 @@
   const ul = a => a && a.length ? `<ul>${a.map(i => `<li>${esc(i)}</li>`).join('')}</ul>` : '';
   const para = s => s ? `<p>${esc(s)}</p>` : '';
 
+  // Turn a YouTube link (watch, youtu.be, or embed) into a responsive embedded player
+  function videoEmbed(url) {
+    if (!url) return '';
+    const m = url.match(/(?:youtu\.be\/|v=|embed\/)([\w-]{11})/);
+    if (!m) return '';
+    return `<div class="ratio ratio-16x9 cs-media"><iframe src="https://www.youtube-nocookie.com/embed/${m[1]}?rel=0" title="Project video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+  }
+  // Empty the modal on close so a playing video stops
+  modalEl.addEventListener('hidden.bs.modal', () => { modalEl.querySelector('.modal-body').innerHTML = ''; });
+
   function openProject(id) {
     const p = PROJECTS.find(x => x.id === id);
     if (!p) return;
-    const facts = [['Role', p.role], ['Organization', p.org], ['Duration', p.duration], ['Team', p.team], ['Tools', p.tools]]
+    const tech = Array.isArray(p.technology) ? p.technology.join(', ') : p.technology;
+    const facts = [['Role', p.role], ['Organization', p.org], ['Technology', tech]]
       .filter(f => f[1]).map(f => `<div><dt>${f[0]}</dt><dd>${esc(f[1])}</dd></div>`).join('');
     modalEl.querySelector('.modal-title').textContent = p.title;
     modalEl.querySelector('.modal-body').innerHTML =
+      videoEmbed(p.video) +
       (p.image ? `<img class="cs-media" src="${esc(p.image)}" alt="">` : '') +
       `<dl class="cs-facts">${facts}</dl>` +
       section('Overview', para(p.overview)) +
