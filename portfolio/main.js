@@ -34,7 +34,7 @@
     const b = e.target.closest('.chip');
     if (!b) return;
     const { group, value } = b.dataset;
-    state[group] = (state[group] === value) ? 'All' : value;
+    state[group] = (state[group] === value) ? 'All' : value; // clicking the active filter again clears it
     renderFilters();
     renderGrid();
   });
@@ -42,16 +42,13 @@
   /* ---------- case study modal ---------- */
   const modalEl = document.getElementById('projectModal');
   const modal = new bootstrap.Modal(modalEl);
-  const section = (title, html) => html ? `<section class="cs-section"><h3>${title}</h3>${html}</section>` : '';
-  const ul = a => a && a.length ? `<ul>${a.map(i => `<li>${esc(i)}</li>`).join('')}</ul>` : '';
-  const para = s => s ? `<p>${esc(s)}</p>` : '';
 
   // Turn a YouTube link (watch, youtu.be, or embed) into a responsive embedded player
   function videoEmbed(url) {
     if (!url) return '';
     const m = url.match(/(?:youtu\.be\/|v=|embed\/)([\w-]{11})/);
     if (!m) return '';
-    return `<div class="ratio ratio-16x9 cs-media"><iframe src="https://www.youtube-nocookie.com/embed/${m[1]}?rel=0" title="Project video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+    return `<div class="ratio ratio-16x9 cs-media"><iframe src="https://www.youtube.com/embed/${m[1]}?rel=0" title="Project video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
   }
   // Empty the modal on close so a playing video stops
   modalEl.addEventListener('hidden.bs.modal', () => { modalEl.querySelector('.modal-body').innerHTML = ''; });
@@ -67,11 +64,7 @@
       videoEmbed(p.video) +
       (p.image ? `<img class="cs-media" src="${esc(p.image)}" alt="">` : '') +
       `<dl class="cs-facts">${facts}</dl>` +
-      section('Overview', para(p.overview)) +
-      section('My responsibilities', ul(p.responsibilities)) +
-      section('Challenge', para(p.challenge)) +
-      section('Process', ul(p.process)) +
-      section('Outcome', para(p.outcome)) +
+      `<div class="cs-body">${[].concat(p.description || []).map(t => `<p>${esc(t)}</p>`).join('')}</div>` +
       (p.links && p.links.length ? `<div class="d-flex flex-wrap gap-2">${p.links.map(l => `<a class="btn btn-resume" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</div>` : '');
     modal.show();
   }
@@ -108,6 +101,7 @@
   function measure() {
     const sy = window.scrollY;
     const a = anchor.getBoundingClientRect();
+    // measure the first cell, not #stack itself: the container is full width and the cells are centered inside it
     const first = stack.firstElementChild;
     const s = first.getBoundingClientRect();
     const cell = first.offsetWidth;

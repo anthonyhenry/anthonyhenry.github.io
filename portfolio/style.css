@@ -79,9 +79,8 @@ main, .site-footer { position: relative; z-index: 2; }
   border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
 .cs-facts dt { color: var(--muted); font-weight: 400; font-size: .85rem; }
 .cs-facts dd { margin: 0; font-weight: 700; }
-.cs-section { max-width: 70ch; margin-bottom: 1.75rem; }
-.cs-section h3 { font-size: 1.25rem; font-weight: 800; color: var(--cyan); margin-bottom: .5rem; }
-.cs-section p, .cs-section li { line-height: 1.65; }
+.cs-body { max-width: 70ch; margin-bottom: 1.5rem; }
+.cs-body p { font-size: 1.05rem; line-height: 1.7; margin-bottom: 1.1rem; }
 
 /* connect + footer stack */
 .connect { text-align: center; }
