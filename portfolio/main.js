@@ -109,9 +109,7 @@
     const p = Math.min(1, Math.max(0, window.scrollY / maxScroll));
     const x = start.x + (end.x - start.x) * p;
     const y = start.y + (end.y - start.y) * p;
-    const turns = p >= 0.97 ? 4 : Math.floor(p / 0.97 * 4); // 4 quarter-turns = upright again at the landing spot
     piece.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-    pieceRot.style.transform = `rotate(${turns * 90}deg)`;
   }
 
   window.addEventListener('scroll', update, { passive: true });
