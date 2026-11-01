@@ -33,7 +33,8 @@
   filterBox.addEventListener('click', e => {
     const b = e.target.closest('.chip');
     if (!b) return;
-    state[b.dataset.group] = b.dataset.value;
+    const { group, value } = b.dataset;
+    state[group] = (state[group] === value) ? 'All' : value;
     renderFilters();
     renderGrid();
   });
