@@ -14,7 +14,7 @@
       `<div class="filter-group" role="group" aria-label="${label}"><span class="filter-label">${label}</span>` +
       ['All', ...vals].map(v => `<button type="button" class="chip" data-group="${key}" data-value="${esc(v)}" aria-pressed="${state[key] === v}">${esc(v)}</button>`).join('') +
       '</div>';
-    filterBox.innerHTML = (types.length > 1 ? group('Type', 'type', types) : '') + group('Discipline', 'tag', tags);
+    filterBox.innerHTML = (types.length > 1 ? group('Type', 'type', types) : '') + group('Filter', 'tag', tags);
   }
 
   function renderGrid() {
