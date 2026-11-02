@@ -109,7 +109,7 @@ const PROJECTS = [
   {
     id: 'prosperos-island',
     title: "Prospero's Island",
-    role: 'Game Designer',
+    role: 'Solo Developer',
     org: 'USC Capstone Project',
     type: 'Game',
     tags: ['Narrative Design', 'Quest Design'],
