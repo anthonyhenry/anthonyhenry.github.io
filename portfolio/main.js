@@ -87,12 +87,15 @@
     pieceRot.appendChild(d);
   });
 
-  // The placed blocks ("x" = filled). The T-piece fits the gap at columns 4-6 (row 1) and column 5 (row 2).
-  const rows = ['xx......xx', 'xxxx...xxx', 'xxxxx.xxxx'];
-  rows.forEach((row, r) => [...row].forEach((ch, c) => {
+  // The placed blocks, built from whole tetrominoes. Each letter is a piece type with its classic color:
+  // I = cyan, O = yellow, S = green, Z = red, J = blue ("." = empty).
+  // The gap at columns 4-6 (row 1) and column 5 (row 2) is where the falling T-piece lands.
+  const PIECE_COLORS = { I: '#29d3e6', O: '#f5c82e', S: '#4cc76a', Z: '#ee4b5a', J: '#4a7cf0' };
+  const rows = ['.ZOO.....J', 'ZZOO...SSJ', 'ZIIII.SSJJ'];
+  rows.forEach(row => [...row].forEach(ch => {
     const d = document.createElement('div');
-    d.className = 'cell' + (ch === 'x' ? '' : ' empty');
-    if (ch === 'x') d.style.setProperty('--c', COLORS[(r * 3 + c * 2) % 7]);
+    d.className = 'cell' + (PIECE_COLORS[ch] ? '' : ' empty');
+    if (PIECE_COLORS[ch]) d.style.setProperty('--c', PIECE_COLORS[ch]);
     stack.appendChild(d);
   }));
 
