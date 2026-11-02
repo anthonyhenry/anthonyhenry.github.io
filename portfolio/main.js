@@ -26,7 +26,8 @@
         : `<div class="thumb-fallback" style="--c:${p.color}"><span>${esc(initials)}</span></div>`;
       return `<div class="col-md-6 col-xl-4"><button type="button" class="project-card" data-id="${p.id}" style="--c:${p.color}">
         ${thumb}<div class="card-text"><h3>${esc(p.title)}</h3><div class="card-role">${esc(p.role)}, ${esc(p.org)}</div>
-        <p class="card-sum">${esc(p.summary)}</p>${p.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div></button></div>`;
+        <p class="card-sum">${esc(p.summary)}</p><div>${p.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+        <span class="card-cta">View project <i class="bi bi-arrow-right"></i></span></div></button></div>`;
     }).join('') || '<p class="section-lead">No projects match these filters yet.</p>';
   }
 
