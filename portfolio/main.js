@@ -62,7 +62,7 @@
     modalEl.querySelector('.modal-title').textContent = p.title;
     modalEl.querySelector('.modal-body').innerHTML =
       videoEmbed(p.video) +
-      (p.image ? `<img class="cs-media" src="${esc(p.image)}" alt="">` : '') +
+      (!p.video && p.image ? `<img class="cs-media" src="${esc(p.image)}" alt="">` : '') +
       `<dl class="cs-facts">${facts}</dl>` +
       `<div class="cs-body">${[].concat(p.description || []).map(t => `<p>${esc(t)}</p>`).join('')}</div>` +
       (p.links && p.links.length ? `<div class="d-flex flex-wrap gap-2">${p.links.map(l => `<a class="btn btn-resume" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</div>` : '');

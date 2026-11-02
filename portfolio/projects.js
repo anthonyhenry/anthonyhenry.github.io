@@ -10,17 +10,89 @@
 ------------------------------------------------------------------- */
 const PROJECTS = [
   {
+    id: 'knockout-league',
+    title: 'Knockout League',
+    role: 'Senior Game Designer',
+    org: 'Grab Games',
+    type: 'Game',
+    tags: ['Systems Design', 'Gameplay Design'],
+    color: '#f28a30',
+    image: 'imgs/knockout-league.jpg',
+    video: 'https://www.youtube.com/watch?v=eq3kdirrZjQ',
+    technology: 'Unreal',
+    summary: 'Redesigned gameplay and systems for the Mixed Reality update of the VR boxing game Knockout League.',
+    description: [
+      "At Grab Games, I contributed to the development of the Mixed Reality update for Knockout League, an arcade-style boxing game available on Meta Quest. I joined the project during its later stages of development, where I focused primarily on adapting existing gameplay systems to accommodate the updated experience.",
+
+      "One of my primary responsibilities was redesigning the game's scoring system to better align with the revised fight mechanics. With changes to how fights played out in the Mixed Reality version, the existing scoring system needed adjustments to ensure it accurately reflected player performance and the updated gameplay experience.",
+
+      "In addition to this work, I contributed bug fixes and assisted with validating the release candidate, testing the updated experience to identify issues and ensure the game was functioning as intended ahead of release.",
+
+      "This project gave me experience working within an established game late in its development cycle, adapting existing systems to evolving design requirements, and supporting the final stages of production through implementation, testing, and quality assurance."
+    ],
+    links: [{ label: 'Knockout League', url: 'https://knockoutleaguevr.com/' }]
+  },
+  {
+    id: 'fang-and-fortress',
+    title: 'Fang and Fortress',
+    role: 'Team Lead & Designer',
+    org: 'IGDA California Clash Game Jam',
+    type: 'Game',
+    tags: ['Technical Design', 'Level Design', 'Gameplay Design'],
+    color: '#ee4b5a',
+    image: 'imgs/fang-and-fortress.png',
+    technology: ['Godot', 'GDScript'],
+    summary: 'A stealth and tower defense hybrid where you turn villagers into vampires to help defend your castle. I led a team of five to 3rd place among Los Angeles entries for this one-week jam.',
+    description: [
+      "Fang and Fortress is a hybrid stealth and tower defense game made for the IGDA California Clash game jam, a collaboration between the Los Angeles, San Francisco, and San Diego IGDA chapters. I led a team of five through the one-week game jam. The game placed 3rd out of all Los Angeles submissions.", 
+      
+      "As team lead, I came up with the concept for the game. The theme for the game jam was \"Strength in Numbers,\". My idea was to make a game where you play a vampire whose castle is under threat from a mob of angry villagers. Each night, you sneak around biting unsuspecting villagers to turn them into vampires while the mob slowly marches toward your castle. When the mob arrives, the game shifts into tower defense, and the villagers you converted help defend the castle. The loop repeats until the mob overwhelms you or you hold them off for three nights.",
+      
+      "Beyond the concept and leading the team, I did all of the level design. We chose a 2D top-down isometric art direction. I used a tileset from our 2D artist to build both an exterior village environment and the castle interior.",
+
+      "I also programmed the tower defense portion of the game. This was my first game made in Godot, so I had to learn the engine, the GDScript language, and build something worth submitting, all within a single week. In the end, I was very proud of what my team and I were able to acomplish, especially since we took home 3rd place in our chapter!",
+    ],
+    links: [{ label: 'Play on itch.io', url: 'https://cindyandcode.itch.io/fang-and-fortress' }]
+  },
+  {
+    id: 'numbers-game',
+    title: 'The Numbers Game',
+    role: 'Game Designer',
+    org: 'Embodied, Inc.',
+    type: 'Game',
+    tags: ['Content Design', 'Interaction Design', 'Conversation Design'],
+    color: '#29d3e6',
+    image: 'imgs/numbers-game.png',
+    video: 'https://www.youtube.com/watch?v=MrL_SfcXrN8',
+    technology: 'ChatScript, Python, Proprietary Visual Scripting Tools',
+    summary: "The opening mission in the Moxie robot's Sportsmanship mission set. Teaching kids what it means to be a good sport.",
+    description: [
+      "As a Game Designer at Embodied, I created interactive daily missions for Moxie, an AI companion robot for kids. These missions were designed to teach social-emotional learning (SEL) concepts through engaging activities and interactions. I designed several mission sets, each consisting of 7-10 interconnected missions centered around a particular SEL topic.",
+
+      "The Numbers Game was the introductory mission in a mission set focused on sportsmanship. To establish the learning objectives for this mission, I collaborated with child development and therapy experts to determine what we wanted users to understand and practice. We identified four key goals: introduce a definition of sportsmanship, give users an opportunity to practice it, demonstrate examples of both good and poor sportsmanship, and encourage users to come up with examples of their own.",
+
+      "To accomplish these goals, I designed a number-guessing, see video above. This provided a natural way to introduce sportsmanship concepts while giving users an opportunity to put them into practice. Rather than simply explaining what good sportsmanship looks like, the game allowed users to experience it firsthand through their interactions with Moxie.",
+
+      "I also designed the Numbers Game to be replayable outside of the mission. Since daily missions were intended to be completed only once, I wanted users to be able to return to the game whenever they wanted to play with Moxie again. This helped extend the value of the experience beyond its original educational purpose.",
+
+      "In addition to designing the gameplay and interactions, I was responsible for implementing the mission using Python, ChatScript, and Embodied's proprietary visual scripting tools. I also implemented Moxie's vocal performance, body animations, facial expressions, and on-screen visual effects to bring the experience to life.",
+
+      "The Numbers Game is an example of how I approached designing educational content for Moxie: finding opportunities to teach meaningful concepts through play rather than relying on direct instruction. By combining social-emotional learning objectives with a replayable game, I was able to create an experience that was both educational and entertaining."
+    ],
+    links: []
+  },
+  {
     id: 'lightbar-poem',
     title: 'The Light Bar Poem',
     role: 'Game Designer',
     org: 'Embodied, Inc.',
     type: 'Game',
-    tags: ['Conversation Design', 'UX Design'],
+    tags: ['Content Design', 'Interaction Design', 'Conversation Design', 'User Experience'],
     color: '#4cc76a',
-    image: null,
+    image: 'imgs/light-bar.png',
     video: 'https://www.youtube.com/watch?v=99jz0r7-_3U',
-    technology: '',
-    summary: "A short, memorable poem that taught kids to wait their turn when talking to the Moxie robot, and reduced interruptions.",
+    technology: 'ChatScript, Python, Proprietary Visual Scripting Tools',
+    summary: "A short, memorable interaction that taught kids to wait their turn when talking to the Moxie robot, and reduced number of interruptions.",
     description: [
       "At Embodied, I worked as a game designer creating interactive content for Moxie, an AI companion robot for kids that Time Magazine named one of the best inventions of 2020.",
 
@@ -38,67 +110,24 @@ const PROJECTS = [
     id: 'prosperos-island',
     title: "Prospero's Island",
     role: 'Game Designer',
-    org: 'Personal project',
+    org: 'USC Capstone Project',
     type: 'Game',
     tags: ['Narrative Design', 'Quest Design'],
     color: '#a65bf0',
-    image: null,
+    image: 'imgs/prosperos-island.png',
+    video: 'https://www.youtube.com/watch?v=cHhquuhIp68',
     technology: 'Neverwinter Nights 2 toolset',
     summary: "A fantasy RPG adaptation of Shakespeare's The Tempest, built as a Neverwinter Nights 2 mod.",
     description: [
-      "Prospero's Island is a passion project: an adaptation of Shakespeare's The Tempest as a fantasy RPG, built as a mod for Neverwinter Nights 2. I adapted the play into a structure players can explore and act in.",
-      "The central design challenge was balancing player agency with a classic story. I designed the quests so that player choices influence character behavior, relationships, and major story events, while respecting the source material. I implemented the quests and dialogue in the NWN2 toolset."
-    ],
-    links: []
-  },
-  {
-    id: 'fang-and-fortress',
-    title: 'Fang and Fortress',
-    role: 'Design Lead',
-    org: 'IGDA California Clash Game Jam',
-    type: 'Game',
-    tags: ['Systems Design', 'Level Design', 'Technical Design'],
-    color: '#ee4b5a',
-    image: null,
-    technology: '',
-    summary: 'A hybrid stealth and tower defense game made in one week with a small team.',
-    description: [
-      "Fang and Fortress is a hybrid stealth and tower defense game that I developed with a small team in one week for the IGDA California Clash game jam. I served as design lead and came up with the initial game concept.",
-      "Beyond the concept, I designed each of the game's levels, along with the enemies and abilities, and I programmed the tower defense portion of the game."
-    ],
-    links: [{ label: 'Play on itch.io', url: 'https://cindyandcode.itch.io/fang-and-fortress' }]
-  },
-  {
-    id: 'knockout-league',
-    title: 'Knockout League',
-    role: 'Game Designer',
-    org: 'Grab Games',
-    type: 'Game',
-    tags: ['Systems Design', 'VR / MR'],
-    color: '#f28a30',
-    image: null,
-    technology: '',
-    summary: 'Redesigned the scoring system for the Mixed Reality update of a VR boxing game.',
-    description: [
-      "I joined Grab Games late in the development of the Mixed Reality update for Knockout League, a VR boxing game.",
-      "I fixed bugs while the update was being finished and redesigned the scoring system to better fit the updated fight mechanics."
-    ],
-    links: [{ label: 'Knockout League', url: 'https://knockoutleaguevr.com/' }]
-  },
-  {
-    id: 'numbers-game',
-    title: 'The Numbers Game',
-    role: 'Game Designer',
-    org: 'Embodied, Inc.',
-    type: 'Game',
-    tags: ['Conversation Design', 'Educational Design'],
-    color: '#29d3e6',
-    image: null,
-    technology: '',
-    summary: "The opening mission in the Moxie robot's Sportsmanship series, teaching kids what it means to be a good sport.",
-    description: [
-      "The Numbers Game is the opening mission in the Sportsmanship series for Moxie, the social robot for kids made by Embodied, Inc. The goal was to help children understand what it means to be a good sport and to recognize examples of good and poor sportsmanship.",
-      "I worked with therapists and child development experts to define the mission's learning goals, then designed a playful number-guessing game in which Moxie models both positive and negative behavior. I also designed the follow-up conversation where Moxie reflects on those actions with the child."
+      "Prospero's Island was my senior capstone project at the University of Southern California, where I earned a bachelor's degree in Narrative Studies with a minor in Video Game Design and Management. Wanting to combine my interests in storytelling and game development, I set out to adapt William Shakespeare's The Tempest into an RPG.",
+
+      "I brought this concept to life by creating a playable mod for Neverwinter Nights 2 using the Electron Toolset. As a solo project, I was responsible for every aspect of development, from designing the quests and scripting gameplay to sculpting 3D environments and directing in-game cutscenes.",
+
+      "One of the biggest design challenges was adapting a traditionally linear narrative into an interactive experience without sacrificing the story's central themes and characters. I wanted players to feel that their decisions mattered while still preserving the essence of Shakespeare's original work.",
+
+      "To accomplish this, I designed a quest structure in which player choices influenced the story's outcome. Rather than simply guiding players through a recreation of the play, I used the interactive nature of RPGs to give them agency in how the story unfolded.",
+
+      "Prospero's Island was an opportunity to bring together my interests in narrative design and game development while gaining hands-on experience across the entire game development process. It also reinforced my interest in RPGs as a storytelling medium and the unique opportunities they provide for creating interactive narratives."
     ],
     links: []
   },
@@ -108,15 +137,23 @@ const PROJECTS = [
     role: 'User Researcher',
     org: 'USC Games',
     type: 'Game',
-    tags: ['User Research'],
+    tags: ['User Experience'],
     color: '#4a7cf0',
-    image: null,
-    technology: '',
-    summary: 'A cinematic platformer. My research team ran over 100 playtests in eight months.',
+    image: 'imgs/plasticity.jpg',
+    video: 'https://www.youtube.com/watch?v=iDxRe_7rUQE',
+    technology: 'Unity, Typeform',
+    summary: 'Served as a User Researcher for this cinematic platformer. Ran over 100 playtests in eight months.',
     description: [
-      "Plasticity is a cinematic platformer from USC Games about a young girl named Noa, who explores and decides the future of her post-oil, plastic-ridden world.",
-      "I was one of three user researchers on the project. Over the eight-month development schedule, my team conducted more than 100 playtests."
+      "Plasticity was an advanced game project I was a part of at the University of Southern California. The game is a cinematic platformer about a young girl named Noa, who explores and decides the future of her post-oil, plastic-ridden world. I served as one of three user researchers on a 30-person development team.",
+
+      "Throughout our eight months of development, my team and I conducted playtests multiple times a week, ultimately running over 100 playtest sessions. This was more than any other development team at USC.",
+
+      "My responsibilities included collecting player feedback, analyzing playtest data, and communicating findings to the design team. By identifying usability issues, areas of confusion, and opportunities for improvement, I helped inform design decisions and shape the overall player experience.",
+
+      "One example was a recommendation to introduce a diegetic tutorial to help players better understand the game's controls. Through playtesting, we identified opportunities to improve how the game communicated its mechanics to players. My team and I advocated for an approach that integrated tutorial information directly into the game world rather than relying solely on traditional instructional prompts.",
+
+      "Working on Plasticity gave me valuable experience in evaluating games through the eyes of players and translating research findings into actionable design recommendations. It also reinforced the importance of iterative development and incorporating player feedback throughout the design process."
     ],
-    links: [{ label: 'Project site', url: 'https://plasticitygame.wixsite.com/about' }]
+    links: [{ label: 'Play on Steam', url: 'https://store.steampowered.com/app/1069360/Plasticity/' }]
   }
 ];
