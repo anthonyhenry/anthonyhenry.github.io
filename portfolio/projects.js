@@ -20,7 +20,7 @@ const PROJECTS = [
     image: 'imgs/knockout-league.jpg',
     video: 'https://www.youtube.com/watch?v=eq3kdirrZjQ',
     technology: 'Unreal',
-    summary: 'Redesigned gameplay and systems for the Mixed Reality update of the VR boxing game Knockout League.',
+    summary: 'Redesigned gameplay and systems for the Mixed Reality update of the VR boxing game, Knockout League.',
     description: [
       "At Grab Games, I contributed to the development of the Mixed Reality update for Knockout League, an arcade-style boxing game available on Meta Quest. I joined the project during its later stages of development, where I focused primarily on adapting existing gameplay systems to accommodate the updated experience.",
 
