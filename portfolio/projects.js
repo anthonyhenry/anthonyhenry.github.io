@@ -30,7 +30,7 @@ const PROJECTS = [
 
       "This project gave me experience working within an established game late in its development cycle, adapting existing systems to evolving design requirements, and supporting the final stages of production through implementation, testing, and quality assurance."
     ],
-    links: [{ label: 'Knockout League', url: 'https://knockoutleaguevr.com/' }]
+    links: [{ label: 'Get Knockout League for Meta Quest', url: 'https://www.meta.com/experiences/knockout-league/2078236868960051/' }]
   },
   {
     id: 'fang-and-fortress',
