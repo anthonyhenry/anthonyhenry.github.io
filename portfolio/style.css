@@ -45,8 +45,11 @@ main, .site-footer { position: relative; z-index: 2; }
 .section { padding-top: 4rem; padding-bottom: 4rem; }
 .section h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 1rem; }
 .section-lead { color: var(--muted); max-width: 60ch; }
-.about { max-width: 65ch; background: var(--surface); border-radius: 12px; padding: 2rem; border-left: 6px solid var(--cyan); }
-.about p { font-size: 1.15rem; line-height: 1.7; margin: 0; }
+.about { display: flex; align-items: center; gap: 2rem; max-width: 52rem; background: var(--surface); border-radius: 12px; padding: 2rem; border-left: 6px solid var(--cyan); }
+.about h2 { margin-top: 0; }
+.about p { font-size: 1.15rem; line-height: 1.7; margin: 0; max-width: 60ch; }
+.about-photo { width: 180px; height: 180px; flex-shrink: 0; border-radius: 50%; object-fit: cover; border: 4px solid var(--purple); }
+@media (max-width: 575px) { .about { flex-direction: column; text-align: center; } }
 
 /* filters */
 .filters { display: flex; flex-direction: column; gap: .75rem; margin: 1.5rem 0 2rem; }
